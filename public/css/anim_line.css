@@ -1,0 +1,88 @@
+
+/* animation line wrapper */
+.anim_line {
+  /* width: 100%;
+  height: 100%;
+  position: absolute; */
+  /* top: 0;  */
+  left: 50%;
+  transform: translateX(-50%);
+  overflow: hidden;
+  z-index: 1;
+}
+
+.anim_line span {
+  position: absolute;
+  z-index: 2;
+  top: -275px;
+  animation: star_down_one 6s infinite linear;
+  opacity: 0;
+}
+
+.anim_line.dark_bg {
+  max-width: 1170px;
+}
+
+.anim_line.dark_bg span {
+  transform: rotate(180deg);
+}
+
+.anim_line span:first-child {
+  left: -17%;
+  animation-delay: 3s;
+}
+
+.anim_line span:nth-child(2) {
+  left: 0%;
+  animation-delay: 5s;
+}
+
+.anim_line span:nth-child(3) {
+  left: 17%;
+  animation-delay: 1s;
+}
+
+.anim_line span:nth-child(4) {
+  left: 34%;
+  animation-delay: 4s;
+}
+
+.anim_line span:nth-child(5) {
+  left: 51%;
+  animation-delay: 7s;
+}
+
+.anim_line span:nth-child(6) {
+  left: 68%;
+}
+
+.anim_line span:nth-child(7) {
+  left: 85%;
+  animation-delay: 3s;
+}
+
+.anim_line span:nth-child(8) {
+  left: 99%;
+  animation-delay: 2s;
+}
+
+.anim_line span:nth-child(9) {
+  left: 117%;
+  animation-delay: 5s;
+}
+
+/* Keyframe animation for line falling */
+@keyframes star_down_one {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(1150px);
+    opacity: 0;
+  }
+}
+

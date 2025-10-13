@@ -1,0 +1,12 @@
+:root {
+  --primary: #eb8844;
+  --success: #288f66;
+  --light-bg: #f6f4fe;
+  --font-poppins: "Poppins", sans-serif;
+}
+
+@theme {
+  --color-primary: var(--primary);
+  --color-success: var(--success);
+  --color-light-bg: var(--light-bg);
+}
