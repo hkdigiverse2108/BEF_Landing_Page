@@ -1,0 +1,68 @@
+
+body {
+  font-family: var(--font-poppins) !important;
+  background-color: var(--light-bg);
+}
+
+.container {
+  @apply max-w-7xl mx-auto;
+}
+
+.container-p {
+  @apply px-4 md:px-6 xl:px-8;
+}
+
+/* ================== About Section Start Here ================== */
+/* Smooth float animation */
+@keyframes smoothFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-35px);
+  }
+}
+
+/* Apply continuous smooth animation */
+.smooth-float {
+  animation: smoothFloat 3.5s ease-in-out infinite;
+  will-change: transform;
+}
+
+.smooth-float-delayed {
+  animation: smoothFloat 4.5s ease-in-out infinite;
+  animation-delay: 1s;
+  will-change: transform;
+}
+
+/* ================== About Section end Here ================== */
+
+/* ================== Contact Section Start Here ================== */
+
+.react-international-phone-input-container .react-international-phone-input {
+  @apply !bg-primary !border-0 !pe-0 !w-10;
+}
+.react-international-phone-input-container
+  .react-international-phone-country-selector-button {
+  @apply border-0 !bg-primary;
+}
+
+/* ================== Contact Section End Here ================== */
+
+/* ================  Interface Section SWiper ================ */
+#interface .swiper-slide {
+  position: static !important;
+}
+
+#interface .swiper-horizontal .swiper-pagination-bullets,
+.swiper-pagination-bullets.swiper-pagination-horizontal {
+  @apply !-bottom-1 !z-100;
+}
+
+#interface .swiper-pagination-bullet {
+  @apply sm:!w-3 sm:!h-3 ;
+}
+#interface .swiper-pagination-bullet-active {
+  @apply bg-primary;
+}

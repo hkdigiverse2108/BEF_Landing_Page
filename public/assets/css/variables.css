@@ -1,12 +1,15 @@
 :root {
   --primary: #eb8844;
   --success: #288f66;
+  --success-dark: #50655e;
   --light-bg: #f6f4fe;
   --font-poppins: "Poppins", sans-serif;
 }
+/* #34220e */
 
 @theme {
   --color-primary: var(--primary);
   --color-success: var(--success);
+  --color-success-dark : var(--success-dark);
   --color-light-bg: var(--light-bg);
 }

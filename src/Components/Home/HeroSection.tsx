@@ -4,10 +4,18 @@ import "aos/dist/aos.css";
 import { ImagePath } from "../../Constants";
 import { SwiperSlide, Swiper } from "swiper/react";
 import { A11y, Autoplay, EffectCards, Pagination } from "swiper/modules";
+import { Link } from "react-router-dom";
 
 const HeroSection = () => {
+
   useEffect(() => {
-    Aos.init({ duration: 1500 });
+    Aos.init({
+      duration: 1500,
+      once: false,
+      mirror: true,
+      easing: "ease-in-out",
+      offset: 100,
+    });
   }, []);
 
   const appLinks = {
@@ -16,10 +24,10 @@ const HeroSection = () => {
   };
 
   const users = [
-    `${ImagePath}/home/used01.png`,
-    `${ImagePath}/home/used02.png`,
-    `${ImagePath}/home/used03.png`,
-    `${ImagePath}/home/used04.png`,
+    `${ImagePath}/home/user01.png`,
+    `${ImagePath}/home/user02.png`,
+    `${ImagePath}/home/user03.png`,
+    `${ImagePath}/home/user04.png`,
   ];
 
   const slides = [
@@ -29,9 +37,9 @@ const HeroSection = () => {
   ];
 
   return (
-    <section className=" mt-16 overflow-hidden heroSection">
+    <section id="hero" className=" overflow-hidden">
       {/* Background animation lines (you can make this animated later if needed) */}
-      <div className="anim_line  max-w-[100rem]">
+      {/* <div className="anim_line  max-w-[100rem]">
         {[...Array(9)].map((_, i) => (
           <span key={i}>
             <img
@@ -41,14 +49,14 @@ const HeroSection = () => {
             />
           </span>
         ))}
-      </div>
+      </div> */}
 
       {/* Main Container */}
-      <div className="container z-10 mx-auto relative px-4 flex flex-col lg:flex-row items-center justify-between gap-10">
+      <div className="container container-p z-10 mx-auto relative px-4 flex flex-col lg:flex-row items-center justify-between gap-10">
         {/* Left Text */}
-        <div className="lg:w-1/2 space-y-6" data-aos="fade-right">
-          <div>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-primary font-bold  leading-tight">
+        <div className="lg:w-1/2 space-y-9 max-lg:flex max-lg:flex-col max-lg:justify-center max-lg:text-center " data-aos="fade-right">
+          <div className="">
+            <h1 className="text-3xl md:text-4xl lg:text-6xl text-primary font-bold  leading-tight">
               Let's Celebrate this Exam Festival
             </h1>
             <p className="text-gray-600 mt-4  md:text-lg">
@@ -58,76 +66,76 @@ const HeroSection = () => {
           </div>
 
           {/* App Buttons */}
-          <div className="flex gap-5 mt-6 ">
-            <a
-              href={appLinks.appstore}
+          <div className="flex gap-5 max-lg:justify-center">
+            <Link
+              to={appLinks.appstore}
               className="relative border-2 border-success rounded-xl px-3 py-2 sm:px-6 sm:py-3 bg-white hover:bg-success transition group "
             >
               <img
-                src={`${ImagePath}home/appstore_blue.png`}
+                src={`${ImagePath}common/appstore_blue.png`}
                 alt="App Store"
                 className="h-8 block group-hover:hidden"
               />
               <img
-                src={`${ImagePath}home/appstore_white.png`}
+                src={`${ImagePath}common/appstore_white.png`}
                 alt="App Store"
                 className="h-8 hidden group-hover:block"
               />
-            </a>
+            </Link>
 
-            <a
-              href={appLinks.playstore}
+            <Link
+              to={appLinks.playstore}
               className="relative border-2 border-success  rounded-xl px-3 py-2 sm:px-6 sm:py-3 bg-white hover:bg-success transition group"
             >
               <img
-                src={`${ImagePath}home/googleplay_blue.png`}
+                src={`${ImagePath}common/googleplay_blue.png`}
                 alt="Play Store"
                 className="h-8 block group-hover:hidden"
               />
               <img
-                src={`${ImagePath}home/googleplay_white.png`}
+                src={`${ImagePath}common/googleplay_white.png`}
                 alt="Play Store"
                 className="h-8 hidden group-hover:block"
               />
-            </a>
+            </Link>
           </div>
 
           {/* Users */}
-          <div className="flex items-center mt-8">
+          <div className="flex max-lg:justify-center items-center ">
             <div className="flex -space-x-3 mr-4">
               {users.map((u, i) => (
                 <img
                   key={i}
                   src={u}
                   alt="user"
-                  className="w-14 h-14 rounded-full "
+                  className="w-12 h-12 sm:w-14 sm:h-14 rounded-full "
                 />
               ))}
             </div>
             <p className="text-gray-700 text-sm leading-tight">
-              50K+ <br /> used this app
+              50K+ <br /> user this app
             </p>
           </div>
         </div>
 
         {/* Right Slider */}
         <div
-          className="relative w-fit flex justify-center items-center px-21 "
+          className="relative w-fit px-24 flex justify-center items-center lg:mt-12 "
           data-aos="fade-left"
         >
           {/* Background circle */}
-          <div className="hidden sm:block absolute w-[450px] h-[450px] bg-primary rounded-full -z-10"></div>
+          <div className=" absolute w-[450px] h-[450px] bg-primary rounded-full -z-10"></div>
 
           {/* Decorative icons */}
           <img
             src={`${ImagePath}home/message_icon.png`}
             alt="message"
-            className="hidden sm:block absolute -left-5 z-100  bottom-16 "
+            className="hidden sm:block absolute left-0 z-100  bottom-16 "
           />
           <img
             src={`${ImagePath}home/shield_icon.png`}
             alt="shield"
-            className="hidden sm:block absolute -right-5  top-16 "
+            className="hidden sm:block absolute right-0  top-16 "
           />
 
           {/* Image slider (simplified) */}
@@ -155,7 +163,7 @@ const HeroSection = () => {
             </Swiper>
             {/* Frame Image (on top) */}
             <img
-              src={`${ImagePath}f1.png`}
+              src={`${ImagePath}/home/f1.png`}
               alt="frame"
               className="absolute top-14 left-0 w-full h-fit z-10 pointer-events-none select-none !overflow-hidden scale-110 "
             />
