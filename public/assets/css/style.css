@@ -1,4 +1,3 @@
-
 body {
   font-family: var(--font-poppins) !important;
   background-color: var(--light-bg);
@@ -50,7 +49,7 @@ body {
 
 /* ================== Contact Section End Here ================== */
 
-/* ================  Interface Section SWiper ================ */
+/* ================  Interface Section SWiper Start ================ */
 #interface .swiper-slide {
   position: static !important;
 }
@@ -61,8 +60,22 @@ body {
 }
 
 #interface .swiper-pagination-bullet {
-  @apply sm:!w-3 sm:!h-3 ;
+  @apply sm:!w-3 sm:!h-3;
 }
 #interface .swiper-pagination-bullet-active {
+  @apply bg-primary;
+}
+/* ================  Interface Section SWiper End  ================ */
+
+/* ================  Testimonial Section SWiper ================ */
+#review .swiper-horizontal .swiper-pagination-bullets,
+.swiper-pagination-bullets.swiper-pagination-horizontal {
+  @apply !-bottom-1 !z-100;
+}
+
+#review .swiper-pagination-bullet {
+  @apply sm:!w-4 sm:!h-4;
+}
+#review .swiper-pagination-bullet-active {
   @apply bg-primary;
 }

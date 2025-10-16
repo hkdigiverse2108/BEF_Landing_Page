@@ -1,19 +1,7 @@
-import { useEffect } from "react";
-import Aos from "aos";
 import "aos/dist/aos.css";
 import { ImagePath } from "../../Constants";
 
 const AboutSection = () => {
-  useEffect(() => {
-    Aos.init({
-      duration: 1500,
-      once: false,
-      mirror: true,
-      easing: "ease-in-out",
-      offset: 100,
-    });
-  }, []);
-
   const stats = [
     {
       icon: `${ImagePath}about/download.png`,
@@ -35,6 +23,7 @@ const AboutSection = () => {
   return (
     <section id="about" className=" relative overflow-hidden pt-10 pb-1 ">
       <div className="container container-p flex flex-col lg:flex-row items-center gap-12">
+        {/* Left Div */}
         <div
           className=" relative flex justify-center items-center w-full md:w-1/2 lg:w-full "
           data-aos="fade-right"
@@ -50,7 +39,7 @@ const AboutSection = () => {
             alt="App Main Screen"
             className="w-64 sm:w-80 smooth-float "
             data-aos="zoom-in"
-            data-aos-delay="100"
+            
           />
           <img
             src={`${ImagePath}about/about-screen.png`}
@@ -58,16 +47,15 @@ const AboutSection = () => {
             className="w-1/2 sm:w-fit lg:w-1/2 absolute z-50  right-0  sm:bottom-24 
                         smooth-float-delayed"
             data-aos="zoom-in"
-            data-aos-delay="200"
+          
           />
         </div>
-
+        {/* right Div */}
         <div
           className=" w-full h-full "
           data-aos="fade-left"
-          data-aos-delay="100"
         >
-          <div className=" text-left  mb-6">
+          <div className="text-left  mb-6">
             <h2 className="text-3xl sm:text-4xl font-extrabold text-primary leading-tight mb-4">
               Some awesome words about app.
             </h2>

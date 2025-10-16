@@ -1,20 +1,9 @@
-import { useEffect } from "react";
-import Aos from "aos";
 import "aos/dist/aos.css";
 import { ImagePath } from "../../Constants";
 import SectionHeader from "./SectionHeader";
 import { Link } from "react-router-dom";
 
 const FeatureSection = () => {
-  useEffect(() => {
-    Aos.init({
-      duration: 1500,
-      once: false,
-      mirror: true,
-      easing: "ease-in-out",
-      offset: 100,
-    });
-  }, []);
 
   const featureData = [
     {
@@ -102,9 +91,8 @@ const FeatureSection = () => {
 
         {/* Center Image (overlapping top) */}
         <div
-          className="order-1 lg:order-2 w-full lg:w-1/3 p-3 flex justify-center relative lg:-translate-y-40 z-10"
+          className="order-1 lg:order-2 w-full lg:w-1/3 p-3 flex justify-center relative lg:-translate-y-40 z-10 "
           data-aos="fade-up"
-          data-aos-delay="100"
         >
           <img
             src={`${ImagePath}/features/Feature.jpg`}

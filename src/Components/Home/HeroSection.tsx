@@ -1,23 +1,11 @@
-import { useEffect } from "react";
-import Aos from "aos";
 import "aos/dist/aos.css";
 import { ImagePath } from "../../Constants";
 import { SwiperSlide, Swiper } from "swiper/react";
 import { A11y, Autoplay, EffectCards, Pagination } from "swiper/modules";
 import { Link } from "react-router-dom";
+import AnimationLine from "../Common/AnimationLine";
 
 const HeroSection = () => {
-
-  useEffect(() => {
-    Aos.init({
-      duration: 1500,
-      once: false,
-      mirror: true,
-      easing: "ease-in-out",
-      offset: 100,
-    });
-  }, []);
-
   const appLinks = {
     playstore: "#",
     appstore: "#",
@@ -38,25 +26,16 @@ const HeroSection = () => {
 
   return (
     <section id="hero" className=" overflow-hidden">
-      {/* Background animation lines (you can make this animated later if needed) */}
-      {/* <div className="anim_line  max-w-[100rem]">
-        {[...Array(9)].map((_, i) => (
-          <span key={i}>
-            <img
-              src={`${ImagePath}anim_line.png`}
-              alt="animation-line"
-              className="w-0.5 h-[100px] rounded-b-2xl"
-            />
-          </span>
-        ))}
-      </div> */}
-
+      <AnimationLine />
       {/* Main Container */}
-      <div className="container container-p z-10 mx-auto relative px-4 flex flex-col lg:flex-row items-center justify-between gap-10">
+      <div className="container container-p z-10 mx-auto relative px-4 flex flex-col lg:flex-row items-center justify-between gap-10 mt-10 sm:mt-20">
         {/* Left Text */}
-        <div className="lg:w-1/2 space-y-9 max-lg:flex max-lg:flex-col max-lg:justify-center max-lg:text-center " data-aos="fade-right">
-          <div className="">
-            <h1 className="text-3xl md:text-4xl lg:text-6xl text-primary font-bold  leading-tight">
+        <div
+          className="lg:w-1/2 space-y-9 max-lg:flex max-lg:flex-col max-lg:justify-center max-lg:text-center "
+          data-aos="fade-right"
+        >
+          <div>
+            <h1 className="text-3xl md:text-4xl lg:text-[55px] text-primary font-bold  leading-tight">
               Let's Celebrate this Exam Festival
             </h1>
             <p className="text-gray-600 mt-4  md:text-lg">
@@ -120,7 +99,7 @@ const HeroSection = () => {
 
         {/* Right Slider */}
         <div
-          className="relative w-fit px-24 flex justify-center items-center lg:mt-12 "
+          className="relative w-fit px-24 flex justify-center items-center "
           data-aos="fade-left"
         >
           {/* Background circle */}

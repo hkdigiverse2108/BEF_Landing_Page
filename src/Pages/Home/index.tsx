@@ -7,16 +7,30 @@ import StepsSection from "../../Components/Home/StepsSection";
 import InterfaceSection from "../../Components/Home/InterfaceSection";
 import BlogSection from "../../Components/Home/BlogSection";
 import FAQSection from "../../Components/Home/FAQSection";
-import ReviewSection from "../../Components/Home/ReviewSection";
+import TestimonialSection from "../../Components/Home/TestimonialSection";
+import { useEffect } from "react";
+import Aos from "aos";
 
 const Home = () => {
+  useEffect(() => {
+    Aos.init({
+      duration: 1200,
+      once: false,
+      mirror: true,
+      easing: "ease-in-out",
+      offset: 150,
+    });
+
+    setTimeout(() => Aos.refresh(), 500);
+  }, []);
+
   return (
-    <div className="space-y-18 mt-24 mb-12">
+    <div className="space-y-18">
       <HeroSection />
       <FeatureSection />
       <AboutSection />
       <StepsSection />
-      <ReviewSection />
+      <TestimonialSection />
       <BlogSection />
       <FAQSection />
       <InterfaceSection />

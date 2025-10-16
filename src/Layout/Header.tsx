@@ -1,9 +1,10 @@
 import { FaAngleDown } from "react-icons/fa";
-import { ImagePath } from "../Constants";
+import { ImagePath, ROUTES } from "../Constants";
 import { HeaderItems } from "../Data";
 import { RiMenu3Fill } from "react-icons/ri";
 import { IoClose } from "react-icons/io5";
 import { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -22,11 +23,13 @@ const Header = () => {
   return (
     <div className="fixed top-0 w-full z-50">
       <header
-        className={`  ${isScrolled ? "bg-white/55 backdrop-blur-md" : ""} `}
+        className={`  ${
+          isScrolled ? "bg-white/55 backdrop-blur-md" : "md:pt-6"
+        } `}
       >
         <div className="container container-p py-4 flex justify-between items-center  ">
           {/* Logo */}
-          <div className="flex gap-4 items-center">
+          <NavLink to={ROUTES.HOME} className="flex gap-4 items-center">
             <figure className="w-12 sm:w-18 h-full">
               <img
                 src={`${ImagePath}/logo/logo.png`}
@@ -40,20 +43,21 @@ const Header = () => {
               </h1>
               <p className="text-xs sm:text-sm text-success">Learn & Earn</p>
             </section>
-          </div>
+          </NavLink>
 
           {/* Menu Items */}
           <nav className="hidden lg:flex gap-6 items-center">
             {HeaderItems.map((item, index) => (
               <div key={index} className="relative group cursor-pointer">
-                <div
-                  className={`flex gap-1 items-center text-lg font-medium text-gray-800 hover:text-primary transition   py-2 rounded-t-lg  ${
+                <NavLink
+                  to={item?.link || ""}
+                  className={`flex gap-1 items-center text-lg font-medium text-gray-800 hover:text-primary transition  px-3 py-2 rounded-t-lg  ${
                     item?.child ? "group-hover:bg-white hover:shadow-md  " : ""
                   } `}
                 >
                   {item.Title}
                   {item.child && <FaAngleDown />}
-                </div>
+                </NavLink>
 
                 {item.child && (
                   <ul
@@ -61,17 +65,19 @@ const Header = () => {
                   transition-all duration-300  translate-y-2 group-hover:translate-y-0 z-50"
                   >
                     {item.child.map((sub, subIndex) => (
-                      <li
-                        key={subIndex}
-                        className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-primary transition rounded-md"
-                      >
-                        {sub.Title}
-                      </li>
+                      <NavLink key={subIndex} to={sub.link}>
+                        <li className="!px-4 !py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-primary transition rounded-md">
+                          {sub.Title}
+                        </li>
+                      </NavLink>
                     ))}
                   </ul>
                 )}
               </div>
             ))}
+            <button onClick={() => setMenuOpen(!menuOpen)} className="uppercase text-primary font-bold border px-5 py-1 rounded-2xl border-gray-500 ">
+              Login
+            </button>
           </nav>
 
           <div className="block lg:hidden gap-1 items-center text-2xl ">

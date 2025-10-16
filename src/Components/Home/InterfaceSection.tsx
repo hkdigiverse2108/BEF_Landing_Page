@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "aos/dist/aos.css";
-import AOS from "aos";
 import { ImagePath } from "../../Constants";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper as SwiperType } from "swiper";
 import { Autoplay, Pagination } from "swiper/modules";
 import SectionHeader from "./SectionHeader";
 
@@ -21,10 +21,6 @@ const images = [
 
 const InterfaceSection = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-
-  useEffect(() => {
-    AOS.init({ duration: 1500 });
-  }, []);
 
   return (
     <section id="interface" className=" container container-p">
@@ -48,9 +44,8 @@ const InterfaceSection = () => {
             delay: 2500,
             disableOnInteraction: false,
           }}
-          pagination={{ clickable: true }}
           onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
-          className="!py-12 !pb-15 sm:!py-24 sm:!pb-30  !px-3"
+          className="!py-12 !pb-15 sm:!py-24 sm:!pb-25  !px-3"
           breakpoints={{
             0: { slidesPerView: 1, spaceBetween: 40 },
             320: { slidesPerView: 2, spaceBetween: 20 },

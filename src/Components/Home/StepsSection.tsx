@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ImagePath } from "../../Constants";
-import Aos from "aos";
 import SectionHeader from "./SectionHeader";
 
 interface Step {
@@ -59,18 +58,11 @@ const StepsSection = () => {
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
   const openVideo = (link: string) => setActiveVideo(link);
 
-  useEffect(() => {
-    Aos.init({
-      duration: 1500,
-      once: false,
-      mirror: true,
-      easing: "ease-in-out",
-      offset: 100,
-    });
-  }, []);
-
   return (
-    <section id="steps" className="pb-20 sm:pb-30 md:pb-40 lg:pb-55  container-p ">
+    <section
+      id="steps"
+      className="pb-20 sm:pb-30 md:pb-40 lg:pb-55  container-p "
+    >
       <div
         className="how_it_works container bg-white rounded-2xl sm:p-4 py-9  "
         id="how_it_work"
@@ -94,12 +86,15 @@ const StepsSection = () => {
                     key={i}
                   >
                     <div
-                      className="step_text  !px-0"
+                      className="step_text !px-0"
                       data-aos="fade-right"
-                      data-aos-duration="1500"
                     >
-                      <h4 className=" max-md:text-start max-sm:text-sm">{step.title}</h4>
-                      <p className="max-md:text-start max-sm:text-sm">{step.description}</p>
+                      <h4 className=" max-md:text-start max-sm:text-sm">
+                        {step.title}
+                      </h4>
+                      <p className="max-md:text-start max-sm:text-sm">
+                        {step.description}
+                      </p>
                     </div>
 
                     <div

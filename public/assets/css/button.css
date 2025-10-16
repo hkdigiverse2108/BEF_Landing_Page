@@ -1,0 +1,95 @@
+/* .custom-button.button {
+  pointer-events: auto;
+  cursor: pointer;
+  background: #e7e7e7;
+  border: none;
+  padding: 1rem 2rem !important;
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  position: relative;
+  display: inline-block;
+  color: #ffffff !important;
+}
+.custom-button.button::before,
+.custom-button.button::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.custom-button.button--mimas {
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+  font-weight: 700;
+  font-size: 0.85rem;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  color: #fff !important;
+  background: #e7e7e7 !important;
+}
+.custom-button.button--mimas span {
+  position: relative;
+}
+.custom-button.button--mimas::before {
+  content: "";
+  background: var(--color-primary);
+  width: 120%;
+  left: -10%;
+  transform: skew(30deg);
+  transition: transform 0.6s cubic-bezier(0.3, 1, 0.8, 1);
+}
+.custom-button.light.button--mimas::before {
+  content: "";
+  background: #ffffff;
+  width: 120%;
+  left: -10%;
+  transform: skew(30deg);
+  transition: transform 0.6s cubic-bezier(0.3, 1, 0.8, 1);
+}
+.custom-button.button--mimas:hover::before {
+  transform: translate3d(100%, 0, 0);
+}
+.custom-button.button--mimas:hover span {
+  color: black;
+} */
+
+/* purple button */
+.primary_btn {
+  background-color: var(--color-primary);
+  color: white;
+  border-radius: 50px;
+  padding: 10px 40px;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  font-weight: 500;
+}
+
+.primary_btn::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0%;
+  height: 100%;
+  background-color: white;
+  border-radius: 50px;
+  transition: 0.6s all;
+  z-index: -1;
+}
+
+.primary_btn:hover::before {
+  width: 100%;
+}
+
+.primary_btn:hover {
+  color: var(--color-primary) !important;
+}
+
+.btn.focus,
+.btn:focus {
+  outline: none;
+  box-shadow: none;
+}

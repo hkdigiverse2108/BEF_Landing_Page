@@ -2,10 +2,13 @@ import { ImagePath } from "../Constants";
 import { Link } from "react-router-dom";
 import { FaInstagram, FaTelegramPlane, FaTwitter } from "react-icons/fa";
 import { ImYoutube } from "react-icons/im";
+import AnimationLine from "../Components/Common/AnimationLine";
 
 const Footer = () => {
   return (
     <footer className="bg-primary text-white ">
+      {/* Vertical Line Animation */}
+      <AnimationLine />
       <div className="container mx-auto py-12 md:py-24 px-5 lg:px-10  grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
         {/* Left Column */}
         <div className=" space-y-6 md:space-y-12">
@@ -91,7 +94,7 @@ const Footer = () => {
       {/* Footer Bottom */}
       <div className="text-center text-sm sm:text-base bg-black border-t border-white/20 py-4">
         © Copyrights 2024 All rights reserved by{" "}
-        <span className="font-medium">Nexify Learning Solutions LLP</span>.
+        <span className="font-medium">HK Digiverse LLP</span>.
       </div>
     </footer>
   );

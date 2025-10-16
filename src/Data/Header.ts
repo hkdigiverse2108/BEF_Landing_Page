@@ -1,5 +1,7 @@
+import { ROUTES } from "../Constants";
+
 export const HeaderItems = [
-  { Title: "Workshop", link: "" },
+  { Title: "Workshop", link: ROUTES.WORKSHOP },
   {
     Title: "Course",
     child: [
@@ -7,11 +9,11 @@ export const HeaderItems = [
       { Title: "BEF PRO ( With Lecture )", link: "" },
     ],
   },
-  {
-    Title: "Download Now",
-    child: [
-      { Title: "Android App", link: "" },
-      { Title: "IOS App", link: "" },
-    ],
-  },
+  // {
+  //   Title: "Download Now",
+  //   child: [
+  //     { Title: "Android App", link: "" },
+  //     { Title: "IOS App", link: "" },
+  //   ],
+  // },
 ];

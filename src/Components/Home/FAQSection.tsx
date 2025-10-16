@@ -30,6 +30,7 @@ const FAQSection = () => {
     setActiveIndex(activeIndex === index ? null : index);
   };
 
+
   return (
     <section id="faq" className="container container-p">
       {/* Section Header */}
@@ -75,9 +76,7 @@ const FAQSection = () => {
                     : "max-h-0 opacity-0 scale-y-0 p-0"
                 }`}
               >
-                <p className="text-sm sm:text-base">
-                  {faq.answer}
-                </p>
+                <p className="text-sm sm:text-base">{faq.answer}</p>
               </div>
             </div>
           ))}

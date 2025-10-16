@@ -7,7 +7,9 @@ const Layout = () => {
   return (
     <>
       <Header />
-      <Outlet />
+      <div className="!mt-24 mb-12">
+        <Outlet />
+      </div>
       <GoTop />
       <Footer />
     </>
