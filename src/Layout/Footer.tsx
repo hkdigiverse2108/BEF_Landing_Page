@@ -6,7 +6,7 @@ import AnimationLine from "../Components/Common/AnimationLine";
 
 const Footer = () => {
   return (
-    <footer className="bg-primary text-white ">
+    <footer className="bg-primary text-white relative">
       {/* Vertical Line Animation */}
       <AnimationLine />
       <div className="container mx-auto py-12 md:py-24 px-5 lg:px-10  grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">

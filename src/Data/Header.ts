@@ -4,6 +4,7 @@ export const HeaderItems = [
   { Title: "Workshop", link: ROUTES.WORKSHOP },
   {
     Title: "Course",
+    link: ROUTES.COURSE.COURSE,
     child: [
       { Title: "BEF Special ( Without Lecture )", link: "" },
       { Title: "BEF PRO ( With Lecture )", link: "" },

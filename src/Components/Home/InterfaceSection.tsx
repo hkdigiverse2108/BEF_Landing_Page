@@ -33,7 +33,7 @@ const InterfaceSection = () => {
       />
 
       {/* Swiper Slider */}
-      <div data-aos="fade-up" data-aos-duration="1500">
+      <div data-aos="fade-up" >
         <Swiper
           modules={[Autoplay, Pagination]}
           slidesPerView={5}

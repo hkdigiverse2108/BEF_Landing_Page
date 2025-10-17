@@ -28,7 +28,7 @@ const HeroSection = () => {
     <section id="hero" className=" overflow-hidden">
       <AnimationLine />
       {/* Main Container */}
-      <div className="container container-p z-10 mx-auto relative px-4 flex flex-col lg:flex-row items-center justify-between gap-10 mt-10 sm:mt-20">
+      <div className="container container-p z-10 mx-auto relative px-4 flex flex-col lg:flex-row items-center justify-between gap-10 sm:mt-6">
         {/* Left Text */}
         <div
           className="lg:w-1/2 space-y-9 max-lg:flex max-lg:flex-col max-lg:justify-center max-lg:text-center "

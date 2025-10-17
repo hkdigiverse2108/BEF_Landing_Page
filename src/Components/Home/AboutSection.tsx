@@ -71,7 +71,6 @@ const AboutSection = () => {
             id="counter"
             className="grid grid-cols-1 sm:grid-cols-2 mt-10 justify-between gap-6"
             data-aos="fade-up"
-            data-aos-duration="1500"
           >
             {stats.map((item, index) => (
               <li

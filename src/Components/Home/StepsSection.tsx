@@ -109,7 +109,7 @@ const StepsSection = () => {
                       className="step_img"
                       onClick={() => openVideo(step.youtube_link)}
                       data-aos="fade-left"
-                      data-aos-duration="1500"
+                    
                     >
                       <a
                         className="popup-youtube play-button"

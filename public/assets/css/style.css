@@ -23,7 +23,7 @@ body {
   }
 }
 
-/* Apply continuous smooth animation */
+/* ================== Apply continuous smooth animation ==================*/
 .smooth-float {
   animation: smoothFloat 3.5s ease-in-out infinite;
   will-change: transform;
@@ -67,7 +67,7 @@ body {
 }
 /* ================  Interface Section SWiper End  ================ */
 
-/* ================  Testimonial Section SWiper ================ */
+/* ================  Testimonial Section SWiper Start ================ */
 #review .swiper-horizontal .swiper-pagination-bullets,
 .swiper-pagination-bullets.swiper-pagination-horizontal {
   @apply !-bottom-1 !z-100;
@@ -79,3 +79,16 @@ body {
 #review .swiper-pagination-bullet-active {
   @apply bg-primary;
 }
+/* ================  Testimonial Section SWiper End ================ */
+
+/* ================  Workshop Section Start ================ */
+
+.MuiTabs-list.MuiTabs-flexContainer {
+  @apply grid grid-cols-4 gap-0 ;
+}
+.MuiTabs-list.MuiTabs-flexContainer .MuiButtonBase-root {
+  @apply !font-extrabold;
+}
+/* MuiButtonBase-root MuiTab-root MuiTab-textColorPrimary !font-bold css-5bs729-MuiButtonBase-root-MuiTab-root */
+
+/* ================  Workshop Section End ================ */

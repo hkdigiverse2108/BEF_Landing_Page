@@ -75,9 +75,7 @@ const Header = () => {
                 )}
               </div>
             ))}
-            <button onClick={() => setMenuOpen(!menuOpen)} className="uppercase text-primary font-bold border px-5 py-1 rounded-2xl border-gray-500 ">
-              Login
-            </button>
+            <button className="btn primary_btn  w-full ">Login</button>
           </nav>
 
           <div className="block lg:hidden gap-1 items-center text-2xl ">

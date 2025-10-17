@@ -8,35 +8,25 @@ import InterfaceSection from "../../Components/Home/InterfaceSection";
 import BlogSection from "../../Components/Home/BlogSection";
 import FAQSection from "../../Components/Home/FAQSection";
 import TestimonialSection from "../../Components/Home/TestimonialSection";
-import { useEffect } from "react";
-import Aos from "aos";
+// import Footer from "../../Layout/Footer";
 
 const Home = () => {
-  useEffect(() => {
-    Aos.init({
-      duration: 1200,
-      once: false,
-      mirror: true,
-      easing: "ease-in-out",
-      offset: 150,
-    });
-
-    setTimeout(() => Aos.refresh(), 500);
-  }, []);
-
   return (
-    <div className="space-y-18">
-      <HeroSection />
-      <FeatureSection />
-      <AboutSection />
-      <StepsSection />
-      <TestimonialSection />
-      <BlogSection />
-      <FAQSection />
-      <InterfaceSection />
-      <DownloadSection />
-      <ContactSection />
-    </div>
+    <>
+      <div className="space-y-18">
+        <HeroSection />
+        <FeatureSection />
+        <AboutSection />
+        <StepsSection />
+        <TestimonialSection />
+        <BlogSection />
+        <FAQSection />
+        <InterfaceSection />
+        <DownloadSection />
+        <ContactSection />
+      </div>
+      {/* <Footer /> */}
+    </>
   );
 };
 

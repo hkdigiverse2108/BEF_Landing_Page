@@ -1,5 +1,6 @@
 import { ROUTES } from "../Constants";
 import Course from "../Pages/Course";
+import CourseDetails from "../Pages/Course/CourseDetails";
 import Home from "../Pages/Home";
 import Workshop from "../Pages/Workshop";
 
@@ -13,7 +14,11 @@ export const PageRoutes = [
     element: <Workshop />,
   },
   {
-    path: ROUTES.COURSE,
+    path: ROUTES.COURSE.COURSE,
     element: <Course />,
+  },
+  {
+    path: ROUTES.COURSE.DETAILS,
+    element: <CourseDetails />,
   },
 ];

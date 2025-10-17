@@ -2,20 +2,24 @@ import { PiShareFat } from "react-icons/pi";
 import { ImagePath } from "../../Constants";
 import { Tab, Tabs } from "@mui/material";
 import { useState, type SyntheticEvent } from "react";
-import WorkshopAboutTab from "../../Components/Workshop/WorkshopAboutTab";
-import WorkshopLecturesTab from "../../Components/Workshop/WorkshopLecturesTab";
-import WorkshopTestimonialsTab from "../../Components/Workshop/WorkshopTestimonialsTab";
-import WorkshopFaqsTab from "../../Components/Workshop/WorkshopFaqsTab";
+import AboutTab from "../../Components/Workshop/WorkshopAboutTab";
+import LecturesTab from "../../Components/Workshop/WorkshopLecturesTab";
+import FaqsTab from "../../Components/Workshop/WorkshopFaqsTab";
+import { IoIosArrowBack } from "react-icons/io";
+import CourseModule from "../../Components/Course/CourseModule";
+import { useNavigate } from "react-router-dom";
 
 const TabsName = [
   { value: "about", label: "About" },
   { value: "lectures", label: "Lectures" },
-  { value: "Testimonials", label: "Testimonials" },
+  { value: "module", label: "Module" },
   { value: "faqs", label: "FAQS" },
 ];
 
-const Workshop = () => {
+const CourseDetails = () => {
   const [tabIndex, setTabIndex] = useState("about");
+
+  const navigate = useNavigate();
 
   const handleChange = (_: SyntheticEvent, newValue: string) => {
     setTabIndex(newValue);
@@ -23,12 +27,18 @@ const Workshop = () => {
 
   return (
     <div
-      id="Workshop"
-      className="container container-p space-y-9 py-9 bg-white rounded-xl Workshop"
+      id="Course"
+      className="container container-p space-y-9 py-9 bg-white rounded-xl"
     >
       <section className="group space-y-6 rounded-md relative">
-        <div className="sm:hidden absolute top-3 w-full flex gap-5 justify-end px-2 pt-2 ">
-          <span className="bg-white/50 text-white  backdrop-blur-md rounded-sm px-2 py-1">
+        <div className=" absolute text-white  w-full flex gap-5 justify-between p-2 text-center text-2xl ">
+          <span
+            onClick={() => navigate(-1)}
+            className="bg-white/50 backdrop-blur-md rounded-sm px-2 py-1"
+          >
+            <IoIosArrowBack />
+          </span>
+          <span className="bg-white/50  backdrop-blur-md rounded-sm px-2 py-1">
             <PiShareFat />
           </span>
         </div>
@@ -52,19 +62,11 @@ const Workshop = () => {
                 subject-level full syllabus batch
               </div>
             </div>
-            {/* <span className="flex gap items-center w-fit h-fit gap-1 bg-white border border-gray-300 backdrop-blur-md rounded-sm px-2 py-1 cursor-pointer">
-              Share
-              <PiShareFat />
-            </span> */}
           </section>
           <section className="flex max-sm:flex-col gap-4 justify-between">
             <h1 className="capitalize font-semibold sm:text-2xl">
               CSAT Live pathshala by madhukar kotawe
             </h1>
-            <span className="max-sm:hidden flex gap items-center w-fit h-fit gap-1 bg-white border border-gray-300 backdrop-blur-md rounded-md px-2 py-1 cursor-pointer">
-              <PiShareFat />
-              Share
-            </span>
           </section>
           <span className="border-b border-gray-300 flex w-full h-0.5" />
 
@@ -144,10 +146,10 @@ const Workshop = () => {
           </Tabs>
         </div>
         <div className="mt-6">
-          {tabIndex === "about" && <WorkshopAboutTab />}
-          {tabIndex === "lectures" && <WorkshopLecturesTab />}
-          {tabIndex === "Testimonials" && <WorkshopTestimonialsTab />}
-          {tabIndex === "faqs" && <WorkshopFaqsTab />}
+          {tabIndex === "about" && <AboutTab />}
+          {tabIndex === "lectures" && <LecturesTab />}
+          {tabIndex === "module" && <CourseModule />}
+          {tabIndex === "faqs" && <FaqsTab />}
         </div>
       </section>
 
@@ -179,4 +181,4 @@ const Workshop = () => {
   );
 };
 
-export default Workshop;
+export default CourseDetails;
