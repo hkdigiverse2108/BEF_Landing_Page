@@ -48,7 +48,7 @@ const CourseCard: FC<CourseCardProps> = ({
             onViewDetails?.();
           }}
           //   className="!font-bold custom-button light button button--mimas w-full !h-auto uppercase"
-          className="btn primary_btn !h-12 !w-full  "
+          className="btn primary_btn square !h-12 !w-full  "
         >
           {" "}
           VIEW BATCH DETAILS

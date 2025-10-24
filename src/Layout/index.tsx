@@ -1,11 +1,14 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
 import GoTop from "../Components/Common/GoTop";
 import { useEffect } from "react";
 import Aos from "aos";
+import { ROUTES } from "../Constants";
 
 const Layout = () => {
+  const location = useLocation();
+
   useEffect(() => {
     Aos.init({
       duration: 1200,
@@ -21,11 +24,16 @@ const Layout = () => {
   return (
     <>
       <Header />
-      <div className="!mt-36 mb-12">
+      <div className="!mt-30 sm:!mt-36 mb-12">
         <Outlet />
       </div>
       <GoTop />
-      <Footer />
+      {location.pathname === ROUTES.COURSE.DETAILS ||
+      location.pathname === ROUTES.WORKSHOP ? (
+        <div className="mt-45 sm:mt-55 md:mt-30  "></div>
+      ) : (
+        <Footer />
+      )}
     </>
   );
 };

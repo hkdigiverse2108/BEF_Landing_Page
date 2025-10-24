@@ -1,60 +1,3 @@
-/* .custom-button.button {
-  pointer-events: auto;
-  cursor: pointer;
-  background: #e7e7e7;
-  border: none;
-  padding: 1rem 2rem !important;
-  margin: 0;
-  font-family: inherit;
-  font-size: inherit;
-  position: relative;
-  display: inline-block;
-  color: #ffffff !important;
-}
-.custom-button.button::before,
-.custom-button.button::after {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-.custom-button.button--mimas {
-  text-transform: uppercase;
-  letter-spacing: 0.05rem;
-  font-weight: 700;
-  font-size: 0.85rem;
-  border-radius: 0.5rem;
-  overflow: hidden;
-  color: #fff !important;
-  background: #e7e7e7 !important;
-}
-.custom-button.button--mimas span {
-  position: relative;
-}
-.custom-button.button--mimas::before {
-  content: "";
-  background: var(--color-primary);
-  width: 120%;
-  left: -10%;
-  transform: skew(30deg);
-  transition: transform 0.6s cubic-bezier(0.3, 1, 0.8, 1);
-}
-.custom-button.light.button--mimas::before {
-  content: "";
-  background: #ffffff;
-  width: 120%;
-  left: -10%;
-  transform: skew(30deg);
-  transition: transform 0.6s cubic-bezier(0.3, 1, 0.8, 1);
-}
-.custom-button.button--mimas:hover::before {
-  transform: translate3d(100%, 0, 0);
-}
-.custom-button.button--mimas:hover span {
-  color: black;
-} */
-
 /* purple button */
 .primary_btn {
   background-color: var(--color-primary);
@@ -65,6 +8,14 @@
   overflow: hidden;
   z-index: 1;
   font-weight: 500;
+  border: 1px solid var(--color-primary);
+}
+
+.square.primary_btn,
+.square.primary_btn::before {
+  border-radius: 6px;
+  border: 0.5px solid var(--color-primary) !important;
+  font-weight: 600;
 }
 
 .primary_btn::before {

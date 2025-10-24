@@ -27,10 +27,10 @@ const Workshop = () => {
       className="container container-p space-y-9 py-9 bg-white rounded-xl Workshop"
     >
       <section className="group space-y-6 rounded-md relative">
-        <div className="sm:hidden absolute top-3 w-full flex gap-5 justify-end px-2 pt-2 ">
-          <span className="bg-white/50 text-white  backdrop-blur-md rounded-sm px-2 py-1">
+        <div className="sm:hidden absolute w-full flex gap-5 justify-end px-2 pt-2 ">
+          <button className="bg-white/50 text-white  backdrop-blur-md rounded-sm px-2 py-1">
             <PiShareFat />
-          </span>
+          </button>
         </div>
         <figure>
           <img
@@ -61,10 +61,10 @@ const Workshop = () => {
             <h1 className="capitalize font-semibold sm:text-2xl">
               CSAT Live pathshala by madhukar kotawe
             </h1>
-            <span className="max-sm:hidden flex gap items-center w-fit h-fit gap-1 bg-white border border-gray-300 backdrop-blur-md rounded-md px-2 py-1 cursor-pointer">
+            <button className="max-sm:hidden flex gap items-center w-fit h-fit gap-1 bg-white border border-gray-300 backdrop-blur-md rounded-md px-2 py-1 cursor-pointer">
               <PiShareFat />
               Share
-            </span>
+            </button>
           </section>
           <span className="border-b border-gray-300 flex w-full h-0.5" />
 
@@ -124,6 +124,7 @@ const Workshop = () => {
             textColor="primary"
             variant="scrollable"
             aria-label="primary tabs example"
+            allowScrollButtonsMobile
             className="!w-full !flex !justify-between !gap-4 border-b border-gray-300 mt-6 "
             sx={{
               "& .MuiTabs-flexContainer": {
@@ -132,14 +133,7 @@ const Workshop = () => {
             }}
           >
             {TabsName?.map(({ value, label }, index) => {
-              return (
-                <Tab
-                  key={index}
-                  value={value}
-                  label={label}
-                  className="!font-bold   "
-                />
-              );
+              return <Tab key={index} value={value} label={label} />;
             })}
           </Tabs>
         </div>
@@ -158,7 +152,7 @@ const Workshop = () => {
             <p className="text-gray-600 font-medium">Price</p>
             <h1 className=" sm:text-2xl font-bold flex gap-[2px] items-end">
               <span>₹0</span>
-              <span className="text-sm text-gray-400 font-semibold line-through decoration-2 ">
+              <span className="text-base text-red-500 font-semibold line-through decoration-2 ps-1">
                 500
               </span>
             </h1>

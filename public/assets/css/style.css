@@ -84,9 +84,9 @@ body {
 /* ================  Workshop Section Start ================ */
 
 .MuiTabs-list.MuiTabs-flexContainer {
-  @apply grid grid-cols-4 gap-0 ;
+  @apply flex sm:grid grid-cols-4 gap-0 ;
 }
-.MuiTabs-list.MuiTabs-flexContainer .MuiButtonBase-root {
+.MuiTabs-list.MuiTabs-flexContainer button {
   @apply !font-extrabold;
 }
 /* MuiButtonBase-root MuiTab-root MuiTab-textColorPrimary !font-bold css-5bs729-MuiButtonBase-root-MuiTab-root */

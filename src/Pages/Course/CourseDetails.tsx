@@ -2,12 +2,12 @@ import { PiShareFat } from "react-icons/pi";
 import { ImagePath } from "../../Constants";
 import { Tab, Tabs } from "@mui/material";
 import { useState, type SyntheticEvent } from "react";
-import AboutTab from "../../Components/Workshop/WorkshopAboutTab";
-import LecturesTab from "../../Components/Workshop/WorkshopLecturesTab";
-import FaqsTab from "../../Components/Workshop/WorkshopFaqsTab";
 import { IoIosArrowBack } from "react-icons/io";
-import CourseModule from "../../Components/Course/CourseModule";
 import { useNavigate } from "react-router-dom";
+import CourseAboutTab from "../../Components/Course/CourseAboutTab";
+import CourseLecturesTab from "../../Components/Course/CourseLecturesTab";
+import CourseModuleTab from "../../Components/Course/CourseModuleTab";
+import CourseFaqsTab from "../../Components/Course/CourseFaqsTab";
 
 const TabsName = [
   { value: "about", label: "About" },
@@ -19,8 +19,6 @@ const TabsName = [
 const CourseDetails = () => {
   const [tabIndex, setTabIndex] = useState("about");
 
-  const navigate = useNavigate();
-
   const handleChange = (_: SyntheticEvent, newValue: string) => {
     setTabIndex(newValue);
   };
@@ -31,14 +29,8 @@ const CourseDetails = () => {
       className="container container-p space-y-9 py-9 bg-white rounded-xl"
     >
       <section className="group space-y-6 rounded-md relative">
-        <div className=" absolute text-white  w-full flex gap-5 justify-between p-2 text-center text-2xl ">
-          <span
-            onClick={() => navigate(-1)}
-            className="bg-white/50 backdrop-blur-md rounded-sm px-2 py-1"
-          >
-            <IoIosArrowBack />
-          </span>
-          <span className="bg-white/50  backdrop-blur-md rounded-sm px-2 py-1">
+        <div className="sm:hidden absolute w-full flex gap-5 justify-end px-2 pt-2 ">
+          <span className="bg-white/50 text-white  backdrop-blur-md rounded-sm px-2 py-1">
             <PiShareFat />
           </span>
         </div>
@@ -67,6 +59,10 @@ const CourseDetails = () => {
             <h1 className="capitalize font-semibold sm:text-2xl">
               CSAT Live pathshala by madhukar kotawe
             </h1>
+            <button className="max-sm:hidden flex gap items-center w-fit h-fit gap-1 bg-white border border-gray-300 backdrop-blur-md rounded-md px-2 py-1 cursor-pointer">
+              <PiShareFat />
+              Share
+            </button>
           </section>
           <span className="border-b border-gray-300 flex w-full h-0.5" />
 
@@ -115,8 +111,6 @@ const CourseDetails = () => {
               </div> */}
             </div>
           </section>
-
-          {/* <span className="border-b border-gray-300 flex w-full h-0.5" /> */}
         </div>
 
         <div>
@@ -134,22 +128,15 @@ const CourseDetails = () => {
             }}
           >
             {TabsName?.map(({ value, label }, index) => {
-              return (
-                <Tab
-                  key={index}
-                  value={value}
-                  label={label}
-                  className="!font-bold   "
-                />
-              );
+              return <Tab key={index} value={value} label={label} />;
             })}
           </Tabs>
         </div>
         <div className="mt-6">
-          {tabIndex === "about" && <AboutTab />}
-          {tabIndex === "lectures" && <LecturesTab />}
-          {tabIndex === "module" && <CourseModule />}
-          {tabIndex === "faqs" && <FaqsTab />}
+          {tabIndex === "about" && <CourseAboutTab />}
+          {tabIndex === "lectures" && <CourseLecturesTab />}
+          {tabIndex === "module" && <CourseModuleTab />}
+          {tabIndex === "faqs" && <CourseFaqsTab />}
         </div>
       </section>
 
@@ -159,10 +146,8 @@ const CourseDetails = () => {
           <div>
             <p className="text-gray-600 font-medium">Price</p>
             <h1 className=" sm:text-2xl font-bold flex gap-[2px] items-end">
-              <span>₹0</span>
-              <span className="text-sm text-gray-400 font-semibold line-through decoration-2 ">
-                500
-              </span>
+              <span>₹6999/</span>
+              <span className="text-lg text-gray-600 font-bold">₹24000</span>
             </h1>
           </div>
           <div>

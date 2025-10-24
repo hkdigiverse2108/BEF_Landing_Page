@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
-import { ImagePath } from "../../Constants";
+import { ImagePath, ROUTES } from "../../Constants";
+import { useLocation } from "react-router-dom";
 
 const GoTop = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,7 +17,14 @@ const GoTop = () => {
 
   if (isScrolled) {
     return (
-      <div className="fixed bottom-0 right-2 sm:bottom-17 sm:right-8 z-10">
+      <div
+        className={`fixed right-2 sm:bottom-17 sm:right-8 z-10 ${
+          location.pathname === ROUTES.COURSE.DETAILS ||
+          location.pathname === ROUTES.WORKSHOP
+            ? "bottom-27"
+            : "bottom-0"
+        }`}
+      >
         <button
           type="button"
           onClick={() => {

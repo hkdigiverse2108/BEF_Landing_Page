@@ -27,24 +27,24 @@ const classes = [
   },
 ];
 
-const CourseModule = () => {
+const CourseModuleTab = () => {
   return (
     <div className="space-y-4" data-aos="fade-up">
       {classes.map((cls) => (
         <div
           key={cls.id}
-          className="flex max-sm:flex-col gap-4 bg-white rounded-lg  border border-gray-200 p-4 h-full  items-center"
+          className="flex max-sm:flex-col gap-4 bg-white rounded-lg p-4  border border-gray-200 max-sm:items-center "
         >
           {/* Image */}
     
           <img
             src={cls.img}
             alt={"img"}
-            className="w-fit h-50 sm:w-50 sm:h-fit rounded-lg object-cover"
+            className="w-fit h-50 sm:w-50 sm:h-full rounded-lg object-cover"
           />
 
           {/* Content */}
-          <div className="flex flex-col sm:py-3 gap-5 justify-between">
+          <div className="flex flex-col sm:py-3 gap-5 justify-between ">
             {/* Tags */}
             <div className="flex flex-col gap-2 ">
               <span className="text-xl font-semibold">{cls.subject}</span>
@@ -72,4 +72,4 @@ const CourseModule = () => {
   );
 };
 
-export default CourseModule;
+export default CourseModuleTab;

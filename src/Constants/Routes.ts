@@ -3,6 +3,6 @@ export const ROUTES = {
   WORKSHOP: "/workshop",
   COURSE: {
     COURSE: "/course",
-    DETAILS: "/details",
+    DETAILS: "/course/details",
   },
 };

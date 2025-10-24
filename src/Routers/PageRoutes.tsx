@@ -21,4 +21,8 @@ export const PageRoutes = [
     path: ROUTES.COURSE.DETAILS,
     element: <CourseDetails />,
   },
+  {
+    path: ROUTES.COURSE.DETAILS,
+    element: <CourseDetails />,
+  },
 ];

@@ -40,7 +40,7 @@ const CourseAboutTab = () => {
         <button className="font-medium">More...</button>
       </div>
       <div>
-        <button className="flex w-full border border-gray-300 rounded-md hover:border-gray-500 transition-colors text-center justify-center py-4 gap-3 uppercase font-semibold">
+        <button className="flex w-full border border-gray-300  rounded-md hover:border-primary  hover:!text-primary transition-colors text-center justify-center py-4 gap-3 uppercase font-semibold">
           <span className="text-2xl ">
             <TbCloudDownload />
           </span>
