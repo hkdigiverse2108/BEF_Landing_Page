@@ -2,10 +2,7 @@ import { PiShareFat } from "react-icons/pi";
 import { ImagePath, ROUTES, URL_KEYS } from "../../Constants";
 import { Tab, Tabs } from "@mui/material";
 import { useState, type SyntheticEvent } from "react";
-// import WorkshopAboutTab from "../../Components/Workshop/WorkshopAboutTab";
-// import WorkshopLecturesTab from "../../Components/Workshop/WorkshopLecturesTab";
 import WorkshopTestimonialsTab from "../../Components/Workshop/WorkshopTestimonialsTab";
-// import WorkshopFaqsTab from "../../Components/Workshop/WorkshopFaqsTab";
 import { NavLink } from "react-router-dom";
 import CourseAboutTab from "../../Components/Course/CourseAboutTab";
 import CourseLecturesTab from "../../Components/Course/CourseLecturesTab";
@@ -22,22 +19,14 @@ const TabsName = [
 const Workshop = () => {
   const [tabIndex, setTabIndex] = useState("about");
 
-  const { data } = useGetApiQuery({ url: `${URL_KEYS.WORKSHOP.ALL}` });
+  const { data: workshopData } = useGetApiQuery({ url: `${URL_KEYS.WORKSHOP.ALL}` });
+  const workshop = workshopData?.data?.workshop_data[0] || {};
 
-  const workshop = data?.data?.workshop_data[0] || {};
+  const { data: ModulesData } = useGetApiQuery({ url: `${URL_KEYS.MODULE.COURSE_WISE}${workshop._id}` }, { skip: !workshop._id });
 
-  console.log("workshop : ", data?.data?.workshop_data[0]);
+  const Modules = ModulesData?.data;
 
-  const {
-    title = "Have questions about this batch?",
-    language = "हिंGLISH",
-    totalLecture = 0,
-    testNumber = 0,
-    description = "subject-level full syllabus batch",
-    totalAmount = 0,
-    discountAmount = 0,
-    _id = "",
-  } = workshop;
+  const { title = "Have questions about this batch?", language = "हिंGLISH", totalLecture = 0, testNumber = 0, description = "subject-level full syllabus batch", totalAmount = 0, discountAmount = 0, _id = "" } = workshop;
 
   const handleChange = (_: SyntheticEvent, newValue: string) => {
     setTabIndex(newValue);
@@ -91,9 +80,14 @@ const Workshop = () => {
               <div className="space-y-2 w-full ">
                 <p className="max-sm:hidden font-medium ">Module</p>
                 <ul className="w-full text-sm flex flex-col sm:flex-row gap-2 sm:gap-4">
-                  <li>1. MCQ Aptitude</li>
+                   {Modules?.map((module: { name: string }, i: number) => (
+                    <li>
+                      {i + 1}. {module.name}
+                    </li>
+                  ))}
+                  {/* <li>1. MCQ Aptitude</li>
                   <li>2. MCQ Aptitude Test</li>
-                  <li>3. Mapping Test</li>
+                  <li>3. Mapping Test</li> */}
                 </ul>
               </div>
             </div>
@@ -163,7 +157,7 @@ const Workshop = () => {
             <p className="max-sm:text-xs text-gray-600 font-medium h-full ">Remaining fee pays after prelims cleared</p>
           </div>
           <div className=" md:w-1/4">
-            <NavLink to={ROUTES.WORKSHOP.REGISTER}  state={workshop}>
+            <NavLink to={ROUTES.WORKSHOP.REGISTER} state={workshop}>
               <button className="btn primary_btn !h-12 !w-full  ">Enroll Now</button>
             </NavLink>
           </div>

@@ -32,3 +32,34 @@ export interface FormValues {
 }
 
 
+export interface ModuleType {
+  _id: string;
+  courseId: string;
+  name: string;
+  subTitle: string;
+  totalLecture: number;
+  totalTest: number;
+  image: string;
+  link: string;
+}
+
+export interface LectureType {
+  _id: string;
+  courseId: string;
+  moduleId: string;
+  language: string;
+  subjectName: string;
+  title: string;
+  subtitle: string;
+  image: string;
+  link: string;
+  date?: string; 
+}
+
+export interface Testimonial {
+  name: string;
+  designation: string;
+  description: string;
+  rating: number;
+  image: string;
+}

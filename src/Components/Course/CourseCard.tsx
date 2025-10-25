@@ -4,9 +4,7 @@ import { NavLink } from "react-router-dom";
 import type { CourseType } from "../../Types";
 
 const CourseCard = ({ course }: { course: CourseType }) => {
-  // const { title = "Have questions about this batch?", subtitle = "Talk to a counsellor", image = `${ImagePath}course/CourseCardImage.jpg`, lang = "हिंGLISH", type = "FULL SYLLABUS", onCallClick, onViewDetails } = course;
-
-  const {
+ const {
     title = "Have questions about this batch?",
     subtitle = "Talk to a counsellor",
     // image = `${ImagePath}course/CourseCardImage.jpg`,
@@ -16,10 +14,8 @@ const CourseCard = ({ course }: { course: CourseType }) => {
      } = {},
     _id = "",
     onCallClick,
-
   } = course;
 
-  // console.log("course : ", course);
 
   return (
     <NavLink to={`${ROUTES.COURSE.DETAILS.replace(":id",_id)}`} className="relative rounded-2xl overflow-hidden cursor-pointer shadow-xl flex flex-col justify-end">

@@ -38,7 +38,6 @@ const CourseRegister = () => {
   // Called after successful payment
   const handlePayment = async (response: RazorpayResponse, values: FormValues, status: "COMPLETED" | "FAILED") => {
     console.log("Razorpay  Response:", response , status);
-    console.log("Form Values:", values, course);
 
     try {
       const payload: CourseWorkshopRegisterPayload = {
@@ -54,21 +53,16 @@ const CourseRegister = () => {
         reachFrom: values.reachFrom,
         status: status,
       };
-      // console.log("payload : ", payload);
-      const res = await PostApi({ url: URL_KEYS.COURSE.REGISTER, data: payload });
-      console.log("res : ", res);
+       await PostApi({ url: URL_KEYS.COURSE.REGISTER, data: payload });
     } catch (err) {
       console.error(err);
-      // message.error("Payment success but failed to send data to server.");
     }
   };
 
   //  Called when form is submitted
   const onFinish = async (values: FormValues) => {
-    console.log("Form Submitted:", values);
 
     if (!window.Razorpay) {
-      // message.error("Razorpay SDK not loaded yet");
       return;
     }
 
@@ -98,13 +92,12 @@ const CourseRegister = () => {
 
     rzp1.on("payment.failed", function (response: RazorpayResponse) {
       handlePayment({ razorpay_payment_id: response?.error?.metadata?.payment_id }, values, "FAILED");
-      console.error("Payment Failed 11:", response?.error?.metadata);
+      console.error("Payment Failed :", response?.error?.metadata);
     });
 
     rzp1.open();
   };
 
-  // console.log("key", import.meta.env.VITE_RAZOR_PAY_KEY);
 
   return (
     <section id="purchase" className="container flex max-md:flex-col justify-between py-10 px-4 gap-5 h-full">

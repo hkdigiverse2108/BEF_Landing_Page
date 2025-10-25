@@ -31,6 +31,8 @@ export interface CourseType extends BaseEntity {
 export interface CourseWorkshopRegisterPayload extends FormValues {
   courseId?: string;
   amount?: number;
+  paymentDate?: string;
+  merchantId?: string;
   paymentId?: string;
   status: "COMPLETED" | "FAILED";
 }

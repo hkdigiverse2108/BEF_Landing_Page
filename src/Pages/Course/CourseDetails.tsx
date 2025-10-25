@@ -21,32 +21,23 @@ const CourseDetails = () => {
 
   const { id }: { id?: string } = useParams();
 
-  const { data } = useGetApiQuery({ url: `${URL_KEYS.COURSE.ONE}${id}` });
-  // console.log("params : ", id, data?.data);
-  const course = data?.data || {};
+  const { data: CourseData } = useGetApiQuery({ url: `${URL_KEYS.COURSE.ONE}${id}` });
+  const course = CourseData?.data || {};
+
+  const { data: ModulesData } = useGetApiQuery({ url: `${URL_KEYS.MODULE.COURSE_WISE}${course._id}` }, { skip: !course._id });
+
+  const Modules = ModulesData?.data;
 
   const {
     title = "Have questions about this batch?",
     // subtitle = "Talk to a counsellor",
     // image = `${ImagePath}course/CourseCardImage.jpg`,
     language = "हिंGLISH",
-    // syllabus: { subjectLevel = "basic", fullSyllabus = "no" } = {},
-    // courseMoneyBack = false,
     totalLecture = 0,
     testNumber = 0,
     description = "subject-level full syllabus batch",
-    // pdf = "",
     price = 0,
-    // discountPrice = 0,
     payingPrice = 0,
-    // priceInStruction = "",
-    // courseUpgradePrice = 0,
-
-    // _id = "",
-    // Optional custom values (not in backend but for UI)
-    // type = "FULL SYLLABUS",
-    // onCallClick,
-    // onViewDetails,
   } = course;
 
   const handleChange = (_: SyntheticEvent, newValue: string) => {
@@ -97,9 +88,13 @@ const CourseDetails = () => {
               <div className="space-y-2 w-full ">
                 <p className="max-sm:hidden font-medium ">Module</p>
                 <ul className="w-full text-sm flex flex-col sm:flex-row gap-2 sm:gap-4">
-                  <li>1. MCQ Aptitude</li>
-                  <li>2. MCQ Aptitude Test</li>
-                  <li>3. Mapping Test</li>
+                  {Modules?.map((module: { name: string }, i: number) => (
+                    <li>
+                      {i + 1}. {module.name}
+                    </li>
+                  ))}
+                  {/* <li>2. MCQ Aptitude Test</li>
+                  <li>3. Mapping Test</li> */}
                 </ul>
               </div>
             </div>
