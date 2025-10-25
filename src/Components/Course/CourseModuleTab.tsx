@@ -1,4 +1,5 @@
-import { ImagePath } from "../../Constants";
+import { useGetApiQuery } from "../../Api/CommonApi";
+import { ImagePath, URL_KEYS } from "../../Constants";
 
 const classes = [
   {
@@ -27,21 +28,18 @@ const classes = [
   },
 ];
 
-const CourseModuleTab = () => {
+const CourseModuleTab = ({ id }: { id?: string }) => {
+  const { data } = useGetApiQuery({ url: `${URL_KEYS.MODULE.COURSE_WISE}${id}` });
+
+  console.log("Modules : ", id, data);
+
   return (
     <div className="space-y-4" data-aos="fade-up">
       {classes.map((cls) => (
-        <div
-          key={cls.id}
-          className="flex max-sm:flex-col gap-4 bg-white rounded-lg p-4  border border-gray-200 max-sm:items-center "
-        >
+        <div key={cls.id} className="flex max-sm:flex-col gap-4 bg-white rounded-lg p-4  border border-gray-200 max-sm:items-center ">
           {/* Image */}
-    
-          <img
-            src={cls.img}
-            alt={"img"}
-            className="w-fit h-50 sm:w-50 sm:h-full rounded-lg object-cover"
-          />
+
+          <img src={cls.img} alt={"img"} className="w-fit h-50 sm:w-50 sm:h-full rounded-lg object-cover" />
 
           {/* Content */}
           <div className="flex flex-col sm:py-3 gap-5 justify-between ">
@@ -52,16 +50,12 @@ const CourseModuleTab = () => {
             </div>
             <div className="flex  gap-6">
               <p className="flex flex-col text-gray-600 text-xs font-medium sm:text-sm">
-                <span className="text-3xl text-success font-semibold">
-                  {cls.lectures}
-                </span>
+                <span className="text-3xl text-success font-semibold">{cls.lectures}</span>
                 <span>lectures </span>
               </p>
               <span className="border border-gray-200"></span>
               <p className="flex flex-col text-gray-600 text-xs font-medium sm:text-sm">
-                <span className="text-3xl text-success font-semibold">
-                  {cls.tests}
-                </span>
+                <span className="text-3xl text-success font-semibold">{cls.tests}</span>
                 <span>Tests </span>
               </p>
             </div>

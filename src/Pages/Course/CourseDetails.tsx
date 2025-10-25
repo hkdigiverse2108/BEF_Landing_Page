@@ -1,13 +1,13 @@
 import { PiShareFat } from "react-icons/pi";
-import { ImagePath } from "../../Constants";
+import { ImagePath, ROUTES, URL_KEYS } from "../../Constants";
 import { Tab, Tabs } from "@mui/material";
 import { useState, type SyntheticEvent } from "react";
-import { IoIosArrowBack } from "react-icons/io";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import CourseAboutTab from "../../Components/Course/CourseAboutTab";
 import CourseLecturesTab from "../../Components/Course/CourseLecturesTab";
 import CourseModuleTab from "../../Components/Course/CourseModuleTab";
 import CourseFaqsTab from "../../Components/Course/CourseFaqsTab";
+import { useGetApiQuery } from "../../Api/CommonApi";
 
 const TabsName = [
   { value: "about", label: "About" },
@@ -19,15 +19,41 @@ const TabsName = [
 const CourseDetails = () => {
   const [tabIndex, setTabIndex] = useState("about");
 
+  const { id }: { id?: string } = useParams();
+
+  const { data } = useGetApiQuery({ url: `${URL_KEYS.COURSE.ONE}${id}` });
+  console.log("params : ", id, data?.data);
+  const course = data?.data || {};
+  const {
+    title = "Have questions about this batch?",
+    // subtitle = "Talk to a counsellor",
+    // image = `${ImagePath}course/CourseCardImage.jpg`,
+    language = "हिंGLISH",
+    // syllabus: { subjectLevel = "basic", fullSyllabus = "no" } = {},
+    // courseMoneyBack = false,
+    totalLecture = 0,
+    totalTest = 0,
+    description = "subject-level full syllabus batch",
+    // pdf = "",
+    price = 0,
+    // discountPrice = 0,
+    payingPrice = 0,
+    // priceInStruction = "",
+    // courseUpgradePrice = 0,
+
+    // _id = "",
+    // Optional custom values (not in backend but for UI)
+    // type = "FULL SYLLABUS",
+    // onCallClick,
+    // onViewDetails,
+  } = course;
+
   const handleChange = (_: SyntheticEvent, newValue: string) => {
     setTabIndex(newValue);
   };
 
   return (
-    <div
-      id="Course"
-      className="container container-p space-y-9 py-9 bg-white rounded-xl"
-    >
+    <div id="Course" className="container container-p space-y-9 py-9 bg-white rounded-xl">
       <section className="group space-y-6 rounded-md relative">
         <div className="sm:hidden absolute w-full flex gap-5 justify-end px-2 pt-2 ">
           <span className="bg-white/50 text-white  backdrop-blur-md rounded-sm px-2 py-1">
@@ -35,11 +61,7 @@ const CourseDetails = () => {
           </span>
         </div>
         <figure>
-          <img
-            src={`${ImagePath}workshop/CourseThumbnail.webp`}
-            alt=""
-            className="w-full h-full rounded-lg"
-          />
+          <img src={`${ImagePath}course/CourseCardImage.jpg`} alt="" className="w-full h-full rounded-lg" />
         </figure>
       </section>
       <section className="">
@@ -47,18 +69,15 @@ const CourseDetails = () => {
           <section className=" max-sm:text-sm font-medium flex justify-between  gap-3">
             <div className="flex  gap-2 items-center">
               <div className="bg-white border border-gray-300  w-fit h-fit px-3 py-1  rounded-md ">
-                <span className="sm:hidden">हिंn</span>
-                <span className="max-sm:hidden">हिंGLISH</span>
+                {/* <span className="sm:hidden">हिंn</span> */}
+                {/* <span className="max-sm:hidden">{language}</span> */}
+                <span>{language}</span>
               </div>
-              <div className="uppercase max-sm:text-xs text-primary font-bold ">
-                subject-level full syllabus batch
-              </div>
+              <div className="uppercase max-sm:text-xs text-primary font-bold ">{description}</div>
             </div>
           </section>
           <section className="flex max-sm:flex-col gap-4 justify-between">
-            <h1 className="capitalize font-semibold sm:text-2xl">
-              CSAT Live pathshala by madhukar kotawe
-            </h1>
+            <h1 className="capitalize font-semibold sm:text-2xl">{title}</h1>
             <button className="max-sm:hidden flex gap items-center w-fit h-fit gap-1 bg-white border border-gray-300 backdrop-blur-md rounded-md px-2 py-1 cursor-pointer">
               <PiShareFat />
               Share
@@ -70,11 +89,7 @@ const CourseDetails = () => {
             <div className="bg-card-bg  transition-all px-5 py-3 rounded w-full flex flex-col sm:flex-row sm:items-center sm:gap-5">
               <div className="flex items-center  gap-3 mb-3 sm:mb-0">
                 <figure className="rounded-full bg-primary/10 p-3 sm:p-4 h-fit w-fit">
-                  <img
-                    src={`${ImagePath}workshop/users.png`}
-                    alt="Users"
-                    className="w-8 sm:w-10 h-fit"
-                  />
+                  <img src={`${ImagePath}workshop/users.png`} alt="Users" className="w-8 sm:w-10 h-fit" />
                 </figure>
                 <p className=" sm:hidden font-medium ">Module</p>
               </div>
@@ -91,11 +106,7 @@ const CourseDetails = () => {
               {/* Image + Title (top row on mobile) */}
               <div className="flex items-center gap-3 sm:mb-0">
                 <figure className="rounded-full bg-primary/10 p-3 sm:p-4 h-fit w-fit">
-                  <img
-                    src={`${ImagePath}workshop/wallet.png`}
-                    alt="Users"
-                    className="w-8 sm:w-10 h-fit"
-                  />
+                  <img src={`${ImagePath}workshop/wallet.png`} alt="Users" className="w-8 sm:w-10 h-fit" />
                 </figure>
                 <div className="space-y-2 w-full font-medium ">
                   <p>100% Money Back</p>
@@ -133,9 +144,9 @@ const CourseDetails = () => {
           </Tabs>
         </div>
         <div className="mt-6">
-          {tabIndex === "about" && <CourseAboutTab />}
-          {tabIndex === "lectures" && <CourseLecturesTab />}
-          {tabIndex === "module" && <CourseModuleTab />}
+          {tabIndex === "about" && <CourseAboutTab totalLecture={totalLecture} totalTest={totalTest} />}
+          {tabIndex === "lectures" && <CourseLecturesTab id={id} />}
+          {tabIndex === "module" && <CourseModuleTab id={id} />}
           {tabIndex === "faqs" && <CourseFaqsTab />}
         </div>
       </section>
@@ -146,19 +157,17 @@ const CourseDetails = () => {
           <div>
             <p className="text-gray-600 font-medium">Price</p>
             <h1 className=" sm:text-2xl font-bold flex gap-[2px] items-end">
-              <span>₹6999/</span>
-              <span className="text-lg text-gray-600 font-bold">₹24000</span>
+              <span>₹{payingPrice}/</span>
+              <span className="text-lg text-gray-600 font-bold">₹{price}</span>
             </h1>
           </div>
           <div>
-            <p className="max-sm:text-xs text-gray-600 font-medium h-full ">
-              Remaining fee pays after prelims cleared
-            </p>
+            <p className="max-sm:text-xs text-gray-600 font-medium h-full ">Remaining fee pays after prelims cleared</p>
           </div>
           <div className=" md:w-1/4">
-            <button className="btn primary_btn !h-12 !w-full  ">
-              Enroll Now
-            </button>
+            <NavLink to={ROUTES.COURSE.PURCHASE_FORM} state={course}>
+              <button className="btn primary_btn !h-12 !w-full  ">Enroll Now</button>
+            </NavLink>
           </div>
         </div>
       </section>

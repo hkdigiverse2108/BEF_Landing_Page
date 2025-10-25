@@ -3,6 +3,7 @@ export const ROUTES = {
   WORKSHOP: "/workshop",
   COURSE: {
     COURSE: "/course",
-    DETAILS: "/course/details",
+    DETAILS: "/course/details/:id",
+    PURCHASE_FORM : "/course/purchase"
   },
 };

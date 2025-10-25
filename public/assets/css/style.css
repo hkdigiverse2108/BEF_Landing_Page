@@ -42,8 +42,7 @@ body {
 .react-international-phone-input-container .react-international-phone-input {
   @apply !bg-primary !border-0 !pe-0 !w-10;
 }
-.react-international-phone-input-container
-  .react-international-phone-country-selector-button {
+.react-international-phone-input-container .react-international-phone-country-selector-button {
   @apply border-0 !bg-primary;
 }
 
@@ -84,7 +83,7 @@ body {
 /* ================  Workshop Section Start ================ */
 
 .MuiTabs-list.MuiTabs-flexContainer {
-  @apply flex sm:grid grid-cols-4 gap-0 ;
+  @apply flex sm:grid grid-cols-4 gap-0;
 }
 .MuiTabs-list.MuiTabs-flexContainer button {
   @apply !font-extrabold;
@@ -92,3 +91,15 @@ body {
 /* MuiButtonBase-root MuiTab-root MuiTab-textColorPrimary !font-bold css-5bs729-MuiButtonBase-root-MuiTab-root */
 
 /* ================  Workshop Section End ================ */
+
+/* ================  Course Section Start ================ */
+
+#purchase .ant-select-selector {
+  @apply sm:!py-6 placeholder:!font-medium !px-4;
+}
+
+#purchase .ant-select-arrow {
+  @apply !mt-1;
+}
+
+/* ================  Course Section End ================ */

@@ -1,3 +1,4 @@
+import CoursePurchaseForm from "../Components/Course/CoursePurchaseForm";
 import { ROUTES } from "../Constants";
 import Course from "../Pages/Course";
 import CourseDetails from "../Pages/Course/CourseDetails";
@@ -24,5 +25,9 @@ export const PageRoutes = [
   {
     path: ROUTES.COURSE.DETAILS,
     element: <CourseDetails />,
+  },
+  {
+    path: ROUTES.COURSE.PURCHASE_FORM,
+    element: <CoursePurchaseForm />,
   },
 ];

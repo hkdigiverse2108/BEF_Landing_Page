@@ -1,42 +1,38 @@
 import { TbCloudDownload } from "react-icons/tb";
-import { ImagePath } from "../../Constants";
+import { ImagePath, URL_KEYS } from "../../Constants";
+import { useGetApiQuery } from "../../Api/CommonApi";
+import type { CourseType } from "../../Types";
 
-const CourseAboutTab = () => {
+const CourseAboutTab = ({ totalLecture, totalTest }: CourseType) => {
+  const { data } = useGetApiQuery({ url: `${URL_KEYS.ABOUT.ALL}?type=course` });
+
+  // console.log("About : ", data?.data);
+  const AboutUs = data?.data?.aboutUs;
+
   return (
     <section className="space-y-6" data-aos="fade-up">
       <div className="grid grid-cols-2 gap-3">
         <section className="flex gap-3 items-center">
-          <img
-            src={`${ImagePath}/workshop/VideoIcon.png`}
-            alt=""
-            className="w-8 h-fit"
-          />
+          <img src={`${ImagePath}/workshop/VideoIcon.png`} alt="" className="w-8 h-fit" />
           <div>
             <h4 className="font-semibold">Lectures</h4>
-            <p>30</p>
+            <p>{totalLecture}</p>
           </div>
         </section>
         <section className="flex gap-3 items-center">
-          <img
-            src={`${ImagePath}/workshop/NotesIcon.png`}
-            alt=""
-            className="w-8 h-fit"
-          />
+          <img src={`${ImagePath}/workshop/NotesIcon.png`} alt="" className="w-8 h-fit" />
           <div>
-            <h4 className="font-semibold">Lectures</h4>
-            <p>30</p>
+            <h4 className="font-semibold">Tests</h4>
+            <p>{totalTest}</p>
           </div>
         </section>
       </div>
       <div>
-        <p className="text-sm text-gray-600">
-          CSAT Live PathShala is the first revolutionary batch in the world of
-          EdTech where Educator and Aspirants can not only see each other but
-          also ask questions and clear their doubts directly. The main objective
-          of this batch is not only to ensure success in CSAT but also to
-          provide the aspirant with an environment similar to offline centres in
-          Delhi from the comfort of their home.
-        </p>
+        <div className="text-sm text-gray-600" dangerouslySetInnerHTML={{ __html: AboutUs }} />
+        {/* <p className="text-sm text-gray-600"> */}
+        {/* {AboutUs} */}
+        {/* CSAT Live PathShala is the first revolutionary batch in the world of EdTech where Educator and Aspirants can not only see each other but also ask questions and clear their doubts directly. The main objective of this batch is not only to ensure success in CSAT but also to provide the aspirant with an environment similar to offline centres in Delhi from the comfort of their home. */}
+        {/* </p> */}
         <button className="font-medium">More...</button>
       </div>
       <div>
