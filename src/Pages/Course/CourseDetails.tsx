@@ -22,8 +22,9 @@ const CourseDetails = () => {
   const { id }: { id?: string } = useParams();
 
   const { data } = useGetApiQuery({ url: `${URL_KEYS.COURSE.ONE}${id}` });
-  console.log("params : ", id, data?.data);
+  // console.log("params : ", id, data?.data);
   const course = data?.data || {};
+
   const {
     title = "Have questions about this batch?",
     // subtitle = "Talk to a counsellor",
@@ -32,7 +33,7 @@ const CourseDetails = () => {
     // syllabus: { subjectLevel = "basic", fullSyllabus = "no" } = {},
     // courseMoneyBack = false,
     totalLecture = 0,
-    totalTest = 0,
+    testNumber = 0,
     description = "subject-level full syllabus batch",
     // pdf = "",
     price = 0,
@@ -144,7 +145,7 @@ const CourseDetails = () => {
           </Tabs>
         </div>
         <div className="mt-6">
-          {tabIndex === "about" && <CourseAboutTab totalLecture={totalLecture} totalTest={totalTest} />}
+          {tabIndex === "about" && <CourseAboutTab totalLecture={totalLecture} totalTest={testNumber} />}
           {tabIndex === "lectures" && <CourseLecturesTab id={id} />}
           {tabIndex === "module" && <CourseModuleTab id={id} />}
           {tabIndex === "faqs" && <CourseFaqsTab />}
@@ -165,7 +166,7 @@ const CourseDetails = () => {
             <p className="max-sm:text-xs text-gray-600 font-medium h-full ">Remaining fee pays after prelims cleared</p>
           </div>
           <div className=" md:w-1/4">
-            <NavLink to={ROUTES.COURSE.PURCHASE_FORM} state={course}>
+            <NavLink to={ROUTES.COURSE.REGISTER} state={course}>
               <button className="btn primary_btn !h-12 !w-full  ">Enroll Now</button>
             </NavLink>
           </div>

@@ -29,7 +29,7 @@ const Layout = () => {
       </div>
       <GoTop />
       {location.pathname === ROUTES.COURSE.DETAILS ||
-      location.pathname === ROUTES.WORKSHOP ? (
+      location.pathname === ROUTES.WORKSHOP.WORKSHOP? (
         <div className="mt-45 sm:mt-55 md:mt-30  "></div>
       ) : (
         <Footer />

@@ -29,10 +29,6 @@ const CourseAboutTab = ({ totalLecture, totalTest }: CourseType) => {
       </div>
       <div>
         <div className="text-sm text-gray-600" dangerouslySetInnerHTML={{ __html: AboutUs }} />
-        {/* <p className="text-sm text-gray-600"> */}
-        {/* {AboutUs} */}
-        {/* CSAT Live PathShala is the first revolutionary batch in the world of EdTech where Educator and Aspirants can not only see each other but also ask questions and clear their doubts directly. The main objective of this batch is not only to ensure success in CSAT but also to provide the aspirant with an environment similar to offline centres in Delhi from the comfort of their home. */}
-        {/* </p> */}
         <button className="font-medium">More...</button>
       </div>
       <div>

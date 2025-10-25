@@ -1,11 +1,11 @@
+import type { BaseEntity, FormValues } from "./Common";
 
 export interface Syllabus {
   subjectLevel: string;
   fullSyllabus: string;
 }
 
-export interface CourseType {
-  _id?: string;
+export interface CourseType extends BaseEntity {
   title?: string;
   subtitle?: string;
   image?: string;
@@ -21,13 +21,18 @@ export interface CourseType {
   payingPrice?: number;
   priceInStruction?: string;
   courseUpgradePrice?: number;
-  isDeleted?: boolean;
-  createdAt?: string;
-  updatedAt?: string;
-  createdBy?: string;
-  updatedBy?: string;
   type?: string;
   onCallClick?: () => void;
   onViewDetails?: () => void;
 }
+
+
+
+export interface CourseWorkshopRegisterPayload extends FormValues {
+  courseId?: string;
+  amount?: number;
+  paymentId?: string;
+  status: "COMPLETED" | "FAILED";
+}
+
 

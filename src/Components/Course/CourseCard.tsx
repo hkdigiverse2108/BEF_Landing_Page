@@ -1,9 +1,9 @@
 import { TbPhoneCall } from "react-icons/tb";
-import type { Course } from "../../Types";
 import { ImagePath, ROUTES } from "../../Constants";
 import { NavLink } from "react-router-dom";
+import type { CourseType } from "../../Types";
 
-const CourseCard = ({ course }: { course: Course }) => {
+const CourseCard = ({ course }: { course: CourseType }) => {
   // const { title = "Have questions about this batch?", subtitle = "Talk to a counsellor", image = `${ImagePath}course/CourseCardImage.jpg`, lang = "हिंGLISH", type = "FULL SYLLABUS", onCallClick, onViewDetails } = course;
 
   const {
@@ -13,27 +13,13 @@ const CourseCard = ({ course }: { course: Course }) => {
     language = "हिंGLISH",
     syllabus: { 
       subjectLevel = "basic"
-      // , fullSyllabus = "no"
      } = {},
-    // courseMoneyBack = false,
-    // totalLecture = 0,
-    // totalTest = 0,
-    // description = "",
-    // pdf = "",
-    // price = 0,
-    // discountPrice = 0,
-    // payingPrice = 0,
-    // priceInStruction = "",
-    // courseUpgradePrice = 0,
-   
     _id = "",
-    // Optional custom values (not in backend but for UI)
-    // type = "FULL SYLLABUS",
     onCallClick,
-    // onViewDetails,
+
   } = course;
 
-  console.log("course : ", course);
+  // console.log("course : ", course);
 
   return (
     <NavLink to={`${ROUTES.COURSE.DETAILS.replace(":id",_id)}`} className="relative rounded-2xl overflow-hidden cursor-pointer shadow-xl flex flex-col justify-end">

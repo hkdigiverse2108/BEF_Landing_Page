@@ -5,7 +5,6 @@ import { Swiper as SwiperType } from "swiper";
 import "aos/dist/aos.css";
 import SectionHeader from "./SectionHeader";
 import { ImagePath } from "../../Constants";
-import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { TiArrowRightThick } from "react-icons/ti";
 import { Button, Rate } from "antd";
 

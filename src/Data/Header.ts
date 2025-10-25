@@ -1,7 +1,7 @@
 import { ROUTES } from "../Constants";
 
 export const HeaderItems = [
-  { Title: "Workshop", link: ROUTES.WORKSHOP },
+  { Title: "Workshop", link: ROUTES.WORKSHOP.WORKSHOP },
   {
     Title: "Course",
     link: ROUTES.COURSE.COURSE,

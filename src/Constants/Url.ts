@@ -2,6 +2,12 @@ export const URL_KEYS = {
     COURSE: {
         ALL: "course/all",
         ONE: "course/",
+        REGISTER: "course-purchase/add"
+    },
+    WORKSHOP: {
+        ALL: "workshop/all",
+        TESTIMONIAL: "workshop-testimonial/all",
+        REGISTER: "/workshop-register/add"
     },
     FAQ: {
         ALL: "faq/public",
@@ -12,7 +18,10 @@ export const URL_KEYS = {
     MODULE: {
         COURSE_WISE: "module/course/"
     },
-    ABOUT :{
-        ALL : "about-us"
-    }
+    ABOUT: {
+        ALL: "about-us"
+    },
+    // PAYMENT : {
+    //     SUCCESS : "course-register/payment/success"
+    // }
 }

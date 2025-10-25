@@ -95,9 +95,11 @@ body {
 /* ================  Course Section Start ================ */
 
 #purchase .ant-select-selector {
-  @apply sm:!py-6 placeholder:!font-medium !px-4;
+  @apply !py-6 placeholder:!font-medium !px-4;
 }
-
+#purchase .ant-select-selection-placeholder {
+  @apply  !font-medium;
+}
 #purchase .ant-select-arrow {
   @apply !mt-1;
 }

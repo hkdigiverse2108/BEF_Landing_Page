@@ -1,9 +1,12 @@
 export const ROUTES = {
   HOME: "/",
-  WORKSHOP: "/workshop",
+  WORKSHOP: {
+    WORKSHOP : "/workshop",
+    REGISTER : "/workshop/register"
+  } ,
   COURSE: {
     COURSE: "/course",
     DETAILS: "/course/details/:id",
-    PURCHASE_FORM : "/course/purchase"
+    REGISTER : "/course/register"
   },
 };

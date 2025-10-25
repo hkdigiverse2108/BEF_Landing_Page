@@ -1,9 +1,10 @@
-import CoursePurchaseForm from "../Components/Course/CoursePurchaseForm";
+import CourseRegister from "../Pages/Course/CourseRegister";
 import { ROUTES } from "../Constants";
 import Course from "../Pages/Course";
 import CourseDetails from "../Pages/Course/CourseDetails";
 import Home from "../Pages/Home";
 import Workshop from "../Pages/Workshop";
+import WorkshopRegister from "../Pages/Workshop/WorkshopRegister";
 
 export const PageRoutes = [
   {
@@ -11,8 +12,12 @@ export const PageRoutes = [
     element: <Home />,
   },
   {
-    path: ROUTES.WORKSHOP,
+    path: ROUTES.WORKSHOP.WORKSHOP,
     element: <Workshop />,
+  },
+  {
+    path: ROUTES.WORKSHOP.REGISTER,
+    element: <WorkshopRegister />,
   },
   {
     path: ROUTES.COURSE.COURSE,
@@ -27,7 +32,7 @@ export const PageRoutes = [
     element: <CourseDetails />,
   },
   {
-    path: ROUTES.COURSE.PURCHASE_FORM,
-    element: <CoursePurchaseForm />,
+    path: ROUTES.COURSE.REGISTER,
+    element: <CourseRegister />,
   },
 ];

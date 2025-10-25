@@ -1,5 +1,7 @@
 import { Rate } from "antd";
 import { RiDoubleQuotesL } from "react-icons/ri";
+import { useGetApiQuery } from "../../Api/CommonApi";
+import { URL_KEYS } from "../../Constants";
 
 const testimonials = [
   {
@@ -7,8 +9,7 @@ const testimonials = [
     name: "David Smith",
     title: "Marketing Director",
     company: "DETOXY",
-    msg:
-      "Avada saves us time and money, we couldn’t have chosen a more effective reliable software.",
+    msg: "Avada saves us time and money, we couldn’t have chosen a more effective reliable software.",
     img: "https://randomuser.me/api/portraits/men/32.jpg",
   },
   {
@@ -16,8 +17,7 @@ const testimonials = [
     name: "Sarah Johnson",
     title: "Product Manager",
     company: "TECHIFY",
-    msg:
-      "An absolute game changer! Our team productivity increased by 40% after switching.",
+    msg: "An absolute game changer! Our team productivity increased by 40% after switching.",
     img: "https://randomuser.me/api/portraits/women/45.jpg",
   },
   {
@@ -25,8 +25,7 @@ const testimonials = [
     name: "Michael Brown",
     title: "CTO",
     company: "INNOVEX",
-    msg:
-      "Reliable, efficient, and beautifully designed — Avada has streamlined our workflows perfectly.",
+    msg: "Reliable, efficient, and beautifully designed — Avada has streamlined our workflows perfectly.",
     img: "https://randomuser.me/api/portraits/men/18.jpg",
   },
   {
@@ -34,8 +33,7 @@ const testimonials = [
     name: "Emily Carter",
     title: "UX Designer",
     company: "CREOVO",
-    msg:
-      "I love how intuitive and smooth the experience is. It’s made my daily tasks effortless.",
+    msg: "I love how intuitive and smooth the experience is. It’s made my daily tasks effortless.",
     img: "https://randomuser.me/api/portraits/women/25.jpg",
   },
   {
@@ -43,18 +41,18 @@ const testimonials = [
     name: "Robert Wilson",
     title: "Operations Lead",
     company: "OPTIMAX",
-    msg:
-      "Their software integrates seamlessly with our tools. Support is top-notch too!",
+    msg: "Their software integrates seamlessly with our tools. Support is top-notch too!",
     img: "https://randomuser.me/api/portraits/men/41.jpg",
   },
 ];
 
 const WorkshopTestimonialsTab = () => {
+  const { data } = useGetApiQuery({ url: URL_KEYS.WORKSHOP.TESTIMONIAL });
+
+  console.log("Workshop Testimonials : ", data);
+
   return (
-    <div
-      className="flex flex-col items-center justify-center gap-5 "
-      data-aos="fade-up"
-    >
+    <div className="flex flex-col items-center justify-center gap-5 " data-aos="fade-up">
       {testimonials.map((t) => {
         const { msg, name, title, img } = t;
         return (
@@ -85,11 +83,7 @@ const WorkshopTestimonialsTab = () => {
             {/* Right - Image */}
             <div className="order-1 sm:order-2 flex-shrink-0">
               <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-full overflow-hidden border-4 border-primary">
-                <img
-                  src={img}
-                  alt={name}
-                  className="w-full h-full object-cover"
-                />
+                <img src={img} alt={name} className="w-full h-full object-cover" />
               </div>
             </div>
           </div>
