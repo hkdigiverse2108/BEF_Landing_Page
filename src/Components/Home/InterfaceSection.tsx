@@ -1,26 +1,21 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import "aos/dist/aos.css";
-import { ImagePath } from "../../Constants";
+import { URL_KEYS } from "../../Constants";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Swiper as SwiperType } from "swiper";
 import { Autoplay, Pagination } from "swiper/modules";
 import SectionHeader from "./SectionHeader";
+import { useGetApiQuery } from "../../Api/CommonApi";
 
-const images = [
-  `${ImagePath}download/download-screen01.png`,
-  `${ImagePath}download/download-screen01.png`,
-  `${ImagePath}download/download-screen01.png`,
-  `${ImagePath}download/download-screen01.png`,
-  `${ImagePath}download/download-screen01.png`,
-  `${ImagePath}download/download-screen01.png`,
-  `${ImagePath}download/download-screen01.png`,
-  `${ImagePath}download/download-screen01.png`,
-  `${ImagePath}download/download-screen01.png`,
-  `${ImagePath}download/download-screen01.png`,
-];
+// const images = [`${ImagePath}download/download-screen01.png`, `${ImagePath}download/download-screen01.png`, `${ImagePath}download/download-screen01.png`, `${ImagePath}download/download-screen01.png`, `${ImagePath}download/download-screen01.png`, `${ImagePath}download/download-screen01.png`, `${ImagePath}download/download-screen01.png`, `${ImagePath}download/download-screen01.png`, `${ImagePath}download/download-screen01.png`, `${ImagePath}download/download-screen01.png`];
 
 const InterfaceSection = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+
+  const { data } = useGetApiQuery({ url: URL_KEYS.INTERFACE.ALL });
+
+  const interfaceData = data?.data?.interface_data;
+
+  console.log("featureData : ", data?.data?.interface_data);
 
   return (
     <section id="interface" className=" container container-p">
@@ -33,7 +28,7 @@ const InterfaceSection = () => {
       />
 
       {/* Swiper Slider */}
-      <div data-aos="fade-up" >
+      <div data-aos="fade-up">
         <Swiper
           modules={[Autoplay, Pagination]}
           slidesPerView={5}
@@ -54,17 +49,11 @@ const InterfaceSection = () => {
             1100: { spaceBetween: 70 },
           }}
         >
-          {images.map((src, i) => (
+          {interfaceData?.map((item: { image: string }, i:number) => (
             <SwiperSlide key={i} className="flex justify-center">
-              <div
-                className={`transition-all duration-700 ease-in-out transform  rounded-2xl overflow-hidden ${
-                  i === activeIndex
-                    ? "scale-110 lg:scale-140 "
-                    : " lg:scale-110  opacity-80"
-                }`}
-              >
+              <div className={`transition-all duration-700 ease-in-out transform  rounded-2xl overflow-hidden ${i === activeIndex ? "scale-110 lg:scale-140 " : " lg:scale-110  opacity-80"}`}>
                 <img
-                  src={src}
+                  src={item?.image}
                   alt={`App screen ${i + 1}`}
                   className="w-full h-full object-cover "
                   // className="rounded-2xl w-full object-contain"

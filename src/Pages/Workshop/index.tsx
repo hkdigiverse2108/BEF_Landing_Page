@@ -1,4 +1,3 @@
-import { PiShareFat } from "react-icons/pi";
 import { ImagePath, ROUTES, URL_KEYS } from "../../Constants";
 import { Tab, Tabs } from "@mui/material";
 import { useState, type SyntheticEvent } from "react";
@@ -8,6 +7,7 @@ import CourseAboutTab from "../../Components/Course/CourseAboutTab";
 import CourseLecturesTab from "../../Components/Course/CourseLecturesTab";
 import CourseFaqsTab from "../../Components/Course/CourseFaqsTab";
 import { useGetApiQuery } from "../../Api/CommonApi";
+import ShareModal from "../../Components/Common/ShareModal";
 
 const TabsName = [
   { value: "about", label: "About" },
@@ -36,9 +36,10 @@ const Workshop = () => {
     <div id="Workshop" className="container container-p space-y-9 py-9 bg-white rounded-xl Workshop">
       <section className="group space-y-6 rounded-md relative">
         <div className="sm:hidden absolute w-full flex gap-5 justify-end px-2 pt-2 ">
-          <button className="bg-white/50 text-white  backdrop-blur-md rounded-sm px-2 py-1">
+          <ShareModal />
+          {/* <button className="bg-white/50 text-white  backdrop-blur-md rounded-sm  py-1">
             <PiShareFat />
-          </button>
+          </button> */}
         </div>
         <figure>
           <img src={`${ImagePath}course/CourseCardImage.jpg`} alt="" className="w-full h-full rounded-lg" />
@@ -55,17 +56,12 @@ const Workshop = () => {
               </div>
               <div className="uppercase max-sm:text-xs text-primary font-bold ">{description}</div>
             </div>
-            {/* <span className="flex gap items-center w-fit h-fit gap-1 bg-white border border-gray-300 backdrop-blur-md rounded-sm px-2 py-1 cursor-pointer">
-              Share
-              <PiShareFat />
-            </span> */}
           </section>
           <section className="flex max-sm:flex-col gap-4 justify-between">
             <h1 className="capitalize font-semibold sm:text-2xl">{title}</h1>
-            <button className="max-sm:hidden flex gap items-center w-fit h-fit gap-1 bg-white border border-gray-300 backdrop-blur-md rounded-md px-2 py-1 cursor-pointer">
-              <PiShareFat />
-              Share
-            </button>
+            <span className="max-sm:hidden">
+              <ShareModal />
+            </span>
           </section>
           <span className="border-b border-gray-300 flex w-full h-0.5" />
 
@@ -80,7 +76,7 @@ const Workshop = () => {
               <div className="space-y-2 w-full ">
                 <p className="max-sm:hidden font-medium ">Module</p>
                 <ul className="w-full text-sm flex flex-col sm:flex-row gap-2 sm:gap-4">
-                   {Modules?.map((module: { name: string }, i: number) => (
+                  {Modules?.map((module: { name: string }, i: number) => (
                     <li>
                       {i + 1}. {module.name}
                     </li>

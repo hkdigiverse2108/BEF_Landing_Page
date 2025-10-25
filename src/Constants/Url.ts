@@ -21,7 +21,13 @@ export const URL_KEYS = {
     ABOUT: {
         ALL: "about-us"
     },
-    // PAYMENT : {
-    //     SUCCESS : "course-register/payment/success"
-    // }
+    FEATURE: {
+        ALL: "feature/all"
+    },
+    HOW_IT_WORK: {
+        ALL: "how-it-work/all"
+    },
+    INTERFACE: {
+        ALL: "interface/public"
+    }
 }
