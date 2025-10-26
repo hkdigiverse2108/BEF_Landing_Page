@@ -1,55 +1,9 @@
-import { ImagePath, URL_KEYS } from "../../Constants";
+import { ImagePath } from "../../Constants";
 import SectionHeader from "./SectionHeader";
-import { useGetApiQuery } from "../../Api/CommonApi";
 import { Link } from "react-router-dom";
 import type { StepType } from "../../Types";
 
-
-// const steps: Step[] = [
-//   {
-//     title: "Download & Sign Up with Referral Code",
-//     description: "Start your journey by downloading the Bharat Exam Fest app, available for both Android and Apple devices. Use a referral code during sign-up to access exclusive benefits and start your journey!",
-//     youtube_link: "https://www.youtube.com/watch?v=abcdef",
-//     thumbnail_image: `${ImagePath}/steps/YT_thumbnail.jpg`,
-//   },
-//   {
-//     title: "Step Two: Complete Your Profile",
-//     description: "Fill in your details and academic background to receive personalized scholarship recommendations.",
-//     youtube_link: "https://www.youtube.com/watch?v=abcdef",
-//     thumbnail_image: `${ImagePath}/steps/YT_thumbnail.jpg`,
-//   },
-//   {
-//     title: "Step Three: Apply Easily",
-//     description: "Browse, select, and apply to scholarships directly from your dashboard with one click.",
-//     youtube_link: "https://www.youtube.com/watch?v=abcdef",
-//     thumbnail_image: `${ImagePath}/steps/YT_thumbnail.jpg`,
-//   },
-//   {
-//     title: "Download & Sign Up with Referral Code",
-//     description: "Start your journey by downloading the Bharat Exam Fest app, available for both Android and Apple devices. Use a referral code during sign-up to access exclusive benefits and start your journey!",
-//     youtube_link: "https://www.youtube.com/watch?v=abcdef",
-//     thumbnail_image: `${ImagePath}/steps/YT_thumbnail.jpg`,
-//   },
-//   {
-//     title: "Step Two: Complete Your Profile",
-//     description: "Fill in your details and academic background to receive personalized scholarship recommendations.",
-//     youtube_link: "https://www.youtube.com/watch?v=abcdef",
-//     thumbnail_image: `${ImagePath}/steps/YT_thumbnail.jpg`,
-//   },
-//   {
-//     title: "Step Three: Apply Easily",
-//     description: "Browse, select, and apply to scholarships directly from your dashboard with one click.",
-//     youtube_link: "https://www.youtube.com/watch?v=abcdef",
-//     thumbnail_image: `${ImagePath}/steps/YT_thumbnail.jpg`,
-//   },
-// ];
-
-const StepsSection = () => {
-  const { data } = useGetApiQuery({ url: URL_KEYS.HOW_IT_WORK.ALL });
-
-  const steps = data?.data?.how_it_work_data;
-
-  console.log("featureData : ", data?.data?.how_it_work_data);
+const StepsSection = ({ steps }: { steps : StepType[] }) => {
 
   return (
     <section id="steps" className="pb-20 sm:pb-30 md:pb-40 lg:pb-55  container-p ">

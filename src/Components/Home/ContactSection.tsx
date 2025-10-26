@@ -1,15 +1,35 @@
 import { Button, Form, Input } from "antd";
-import { ImagePath } from "../../Constants";
+import { HTTP_STATUS, ImagePath, URL_KEYS } from "../../Constants";
 import SectionHeader from "./SectionHeader";
 import { Link } from "react-router-dom";
 import FormInput from "../../Attribute/FormFields/FormInput";
+import { usePostApiMutation } from "../../Api/CommonApi";
+import type { ContactFormData } from "../../Types";
+
 
 const ContactSection = () => {
   const [form] = Form.useForm();
 
-  const onFinish = (values: any) => {
-    console.log("Form Values:", values);
-    // You can post the values to your API here
+  const [PostApi, { isLoading }] = usePostApiMutation({});
+
+  const onFinish = async (values: ContactFormData) => {
+    try {
+      const res = await PostApi({ url: URL_KEYS.CONTACT_US.ADD, data: values }).unwrap();
+      if (res?.data?.status === HTTP_STATUS.OK) {
+        form.resetFields();
+      }
+      console.log(res);
+    } catch (error) {
+      console.error(error);
+      const err = error as { data: { message: string } };
+      console.log("test", err.data.message);
+      form.setFields([
+        {
+          name: "message",
+          errors: [err.data.message],
+        },
+      ]);
+    }
   };
 
   return (
@@ -31,7 +51,7 @@ const ContactSection = () => {
             placeholder="Email"
           />
 
-          <FormInput name="company" className="!py-3 placeholder:!font-medium !px-4 rounded-lg" placeholder="Company" />
+          <FormInput name="company" rules={[{ required: true, message: "Please enter Company Name" }]} className="!py-3 placeholder:!font-medium !px-4 rounded-lg" placeholder="Company" />
 
           <FormInput
             name="phone"
@@ -45,11 +65,11 @@ const ContactSection = () => {
 
           <FormInput name="website" className="!py-3 placeholder:!font-medium !px-4 rounded-lg" rules={[{ required: true, message: "Please enter your name" }]} placeholder="Website" />
 
-          <Form.Item name="msg" rules={[{ required: true, message: "Please enter your message" }]}>
+          <Form.Item name="message" rules={[{ required: true, message: "Please enter your message" }]}>
             <Input.TextArea rows={4} placeholder="Your message*" className=" !py-3 placeholder:!font-medium !px-4 rounded-lg" />
           </Form.Item>
           <div className=" flex justify-center">
-            <Button htmlType="submit" type="primary" className="btn primary_btn !h-12 w-full ">
+            <Button loading={isLoading} htmlType="submit" type="primary" className="btn primary_btn !h-12 w-full ">
               SEND MESSAGE
             </Button>
           </div>

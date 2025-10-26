@@ -33,7 +33,7 @@ const classes = [
 const WorkshopLecturesTab = () => {
   return (
     <div className="space-y-4" data-aos="fade-up">
-      {classes.map((cls) => (
+      {classes?.map((cls) => (
         <div
           key={cls.id}
           className="flex max-sm:flex-col gap-4 bg-white rounded-lg  border border-gray-200 p-4 h-full items-stretch"

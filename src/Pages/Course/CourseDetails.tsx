@@ -1,4 +1,3 @@
-
 import { ImagePath, ROUTES, URL_KEYS } from "../../Constants";
 import { Tab, Tabs } from "@mui/material";
 import { useState, type SyntheticEvent } from "react";
@@ -9,6 +8,7 @@ import CourseModuleTab from "../../Components/Course/CourseModuleTab";
 import CourseFaqsTab from "../../Components/Course/CourseFaqsTab";
 import { useGetApiQuery } from "../../Api/CommonApi";
 import ShareModal from "../../Components/Common/ShareModal";
+import Loader from "../../Components/Common/Loader";
 
 const TabsName = [
   { value: "about", label: "About" },
@@ -22,12 +22,11 @@ const CourseDetails = () => {
 
   const { id }: { id?: string } = useParams();
 
-  const { data: CourseData } = useGetApiQuery({ url: `${URL_KEYS.COURSE.ONE}${id}` });
-  const course = CourseData?.data || {};
+  const { data: courseData, isLoading: courseLoading } = useGetApiQuery({ url: `${URL_KEYS.COURSE.ONE}${id}` });
+  const course = courseData?.data || {};
 
-  const { data: ModulesData } = useGetApiQuery({ url: `${URL_KEYS.MODULE.COURSE_WISE}${course._id}` }, { skip: !course._id });
-
-  const Modules = ModulesData?.data;
+  const { data: modulesData, isLoading: moduleLoading } = useGetApiQuery({ url: `${URL_KEYS.MODULE.COURSE_WISE}${course._id}` }, { skip: !course._id });
+  const Modules = modulesData?.data;
 
   const {
     title = "Have questions about this batch?",
@@ -44,6 +43,8 @@ const CourseDetails = () => {
   const handleChange = (_: SyntheticEvent, newValue: string) => {
     setTabIndex(newValue);
   };
+
+  if (courseLoading || moduleLoading) return <Loader />;
 
   return (
     <div id="Course" className="container container-p space-y-9 py-9 bg-white rounded-xl">

@@ -1,21 +1,17 @@
 import { useState } from "react";
 import "aos/dist/aos.css";
-import { URL_KEYS } from "../../Constants";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
 import SectionHeader from "./SectionHeader";
-import { useGetApiQuery } from "../../Api/CommonApi";
 
 // const images = [`${ImagePath}download/download-screen01.png`, `${ImagePath}download/download-screen01.png`, `${ImagePath}download/download-screen01.png`, `${ImagePath}download/download-screen01.png`, `${ImagePath}download/download-screen01.png`, `${ImagePath}download/download-screen01.png`, `${ImagePath}download/download-screen01.png`, `${ImagePath}download/download-screen01.png`, `${ImagePath}download/download-screen01.png`, `${ImagePath}download/download-screen01.png`];
 
-const InterfaceSection = () => {
+export interface InterfaceType {
+  image: string;
+}
+
+const InterfaceSection = ({ interfaces }: { interfaces: InterfaceType[] }) => {
   const [activeIndex, setActiveIndex] = useState(0);
-
-  const { data } = useGetApiQuery({ url: URL_KEYS.INTERFACE.ALL });
-
-  const interfaceData = data?.data?.interface_data;
-
-  console.log("featureData : ", data?.data?.interface_data);
 
   return (
     <section id="interface" className=" container container-p">
@@ -49,15 +45,10 @@ const InterfaceSection = () => {
             1100: { spaceBetween: 70 },
           }}
         >
-          {interfaceData?.map((item: { image: string }, i:number) => (
+          {interfaces?.map((item: InterfaceType, i: number) => (
             <SwiperSlide key={i} className="flex justify-center">
               <div className={`transition-all duration-700 ease-in-out transform  rounded-2xl overflow-hidden ${i === activeIndex ? "scale-110 lg:scale-140 " : " lg:scale-110  opacity-80"}`}>
-                <img
-                  src={item?.image}
-                  alt={`App screen ${i + 1}`}
-                  className="w-full h-full object-cover "
-                  // className="rounded-2xl w-full object-contain"
-                />
+                <img src={item?.image} alt={`App screen ${i + 1}`} className="w-full h-full object-cover " />
               </div>
             </SwiperSlide>
           ))}

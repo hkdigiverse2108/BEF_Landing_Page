@@ -8,6 +8,7 @@ import CourseLecturesTab from "../../Components/Course/CourseLecturesTab";
 import CourseFaqsTab from "../../Components/Course/CourseFaqsTab";
 import { useGetApiQuery } from "../../Api/CommonApi";
 import ShareModal from "../../Components/Common/ShareModal";
+import Loader from "../../Components/Common/Loader";
 
 const TabsName = [
   { value: "about", label: "About" },
@@ -19,10 +20,10 @@ const TabsName = [
 const Workshop = () => {
   const [tabIndex, setTabIndex] = useState("about");
 
-  const { data: workshopData } = useGetApiQuery({ url: `${URL_KEYS.WORKSHOP.ALL}` });
+  const { data: workshopData, isLoading: workshopLoading } = useGetApiQuery({ url: `${URL_KEYS.WORKSHOP.ALL}` });
   const workshop = workshopData?.data?.workshop_data[0] || {};
 
-  const { data: ModulesData } = useGetApiQuery({ url: `${URL_KEYS.MODULE.COURSE_WISE}${workshop._id}` }, { skip: !workshop._id });
+  const { data: ModulesData, isLoading: moduleLoading } = useGetApiQuery({ url: `${URL_KEYS.MODULE.COURSE_WISE}${workshop._id}` }, { skip: !workshop._id });
 
   const Modules = ModulesData?.data;
 
@@ -31,6 +32,8 @@ const Workshop = () => {
   const handleChange = (_: SyntheticEvent, newValue: string) => {
     setTabIndex(newValue);
   };
+
+  if (workshopLoading || moduleLoading) return <Loader />;
 
   return (
     <div id="Workshop" className="container container-p space-y-9 py-9 bg-white rounded-xl Workshop">

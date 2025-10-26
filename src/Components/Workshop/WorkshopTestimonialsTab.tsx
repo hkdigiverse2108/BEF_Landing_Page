@@ -35,7 +35,7 @@ const WorkshopTestimonialsTab = () => {
                   <p className="text-sm ">{designation}</p>
                 </span>
                 <p className="text-primary font-bold tracking-widest mt-2">
-                  <Rate allowHalf defaultValue={rating} className=" !text-primary" />
+                  <Rate disabled allowHalf defaultValue={rating} className=" !text-primary" />
                 </p>
               </div>
             </div>

@@ -29,5 +29,18 @@ export const URL_KEYS = {
     },
     INTERFACE: {
         ALL: "interface/public"
+    },
+    BLOG: {
+        ALL: "blog/all"
+    },
+    CONTACT_US: {
+        ADD: "contact-us/add"
+    },
+    HELP_SUPPORT: {
+        ABOUT_US :"about-us?type=landing-page",
+        ILLEGALITY: "illegality?type=landing-page",
+        TERM_CONDITION: "terms-condition?type=landing-page",
+        PRIVACY_POLICY: "privacy-policy?type=landing-page'",
+        REFUND_POLICY: "refund-policy?type=landing-page",
     }
 }

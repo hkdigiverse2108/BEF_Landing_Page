@@ -27,7 +27,7 @@ const WorkshopFaqsTab = () => {
   return (
     <div>
       <div className="space-y-4">
-        {faqs.map((faq: FAQ, index) => (
+        {faqs?.map((faq: FAQ, index) => (
           <FaqCard
             faq={faq}
             index={index}

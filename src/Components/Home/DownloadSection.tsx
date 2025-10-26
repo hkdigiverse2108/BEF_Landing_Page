@@ -3,7 +3,7 @@ import AnimationLine from "../Common/AnimationLine";
 
 const DownloadSection = () => {
   return (
-    <section id="download" className=" pt-20 relative">
+    <section id="download" className="pt-20 relative">
       <div className="container container-p">
         <div
           data-aos="fade-in"

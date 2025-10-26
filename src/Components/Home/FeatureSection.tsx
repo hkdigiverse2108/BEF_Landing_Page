@@ -1,56 +1,11 @@
 import "aos/dist/aos.css";
-import { ImagePath, URL_KEYS } from "../../Constants";
+import { ImagePath } from "../../Constants";
 import SectionHeader from "./SectionHeader";
 import { Link } from "react-router-dom";
-import { useGetApiQuery } from "../../Api/CommonApi";
 import type { FeatureItem } from "../../Types";
 
 
-
-const FeatureSection = () => {
-  // const featureData = [
-  //   {
-  //     title: "AI-Driven Analytics",
-  //     image: `${ImagePath}/features/Feature_frame.jpg`,
-  //     youtube: "https://youtube.com/watch?v=XJj2PbenIsU",
-  //   },
-  //   {
-  //     title: "Personalized Feedback",
-  //     image: `${ImagePath}/features/Feature_frame.jpg`,
-  //     youtube: "https://youtube.com/watch?v=XJj2PbenIsU",
-  //   },
-  //   {
-  //     title: "AI-Driven Analytics",
-  //     image: `${ImagePath}/features/Feature_frame.jpg`,
-  //     youtube: "https://youtube.com/watch?v=XJj2PbenIsU",
-  //   },
-  //   {
-  //     title: "Personalized Feedback",
-  //     image: `${ImagePath}/features/Feature_frame.jpg`,
-  //     youtube: "https://youtube.com/watch?v=XJj2PbenIsU",
-  //   },
-  //   {
-  //     title: "AI-Driven Analytics",
-  //     image: `${ImagePath}/features/Feature_frame.jpg`,
-  //     youtube: "https://youtube.com/watch?v=XJj2PbenIsU",
-  //   },
-  //   {
-  //     title: "Personalized Feedback",
-  //     image: `${ImagePath}/features/Feature_frame.jpg`,
-  //     youtube: "https://youtube.com/watch?v=XJj2PbenIsU",
-  //   },
-  //   {
-  //     title: "Gamified Learning",
-  //     image: `${ImagePath}/features/Feature_frame.jpg`,
-  //     youtube: "https://youtube.com/watch?v=XJj2PbenIsU",
-  //   },
-  // ];
-
-  const { data } = useGetApiQuery({ url: URL_KEYS.FEATURE.ALL });
-
-  const featureData = data?.data?.feature_data;
-
-  console.log("featureData : ", data?.data?.feature_data);
+const FeatureSection = ({ features }: { features: FeatureItem[] }) => {
 
   return (
     <section id="features" className="relative overflow-hidden container container-p ">
@@ -68,9 +23,9 @@ const FeatureSection = () => {
       <div className="bg-white rounded-2xl shadow-sm flex flex-col lg:flex-row justify-between items-start lg:items-start py-6 lg:py-16 px-4 lg:px-12 gap-8 relative">
         {/* Left Side */}
         <div className="lg:order-1 order-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4 space-y-8 w-full lg:w-1/3">
-          {featureData
-            ?.filter((_:string, i:number) => i % 2 === 0)
-            ?.map((item : FeatureItem, i:number) => (
+          {features
+            ?.filter((_: FeatureItem, i: number) => i % 2 === 0)
+            ?.map((item: FeatureItem, i: number) => (
               <div key={i} data-aos="fade-right" className="flex flex-col md:items-end gap-3 w-full ">
                 <Link to={item.link} target="_blank" rel="noopener noreferrer" className="block w-full  rounded-xl overflow-hidden">
                   <img src={item.thumbnailImage} alt={item.title} className="w-full h-full object-cover rounded-xl" />
@@ -87,10 +42,10 @@ const FeatureSection = () => {
 
         {/* Right Side */}
         <div className="order-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4  space-y-8 w-full lg:w-1/3">
-          {featureData
-            ?.filter((_:string, i:number) => i % 2 !== 0)
-            ?.map((item : FeatureItem, i:number) => (
-              <div key={i}   data-aos="fade-left" className="flex flex-col items-start gap-3 w-full ">
+          {features
+            ?.filter((_: FeatureItem, i: number) => i % 2 !== 0)
+            ?.map((item: FeatureItem, i: number) => (
+              <div key={i} data-aos="fade-left" className="flex flex-col items-start gap-3 w-full ">
                 <Link to={item.link} target="_blank" rel="noopener noreferrer" className="block w-full  rounded-xl overflow-hidden">
                   <img src={item.thumbnailImage} alt={item.title} className="w-full h-full object-cover rounded-xl" />
                 </Link>

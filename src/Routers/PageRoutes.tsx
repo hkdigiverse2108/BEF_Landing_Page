@@ -5,6 +5,7 @@ import CourseDetails from "../Pages/Course/CourseDetails";
 import Home from "../Pages/Home";
 import Workshop from "../Pages/Workshop";
 import WorkshopRegister from "../Pages/Workshop/WorkshopRegister";
+import HelpSupport from "../Pages/Help&Support";
 
 export const PageRoutes = [
   {
@@ -34,5 +35,9 @@ export const PageRoutes = [
   {
     path: ROUTES.COURSE.REGISTER,
     element: <CourseRegister />,
+  },
+  {
+    path: ROUTES.HELP_SUPPORT.BASE,
+    element: <HelpSupport />,
   },
 ];
