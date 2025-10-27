@@ -27,7 +27,6 @@ const CourseRegister = () => {
 
   const { title = "Have questions about this batch?", price = 0, payingPrice = 0 } = course;
 
-  // Load Razorpay script once
   useEffect(() => {
     const script = document.createElement("script");
     script.src = "https://checkout.razorpay.com/v1/checkout.js";
@@ -35,7 +34,6 @@ const CourseRegister = () => {
     document.body.appendChild(script);
   }, []);
 
-  // Called after successful payment
   const handlePayment = async (response: RazorpayResponse, values: FormValues, status: "COMPLETED" | "FAILED") => {
     console.log("Razorpay  Response:", response , status);
 
@@ -59,14 +57,12 @@ const CourseRegister = () => {
     }
   };
 
-  //  Called when form is submitted
   const onFinish = async (values: FormValues) => {
 
     if (!window.Razorpay) {
       return;
     }
 
-    //   dynamically calculate amount or use payingPrice directly
     const amount = payingPrice * 100;
 
     const options = {

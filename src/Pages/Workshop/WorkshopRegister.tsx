@@ -27,7 +27,6 @@ const WorkshopRegister = () => {
 
   const { title = "Have questions about this batch?", totalAmount = 0, discountAmount = 0 } = workshop;
 
-  // Load Razorpay script once
   useEffect(() => {
     const script = document.createElement("script");
     script.src = "https://checkout.razorpay.com/v1/checkout.js";
@@ -35,7 +34,6 @@ const WorkshopRegister = () => {
     document.body.appendChild(script);
   }, []);
 
-  // Called after successful payment
   const handlePayment = async (response: RazorpayResponse, values: FormValues, status: "COMPLETED" | "FAILED") => {
     console.log("Razorpay Response:", response, status);
 
@@ -58,7 +56,6 @@ const WorkshopRegister = () => {
     }
   };
 
-  //  Called when form is submitted
   const onFinish = async (values: FormValues) => {
     if (!window.Razorpay) {
       return;

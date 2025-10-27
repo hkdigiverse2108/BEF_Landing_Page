@@ -30,8 +30,7 @@ const CourseDetails = () => {
 
   const {
     title = "Have questions about this batch?",
-    // subtitle = "Talk to a counsellor",
-    // image = `${ImagePath}course/CourseCardImage.jpg`,
+    image = `${ImagePath}course/CourseCardImage.jpg`,
     language = "हिंGLISH",
     totalLecture = 0,
     testNumber = 0,
@@ -53,7 +52,7 @@ const CourseDetails = () => {
           <ShareModal />
         </div>
         <figure>
-          <img src={`${ImagePath}course/CourseCardImage.jpg`} alt="" className="w-full h-full rounded-lg" />
+          <img src={image} alt="" className="w-full h-full rounded-lg" />
         </figure>
       </section>
       <section className="">
@@ -61,8 +60,6 @@ const CourseDetails = () => {
           <section className=" max-sm:text-sm font-medium flex justify-between  gap-3">
             <div className="flex  gap-2 items-center">
               <div className="bg-white border border-gray-300  w-fit h-fit px-3 py-1  rounded-md ">
-                {/* <span className="sm:hidden">हिंn</span> */}
-                {/* <span className="max-sm:hidden">{language}</span> */}
                 <span>{language}</span>
               </div>
               <div className="uppercase max-sm:text-xs text-primary font-bold ">{description}</div>
@@ -92,8 +89,7 @@ const CourseDetails = () => {
                       {i + 1}. {module.name}
                     </li>
                   ))}
-                  {/* <li>2. MCQ Aptitude Test</li>
-                  <li>3. Mapping Test</li> */}
+                
                 </ul>
               </div>
             </div>
@@ -107,14 +103,6 @@ const CourseDetails = () => {
                   <p>100% Money Back</p>
                 </div>
               </div>
-              {/* <div className="space-y-2 w-full ">
-                <p className="max-sm:hidden">Module</p>
-                <ul className="w-full text-sm flex flex-col sm:flex-row gap-2 sm:gap-4">
-                  <li>1. MCQ Aptitude</li>
-                  <li>2. MCQ Aptitude Test</li>
-                  <li>3. Mapping Test</li>
-                </ul>
-              </div> */}
             </div>
           </section>
         </div>

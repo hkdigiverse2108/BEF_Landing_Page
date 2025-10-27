@@ -45,8 +45,6 @@ const AboutSection = ({ aboutUs }: { aboutUs: string }) => {
           <div className="text-left  mb-6">
             <h2 className="text-3xl sm:text-4xl font-extrabold text-primary leading-tight mb-4">Some awesome words about app.</h2>
             <div className="text-sm text-gray-600" dangerouslySetInnerHTML={{ __html: aboutUs }} />
-            {/* 
-            <p className="text-gray-600 text-base sm:text-lg leading-relaxed">Experience a revolutionary way to practice with features like striking out wrong options, marking 100% sure answers, and playing with logic—all designed to boost your confidence and accuracy. Every click takes you closer to success!</p> */}
           </div>
 
           <ul id="counter" className="grid grid-cols-1 sm:grid-cols-2 mt-10 justify-between gap-6" data-aos="fade-up">

@@ -1,6 +1,3 @@
-export type HomeLoadingProps = {
-  setHomeLoading: (loading: boolean) => void;
-};
 
 export interface StepType {
   title: string;

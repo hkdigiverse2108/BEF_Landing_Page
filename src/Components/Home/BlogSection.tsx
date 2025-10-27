@@ -44,7 +44,6 @@ const BlogSection = ({ blogs }: { blogs: BlogType[] }) => {
           onClick={() => setViewAll(!viewAll)}
           htmlType="submit"
           type="primary"
-          //  className="inline-block bg-primary text-white px-6 py-3 rounded-lg text-sm sm:text-base font-semibold hover:bg-primary/90 transition-colors"
           className="btn primary_btn !h-12 !rounded-full"
         >
           {viewAll ? "View Less" : "View All"}

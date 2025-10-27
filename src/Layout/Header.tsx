@@ -4,12 +4,14 @@ import { HeaderItems } from "../Data";
 import { RiMenu3Fill } from "react-icons/ri";
 import { IoClose } from "react-icons/io5";
 import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [subMenu, setSubMenu] = useState(0);
   const [isScrolled, setIsScrolled] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -58,7 +60,9 @@ const Header = () => {
                 )}
               </div>
             ))}
-            <button className="btn primary_btn  w-full ">Login</button>
+            <NavLink to={ROUTES.LOGIN}>
+              <button className="btn primary_btn  w-full ">Login</button>
+            </NavLink>
           </nav>
 
           <div className="block lg:hidden gap-1 items-center text-2xl ">
@@ -71,37 +75,36 @@ const Header = () => {
         {HeaderItems?.map((item, index) => (
           <div key={index} className="relative group cursor-pointer">
             {/* Main Menu Item */}
-            <div className={`flex gap-1 items-center font-medium text-gray-800 hover:text-primary transition px-2 md:px-4 py-2 rounded-t-lg ${item?.child ? "lg:group-hover:bg-white lg:hover:shadow-md justify-between" : ""}`} onClick={() => setSubMenu(subMenu === index ? 0 : index)}>
+            <div onClick={() => navigate(item?.link || "")} className={`flex gap-1 items-center font-medium text-gray-800 hover:text-primary transition px-2 md:px-4 py-2 rounded-t-lg ${item?.child ? "lg:group-hover:bg-white lg:hover:shadow-md justify-between" : ""}`}>
               {item.Title}
-              {item.child && <FaAngleDown />}
+              <span
+                className="w-full h-full flex justify-end "
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setSubMenu(subMenu === index ? 0 : index);
+                }}
+              >
+                {item.child && <FaAngleDown />}
+              </span>
             </div>
 
             {/* Dropdown Menu (animated open/close) */}
             {item.child && (
               <ul className={`lg:hidden flex flex-col bg-white gap-1 rounded-2xl overflow-hidden transition-all duration-500 ease-in-out origin-top ${subMenu === index ? "max-h-[500px] opacity-100 scale-y-100" : "max-h-0 opacity-0 scale-y-0"}`}>
                 {item.child?.map((sub, subIndex) => (
-                  <li key={subIndex} className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-primary transition rounded-md">
-                    {sub.Title}
-                  </li>
+                  <NavLink key={subIndex} to={sub.link}>
+                    <li key={subIndex} className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-primary transition rounded-md">
+                      {sub.Title}
+                    </li>
+                  </NavLink>
                 ))}
               </ul>
             )}
-
-            {/* {item.child && (
-              <ul className="absolute left-0 bg-white shadow-xl rounded-xl py-2 w-56 opacity-0 group-hover:opacity-100 group-hover:visible invisible transition-all duration-300 translate-y-2 group-hover:translate-y-0 z-50">
-                {item.child?.map((sub, subIndex) => (
-                  <li
-                    key={subIndex}
-                    className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-primary transition rounded-md"
-                  >
-                    {sub.Title}
-                  </li>
-                ))}
-              </ul>
-            )} */}
           </div>
         ))}
-        <button className="btn primary_btn  w-fit ">Login</button>
+        <NavLink to={ROUTES.LOGIN}>
+          <button className="btn primary_btn  w-fit ">Login</button>
+        </NavLink>
       </div>
     </div>
   );

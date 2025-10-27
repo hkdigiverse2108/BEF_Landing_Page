@@ -55,10 +55,9 @@ const TestimonialSection = ({ testimonials }: { testimonials: Testimonial[] }) =
               clickable: true,
               renderBullet: (index, className) => {
                 if (index < 3) {
-                  // only show first 3 dots
                   return `<span class="${className}"></span>`;
                 }
-                return ""; // hide remaining dots
+                return "";
               },
             }}
             onSwiper={(swiper) => {

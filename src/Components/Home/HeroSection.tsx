@@ -5,16 +5,11 @@ import { A11y, Autoplay, EffectCards, Pagination } from "swiper/modules";
 import { Link } from "react-router-dom";
 import AnimationLine from "../Common/AnimationLine";
 import type { InterfaceType } from "./InterfaceSection";
+import { APP_LINKS } from "../../Constants/AppLinks";
 
 const HeroSection = ({ interfaces }: { interfaces: InterfaceType[] }) => {
-  const appLinks = {
-    playstore: "#",
-    appstore: "#",
-  };
-
   const users = [`${ImagePath}/home/user01.png`, `${ImagePath}/home/user02.png`, `${ImagePath}/home/user03.png`, `${ImagePath}/home/user04.png`];
 
-  // const slides = [`${ImagePath}/home/screen4.png`, `${ImagePath}/home/screen4.png`, `${ImagePath}/home/screen4.png`];
 
   return (
     <section id="hero" className="overflow-hidden">
@@ -30,12 +25,12 @@ const HeroSection = ({ interfaces }: { interfaces: InterfaceType[] }) => {
 
           {/* App Buttons */}
           <div className="flex gap-5 max-lg:justify-center">
-            <Link to={appLinks.appstore} className="relative border-2 border-success rounded-xl px-3 py-2 sm:px-6 sm:py-3 bg-white hover:bg-success transition group ">
+            <Link to={APP_LINKS.APP_STORE} className="relative border-2 border-success rounded-xl px-3 py-2 sm:px-6 sm:py-3 bg-white hover:bg-success transition group ">
               <img src={`${ImagePath}common/appstore_blue.png`} alt="App Store" className="h-8 block group-hover:hidden" />
               <img src={`${ImagePath}common/appstore_white.png`} alt="App Store" className="h-8 hidden group-hover:block" />
             </Link>
 
-            <Link to={appLinks.playstore} className="relative border-2 border-success  rounded-xl px-3 py-2 sm:px-6 sm:py-3 bg-white hover:bg-success transition group">
+            <Link to={APP_LINKS.PLAY_STORE} className="relative border-2 border-success  rounded-xl px-3 py-2 sm:px-6 sm:py-3 bg-white hover:bg-success transition group">
               <img src={`${ImagePath}common/googleplay_blue.png`} alt="Play Store" className="h-8 block group-hover:hidden" />
               <img src={`${ImagePath}common/googleplay_white.png`} alt="Play Store" className="h-8 hidden group-hover:block" />
             </Link>
@@ -54,41 +49,25 @@ const HeroSection = ({ interfaces }: { interfaces: InterfaceType[] }) => {
           </div>
         </div>
 
-        {/* Right Slider */}
         <div className="relative w-fit px-24 flex justify-center items-center " data-aos="fade-left">
-          {/* Background circle */}
           <div className=" absolute w-[450px] h-[450px] bg-primary rounded-full -z-10"></div>
 
-          {/* Decorative icons */}
           <img src={`${ImagePath}home/message_icon.png`} alt="message" className="hidden sm:block absolute left-0 z-100  bottom-16 " />
           <img src={`${ImagePath}home/shield_icon.png`} alt="shield" className="hidden sm:block absolute right-0  top-16 " />
 
-          {/* Image slider (simplified) */}
           <div className="relative w-[300px] h-[700px] flex items-center justify-center ">
-            {/* Swiper Slides (behind frame) */}
-            <Swiper
-              modules={[Pagination, A11y, Autoplay, EffectCards]}
-              slidesPerView={1}
-              speed={700}
-              loop={true}
-              effect="fade"
-              autoplay={{ delay: 2000 }}
-              //   pagination={{ clickable: true }}
-              className=" absolute  z-0 rounded-[30px] !overflow-hidden  bg-white "
-            >
+            <Swiper modules={[Pagination, A11y, Autoplay, EffectCards]} slidesPerView={1} speed={700} loop={true} effect="fade" autoplay={{ delay: 2000 }} className=" absolute  z-0 rounded-[30px] !overflow-hidden  bg-white ">
               {interfaces?.map((slide, i) => (
                 <SwiperSlide key={i} className="">
                   <img src={slide.image} alt={`slide-${i}`} className="w-full h-full object-cover !px-0.5" />
                 </SwiperSlide>
               ))}
             </Swiper>
-            {/* Frame Image (on top) */}
             <img src={`${ImagePath}/home/f1.png`} alt="frame" className="absolute top-14 left-0 w-full h-fit z-10 pointer-events-none select-none !overflow-hidden scale-110 " />
           </div>
         </div>
       </div>
 
-      {/* Wave shape at bottom */}
       <div
         className=" w-full h-[13rem] bg-cover bg-center mt-[-50px] z-100 overflow-visible  "
         style={{

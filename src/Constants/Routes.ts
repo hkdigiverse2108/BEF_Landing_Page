@@ -1,5 +1,6 @@
 export const ROUTES = {
   HOME: "/",
+  LOGIN: "/",
   WORKSHOP: {
     WORKSHOP: "/workshop",
     REGISTER: "/workshop/register"
@@ -9,7 +10,6 @@ export const ROUTES = {
     DETAILS: "/course/details/:id",
     REGISTER: "/course/register"
   },
-  // HELP_SUPPORT: "/help-support:slug",
   HELP_SUPPORT: {
     BASE: "/help-support/:slug",
     ABOUT_US: "/help-support/aboutUs",

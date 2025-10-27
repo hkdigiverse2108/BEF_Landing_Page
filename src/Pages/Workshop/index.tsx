@@ -27,7 +27,7 @@ const Workshop = () => {
 
   const Modules = ModulesData?.data;
 
-  const { title = "Have questions about this batch?", language = "हिंGLISH", totalLecture = 0, testNumber = 0, description = "subject-level full syllabus batch", totalAmount = 0, discountAmount = 0, _id = "" } = workshop;
+  const { title = "Have questions about this batch?",  image = `${ImagePath}course/CourseCardImage.jpg`, language = "हिंGLISH", totalLecture = 0, testNumber = 0, description = "subject-level full syllabus batch", totalAmount = 0, discountAmount = 0, _id = "" } = workshop;
 
   const handleChange = (_: SyntheticEvent, newValue: string) => {
     setTabIndex(newValue);
@@ -45,7 +45,7 @@ const Workshop = () => {
           </button> */}
         </div>
         <figure>
-          <img src={`${ImagePath}course/CourseCardImage.jpg`} alt="" className="w-full h-full rounded-lg" />
+          <img src={image} alt="" className="w-full h-full rounded-lg" />
         </figure>
       </section>
       <section className="">

@@ -68,7 +68,7 @@ const Footer = () => {
 
       {/* Footer Bottom */}
       <div className="text-center text-sm sm:text-base bg-black border-t border-white/20 py-4">
-        © Copyrights 2024 All rights reserved by <span className="font-medium">HK Digiverse LLP</span>.
+        © Copyrights 2024 All rights reserved by <span className="font-medium">HK DigiVerse LLP</span>.
       </div>
     </footer>
   );

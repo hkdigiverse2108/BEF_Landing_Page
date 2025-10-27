@@ -11,7 +11,6 @@ const ShareModal: React.FC = () => {
     const currentUrl = window.location.href;
     setPageUrl(currentUrl);
 
-    // Copy URL to clipboard automatically
     navigator.clipboard.writeText(currentUrl);
 
     setIsOpen(true);
@@ -19,7 +18,6 @@ const ShareModal: React.FC = () => {
 
   const handleClose = () => setIsOpen(false);
 
-  // Helper to open a new tab for a given app
   const openShareLink = (platform: string) => {
     const encodedUrl = encodeURIComponent(pageUrl);
     let shareUrl = "";
@@ -46,15 +44,12 @@ const ShareModal: React.FC = () => {
 
   return (
     <>
-      {/* Main Share Button */}
       <Button icon={<PiShareFat />} onClick={handleOpen} className="flex items-center gap-2">
         <span className="max-sm:hidden">Share</span>
       </Button>
 
-      {/* Share Modal */}
       <Modal open={isOpen} onCancel={handleClose} footer={null} centered title="Share">
         <div className="flex flex-col gap-4 items-center justify-center text-center">
-          {/* Social Share Icons */}
           <div className="flex justify-center gap-6 text-3xl mt-2">
             <WhatsAppOutlined onClick={() => openShareLink("whatsapp")} className="!text-green-500 cursor-pointer hover:scale-110 transition-transform" />
             <SendOutlined onClick={() => openShareLink("telegram")} className="!text-blue-500 cursor-pointer hover:scale-110 transition-transform" />
@@ -62,9 +57,7 @@ const ShareModal: React.FC = () => {
             <TwitterOutlined onClick={() => openShareLink("twitter")} className="!  !text-sky-500 cursor-pointer hover:scale-110 transition-transform" />
           </div>
 
-          {/* Copy Link Button */}
 
-          {/* URL Box */}
           <div className="flex justify-between items-center border border-gray-300 rounded-md p-2 w-full  bg-gray-50 break-all">
             {pageUrl}{" "}
             <Button
