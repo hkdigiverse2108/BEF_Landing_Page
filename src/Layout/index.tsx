@@ -28,12 +28,7 @@ const Layout = () => {
         <Outlet />
       </div>
       <GoTop />
-      {location.pathname === ROUTES.COURSE.DETAILS ||
-      location.pathname === ROUTES.WORKSHOP.WORKSHOP? (
-        <div className="mt-45 sm:mt-55 md:mt-30  "></div>
-      ) : (
-        <Footer />
-      )}
+      {location.pathname.startsWith(ROUTES.COURSE.DETAILS.replace("/:id", "")) || location.pathname === ROUTES.WORKSHOP.WORKSHOP ? <div className="mt-45 sm:mt-55 md:mt-30  "></div> : <Footer />}
     </>
   );
 };
