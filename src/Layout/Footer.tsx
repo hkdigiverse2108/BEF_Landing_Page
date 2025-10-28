@@ -1,8 +1,7 @@
 import { ImagePath } from "../Constants";
 import { Link } from "react-router-dom";
-
 import AnimationLine from "../Components/Common/AnimationLine";
-import { Help_Support, Social_Icons } from "../Data";
+import { CONTACT, Help_Support, SOCIAL_MEDIA } from "../Data";
 
 const Footer = () => {
   return (
@@ -11,7 +10,7 @@ const Footer = () => {
       <div className="pointer-events-none absolute inset-0 z-0">
         <AnimationLine />
       </div>
-      <div className=" container container-p mx-auto py-12 md:py-24 px-5 lg:px-10  grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+      <div className=" container container-p mx-auto py-12 md:py-24 px-5 lg:px-10  grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-10">
         {/* Left Column */}
         <div className="space-y-6 md:space-y-12">
           {/* Logo */}
@@ -25,22 +24,27 @@ const Footer = () => {
 
           {/* Contact Info */}
           <div className="space-y-5 text-sm sm:text-base">
-            <p>info@bharatexamfest.com</p>
-            <Link to="" className="flex items-center gap-2">
-              +91 91063 60330
+            <Link to={`https://mail.google.com/mail/?view=cm&fs=1&to=${CONTACT?.emailInfo}`} target="_blank" rel="noopener noreferrer">
+              {CONTACT?.emailInfo}
             </Link>
-            <Link to="" className="flex items-center gap-2">
-              S-251 Angle Business Center-2, Mota Varachha, Surat, Gujrat, India-394101
+            <Link to={`tel:${CONTACT?.number}`} className="flex items-center gap-2">
+              {CONTACT?.number}
+            </Link>
+            <Link to={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(CONTACT?.address)}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+              {CONTACT?.address}
             </Link>
           </div>
 
           {/* Social Icons */}
           <div className="flex gap-3 mt-4">
-            {Social_Icons?.map((Icon, idx) => (
-              <Link key={idx} to={""} className="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center hover:bg-white hover:text-orange-500 transition">
-                <Icon />
-              </Link>
-            ))}
+            {SOCIAL_MEDIA?.map((item) => {
+              const Icon = item?.icon;
+              return (
+                <Link key={item?.title} to={item?.link} className="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center hover:bg-white hover:text-orange-500 transition">
+                  <Icon />
+                </Link>
+              );
+            })}
           </div>
         </div>
 
@@ -57,13 +61,13 @@ const Footer = () => {
         </div>
 
         {/* Right Column: App Download */}
-        <div className=" space-y-6 md:space-y-12">
+        {/* <div className=" space-y-6 md:space-y-12">
           <h4 className="text-lg md:text-2xl font-bold">Let’s Try Out</h4>
           <div className="flex flex-col gap-4">
             <img src={`${ImagePath}common/appstore_blue.png`} alt="App Store" className="px-4 py-2 bg-white rounded-lg w-36 sm:w-40 cursor-pointer" />
             <img src={`${ImagePath}common/googleplay_blue.png`} alt="Google Play" className="px-4 py-2 bg-white rounded-lg w-36 sm:w-40 cursor-pointer" />
           </div>
-        </div>
+        </div> */}
       </div>
 
       {/* Footer Bottom */}

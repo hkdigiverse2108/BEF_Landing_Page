@@ -40,9 +40,6 @@ const Workshop = () => {
       <section className="group space-y-6 rounded-md relative">
         <div className="sm:hidden absolute w-full flex gap-5 justify-end px-2 pt-2 ">
           <ShareModal />
-          {/* <button className="bg-white/50 text-white  backdrop-blur-md rounded-sm  py-1">
-            <PiShareFat />
-          </button> */}
         </div>
         <figure>
           <img src={image} alt="" className="w-full h-full rounded-lg" />
@@ -53,8 +50,6 @@ const Workshop = () => {
           <section className=" max-sm:text-sm font-medium flex justify-between  gap-3">
             <div className="flex  gap-2 items-center">
               <div className="bg-white border border-gray-300  w-fit h-fit px-3 py-1  rounded-md ">
-                {/* <span className="sm:hidden">हिंn</span> */}
-                {/* <span className="max-sm:hidden">हिंGLISH</span> */}
                 <span>{language}</span>
               </div>
               <div className="uppercase max-sm:text-xs text-primary font-bold ">{description}</div>
@@ -84,9 +79,7 @@ const Workshop = () => {
                       {i + 1}. {module.name}
                     </li>
                   ))}
-                  {/* <li>1. MCQ Aptitude</li>
-                  <li>2. MCQ Aptitude Test</li>
-                  <li>3. Mapping Test</li> */}
+          
                 </ul>
               </div>
             </div>
@@ -100,18 +93,9 @@ const Workshop = () => {
                   <p>100% Money Back</p>
                 </div>
               </div>
-              {/* <div className="space-y-2 w-full ">
-                <p className="max-sm:hidden">Module</p>
-                <ul className="w-full text-sm flex flex-col sm:flex-row gap-2 sm:gap-4">
-                  <li>1. MCQ Aptitude</li>
-                  <li>2. MCQ Aptitude Test</li>
-                  <li>3. Mapping Test</li>
-                </ul>
-              </div> */}
+             
             </div>
           </section>
-
-          {/* <span className="border-b border-gray-300 flex w-full h-0.5" /> */}
         </div>
 
         <div>
@@ -143,18 +127,16 @@ const Workshop = () => {
       </section>
 
       {/* ==== Fixed Section ==== */}
-      <section className=" fixed bottom-0 left-0 right-0 z-10 bg-white  ">
-        <div className="container container-p py-3 sm:py-6 flex max-md:flex-col gap-2 md:gap-4 justify-between md:items-end">
+      <section className=" !fixed !bottom-0 left-0 right-0 z-10 bg-white  ">
+        <div className="container container-p py-2 sm:py-3 flex max-md:flex-col gap-2 md:gap-4 justify-between md:items-end">
           <div>
             <p className="text-gray-600 font-medium">Price</p>
-            <h1 className=" sm:text-2xl font-bold flex gap-[2px] items-end">
+            <h1 className=" sm:text-xl font-bold flex gap-[2px] items-end">
               <span>₹{discountAmount}</span>
               <span className="text-base text-red-500 font-semibold line-through decoration-2 ps-1">{totalAmount}</span>
             </h1>
           </div>
-          <div>
-            <p className="max-sm:text-xs text-gray-600 font-medium h-full ">Remaining fee pays after prelims cleared</p>
-          </div>
+        
           <div className=" md:w-1/4">
             <NavLink to={ROUTES.WORKSHOP.REGISTER} state={workshop}>
               <button className="btn primary_btn !h-12 !w-full  ">Enroll Now</button>

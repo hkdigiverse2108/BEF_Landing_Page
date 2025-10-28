@@ -6,11 +6,18 @@ import Home from "../Pages/Home";
 import Workshop from "../Pages/Workshop";
 import WorkshopRegister from "../Pages/Workshop/WorkshopRegister";
 import HelpSupport from "../Pages/Help&Support";
+import WorkshopPayment from "../Pages/Workshop/WorkshopPayment";
+import CoursePayment from "../Pages/Course/CoursePayment";
+import Blog from "../Pages/Blog";
 
 export const PageRoutes = [
   {
     path: ROUTES.HOME,
     element: <Home />,
+  },
+  {
+    path: ROUTES.BLOG,
+    element: <Blog />,
   },
   {
     path: ROUTES.WORKSHOP.WORKSHOP,
@@ -19,6 +26,10 @@ export const PageRoutes = [
   {
     path: ROUTES.WORKSHOP.REGISTER,
     element: <WorkshopRegister />,
+  },
+  {
+    path: ROUTES.WORKSHOP.PAYMENT,
+    element: <WorkshopPayment />,
   },
   {
     path: ROUTES.COURSE.COURSE,
@@ -35,6 +46,10 @@ export const PageRoutes = [
   {
     path: ROUTES.COURSE.REGISTER,
     element: <CourseRegister />,
+  },
+  {
+    path: ROUTES.COURSE.PAYMENT,
+    element: <CoursePayment />,
   },
   {
     path: ROUTES.HELP_SUPPORT.BASE,

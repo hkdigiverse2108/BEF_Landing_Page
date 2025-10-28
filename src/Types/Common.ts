@@ -53,7 +53,7 @@ export interface LectureType {
   subtitle: string;
   image: string;
   link: string;
-  date?: string; 
+  date?: string;
 }
 
 export interface Testimonial {
@@ -62,4 +62,13 @@ export interface Testimonial {
   description: string;
   rating: number;
   image: string;
+}
+
+
+export interface ContactType {
+    number: string;
+    emailInfo: string;
+    emailHelp: string;
+    emailSales: string;
+    address: string;
 }

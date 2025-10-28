@@ -135,13 +135,13 @@ const CourseDetails = () => {
       </section>
 
       {/* ==== Fixed Section ==== */}
-      <section className=" fixed bottom-0 left-0 right-0 z-10 bg-white  ">
-        <div className="container container-p py-3 sm:py-6 flex max-md:flex-col gap-2 md:gap-4 justify-between md:items-end">
+      <section className=" !fixed !bottom-0 left-0 right-0 z-10 bg-white  ">
+        <div className="container container-p py-2 sm:py-3 flex max-md:flex-col gap-2 md:gap-4 justify-between md:items-end">
           <div>
             <p className="text-gray-600 font-medium">Price</p>
-            <h1 className=" sm:text-2xl font-bold flex gap-[2px] items-end">
+            <h1 className=" sm:text-xl font-bold flex gap-[2px] items-end">
               <span>₹{payingPrice}/</span>
-              <span className="text-lg text-gray-600 font-bold">₹{price}</span>
+              <span className="text-base text-gray-600 font-bold">₹{price}</span>
             </h1>
           </div>
           <div>

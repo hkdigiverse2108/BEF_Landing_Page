@@ -13,7 +13,7 @@ const Course = () => {
 
   return (
     <div className="pb-5 container container-p ">
-      <div className="grid gap-4 grid-cols-1 md:grid-cols-2 ">
+      <div className="grid gap-4 grid-cols-1 md:grid-cols-3 ">
         {courses?.map((item: CourseType, index: number) => (
           <CourseCard key={index} course={item} />
         ))}

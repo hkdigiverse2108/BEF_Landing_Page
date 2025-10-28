@@ -1,6 +1,6 @@
 import AboutSection from "../../Components/Home/AboutSection";
 import ContactSection from "../../Components/Home/ContactSection";
-import DownloadSection from "../../Components/Home/DownloadSection";
+// import DownloadSection from "../../Components/Home/DownloadSection";
 import FeatureSection from "../../Components/Home/FeatureSection";
 import HeroSection from "../../Components/Home/HeroSection";
 import StepsSection from "../../Components/Home/StepsSection";
@@ -47,7 +47,7 @@ const Home = () => {
         <BlogSection blogs={blogs} />
         <FAQSection faqs={faqs} />
         <InterfaceSection interfaces={interfaces} />
-        <DownloadSection />
+        {/* <DownloadSection /> */}
         <ContactSection />
       </div>
     </>

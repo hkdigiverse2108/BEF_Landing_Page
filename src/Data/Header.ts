@@ -5,10 +5,6 @@ export const HeaderItems = [
   {
     Title: "Course",
     link: ROUTES.COURSE.COURSE,
-    child: [
-      { Title: "BEF Special ( Without Lecture )", link: "" },
-      { Title: "BEF PRO ( With Lecture )", link: "" },
-    ],
   },
   // {
   //   Title: "Download Now",

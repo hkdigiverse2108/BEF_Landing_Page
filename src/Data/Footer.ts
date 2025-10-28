@@ -1,8 +1,6 @@
-import { FaInstagram, FaTelegramPlane, FaTwitter } from "react-icons/fa";
-import { ImYoutube } from "react-icons/im";
+
 import { ROUTES } from "../Constants";
 
-export const Social_Icons = [FaInstagram, FaTwitter, FaTelegramPlane, ImYoutube]
 
 
 export const Help_Support = [

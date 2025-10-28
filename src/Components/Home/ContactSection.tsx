@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import FormInput from "../../Attribute/FormFields/FormInput";
 import { usePostApiMutation } from "../../Api/CommonApi";
 import type { ContactFormData } from "../../Types";
-
+import { CONTACT } from "../../Data";
 
 const ContactSection = () => {
   const [form] = Form.useForm();
@@ -85,14 +85,14 @@ const ContactSection = () => {
             <img src={`${ImagePath}/contact/mail_icon.png`} alt="icon" className="max-sm:w-12 border border-primary/15 rounded-full" />
             <div>
               <span className="font-semibold block text-lg lg:text-2xl text-primary">Email Us</span>
-              <Link to="" className="block max-sm:text-sm text-gray-600 hover:text-primary">
-                Student: help@bharatexamfest.com
+              <Link to={`https://mail.google.com/mail/?view=cm&fs=1&to=${CONTACT?.emailHelp}`} target="_blank" rel="noopener noreferrer" className="block max-sm:text-sm text-gray-600 hover:text-primary">
+                Student: {CONTACT?.emailHelp}
               </Link>
-              <Link to="" className="block max-sm:text-sm text-gray-600 hover:text-primary">
-                Know More: info@bharatexamfest.com
+              <Link to={`https://mail.google.com/mail/?view=cm&fs=1&to=${CONTACT?.emailInfo}`} target="_blank" rel="noopener noreferrer" className="block max-sm:text-sm text-gray-600 hover:text-primary">
+                Know More: {CONTACT?.emailInfo}
               </Link>
-              <Link to="" className="block max-sm:text-sm text-gray-600 hover:text-primary">
-                Institute: sales@bharatexamfest.com
+              <Link to={`https://mail.google.com/mail/?view=cm&fs=1&to=${CONTACT?.emailSales}`} target="_blank" rel="noopener noreferrer" className="block max-sm:text-sm text-gray-600 hover:text-primary">
+                Institute: {CONTACT?.emailSales}
               </Link>
             </div>
           </li>
@@ -102,8 +102,8 @@ const ContactSection = () => {
 
             <div>
               <span className="font-semibold block text-lg lg:text-2xl text-primary">Call Us</span>
-              <Link to="tel:+919106360330" className="max-sm:text-sm text-gray-600 hover:text-primary">
-                +91 91063 60330
+              <Link to={`tel:${CONTACT?.number}`} className="max-sm:text-sm text-gray-600 hover:text-primary">
+                {CONTACT?.number}
               </Link>
             </div>
           </li>
@@ -113,7 +113,9 @@ const ContactSection = () => {
 
             <div>
               <span className="font-semibold block text-lg lg:text-2xl text-primary">Visit Us</span>
-              <p className="max-sm:text-sm text-gray-600">S-251 Angle Business Center-2, Mota Varachha, Surat, Gujarat, India-394101</p>
+              <Link to={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(CONTACT?.address)}`} target="_blank" rel="noopener noreferrer" className="max-sm:text-sm text-gray-600">
+                {CONTACT?.address}
+              </Link>
             </div>
           </li>
         </ul>

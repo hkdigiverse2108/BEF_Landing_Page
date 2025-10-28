@@ -9,6 +9,8 @@ import { ROUTES } from "../Constants";
 const Layout = () => {
   const location = useLocation();
 
+  const isShow = location.pathname.startsWith(ROUTES.COURSE.DETAILS.replace("/:id", "")) || location.pathname === ROUTES.WORKSHOP.WORKSHOP;
+
   useEffect(() => {
     Aos.init({
       duration: 1200,
@@ -21,14 +23,18 @@ const Layout = () => {
     setTimeout(() => Aos.refresh(), 500);
   }, []);
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  }, [location.pathname]);
+
   return (
     <>
       <Header />
-      <div className="!mt-30 sm:!mt-36 mb-12">
+      <div className={`${isShow ? "!mt-3" : "!mt-30 sm:!mt-36 mb-12"} `}>
         <Outlet />
       </div>
+      {isShow ? <div className="mt-45 sm:mt-55 md:mt-30  "></div> : <Footer />}
       <GoTop />
-      {location.pathname.startsWith(ROUTES.COURSE.DETAILS.replace("/:id", "")) || location.pathname === ROUTES.WORKSHOP.WORKSHOP ? <div className="mt-45 sm:mt-55 md:mt-30  "></div> : <Footer />}
     </>
   );
 };

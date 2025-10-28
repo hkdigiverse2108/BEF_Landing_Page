@@ -1,14 +1,15 @@
 export const ROUTES = {
   HOME: "/",
-  LOGIN: "/",
   WORKSHOP: {
     WORKSHOP: "/workshop",
-    REGISTER: "/workshop/register"
+    REGISTER: "/workshop/register",
+    PAYMENT : "/workshop/payment"
   },
   COURSE: {
     COURSE: "/course",
     DETAILS: "/course/details/:id",
-    REGISTER: "/course/register"
+    REGISTER: "/course/register",
+    PAYMENT : "/course/payment"
   },
   HELP_SUPPORT: {
     BASE: "/help-support/:slug",
@@ -17,6 +18,8 @@ export const ROUTES = {
     TERM_CONDITION: "/help-support/termsCondition",
     PRIVACY_POLICY: "/help-support/privacyPolicy",
     REFUND_POLICY: "/help-support/refundPolicy",
-  }
+  },
+  BLOG : "/blog"
+
 
 };

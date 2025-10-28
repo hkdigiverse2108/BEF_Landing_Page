@@ -8,7 +8,7 @@ const CourseCard = ({ course }: { course: CourseType }) => {
 
   return (
     <NavLink to={`${ROUTES.COURSE.DETAILS.replace(":id", _id)}`} className="relative rounded-2xl overflow-hidden cursor-pointer shadow-xl flex flex-col justify-end">
-      <div className="w-full min-h-[300px] h-full bg-center bg-cover rounded-t-2xl overflow-hidden" style={{ backgroundImage: image }}>
+      <div className="w-full min-h-[200px] h-full bg-center bg-cover rounded-t-2xl overflow-hidden" style={{ backgroundImage: image }}>
         <div className="p-2 rounded-t-xl mx-0.5 flex justify-between gap-7 mb-0.5 absolute top-0 left-0 w-full z-10">
           <span className="bg-white/20 text-white font-bold text-sm p-1 px-3 rounded backdrop-blur-md">{language}</span>
           <span className="bg-white/20 text-white font-bold text-sm p-1 px-3 rounded backdrop-blur-md">{subjectLevel}</span>
