@@ -23,17 +23,17 @@ const Workshop = () => {
   const { data: workshopData, isLoading: workshopLoading } = useGetApiQuery({ url: `${URL_KEYS.WORKSHOP.ALL}` });
   const workshop = workshopData?.data?.workshop_data[0] || {};
 
-  const { data: ModulesData, isLoading: moduleLoading } = useGetApiQuery({ url: `${URL_KEYS.MODULE.COURSE_WISE}${workshop._id}` }, { skip: !workshop._id });
+  // const { data: ModulesData, isLoading: moduleLoading } = useGetApiQuery({ url: `${URL_KEYS.MODULE.COURSE_WISE}${workshop._id}` }, { skip: !workshop._id });
 
-  const Modules = ModulesData?.data;
+  // const Modules = ModulesData?.data;
 
-  const { title = "Have questions about this batch?",  image = `${ImagePath}course/CourseCardImage.jpg`, language = "हिंGLISH", totalLecture = 0, testNumber = 0, description = "subject-level full syllabus batch", totalAmount = 0, discountAmount = 0, _id = "" } = workshop;
+  const { title = "Have questions about this batch?", image = `${ImagePath}course/CourseCardImage.jpg`, language = "हिंGLISH", totalLecture = 0, testNumber = 0, description = "subject-level full syllabus batch", totalAmount = 0, discountAmount = 0, _id = "" } = workshop;
 
   const handleChange = (_: SyntheticEvent, newValue: string) => {
     setTabIndex(newValue);
   };
 
-  if (workshopLoading || moduleLoading) return <Loader />;
+  if (workshopLoading) return <Loader />;
 
   return (
     <div id="Workshop" className="container container-p space-y-9 py-9 bg-white rounded-xl Workshop">
@@ -42,7 +42,7 @@ const Workshop = () => {
           <ShareModal />
         </div>
         <figure>
-          <img src={image} alt="" className="w-full h-full rounded-lg" />
+          <img src={image} alt="" className="w-full h-full rounded-lg max-h-[35rem]" />
         </figure>
       </section>
       <section className="">
@@ -74,12 +74,11 @@ const Workshop = () => {
               <div className="space-y-2 w-full ">
                 <p className="max-sm:hidden font-medium ">Module</p>
                 <ul className="w-full text-sm flex flex-col sm:flex-row gap-2 sm:gap-4">
-                  {Modules?.map((module: { name: string }, i: number) => (
+                  {/* {Modules?.map((module: { name: string }, i: number) => (
                     <li>
                       {i + 1}. {module.name}
                     </li>
-                  ))}
-          
+                  ))} */}
                 </ul>
               </div>
             </div>
@@ -93,7 +92,6 @@ const Workshop = () => {
                   <p>100% Money Back</p>
                 </div>
               </div>
-             
             </div>
           </section>
         </div>
@@ -136,7 +134,7 @@ const Workshop = () => {
               <span className="text-base text-red-500 font-semibold line-through decoration-2 ps-1">{totalAmount}</span>
             </h1>
           </div>
-        
+
           <div className=" md:w-1/4">
             <NavLink to={ROUTES.WORKSHOP.REGISTER} state={workshop}>
               <button className="btn primary_btn !h-12 !w-full  ">Enroll Now</button>

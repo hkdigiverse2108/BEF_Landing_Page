@@ -1,7 +1,7 @@
 import { ImagePath, ROUTES, URL_KEYS } from "../../Constants";
 import { Tab, Tabs } from "@mui/material";
-import { useState, type SyntheticEvent } from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { useEffect, useState, type SyntheticEvent } from "react";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import CourseAboutTab from "../../Components/Course/CourseAboutTab";
 import CourseLecturesTab from "../../Components/Course/CourseLecturesTab";
 import CourseModuleTab from "../../Components/Course/CourseModuleTab";
@@ -19,6 +19,7 @@ const TabsName = [
 
 const CourseDetails = () => {
   const [tabIndex, setTabIndex] = useState("about");
+  const navigate = useNavigate();
 
   const { id }: { id?: string } = useParams();
 
@@ -28,20 +29,17 @@ const CourseDetails = () => {
   const { data: modulesData, isLoading: moduleLoading } = useGetApiQuery({ url: `${URL_KEYS.MODULE.COURSE_WISE}${course._id}` }, { skip: !course._id });
   const Modules = modulesData?.data;
 
-  const {
-    title = "Have questions about this batch?",
-    image = `${ImagePath}course/CourseCardImage.jpg`,
-    language = "हिंGLISH",
-    totalLecture = 0,
-    testNumber = 0,
-    description = "subject-level full syllabus batch",
-    price = 0,
-    payingPrice = 0,
-  } = course;
+  const { title = "Have questions about this batch?", image = `${ImagePath}course/CourseCardImage.jpg`, language = "हिंGLISH", totalLecture = 0, testNumber = 0, description = "subject-level full syllabus batch", price = 0, payingPrice = 0 } = course;
 
   const handleChange = (_: SyntheticEvent, newValue: string) => {
     setTabIndex(newValue);
   };
+
+  useEffect(() => {
+    if (!id) {
+      navigate(ROUTES.COURSE.COURSE);
+    }
+  }, []);
 
   if (courseLoading || moduleLoading) return <Loader />;
 
@@ -52,7 +50,7 @@ const CourseDetails = () => {
           <ShareModal />
         </div>
         <figure>
-          <img src={image} alt="" className="w-full h-full rounded-lg" />
+          <img src={image} alt="" className="w-full h-full rounded-lg max-h-[35rem]" />
         </figure>
       </section>
       <section className="">
@@ -89,7 +87,6 @@ const CourseDetails = () => {
                       {i + 1}. {module.name}
                     </li>
                   ))}
-                
                 </ul>
               </div>
             </div>

@@ -9,6 +9,9 @@ import HelpSupport from "../Pages/Help&Support";
 import WorkshopPayment from "../Pages/Workshop/WorkshopPayment";
 import CoursePayment from "../Pages/Course/CoursePayment";
 import Blog from "../Pages/Blog";
+import PageNotFound from "../Components/Common/PageNotFound";
+import PaymentSuccess from "../Components/Common/PaymentSuccess";
+import PaymentFailed from "../Components/Common/PaymentFailed";
 
 export const PageRoutes = [
   {
@@ -54,5 +57,17 @@ export const PageRoutes = [
   {
     path: ROUTES.HELP_SUPPORT.BASE,
     element: <HelpSupport />,
+  },
+  {
+    path: ROUTES.PAYMENT.SUCCESS,
+    element: <PaymentSuccess />,
+  },
+  {
+    path: ROUTES.PAYMENT.FAILED,
+    element: <PaymentFailed />,
+  },
+  {
+    path: "*",
+    element: <PageNotFound />,
   },
 ];

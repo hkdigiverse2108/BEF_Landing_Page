@@ -29,12 +29,13 @@ export interface RazorpayOptions {
         email: string;
         contact: string;
     };
-    notes: {
-        course: string;
-        referral: string;
+    notes?: {
+        course?: string;
+        title?: string;
+        referral?: string;
     };
-    theme: {
-        color: string;
+    theme?: {
+        color?: string;
     };
 }
 

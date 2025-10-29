@@ -3,13 +3,13 @@ export const ROUTES = {
   WORKSHOP: {
     WORKSHOP: "/workshop",
     REGISTER: "/workshop/register",
-    PAYMENT : "/workshop/payment"
+    PAYMENT: "/workshop/payment"
   },
   COURSE: {
     COURSE: "/course",
     DETAILS: "/course/details/:id",
     REGISTER: "/course/register",
-    PAYMENT : "/course/payment"
+    PAYMENT: "/course/payment"
   },
   HELP_SUPPORT: {
     BASE: "/help-support/:slug",
@@ -19,7 +19,11 @@ export const ROUTES = {
     PRIVACY_POLICY: "/help-support/privacyPolicy",
     REFUND_POLICY: "/help-support/refundPolicy",
   },
-  BLOG : "/blog"
+  BLOG: "/blog",
+  PAYMENT: {
+    SUCCESS: "/payment/success",
+    FAILED: "/payment/failed"
+  }
 
 
 };

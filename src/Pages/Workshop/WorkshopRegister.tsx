@@ -4,6 +4,7 @@ import SectionHeader from "../../Components/Home/SectionHeader";
 import FormInput from "../../Attribute/FormFields/FormInput";
 import type { FormValues, WorkshopType } from "../../Types";
 import { ImagePath, ROUTES } from "../../Constants";
+import { useEffect } from "react";
 const { Option } = Select;
 
 const WorkshopRegister = () => {
@@ -15,9 +16,15 @@ const WorkshopRegister = () => {
 
   const onFinish = (values: FormValues) => {
     navigate(ROUTES.WORKSHOP.PAYMENT, {
-      state: { formValues : values, workshop },
+      state: { formValues: values, workshop },
     });
   };
+
+  useEffect(() => {
+    if (!workshop) {
+      navigate(ROUTES.WORKSHOP.WORKSHOP);
+    }
+  }, []);
 
   return (
     <section id="purchase" className="container flex max-md:flex-col justify-between py-10 px-4 gap-5">

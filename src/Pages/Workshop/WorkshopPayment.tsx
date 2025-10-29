@@ -1,15 +1,29 @@
-import { useLocation } from "react-router-dom";
-import type { FormValues, WorkshopType } from "../../Types";
+import { useLocation, useNavigate } from "react-router-dom";
+import type { FormValues, LectureType, WorkshopType } from "../../Types";
 import PaymentModule from "../../Components/Common/PaymentModule ";
-import { ImagePath } from "../../Constants";
+import { ImagePath, ROUTES, URL_KEYS } from "../../Constants";
 import FormInput from "../../Attribute/FormFields/FormInput";
 import { Button } from "antd";
+import { useEffect } from "react";
+import { useGetApiQuery } from "../../Api/CommonApi";
 
 const WorkshopPayment = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+
   const { formValues, workshop }: { formValues: FormValues; workshop: WorkshopType } = location.state || {};
 
+  const { data } = useGetApiQuery({ url: `${URL_KEYS.LECTURE.ALL}?workshopFilter=${workshop._id}` });
+
+  const Lectures = data?.data?.lecture_data;
+
   const { title = "Workshop", discountAmount = 0 } = workshop;
+
+  useEffect(() => {
+    if (!formValues || !workshop) {
+      navigate(ROUTES.WORKSHOP.WORKSHOP);
+    }
+  }, []);
 
   return (
     <section className="container flex max-md:flex-col justify-between py-10 px-4 gap-5">
@@ -23,10 +37,12 @@ const WorkshopPayment = () => {
         <div className="flex flex-col justify-between h-full text-gray-700 text-sm sm:text-base">
           <section className="space-y-4">
             <div>
-              <strong className="text-2xl font-semibold text-primary">Module Name </strong>
-              <p>1</p>
-              <p>2</p>
-              <p>3</p>
+              <strong className="text-2xl font-semibold text-primary">Lectures Name </strong>
+              <ul>
+                {Lectures?.map((lecture: LectureType) => (
+                  <li className="text-sm text-gray-800">{lecture?.title}</li>
+                ))}
+              </ul>
             </div>
 
             <div className="flex flex-nowrap justify-between h-fit gap-2">
@@ -45,7 +61,7 @@ const WorkshopPayment = () => {
             <p className="flex justify-between mt-1 mb-3 font-semibold text-lg">
               Total (Incl. of all taxes): <span className="text-primary">₹{discountAmount}</span>
             </p>
-            <PaymentModule values={formValues} title={title} amount={discountAmount} />
+            <PaymentModule values={formValues} title={title} amount={discountAmount} type="workshop" itemData={workshop} apiUrl={URL_KEYS.WORKSHOP.REGISTER} />
           </div>
         </div>
       </div>

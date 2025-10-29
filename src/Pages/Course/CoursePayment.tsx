@@ -1,15 +1,29 @@
-import { useLocation } from "react-router-dom";
-import type { FormValues, CourseType } from "../../Types";
+import { useLocation, useNavigate } from "react-router-dom";
+import type { FormValues, CourseType, ModuleType } from "../../Types";
 import PaymentModule from "../../Components/Common/PaymentModule ";
-import { ImagePath } from "../../Constants";
+import { ImagePath, ROUTES, URL_KEYS } from "../../Constants";
 import FormInput from "../../Attribute/FormFields/FormInput";
 import { Button } from "antd";
+import { useGetApiQuery } from "../../Api/CommonApi";
+import { useEffect } from "react";
 
 const CoursePayment = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const { formValues, course }: { formValues: FormValues; course: CourseType } = location.state || {};
 
+  const { data: ModulesData } = useGetApiQuery({ url: `${URL_KEYS.MODULE.COURSE_WISE}${course._id}` });
+
+  const Modules = ModulesData?.data;
+  console.log("module:", Modules, course);
+
   const { title = "Course Name", payingPrice = 0 } = course;
+
+  useEffect(() => {
+    if (!formValues || !course) {
+      navigate(ROUTES.COURSE.COURSE);
+    }
+  }, []);
 
   return (
     <section className="container flex max-md:flex-col justify-between py-10 px-4 gap-5 h-full">
@@ -26,9 +40,11 @@ const CoursePayment = () => {
               <h2 className="text-2xl font-semibold text-primary">{title}</h2>
               <div>
                 <strong>Module Name </strong>
-                <p>1</p>
-                <p>2</p>
-                <p>3</p>
+                <ul>
+                  {Modules?.map((module: ModuleType) => (
+                    <li className="text-sm text-gray-800">{module?.name}</li>
+                  ))}
+                </ul>
               </div>
             </section>
             <div className="flex flex-nowrap justify-between h-fit gap-2">
@@ -59,7 +75,7 @@ const CoursePayment = () => {
             <p className="flex justify-between mt-1 mb-3 font-semibold text-lg">
               Total (Incl. of all taxes): <span className="text-primary">₹{payingPrice}</span>
             </p>
-            <PaymentModule values={formValues} title={title} amount={payingPrice} />
+            <PaymentModule values={formValues} title={title} amount={payingPrice} type="course"  itemData={course} apiUrl={URL_KEYS.COURSE.REGISTER} />
           </div>
         </div>
       </div>

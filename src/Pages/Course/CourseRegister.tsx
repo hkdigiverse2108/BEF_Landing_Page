@@ -4,6 +4,7 @@ import SectionHeader from "../../Components/Home/SectionHeader";
 import FormInput from "../../Attribute/FormFields/FormInput";
 import type { FormValues, CourseType } from "../../Types";
 import { ImagePath, ROUTES } from "../../Constants";
+import { useEffect } from "react";
 
 const { Option } = Select;
 
@@ -19,6 +20,12 @@ const CourseRegister = () => {
       state: { formValues: values, course },
     });
   };
+
+  useEffect(() => {
+    if (!course) {
+      navigate(ROUTES.COURSE.COURSE);
+    }
+  }, []);
 
   return (
     <section id="purchase" className="container flex max-md:flex-col justify-between py-10 px-4 gap-5 h-full">
