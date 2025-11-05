@@ -5,7 +5,6 @@ import type { CourseType } from "../../Types";
 
 const CourseCard = ({ course }: { course: CourseType }) => {
   const {
-    subtitle = "Talk to a counsellor",
     image = `${ImagePath}course/CourseCardImage.jpg`,
     language = "हिंGLISH",
     syllabus: { subjectLevel = "basic" } = {},
@@ -13,6 +12,7 @@ const CourseCard = ({ course }: { course: CourseType }) => {
     onCallClick,
   } = course;
   const title = "Have questions about this Course?";
+  const subtitle = "Talk to a counsellor";
 
   return (
     <NavLink
@@ -37,7 +37,7 @@ const CourseCard = ({ course }: { course: CourseType }) => {
           <span className="font-normal text-xs  ">{title}</span>
           <span
             onClick={onCallClick}
-            className="w-full transition-colors hover:bg-input-box-dark/60 border border-input-box-dark font-semibold text-sm p-1 px-3 rounded-sm capitalize flex items-center cursor-pointer"
+            className="w-fit text-nowrap transition-colors hover:bg-input-box-dark/60 border border-gray-300 font-normal text-xs p-1 px-3 rounded-sm capitalize flex items-center cursor-pointer"
           >
             <TbPhoneCall className="me-2 text-lg text-success" />
             {subtitle}

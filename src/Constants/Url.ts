@@ -45,6 +45,9 @@ export const URL_KEYS = {
     REFUND_POLICY: "refund-policy?type=landing-page",
   },
   SETTINGS: {
-    ALL: "setting/all",
+    ALL: "setting",
+  },
+  REFERRAL: {
+    CHECK: "coupon/check",
   },
 };

@@ -105,7 +105,7 @@ const WorkshopPayment = () => {
 
           <div className="border-t border-gray-200 pt-2 ">
             <p className="flex justify-between">
-              <strong>Subscription Fee:</strong>{" "}
+              <strong>Enrollment Fee:</strong>{" "}
               <span className="font-semibold">₹{discountAmount}</span>
             </p>
             <p className="flex justify-between mt-1 mb-3 font-semibold text-lg">

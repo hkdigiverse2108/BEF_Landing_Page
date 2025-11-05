@@ -65,8 +65,6 @@ const CourseRegister = () => {
 
           <FormInput name="pincode" className="!py-3 placeholder:!font-medium !px-4 rounded-lg" placeholder="Pincode" />
 
-          <FormInput name="referral" className="!py-3 placeholder:!font-medium !px-4 rounded-lg" placeholder="Referral Code" />
-
           <Form.Item name="reachFrom">
             <Select placeholder="Reach From" allowClear className="rounded-lg  ">
               <Option value="youtube">Youtube</Option>

@@ -150,7 +150,8 @@ body {
 .react-international-phone-input-container .react-international-phone-input {
   @apply !bg-primary !border-0 !pe-0 !w-10;
 }
-.react-international-phone-input-container .react-international-phone-country-selector-button {
+.react-international-phone-input-container
+  .react-international-phone-country-selector-button {
   @apply border-0 !bg-primary;
 }
 
@@ -216,10 +217,10 @@ body {
 
 /* ================  steps Section End ================ */
 
-.ant-modal-content {
+.YT-Modal .ant-modal-content {
   @apply !p-0;
 }
-.ant-modal-close {
+.YT-Modal .ant-modal-close {
   @apply !hidden;
 }
 

@@ -23,13 +23,31 @@ const CourseDetails = () => {
 
   const { id }: { id?: string } = useParams();
 
-  const { data: courseData, isLoading: courseLoading } = useGetApiQuery({ url: `${URL_KEYS.COURSE.ONE}${id}` });
+  const { data: courseData, isLoading: courseLoading } = useGetApiQuery({
+    url: `${URL_KEYS.COURSE.ONE}${id}`,
+  });
   const course = courseData?.data || {};
 
-  const { data: modulesData, isLoading: moduleLoading } = useGetApiQuery({ url: `${URL_KEYS.MODULE.COURSE_WISE}${course._id}` }, { skip: !course._id });
+  const { data: modulesData, isLoading: moduleLoading } = useGetApiQuery(
+    { url: `${URL_KEYS.MODULE.COURSE_WISE}${course._id}` },
+    { skip: !course._id }
+  );
   const Modules = modulesData?.data;
 
-  const { title = "Have questions about this batch?", image = `${ImagePath}course/CourseCardImage.jpg`, language = "हिंGLISH", totalLecture = 0, testNumber = 0, description = "subject-level full syllabus batch", price = 0, payingPrice = 0 } = course;
+  const {
+    title = "Have questions about this batch?",
+    image = `${ImagePath}course/CourseCardImage.jpg`,
+    language = "हिंGLISH",
+    syllabus,
+    courseMoneyBack = "",
+    totalLecture = 0,
+    totalTest = 0,
+    description = "subject-level full syllabus batch",
+    price = 0,
+    payingPrice = 0,
+    discountPrice = 0,
+    priceInStruction = "Remaining fee pays after prelims cleared",
+  } = course;
 
   const handleChange = (_: SyntheticEvent, newValue: string) => {
     setTabIndex(newValue);
@@ -44,23 +62,32 @@ const CourseDetails = () => {
   if (courseLoading || moduleLoading) return <Loader />;
 
   return (
-    <div id="Course" className="container container-p space-y-9 py-9 bg-white rounded-xl">
+    <div
+      id="Course"
+      className="container container-p space-y-9 py-9 bg-white rounded-xl"
+    >
       <section className="group space-y-6 rounded-md relative">
         <div className="sm:hidden absolute w-full flex gap-5 justify-end px-2 pt-2 ">
           <ShareModal />
         </div>
         <figure>
-          <img src={`${ImagePath}course/CourseCardImage.jpg`} alt="" className="w-full h-full rounded-lg max-h-[35rem]" />
+          <img
+            src={`${ImagePath}course/CourseCardImage.jpg`}
+            alt=""
+            className="w-full h-full rounded-lg max-h-[35rem]"
+          />
         </figure>
       </section>
-      <section className="">
+      <section>
         <div className="space-y-6">
           <section className=" max-sm:text-sm font-medium flex justify-between  gap-3">
             <div className="flex  gap-2 items-center">
               <div className="bg-white border border-gray-300  w-fit h-fit px-3 py-1  rounded-md ">
                 <span>{language}</span>
               </div>
-              <div className="uppercase max-sm:text-xs text-primary font-bold ">{description}</div>
+              <div className="uppercase max-sm:text-xs text-primary font-bold ">
+                {syllabus?.subjectLevel}
+              </div>
             </div>
           </section>
           <section className="flex max-sm:flex-col gap-4 justify-between">
@@ -75,7 +102,11 @@ const CourseDetails = () => {
             <div className="bg-card-bg  transition-all px-5 py-3 rounded w-full flex flex-col sm:flex-row sm:items-center sm:gap-5">
               <div className="flex items-center  gap-3 mb-3 sm:mb-0">
                 <figure className="rounded-full bg-primary/10 p-3 sm:p-4 h-fit w-fit">
-                  <img src={`${ImagePath}workshop/users.png`} alt="Users" className="w-8 sm:w-10 h-fit" />
+                  <img
+                    src={`${ImagePath}workshop/users.png`}
+                    alt="Users"
+                    className="w-8 sm:w-10 h-fit"
+                  />
                 </figure>
                 <p className=" sm:hidden font-medium ">Module</p>
               </div>
@@ -94,10 +125,14 @@ const CourseDetails = () => {
               {/* Image + Title (top row on mobile) */}
               <div className="flex items-center gap-3 sm:mb-0">
                 <figure className="rounded-full bg-primary/10 p-3 sm:p-4 h-fit w-fit">
-                  <img src={`${ImagePath}workshop/wallet.png`} alt="Users" className="w-8 sm:w-10 h-fit" />
+                  <img
+                    src={`${ImagePath}workshop/wallet.png`}
+                    alt="Users"
+                    className="w-8 sm:w-10 h-fit"
+                  />
                 </figure>
                 <div className="space-y-2 w-full font-medium ">
-                  <p>100% Money Back</p>
+                  <p>{courseMoneyBack}</p>
                 </div>
               </div>
             </div>
@@ -124,7 +159,13 @@ const CourseDetails = () => {
           </Tabs>
         </div>
         <div className="mt-6">
-          {tabIndex === "about" && <CourseAboutTab totalLecture={totalLecture} totalTest={testNumber} />}
+          {tabIndex === "about" && (
+            <CourseAboutTab
+              description={description}
+              totalLecture={totalLecture}
+              totalTest={totalTest}
+            />
+          )}
           {tabIndex === "lectures" && <CourseLecturesTab id={id} />}
           {tabIndex === "module" && <CourseModuleTab id={id} />}
           {tabIndex === "faqs" && <CourseFaqsTab />}
@@ -138,15 +179,25 @@ const CourseDetails = () => {
             <p className="text-gray-600 font-medium">Price</p>
             <h1 className=" sm:text-xl font-bold flex gap-[2px] items-end">
               <span>₹{payingPrice}/</span>
-              <span className="text-base text-gray-600 font-bold">₹{price}</span>
+              <span className="text-base text-gray-600 font-bold">
+                ₹{discountPrice}
+              </span>
+              <span className="text-base font-medium text-red-500 line-through ps-1">
+                {price}
+              </span>
             </h1>
           </div>
           <div>
-            <p className="max-sm:text-xs text-gray-600 font-medium h-full ">Remaining fee pays after prelims cleared</p>
+            <p className="max-sm:text-xs text-gray-600 font-medium h-full ">
+              {/* Remaining fee pays after prelims cleared */}
+              {priceInStruction}
+            </p>
           </div>
           <div className=" md:w-1/4">
             <NavLink to={ROUTES.COURSE.REGISTER} state={course}>
-              <button className="btn primary_btn !h-12 !w-full  ">Enroll Now</button>
+              <button className="btn primary_btn !h-12 !w-full  ">
+                Enroll Now
+              </button>
             </NavLink>
           </div>
         </div>
