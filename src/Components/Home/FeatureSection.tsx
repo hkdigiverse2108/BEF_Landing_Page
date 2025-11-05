@@ -37,7 +37,7 @@ const FeatureSection = ({ features }: { features: FeatureItem[] }) => {
 
         {/* Center Image (overlapping top) */}
         <div className="order-1 lg:order-2 w-full lg:w-1/3 p-3 flex justify-center relative lg:-translate-y-40 z-10 " data-aos="fade-up">
-          <img src={`${ImagePath}/features/Feature.jpg`} alt="Feature Illustration" className="w-fit h-fit lg:w-full md:h-auto rounded-xl shadow-lg" />
+          <img src={`${ImagePath}/features/Feature.png`} alt="Feature Illustration" className="w-fit h-fit lg:w-full md:h-auto " />
         </div>
 
         {/* Right Side */}

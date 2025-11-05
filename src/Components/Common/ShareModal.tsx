@@ -49,7 +49,7 @@ const ShareModal: React.FC = () => {
       </Button>
 
       <Modal open={isOpen} onCancel={handleClose} footer={null} centered title="Share">
-        <div className="flex flex-col gap-4 items-center justify-center text-center">
+        <div className="flex flex-col gap-4 items-center justify-center text-center ">
           <div className="flex justify-center gap-6 text-3xl mt-2">
             <WhatsAppOutlined onClick={() => openShareLink("whatsapp")} className="!text-green-500 cursor-pointer hover:scale-110 transition-transform" />
             <SendOutlined onClick={() => openShareLink("telegram")} className="!text-blue-500 cursor-pointer hover:scale-110 transition-transform" />

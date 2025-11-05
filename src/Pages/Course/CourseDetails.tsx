@@ -50,7 +50,7 @@ const CourseDetails = () => {
           <ShareModal />
         </div>
         <figure>
-          <img src={image} alt="" className="w-full h-full rounded-lg max-h-[35rem]" />
+          <img src={`${ImagePath}course/CourseCardImage.jpg`} alt="" className="w-full h-full rounded-lg max-h-[35rem]" />
         </figure>
       </section>
       <section className="">
