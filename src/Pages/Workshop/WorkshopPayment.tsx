@@ -2,8 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import type { FormValues, LectureType, WorkshopType } from "../../Types";
 import PaymentModule from "../../Components/Common/PaymentModule ";
 import { HTTP_STATUS, ImagePath, ROUTES, URL_KEYS } from "../../Constants";
-import FormInput from "../../Attribute/FormFields/FormInput";
-import { Button, Input } from "antd";
+import { Input } from "antd";
 import { useEffect, useState } from "react";
 import { useGetApiQuery, usePostApiMutation } from "../../Api/CommonApi";
 import { CheckCircleOutlined } from "@ant-design/icons";
@@ -33,7 +32,6 @@ const WorkshopPayment = () => {
   });
 
   const Lectures = data?.data?.lecture_data;
-  console.log(workshop);
   // const { data: settingData } = useGetApiQuery({ url: URL_KEYS.SETTINGS.ALL });
   // console.log("data", settingData);
 
@@ -49,7 +47,9 @@ const WorkshopPayment = () => {
         ...formValues,
         paymentDate: new Date().toISOString(),
         workshopId: workshop?._id,
-        // amount: isApplyed ? discountAmount : totalAmount,
+        payingPrice: isApplyed ? discountAmount : totalAmount,
+        discountPrice: discountAmount,
+        price: totalAmount,
       };
       const res = await PostApi({
         url: URL_KEYS.WORKSHOP.REGISTER,
@@ -102,7 +102,7 @@ const WorkshopPayment = () => {
     }
   };
 
-  const handleReferralChange = (e) => {
+  const handleReferralChange = (e: any) => {
     const value = e.target.value;
     setRefferCode(value);
 
@@ -193,9 +193,9 @@ const WorkshopPayment = () => {
               </div>
             </div>
             {isApplyed && (
-              <div className="bg-primary/10 border border-primary/30 p-3 space-y-1 rounded-lg">
-                <p className="text-gray-500 ">Offer Applied</p>
-                <p className="text-primary font-medium">
+              <div className="bg-success/10 border border-success/30 p-3 space-y-1 rounded-lg">
+                <p className=" ">Offer Applied</p>
+                <p className="text-success font-medium">
                   Pay just enrollment fee — Remaining after prelims cleared.
                 </p>
               </div>
@@ -205,8 +205,8 @@ const WorkshopPayment = () => {
             {isApplyed && (
               <div className=" flex  justify-between gap-5">
                 <p className=" font-semibold">Discount</p>
-                <p className="">
-                  {Number(totalAmount) - Number(discountAmount)}{" "}
+                <p className="text-success font-semibold">
+                  -{Number(totalAmount) - Number(discountAmount)}{" "}
                 </p>
               </div>
             )}
@@ -225,12 +225,14 @@ const WorkshopPayment = () => {
               </p>
               <p className="flex justify-between mt-1 mb-3 font-semibold text-lg">
                 Total (Incl. of all taxes):{" "}
-                <span className="text-primary">
+                <span className="">
                   {isApplyed ? (
-                    <span className="text-primary">
-                      ₹{discountAmount}/
-                      <span className="text-sm">{totalAmount}</span>
-                    </span>
+                    <h1 className="  flex gap-[2px] items-end">
+                      <span>₹{discountAmount}</span>
+                      <span className=" text-red-500 text-base font-semibold line-through decoration-2 ps-1">
+                        {totalAmount}
+                      </span>
+                    </h1>
                   ) : (
                     <span>₹{totalAmount}</span>
                   )}

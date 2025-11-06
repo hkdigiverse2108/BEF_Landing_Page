@@ -50,7 +50,6 @@ const PaymentModule = ({
   const navigate = useNavigate();
   let RazorPayKey;
 
-  console.log("values", values, itemData);
 
   const { data: settingData } = useGetApiQuery({ url: URL_KEYS.SETTINGS.ALL });
   RazorPayKey = settingData?.data?.apiKey;

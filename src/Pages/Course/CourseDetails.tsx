@@ -72,7 +72,7 @@ const CourseDetails = () => {
         </div>
         <figure>
           <img
-            src={`${ImagePath}course/CourseCardImage.jpg`}
+            src={image}
             alt=""
             className="w-full h-full rounded-lg max-h-[35rem]"
           />
@@ -177,15 +177,24 @@ const CourseDetails = () => {
         <div className="container container-p py-2 sm:py-3 flex max-md:flex-col gap-2 md:gap-4 justify-between md:items-end">
           <div>
             <p className="text-gray-600 font-medium">Price</p>
-            <h1 className=" sm:text-xl font-bold flex gap-[2px] items-end">
-              <span>₹{payingPrice}/</span>
-              <span className="text-base text-gray-600 font-bold">
-                ₹{discountPrice}
-              </span>
-              <span className="text-base font-medium text-red-500 line-through ps-1">
-                {price}
-              </span>
-            </h1>
+            {discountPrice ? (
+              <h1 className=" sm:text-xl font-bold flex gap-[2px] items-end">
+                <span>₹{payingPrice}/</span>
+                <span className="text-base text-gray-600 font-bold">
+                  ₹{discountPrice}
+                </span>
+                <span className="text-base font-medium text-red-500 line-through ps-1">
+                  {price}
+                </span>
+              </h1>
+            ) : (
+              <h1 className=" sm:text-xl font-bold flex gap-[2px] items-end">
+                <span>₹{payingPrice}</span>
+                <span className="text-base text-red-500 font-semibold line-through decoration-2 ps-1">
+                  {price}
+                </span>
+              </h1>
+            )}
           </div>
           <div>
             <p className="max-sm:text-xs text-gray-600 font-medium h-full ">

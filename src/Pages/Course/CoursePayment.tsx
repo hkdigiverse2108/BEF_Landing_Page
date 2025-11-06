@@ -32,13 +32,16 @@ const CoursePayment = () => {
 
   const Modules = ModulesData?.data;
 
-  const {
+  let {
     title = "Course Name",
-    payingPrice = 0,
     discountPrice = 0,
+    payingPrice = 0,
     price = 0,
   } = course || {};
 
+  const isDiscountPrice = !!discountPrice;
+  discountPrice = discountPrice === 0 ? price : discountPrice;
+  console.log("isDis", isDiscountPrice);
   const handleAplyyReferCode = async () => {
     if (!refferCode.trim()) {
       setIsApplyed(false);
@@ -78,7 +81,7 @@ const CoursePayment = () => {
     }
   };
 
-  const handleReferralChange = (e) => {
+  const handleReferralChange = (e:any) => {
     const value = e.target.value;
     setRefferCode(value);
 
@@ -170,9 +173,9 @@ const CoursePayment = () => {
               </div>
             </div>
             {isApplyed && (
-              <div className="bg-primary/10 border border-primary/30 p-3 space-y-1 rounded-lg">
-                <p className="text-gray-500 ">Offer Applied</p>
-                <p className="text-primary font-medium">
+              <div className="bg-success/10 border border-success/30 p-3 space-y-1 rounded-lg">
+                <p className=" ">Offer Applied</p>
+                <p className="text-success font-medium">
                   Pay just enrollment fee — Remaining after prelims cleared.
                 </p>
               </div>
@@ -182,7 +185,12 @@ const CoursePayment = () => {
             {isApplyed && (
               <div className=" flex  justify-between gap-5">
                 <p className=" font-semibold">Discount</p>
-                <p className="">{Number(price) - Number(discountPrice)} </p>
+                <p className="text-success font-semibold">
+                  -
+                  {isDiscountPrice
+                    ? Number(price) - Number(discountPrice)
+                    : Number(price) - Number(payingPrice)}{" "}
+                </p>
               </div>
             )}
             <div className="border-t border-gray-200 pt-2 ">
@@ -197,10 +205,24 @@ const CoursePayment = () => {
               <p className="flex justify-between mt-1 mb-3 font-semibold text-lg">
                 Total (Incl. of all taxes):
                 {isApplyed ? (
-                  <span className="text-primary">
-                    ₹{payingPrice}/
-                    <span className="text-sm">{discountPrice}</span>
-                  </span>
+                  <>
+                    {isDiscountPrice ? (
+                      <h1 className="">
+                        <span className="text-primary"> ₹{payingPrice}/</span>
+                        <span className="text-sm">{discountPrice}</span>
+                        <span className=" font-medium text-sm text-red-500 line-through ps-1">
+                          {price}
+                        </span>
+                      </h1>
+                    ) : (
+                      <h1 className="  flex gap-[2px] items-end">
+                        <span>₹{payingPrice}</span>
+                        <span className=" text-red-500 text-base font-semibold line-through decoration-2 ps-1">
+                          {price}
+                        </span>
+                      </h1>
+                    )}
+                  </>
                 ) : (
                   <span>₹{price}</span>
                 )}

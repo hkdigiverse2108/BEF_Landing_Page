@@ -20,14 +20,26 @@ const TabsName = [
 const Workshop = () => {
   const [tabIndex, setTabIndex] = useState("about");
 
-  const { data: workshopData, isLoading: workshopLoading } = useGetApiQuery({ url: `${URL_KEYS.WORKSHOP.ALL}` });
+  const { data: workshopData, isLoading: workshopLoading } = useGetApiQuery({
+    url: `${URL_KEYS.WORKSHOP.ALL}`,
+  });
   const workshop = workshopData?.data?.workshop_data[0] || {};
 
   // const { data: ModulesData, isLoading: moduleLoading } = useGetApiQuery({ url: `${URL_KEYS.MODULE.COURSE_WISE}${workshop._id}` }, { skip: !workshop._id });
 
   // const Modules = ModulesData?.data;
 
-  const { title = "Have questions about this batch?", image = `${ImagePath}course/CourseCardImage.jpg`, language = "हिंGLISH", totalLecture = 0, testNumber = 0, description = "subject-level full syllabus batch", totalAmount = 0, discountAmount = 0, _id = "" } = workshop;
+  const {
+    title = "Have questions about this batch?",
+    image = `${ImagePath}course/CourseCardImage.jpg`,
+    language = "हिंGLISH",
+    totalLecture = 0,
+    testNumber = 0,
+    description = "subject-level full syllabus batch",
+    totalAmount = 0,
+    discountAmount = 0,
+    _id = "",
+  } = workshop;
 
   const handleChange = (_: SyntheticEvent, newValue: string) => {
     setTabIndex(newValue);
@@ -36,13 +48,20 @@ const Workshop = () => {
   if (workshopLoading) return <Loader />;
 
   return (
-    <div id="Workshop" className="container container-p space-y-9 py-9 bg-white rounded-xl Workshop">
+    <div
+      id="Workshop"
+      className="container container-p space-y-9 py-9 bg-white rounded-xl Workshop"
+    >
       <section className="group space-y-6 rounded-md relative">
         <div className="sm:hidden absolute w-full flex gap-5 justify-end px-2 pt-2 ">
           <ShareModal />
         </div>
         <figure>
-          <img src={image} alt="" className="w-full h-full rounded-lg max-h-[35rem]" />
+          <img
+            src={image}
+            alt=""
+            className="w-full h-full rounded-lg max-h-[35rem]"
+          />
         </figure>
       </section>
       <section className="">
@@ -52,7 +71,9 @@ const Workshop = () => {
               <div className="bg-white border border-gray-300  w-fit h-fit px-3 py-1  rounded-md ">
                 <span>{language}</span>
               </div>
-              <div className="uppercase max-sm:text-xs text-primary font-bold ">{description}</div>
+              <div className="uppercase max-sm:text-xs text-primary font-bold ">
+                {description}
+              </div>
             </div>
           </section>
           <section className="flex max-sm:flex-col gap-4 justify-between">
@@ -67,7 +88,11 @@ const Workshop = () => {
             <div className="bg-card-bg  transition-all px-5 py-3 rounded w-full flex flex-col sm:flex-row sm:items-center sm:gap-5">
               <div className="flex items-center  gap-3 mb-3 sm:mb-0">
                 <figure className="rounded-full bg-primary/10 p-3 sm:p-4 h-fit w-fit">
-                  <img src={`${ImagePath}workshop/users.png`} alt="Users" className="w-8 sm:w-10 h-fit" />
+                  <img
+                    src={`${ImagePath}workshop/users.png`}
+                    alt="Users"
+                    className="w-8 sm:w-10 h-fit"
+                  />
                 </figure>
                 <p className=" sm:hidden font-medium ">Module</p>
               </div>
@@ -86,7 +111,11 @@ const Workshop = () => {
               {/* Image + Title (top row on mobile) */}
               <div className="flex items-center gap-3 sm:mb-0">
                 <figure className="rounded-full bg-primary/10 p-3 sm:p-4 h-fit w-fit">
-                  <img src={`${ImagePath}workshop/wallet.png`} alt="Users" className="w-8 sm:w-10 h-fit" />
+                  <img
+                    src={`${ImagePath}workshop/wallet.png`}
+                    alt="Users"
+                    className="w-8 sm:w-10 h-fit"
+                  />
                 </figure>
                 <div className="space-y-2 w-full font-medium ">
                   <p>100% Money Back</p>
@@ -117,7 +146,12 @@ const Workshop = () => {
           </Tabs>
         </div>
         <div className="mt-6">
-          {tabIndex === "about" && <CourseAboutTab totalLecture={totalLecture} totalTest={testNumber} />}
+          {tabIndex === "about" && (
+            <CourseAboutTab
+              totalLecture={totalLecture}
+              totalTest={testNumber}
+            />
+          )}
           {tabIndex === "lectures" && <CourseLecturesTab id={_id} />}
           {tabIndex === "Testimonials" && <WorkshopTestimonialsTab />}
           {tabIndex === "faqs" && <CourseFaqsTab />}
@@ -131,13 +165,17 @@ const Workshop = () => {
             <p className="text-gray-600 font-medium">Price</p>
             <h1 className=" sm:text-xl font-bold flex gap-[2px] items-end">
               <span>₹{discountAmount}</span>
-              <span className="text-base text-red-500 font-semibold line-through decoration-2 ps-1">{totalAmount}</span>
+              <span className="text-base text-red-500 font-semibold line-through decoration-2 ps-1">
+                {totalAmount}
+              </span>
             </h1>
           </div>
 
           <div className=" md:w-1/4">
             <NavLink to={ROUTES.WORKSHOP.REGISTER} state={workshop}>
-              <button className="btn primary_btn !h-12 !w-full  ">Enroll Now</button>
+              <button className="btn primary_btn !h-12 !w-full  ">
+                Enroll Now
+              </button>
             </NavLink>
           </div>
         </div>
