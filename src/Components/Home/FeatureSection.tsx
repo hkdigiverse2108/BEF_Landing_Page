@@ -3,12 +3,17 @@ import { ImagePath } from "../../Constants";
 import SectionHeader from "./SectionHeader";
 import { Link } from "react-router-dom";
 import type { FeatureItem } from "../../Types";
-
+import YoutubeVideoModal from "../Common/YoutubeVideoModal";
+import { useState } from "react";
 
 const FeatureSection = ({ features }: { features: FeatureItem[] }) => {
-
+  const [playVideo, setPlayVideo] = useState(false);
+  const [videoLink, setVideoLink] = useState("");
   return (
-    <section id="features" className="relative overflow-hidden container container-p ">
+    <section
+      id="features"
+      className="relative overflow-hidden container container-p "
+    >
       {/* Section Title */}
       <SectionHeader
         title="Features that makes app different!"
@@ -26,18 +31,41 @@ const FeatureSection = ({ features }: { features: FeatureItem[] }) => {
           {features
             ?.filter((_: FeatureItem, i: number) => i % 2 === 0)
             ?.map((item: FeatureItem, i: number) => (
-              <div key={i} data-aos="fade-right" className="flex flex-col md:items-end gap-3 w-full ">
-                <Link to={item.link} target="_blank" rel="noopener noreferrer" className="block w-full  rounded-xl overflow-hidden">
-                  <img src={item.thumbnailImage} alt={item.title} className="w-full h-full object-cover rounded-xl" />
-                </Link>
-                <h4 className="text-lg font-semibold text-primary uppercase  md:text-right">{item.title}</h4>
+              <div
+                key={i}
+                data-aos="fade-right"
+                className="flex flex-col md:items-end gap-3 w-full "
+              >
+                <div
+                  onClick={() => {
+                    setPlayVideo(true);
+                    setVideoLink(item.link);
+                  }}
+                  className="block w-full  rounded-xl overflow-hidden"
+                >
+                  <img
+                    src={item.thumbnailImage}
+                    alt={item.title}
+                    className="w-full h-full object-cover rounded-xl"
+                  />
+                </div>
+                <h4 className="text-lg font-semibold text-primary uppercase  md:text-right">
+                  {item.title}
+                </h4>
               </div>
             ))}
         </div>
 
         {/* Center Image (overlapping top) */}
-        <div className="order-1 lg:order-2 w-full lg:w-1/3 p-3 flex justify-center relative lg:-translate-y-40 z-10 " data-aos="fade-up">
-          <img src={`${ImagePath}/features/Feature.png`} alt="Feature Illustration" className="w-fit h-fit lg:w-full md:h-auto " />
+        <div
+          className="order-1 lg:order-2 w-full lg:w-1/3 p-3 flex justify-center relative lg:-translate-y-40 z-10 "
+          data-aos="fade-up"
+        >
+          <img
+            src={`${ImagePath}/features/Feature.png`}
+            alt="Feature Illustration"
+            className="w-fit h-fit lg:w-full md:h-auto "
+          />
         </div>
 
         {/* Right Side */}
@@ -45,15 +73,35 @@ const FeatureSection = ({ features }: { features: FeatureItem[] }) => {
           {features
             ?.filter((_: FeatureItem, i: number) => i % 2 !== 0)
             ?.map((item: FeatureItem, i: number) => (
-              <div key={i} data-aos="fade-left" className="flex flex-col items-start gap-3 w-full ">
-                <Link to={item.link} target="_blank" rel="noopener noreferrer" className="block w-full  rounded-xl overflow-hidden">
-                  <img src={item.thumbnailImage} alt={item.title} className="w-full h-full object-cover rounded-xl" />
+              <div
+                key={i}
+                data-aos="fade-left"
+                className="flex flex-col items-start gap-3 w-full "
+              >
+                <Link
+                  to={item.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block w-full  rounded-xl overflow-hidden"
+                >
+                  <img
+                    src={item.thumbnailImage}
+                    alt={item.title}
+                    className="w-full h-full object-cover rounded-xl"
+                  />
                 </Link>
-                <h4 className="text-lg font-semibold text-primary uppercase text-right">{item.title}</h4>
+                <h4 className="text-lg font-semibold text-primary uppercase text-right">
+                  {item.title}
+                </h4>
               </div>
             ))}
         </div>
       </div>
+      <YoutubeVideoModal
+        playVideo={playVideo}
+        setPlayVideo={setPlayVideo}
+        videoLink={videoLink}
+      />
     </section>
   );
 };

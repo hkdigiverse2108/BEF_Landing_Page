@@ -25,17 +25,13 @@ const Workshop = () => {
   });
   const workshop = workshopData?.data?.workshop_data[0] || {};
 
-  // const { data: ModulesData, isLoading: moduleLoading } = useGetApiQuery({ url: `${URL_KEYS.MODULE.COURSE_WISE}${workshop._id}` }, { skip: !workshop._id });
-
-  // const Modules = ModulesData?.data;
-
   const {
     title = "Have questions about this batch?",
     image = `${ImagePath}course/CourseCardImage.jpg`,
     pdf = "",
     language = "",
     totalLecture = 0,
-    testNumber = 0,
+    totalTest = 0,
     syllabus = "",
     moneyBack = "",
     description = "",
@@ -88,27 +84,19 @@ const Workshop = () => {
           <span className="border-b border-gray-300 flex w-full h-0.5" />
 
           <section className="flex flex-col lg:flex-row gap-5">
-            <div className="bg-card-bg  transition-all px-5 py-3 rounded w-full flex flex-col sm:flex-row sm:items-center sm:gap-5">
-              <div className="flex items-center  gap-3 mb-3 sm:mb-0">
-                <figure className="rounded-full bg-primary/10 p-3 sm:p-4 h-fit w-fit">
-                  <img
-                    src={`${ImagePath}workshop/users.png`}
-                    alt="Users"
-                    className="w-8 sm:w-10 h-fit"
-                  />
-                </figure>
-                <p className=" sm:hidden font-medium ">Module</p>
-              </div>
-              <div className="space-y-2 w-full ">
-                <p className="max-sm:hidden font-medium ">Module</p>
-                <ul className="w-full text-sm flex flex-col sm:flex-row gap-2 sm:gap-4">
-                  {/* {Modules?.map((module: { name: string }, i: number) => (
-                    <li>
-                      {i + 1}. {module.name}
-                    </li>
-                  ))} */}
-                </ul>
-              </div>
+            <div className="bg-card-bg  transition-all px-5 py-3 rounded w-full flex max-sm:flex-col  items-center sm:gap-5">
+              {/* <div className="flex items-center  gap-3 mb-3 sm:mb-0"> */}
+              <figure className="rounded-full bg-primary/10 p-3 sm:p-4 h-fit w-fit">
+                <img
+                  src={`${ImagePath}workshop/users.png`}
+                  alt="Users"
+                  className="w-8 sm:w-10 h-fit"
+                />
+              </figure>
+              <p className=" font-medium capitalize max-sm:text-sm text-center">
+                Secret Workshop on What toppers do differently
+              </p>
+              {/* </div> */}
             </div>
             <div className="bg-card-bg  transition-all px-5 py-3 rounded w-full flex flex-col sm:flex-row sm:items-center sm:gap-5">
               {/* Image + Title (top row on mobile) */}
@@ -154,7 +142,7 @@ const Workshop = () => {
               pdf={pdf}
               description={description}
               totalLecture={totalLecture}
-              totalTest={testNumber}
+              totalTest={totalTest}
             />
           )}
           {tabIndex === "lectures" && <WorkshopLecturesTab id={_id} />}

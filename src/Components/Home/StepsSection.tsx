@@ -5,9 +5,13 @@ import type { StepType } from "../../Types";
 import { useState } from "react";
 import { IoPlayCircle } from "react-icons/io5";
 import { Modal } from "antd";
+import YoutubeVideoModal from "../Common/YoutubeVideoModal";
 
 const StepsSection = ({ steps }: { steps: StepType[] }) => {
   const [playVideo, setPlayVideo] = useState(false);
+  const [videoLink, setVideoLink] = useState("");
+  const defaultLink =
+    "https://www.youtube.com/embed/0Trxb5WfBKc?autoplay=1&rel=0&modestbranding=1";
 
   return (
     <section
@@ -54,17 +58,18 @@ const StepsSection = ({ steps }: { steps: StepType[] }) => {
                     </div>
 
                     <div className="step_img" data-aos="fade-left">
-                      <Link
-                        to={step.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                      <div
+                        onClick={() => {
+                          setPlayVideo(true);
+                          setVideoLink(step?.link);
+                        }}
                         className="popup-youtube play-button"
                         data-toggle="modal"
                         data-target="#myModal"
                         title="Download & Sign Up with Referral Code"
                       >
                         <img src={`${step.thumbnailImage}`} alt="image" />
-                      </Link>
+                      </div>
                     </div>
                   </li>
                 ))}
@@ -82,7 +87,10 @@ const StepsSection = ({ steps }: { steps: StepType[] }) => {
             />
             <div className="absolute w-full top-0 left-0 right-0 bottom-0 flex justify-center items-center  ">
               <button
-                onClick={() => setPlayVideo(true)}
+                onClick={() => {
+                  setPlayVideo(true);
+                  setVideoLink(defaultLink);
+                }}
                 className="!text-7xl text-primary"
               >
                 <IoPlayCircle />
@@ -90,7 +98,7 @@ const StepsSection = ({ steps }: { steps: StepType[] }) => {
             </div>
           </div>
         </div>
-        <Modal
+        {/* <Modal
           footer={false}
           title=""
           open={playVideo}
@@ -106,7 +114,7 @@ const StepsSection = ({ steps }: { steps: StepType[] }) => {
             <iframe
               width="100%"
               height="400"
-              src="https://www.youtube.com/embed/0Trxb5WfBKc?autoplay=1&rel=0&modestbranding=1"
+              src=""
               title="YouTube video player"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -114,7 +122,12 @@ const StepsSection = ({ steps }: { steps: StepType[] }) => {
               allowFullScreen
             ></iframe>
           )}
-        </Modal>
+        </Modal> */}
+        <YoutubeVideoModal
+          playVideo={playVideo}
+          setPlayVideo={setPlayVideo}
+          videoLink={videoLink}
+        />
       </div>
     </section>
   );

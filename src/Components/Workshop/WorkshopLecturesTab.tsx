@@ -1,38 +1,73 @@
+import { useState } from "react";
 import { useGetApiQuery } from "../../Api/CommonApi";
 import { URL_KEYS } from "../../Constants";
 import type { LectureType } from "../../Types";
+import YoutubeVideoModal from "../Common/YoutubeVideoModal";
 
 const WorkshopLecturesTab = ({ id }: { id?: string }) => {
-  const { data } = useGetApiQuery({ url: `${URL_KEYS.LECTURE.ALL}?workshopFilter=${id}` });
+  const [playVideo, setPlayVideo] = useState(false);
+  const [videoLink, setVideoLink] = useState("");
+
+  const { data } = useGetApiQuery({
+    url: `${URL_KEYS.LECTURE.ALL}?workshopFilter=${id}`,
+  });
 
   const Lectures = data?.data?.lecture_data;
 
   return (
     <div className="space-y-4" data-aos="fade-up">
       {Lectures?.map((lecture: LectureType) => (
-        <a href={lecture?.link} target="_blank" rel="noopener noreferrer" key={lecture._id} className="flex max-sm:flex-col gap-4 bg-white rounded-lg  border border-gray-200 p-4 h-full items-stretch">
+        <a
+          key={lecture._id}
+          className="flex max-sm:flex-col gap-4 bg-white rounded-lg  border border-gray-200 p-4 h-full items-stretch"
+        >
           {/* Image */}
-          <img src={lecture.image} alt={lecture.title} className="w-full h-full sm:w-fit sm:h-35 rounded-lg object-cover" />
+          <figure
+            onClick={() => {
+              setPlayVideo(true);
+              setVideoLink(lecture?.link);
+            }}
+          >
+            <img
+              src={lecture.image}
+              alt={lecture.title}
+              className="w-full h-full sm:w-fit sm:h-35 rounded-lg object-cover"
+            />
+          </figure>
 
           {/* Content */}
           <div className="flex flex-col sm:py-3 gap-2 justify-between">
             {/* Tags */}
             <div className="flex items-center gap-2 text-xs">
-              <span className="bg-gray-200 px-1.5 py-0.5 rounded"> {lecture.language} </span>
-              <span className="text-primary font-semibold">{lecture.subjectName}</span>
+              <span className="bg-gray-200 px-1.5 py-0.5 rounded">
+                {" "}
+                {lecture.language}{" "}
+              </span>
+              <span className="text-primary font-semibold">
+                {lecture.subjectName}
+              </span>
             </div>
 
             {/* Title */}
-            <h2 className="font-semibold text-sm sm:text-base">{lecture.title}</h2>
+            <h2 className="font-semibold text-sm sm:text-base">
+              {lecture.title}
+            </h2>
 
             {/* Instructor */}
-            <p className="text-gray-600 text-xs font-medium sm:text-sm">{lecture.subtitle}</p>
+            <p className="text-gray-600 text-xs font-medium sm:text-sm">
+              {lecture.subtitle}
+            </p>
 
             {/* Date */}
             <p className="text-gray-600 text-xs font-medium">{lecture.date}</p>
           </div>
         </a>
       ))}
+      <YoutubeVideoModal
+        playVideo={playVideo}
+        setPlayVideo={setPlayVideo}
+        videoLink={videoLink}
+      />
     </div>
   );
 };

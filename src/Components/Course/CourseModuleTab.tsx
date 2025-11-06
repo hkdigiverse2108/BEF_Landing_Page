@@ -1,8 +1,13 @@
+import { useState } from "react";
 import { useGetApiQuery } from "../../Api/CommonApi";
 import { URL_KEYS } from "../../Constants";
 import type { ModuleType } from "../../Types";
+import YoutubeVideoModal from "../Common/YoutubeVideoModal";
 
 const CourseModuleTab = ({ id }: { id?: string }) => {
+  const [playVideo, setPlayVideo] = useState(false);
+  const [videoLink, setVideoLink] = useState("");
+
   const { data: ModulesData } = useGetApiQuery({
     url: `${URL_KEYS.MODULE.ALL}?courseFilter=${id}`,
   });
@@ -13,17 +18,21 @@ const CourseModuleTab = ({ id }: { id?: string }) => {
     <div className="space-y-4" data-aos="fade-up">
       {Modules?.map((module: ModuleType) => (
         <a
-          href={module?.link}
-          target="_blank"
-          rel="noopener noreferrer"
           key={module._id}
           className="flex max-sm:flex-col gap-4 bg-white rounded-lg p-4  border border-gray-200 max-sm:items-center "
         >
-          <img
-            src={module.image}
-            alt={"img"}
-            className="w-fit h-50 sm:w-50 sm:h-full rounded-lg object-cover"
-          />
+          <figure
+            onClick={() => {
+              setPlayVideo(true);
+              setVideoLink(module?.link);
+            }}
+          >
+            <img
+              src={module.image}
+              alt={"img"}
+              className="w-fit h-50 sm:w-50 sm:h-full rounded-lg object-cover"
+            />
+          </figure>
 
           {/* Content */}
           <div className="flex flex-col sm:py-3 gap-5 justify-between ">
@@ -50,6 +59,11 @@ const CourseModuleTab = ({ id }: { id?: string }) => {
           </div>
         </a>
       ))}
+      <YoutubeVideoModal
+        playVideo={playVideo}
+        setPlayVideo={setPlayVideo}
+        videoLink={videoLink}
+      />
     </div>
   );
 };

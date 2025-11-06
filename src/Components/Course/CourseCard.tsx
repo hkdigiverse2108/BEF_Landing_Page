@@ -1,5 +1,5 @@
 import { TbPhoneCall } from "react-icons/tb";
-import { ImagePath, ROUTES } from "../../Constants";
+import {  ROUTES } from "../../Constants";
 import { NavLink } from "react-router-dom";
 import type { CourseType } from "../../Types";
 
