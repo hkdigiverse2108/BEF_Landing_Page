@@ -4,8 +4,6 @@ import { useState, type SyntheticEvent } from "react";
 import WorkshopTestimonialsTab from "../../Components/Workshop/WorkshopTestimonialsTab";
 import { NavLink } from "react-router-dom";
 import CourseAboutTab from "../../Components/Course/CourseAboutTab";
-import CourseLecturesTab from "../../Components/Course/CourseLecturesTab";
-import CourseFaqsTab from "../../Components/Course/CourseFaqsTab";
 import { useGetApiQuery } from "../../Api/CommonApi";
 import ShareModal from "../../Components/Common/ShareModal";
 import Loader from "../../Components/Common/Loader";

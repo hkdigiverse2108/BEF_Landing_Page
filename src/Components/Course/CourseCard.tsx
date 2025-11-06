@@ -5,7 +5,7 @@ import type { CourseType } from "../../Types";
 
 const CourseCard = ({ course }: { course: CourseType }) => {
   const {
-    image = `${ImagePath}course/CourseCardImage.jpg`,
+    image = "",
     language = "हिंGLISH",
     syllabus: { subjectLevel = "basic" } = {},
     _id = "",
@@ -13,17 +13,14 @@ const CourseCard = ({ course }: { course: CourseType }) => {
   } = course;
   const title = "Have questions about this Course?";
   const subtitle = "Talk to a counsellor";
-  console.log(image);
   return (
     <NavLink
       to={`${ROUTES.COURSE.DETAILS.replace(":id", _id)}`}
       className=" relative rounded-2xl overflow-hidden cursor-pointer shadow-xl flex flex-col justify-end"
     >
-      <div
-        className="w-full min-h-[200px] bg-gray-300 h-full bg-center bg-cover rounded-t-2xl overflow-hidden"
-        style={{ backgroundImage: `url(${image})` }}
-      >
-        <div className="p-2 rounded-t-xl mx-0.5 flex justify-between gap-7 mb-0.5 absolute top-0 left-0 w-full z-10">
+      <div className="relative w-full h-[200px] rounded-t-2xl overflow-hidden bg-gray-300">
+        <img src={image} alt="Course" className="object-cover w-full h-full" />
+        <div className="absolute top-0 left-0 w-full flex justify-between p-2 gap-7">
           <span className="bg-white/20 text-white font-bold text-sm p-1 px-3 rounded backdrop-blur-md">
             {language}
           </span>
