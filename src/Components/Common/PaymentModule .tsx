@@ -26,8 +26,13 @@ declare global {
 interface PaymentModuleProps {
   values: FormValues;
   title: string;
-  amount: number;
+  amount: {
+    payingPrice: number;
+    discountPrice: number;
+    price: number;
+  };
   apiUrl: string;
+  referralCode: string;
   type: "course" | "workshop";
   itemData?: CourseType | WorkshopType;
 }
@@ -39,10 +44,13 @@ const PaymentModule = ({
   apiUrl,
   type,
   itemData,
+  referralCode,
 }: PaymentModuleProps) => {
   const [PostApi] = usePostApiMutation({});
   const navigate = useNavigate();
   let RazorPayKey;
+
+  console.log("values", values, itemData);
 
   const { data: settingData } = useGetApiQuery({ url: URL_KEYS.SETTINGS.ALL });
   RazorPayKey = settingData?.data?.apiKey;
@@ -67,23 +75,27 @@ const PaymentModule = ({
         email: values.email,
         city: values.city,
         pincode: values.pincode,
-        amount: amount,
+        amount: amount?.payingPrice,
         paymentId: response.razorpay_payment_id,
-        referralCode: values.referral,
+        referralCode: referralCode,
         reachFrom: values.reachFrom,
         status,
       };
     } else {
       // workshop payload
       return {
+        workshopId: itemData?._id,
         name: values.name,
+        payingPrice: amount?.payingPrice,
+        discountPrice: amount?.discountPrice,
+        price: amount?.price,
         phone: values.phone,
         city: values.city,
         paymentDate: new Date().toISOString(),
         email: values.email,
         merchantId: RazorPayKey,
         paymentId: response.razorpay_payment_id,
-        referralCode: values.referral,
+        referralCode: referralCode,
         reachFrom: values.reachFrom,
         status,
       };
@@ -113,7 +125,7 @@ const PaymentModule = ({
 
     const options = {
       key: RazorPayKey,
-      amount: amount * 100,
+      amount: amount?.payingPrice * 100,
       currency: "INR",
       name: "HET R",
       description: title,

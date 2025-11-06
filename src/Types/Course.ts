@@ -26,15 +26,15 @@ export interface CourseType extends BaseEntity {
   onViewDetails?: () => void;
 }
 
-
-
 export interface CourseWorkshopRegisterPayload extends FormValues {
   courseId?: string;
+  workshopId?: string;
+  payingPrice?: number;
+  discountPrice?: number;
+  price?: number;
   amount?: number;
   paymentDate?: string;
   merchantId?: string;
   paymentId?: string;
   status: "COMPLETED" | "FAILED";
 }
-
-

@@ -27,18 +27,42 @@ const WorkshopRegister = () => {
   }, []);
 
   return (
-    <section id="purchase" className="container flex max-md:flex-col justify-between py-10 px-4 gap-5">
+    <section
+      id="purchase"
+      className="container flex max-md:flex-col justify-between py-10 px-4 gap-5"
+    >
       {/* Left Box - Image */}
       <div className="w-full max-w-2xl flex items-center justify-center rounded-2xl p-6">
-        <img src={`${ImagePath}course/CourseModule.png`} alt="Workshop" className="rounded-xl w-full h-auto object-cover" />
+        <img
+          src={`${ImagePath}course/CourseModule.png`}
+          alt="Workshop"
+          className="rounded-xl w-full h-auto object-cover"
+        />
       </div>
 
       {/* Right Box - Form */}
-      <div data-aos="fade-right" className="bg-white hover:shadow-lg transition-all duration-300 rounded-2xl p-6 sm:p-10 w-full max-w-2xl">
-        <SectionHeader title="Workshop  " desc="Register Now" className="pb-6 text-center" />
+      <div
+        data-aos="fade-right"
+        className="bg-white hover:shadow-lg transition-all duration-300 rounded-2xl p-6 sm:p-10 w-full max-w-2xl"
+      >
+        <SectionHeader
+          title="Workshop  "
+          desc="Register Now"
+          className="pb-6 text-center"
+        />
 
-        <Form layout="vertical" form={form} onFinish={onFinish} className="space-y-4">
-          <FormInput name="name" className="!py-3 placeholder:!font-medium !px-4 rounded-lg" rules={[{ required: true, message: "Please enter your name" }]} placeholder="Name" />
+        <Form
+          layout="vertical"
+          form={form}
+          onFinish={onFinish}
+          className="space-y-4"
+        >
+          <FormInput
+            name="name"
+            className="!py-3 placeholder:!font-medium !px-4 rounded-lg"
+            rules={[{ required: true, message: "Please enter your name" }]}
+            placeholder="Name"
+          />
 
           <FormInput
             name="email"
@@ -60,12 +84,19 @@ const WorkshopRegister = () => {
             placeholder="Phone"
           />
 
-          <FormInput name="city" className="!py-3 placeholder:!font-medium !px-4 rounded-lg" rules={[{ required: true, message: "Please enter your city" }]} placeholder="City" />
-
-          <FormInput name="pincode" className="!py-3 placeholder:!font-medium !px-4 rounded-lg" placeholder="Pincode" />
+          <FormInput
+            name="city"
+            className="!py-3 placeholder:!font-medium !px-4 rounded-lg"
+            rules={[{ required: true, message: "Please enter your city" }]}
+            placeholder="City"
+          />
 
           <Form.Item name="reachFrom">
-            <Select placeholder="Reach From" allowClear className="rounded-lg  ">
+            <Select
+              placeholder="Reach From"
+              allowClear
+              className="rounded-lg  "
+            >
               <Option value="youtube">Youtube</Option>
               <Option value="google">Google</Option>
               <Option value="facebook">Facebook</Option>
@@ -78,7 +109,11 @@ const WorkshopRegister = () => {
           </Form.Item>
 
           <div className="pt-4 flex justify-center">
-            <Button htmlType="submit" type="primary" className="btn primary_btn !h-12 w-full">
+            <Button
+              htmlType="submit"
+              type="primary"
+              className="btn primary_btn !h-12 w-full"
+            >
               Enroll Now
             </Button>
           </div>

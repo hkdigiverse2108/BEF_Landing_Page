@@ -21,7 +21,7 @@ const CoursePayment = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const [postApi] = usePostApiMutation();
+  const [PostApi] = usePostApiMutation();
 
   const { formValues, course }: { formValues: FormValues; course: CourseType } =
     location.state || {};
@@ -56,7 +56,7 @@ const CoursePayment = () => {
         audience,
       };
 
-      const res = await postApi({
+      const res = await PostApi({
         url: URL_KEYS.REFERRAL.CHECK,
         data: payload,
       });
@@ -182,9 +182,7 @@ const CoursePayment = () => {
             {isApplyed && (
               <div className=" flex  justify-between gap-5">
                 <p className=" font-semibold">Discount</p>
-                <p className="">
-                  {Number(price || 10) - Number(discountPrice || 20)}{" "}
-                </p>
+                <p className="">{Number(price) - Number(discountPrice)} </p>
               </div>
             )}
             <div className="border-t border-gray-200 pt-2 ">
@@ -210,7 +208,12 @@ const CoursePayment = () => {
               <PaymentModule
                 values={formValues}
                 title={title}
-                amount={isApplyed ? payingPrice : price}
+                amount={{
+                  payingPrice: isApplyed ? payingPrice : price,
+                  discountPrice: discountPrice,
+                  price: price,
+                }}
+                referralCode={refferCode}
                 type="course"
                 itemData={course}
                 apiUrl={URL_KEYS.COURSE.REGISTER}
