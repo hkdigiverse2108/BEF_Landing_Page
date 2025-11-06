@@ -9,6 +9,8 @@ import CourseFaqsTab from "../../Components/Course/CourseFaqsTab";
 import { useGetApiQuery } from "../../Api/CommonApi";
 import ShareModal from "../../Components/Common/ShareModal";
 import Loader from "../../Components/Common/Loader";
+import WorkshopFaqTab from "../../Components/Workshop/WorkshopFaqTab";
+import WorkshopLecturesTab from "../../Components/Workshop/WorkshopLecturesTab";
 
 const TabsName = [
   { value: "about", label: "About" },
@@ -32,10 +34,13 @@ const Workshop = () => {
   const {
     title = "Have questions about this batch?",
     image = `${ImagePath}course/CourseCardImage.jpg`,
-    language = "हिंGLISH",
+    pdf = "",
+    language = "",
     totalLecture = 0,
     testNumber = 0,
-    description = "subject-level full syllabus batch",
+    syllabus = "",
+    moneyBack = "",
+    description = "",
     totalAmount = 0,
     discountAmount = 0,
     _id = "",
@@ -72,7 +77,7 @@ const Workshop = () => {
                 <span>{language}</span>
               </div>
               <div className="uppercase max-sm:text-xs text-primary font-bold ">
-                {description}
+                {syllabus}
               </div>
             </div>
           </section>
@@ -118,7 +123,7 @@ const Workshop = () => {
                   />
                 </figure>
                 <div className="space-y-2 w-full font-medium ">
-                  <p>100% Money Back</p>
+                  <p>{moneyBack}</p>
                 </div>
               </div>
             </div>
@@ -148,13 +153,15 @@ const Workshop = () => {
         <div className="mt-6">
           {tabIndex === "about" && (
             <CourseAboutTab
+              pdf={pdf}
+              description={description}
               totalLecture={totalLecture}
               totalTest={testNumber}
             />
           )}
-          {tabIndex === "lectures" && <CourseLecturesTab id={_id} />}
+          {tabIndex === "lectures" && <WorkshopLecturesTab id={_id} />}
           {tabIndex === "Testimonials" && <WorkshopTestimonialsTab />}
-          {tabIndex === "faqs" && <CourseFaqsTab />}
+          {tabIndex === "faqs" && <WorkshopFaqTab />}
         </div>
       </section>
 

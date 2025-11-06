@@ -4,10 +4,10 @@ import FaqCard from "../Common/FaqCard";
 import { useGetApiQuery } from "../../Api/CommonApi";
 import { URL_KEYS } from "../../Constants";
 
-const CourseFaqsTab = () => {
+const WorkshopFaqTab = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(0);
 
-  const { data } = useGetApiQuery({ url: `${URL_KEYS.FAQ.ALL}?typeFilter=course` });
+  const { data } = useGetApiQuery({ url: `${URL_KEYS.FAQ.ALL}?typeFilter=workshop` });
 
   const Faqs = data?.data?.faq_data;
 
@@ -26,4 +26,5 @@ const CourseFaqsTab = () => {
   );
 };
 
-export default CourseFaqsTab;
+export default WorkshopFaqTab;
+

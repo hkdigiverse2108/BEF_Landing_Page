@@ -1,5 +1,5 @@
 import { TbCloudDownload } from "react-icons/tb";
-import { ImagePath, URL_KEYS } from "../../Constants";
+import { ImagePath } from "../../Constants";
 import type { CourseType } from "../../Types";
 import { useState } from "react";
 
@@ -7,6 +7,7 @@ const CourseAboutTab = ({
   description,
   totalLecture,
   totalTest,
+  pdf,
 }: CourseType) => {
   const [isMore, setIsMore] = useState(false);
 
@@ -39,8 +40,9 @@ const CourseAboutTab = ({
       <div>
         <div
           className={`text-sm text-gray-600 ${isMore ? "" : "line-clamp-4"}  `}
-          dangerouslySetInnerHTML={{ __html: description }}
+          // dangerouslySetInnerHTML={{ __html: description }}
         />
+        <span className="block">{description}</span>
         <button
           onClick={() => setIsMore(!isMore)}
           className="font-medium text-primary"
@@ -50,7 +52,7 @@ const CourseAboutTab = ({
       </div>
       <div>
         <a
-          href={`${ImagePath}DummyPDF.pdf`}
+          href={pdf}
           className="flex w-full border border-gray-300  rounded-md hover:border-primary  hover:!text-primary transition-colors text-center justify-center py-4 gap-3 uppercase font-semibold"
         >
           <span className="text-2xl ">

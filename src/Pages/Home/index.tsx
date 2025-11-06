@@ -25,7 +25,7 @@ const Home = () => {
   const { data: blogData, isLoading: blogLoading } = useGetApiQuery({ url: URL_KEYS.BLOG.ALL });
   const blogs = blogData?.data?.blog_data || [];
 
-  const { data: faqsData, isLoading: faqLoading } = useGetApiQuery({ url: URL_KEYS.FAQ.ALL });
+  const { data: faqsData, isLoading: faqLoading } = useGetApiQuery({ url: `${URL_KEYS.FAQ.ALL}?typeFilter=landing-page` });
   const faqs = faqsData?.data?.faq_data;
 
   const { data: interfaceData, isLoading: interfaceLoading } = useGetApiQuery({ url: URL_KEYS.INTERFACE.ALL });

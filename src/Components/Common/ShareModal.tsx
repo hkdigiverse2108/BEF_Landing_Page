@@ -44,7 +44,7 @@ const ShareModal: React.FC = () => {
 
   return (
     <>
-      <Button icon={<PiShareFat />} onClick={handleOpen} className="flex items-center gap-2">
+      <Button icon={<PiShareFat />} onClick={handleOpen} className="flex items-center max-sm:!p-2  ">
         <span className="max-sm:hidden">Share</span>
       </Button>
 

@@ -29,24 +29,25 @@ const CourseDetails = () => {
   const course = courseData?.data || {};
 
   const { data: modulesData, isLoading: moduleLoading } = useGetApiQuery(
-    { url: `${URL_KEYS.MODULE.COURSE_WISE}${course._id}` },
+    { url: `${URL_KEYS.MODULE.ALL}?courseFilter=${course._id}` },
     { skip: !course._id }
   );
-  const Modules = modulesData?.data;
+  const Modules = modulesData?.data?.module_data || [];
 
   const {
-    title = "Have questions about this batch?",
+    title = "",
     image = `${ImagePath}course/CourseCardImage.jpg`,
-    language = "हिंGLISH",
+    language = "",
+    pdf = "",
     syllabus,
     courseMoneyBack = "",
     totalLecture = 0,
     totalTest = 0,
-    description = "subject-level full syllabus batch",
+    description = "",
     price = 0,
     payingPrice = 0,
     discountPrice = 0,
-    priceInStruction = "Remaining fee pays after prelims cleared",
+    priceInStruction = "",
   } = course;
 
   const handleChange = (_: SyntheticEvent, newValue: string) => {
@@ -161,6 +162,7 @@ const CourseDetails = () => {
         <div className="mt-6">
           {tabIndex === "about" && (
             <CourseAboutTab
+              pdf={pdf}
               description={description}
               totalLecture={totalLecture}
               totalTest={totalTest}

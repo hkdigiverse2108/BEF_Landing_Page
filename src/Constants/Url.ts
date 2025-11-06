@@ -13,11 +13,12 @@ export const URL_KEYS = {
     ALL: "faq/public",
   },
   LECTURE: {
-    COURSE_WISE: "lecture/course/",
+    // COURSE_WISE: "lecture/course/",
     ALL: "lecture/all",
   },
   MODULE: {
     COURSE_WISE: "module/course/",
+    ALL: "/module/all",
   },
   ABOUT: {
     ALL: "about-us",

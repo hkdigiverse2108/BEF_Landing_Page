@@ -13,7 +13,7 @@ const CourseCard = ({ course }: { course: CourseType }) => {
   } = course;
   const title = "Have questions about this Course?";
   const subtitle = "Talk to a counsellor";
-
+  console.log(image);
   return (
     <NavLink
       to={`${ROUTES.COURSE.DETAILS.replace(":id", _id)}`}
