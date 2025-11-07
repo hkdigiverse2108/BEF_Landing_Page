@@ -9,6 +9,7 @@ import CourseFaqsTab from "../../Components/Course/CourseFaqsTab";
 import { useGetApiQuery } from "../../Api/CommonApi";
 import ShareModal from "../../Components/Common/ShareModal";
 import Loader from "../../Components/Common/Loader";
+import type { ModuleType } from "../../Types";
 
 const TabsName = [
   { value: "about", label: "About" },
@@ -42,7 +43,6 @@ const CourseDetails = () => {
     syllabus,
     courseMoneyBack = "",
     totalLecture = 0,
-    totalTest = 0,
     description = "",
     price = 0,
     payingPrice = 0,
@@ -53,6 +53,11 @@ const CourseDetails = () => {
   const handleChange = (_: SyntheticEvent, newValue: string) => {
     setTabIndex(newValue);
   };
+
+  const totalTest = Modules?.reduce(
+    (sum: number, module: ModuleType) => sum + Number(module?.totalTest || 0),
+    0
+  );
 
   useEffect(() => {
     if (!id) {
@@ -72,11 +77,7 @@ const CourseDetails = () => {
           <ShareModal />
         </div>
         <figure>
-          <img
-            src={image}
-            alt=""
-            className="w-full h-full rounded-lg max-h-[35rem]"
-          />
+          <img src={image} alt="" className="w-full h-full rounded-lg" />
         </figure>
       </section>
       <section>
@@ -115,7 +116,7 @@ const CourseDetails = () => {
                 <p className="max-sm:hidden font-medium ">Module</p>
                 <ul className="w-full text-sm flex flex-col sm:flex-row gap-2 sm:gap-4">
                   {Modules?.map((module: { name: string }, i: number) => (
-                    <li>
+                    <li key={i}>
                       {i + 1}. {module.name}
                     </li>
                   ))}

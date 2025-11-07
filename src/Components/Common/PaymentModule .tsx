@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useGetApiQuery, usePostApiMutation } from "../../Api/CommonApi";
 import type {
   CourseWorkshopRegisterPayload,
@@ -48,11 +48,10 @@ const PaymentModule = ({
 }: PaymentModuleProps) => {
   const [PostApi] = usePostApiMutation({});
   const navigate = useNavigate();
-  let RazorPayKey;
-
+  const hasHandledPayment = useRef<string | null>(null);
 
   const { data: settingData } = useGetApiQuery({ url: URL_KEYS.SETTINGS.ALL });
-  RazorPayKey = settingData?.data?.apiKey;
+  const RazorPayKey = settingData?.data?.apiKey;
 
   useEffect(() => {
     const script = document.createElement("script");
@@ -105,6 +104,10 @@ const PaymentModule = ({
     response: RazorpayResponse,
     status: "COMPLETED" | "FAILED"
   ) => {
+    const currentPaymentId = response?.razorpay_payment_id || "FAILED_ATTEMPT";
+
+    if (hasHandledPayment.current === currentPaymentId) return;
+    hasHandledPayment.current = currentPaymentId;
     try {
       const payload = createPayload(response, status);
       const res = await PostApi({ url: apiUrl, data: payload });
@@ -122,11 +125,13 @@ const PaymentModule = ({
   const startPayment = () => {
     if (!window.Razorpay) return;
 
+    hasHandledPayment.current = null;
+
     const options = {
       key: RazorPayKey,
       amount: amount?.payingPrice * 100,
       currency: "INR",
-      name: "HET R",
+      name: "BHARAT EXAM FEST",
       description: title,
       handler: (response: RazorpayResponse) =>
         handlePayment(response, "COMPLETED"),

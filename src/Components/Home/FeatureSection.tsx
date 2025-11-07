@@ -78,10 +78,11 @@ const FeatureSection = ({ features }: { features: FeatureItem[] }) => {
                 data-aos="fade-left"
                 className="flex flex-col items-start gap-3 w-full "
               >
-                <Link
-                  to={item.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <div
+                  onClick={() => {
+                    setPlayVideo(true);
+                    setVideoLink(item.link);
+                  }}
                   className="block w-full  rounded-xl overflow-hidden"
                 >
                   <img
@@ -89,7 +90,7 @@ const FeatureSection = ({ features }: { features: FeatureItem[] }) => {
                     alt={item.title}
                     className="w-full h-full object-cover rounded-xl"
                   />
-                </Link>
+                </div>
                 <h4 className="text-lg font-semibold text-primary uppercase text-right">
                   {item.title}
                 </h4>

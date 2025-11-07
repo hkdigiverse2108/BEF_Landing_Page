@@ -32,7 +32,7 @@ const WorkshopRegister = () => {
       className="container flex max-md:flex-col justify-between py-10 px-4 gap-5"
     >
       {/* Left Box - Image */}
-      <div className="w-full max-w-2xl flex items-center justify-center rounded-2xl p-6">
+      <div className="w-full max-w-2xl flex items-center justify-center rounded-2xl ">
         <img
           src={`${ImagePath}course/CourseModule.png`}
           alt="Workshop"
@@ -43,7 +43,7 @@ const WorkshopRegister = () => {
       {/* Right Box - Form */}
       <div
         data-aos="fade-right"
-        className="bg-white hover:shadow-lg transition-all duration-300 rounded-2xl p-6 sm:p-10 w-full max-w-2xl"
+        className="bg-white hover:shadow-lg transition-all duration-300 rounded-2xl p-6 sm:p-10 w-full max-w-2xl h-fit"
       >
         <SectionHeader
           title="Workshop  "

@@ -39,10 +39,9 @@ const CourseAboutTab = ({
       </div>
       <div>
         <div
-          className={`text-sm text-gray-600 ${isMore ? "" : "line-clamp-4"}  `}
-          // dangerouslySetInnerHTML={{ __html: description }}
+          className={`text-sm text-gray-600 ${isMore ? "" : "line-clamp-8 sm:line-clamp-5"}  `}
+          dangerouslySetInnerHTML={{ __html: description }}
         />
-        <span className="block">{description}</span>
         <button
           onClick={() => setIsMore(!isMore)}
           className="font-medium text-primary"

@@ -14,7 +14,7 @@ export interface CourseType extends BaseEntity {
   courseMoneyBack?: boolean;
   totalLecture?: number;
   totalTest?: number;
-  description?: string;
+  description: string | TrustedHTML;
   pdf?: string;
   price?: number;
   discountPrice?: number;

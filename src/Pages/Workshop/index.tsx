@@ -59,7 +59,7 @@ const Workshop = () => {
           <img
             src={image}
             alt=""
-            className="w-full h-full rounded-lg max-h-[35rem]"
+            className="w-full h-full rounded-lg "
           />
         </figure>
       </section>

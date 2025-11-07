@@ -30,12 +30,12 @@ const CourseRegister = () => {
   return (
     <section id="purchase" className="container flex max-md:flex-col justify-between py-10 px-4 gap-5 h-full">
       {/* Left Image Box */}
-      <div data-aos="fade-right" className="w-full max-w-2xl flex items-center justify-center bg-gray-100 rounded-2xl p-6">
+      <div data-aos="fade-right" className="w-full max-w-2xl  bg-gray-100 rounded-2xl">
         <img src={`${ImagePath}course/CourseModule.png`} alt="Course" className="rounded-xl w-full h-auto object-cover" />
       </div>
 
       {/* Right Form Box */}
-      <div data-aos="fade-right" className="bg-white hover:shadow-lg transition-all duration-300 rounded-2xl p-6 sm:p-10 w-full max-w-2xl">
+      <div data-aos="fade-right" className="bg-white hover:shadow-lg transition-all duration-300 rounded-2xl p-6 sm:p-10 w-full max-w-2xl h-fit">
         <SectionHeader title="Course" desc="Enroll Now" className="pb-6 text-center" />
 
         <Form layout="vertical" form={form} onFinish={onFinish} className="space-y-4">

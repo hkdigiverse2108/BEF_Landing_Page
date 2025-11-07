@@ -4,7 +4,12 @@ import { URL_KEYS } from "../../Constants";
 import { useGetApiQuery } from "../../Api/CommonApi";
 import Loader from "../../Components/Common/Loader";
 
-type HelpSlug = "aboutUs" | "illegality" | "termsCondition" | "privacyPolicy" | "refundPolicy";
+type HelpSlug =
+  | "aboutUs"
+  | "illegality"
+  | "termsCondition"
+  | "privacyPolicy"
+  | "refundPolicy";
 
 const HelpSupport = () => {
   const { slug = "" } = useParams<{ slug?: HelpSlug }>();
@@ -31,14 +36,15 @@ const HelpSupport = () => {
 
   return (
     <section className="container mx-auto px-5 py-16">
-      {isLoading ? (
-        <p className="text-center text-gray-500">Loading...</p>
-      ) : (
-        <>
-          <h1 className="text-3xl font-bold text-primary mb-6 capitalize">{slug?.replace("-", " ")}</h1>
-          <div className="prose prose-lg max-w-none text-gray-700" dangerouslySetInnerHTML={{ __html: pageData }} />
-        </>
-      )}
+      <h1 className="text-3xl font-bold text-primary mb-6 capitalize">
+        {slug?.replace("-", " ") === "termsCondition"
+          ? "Terms & Condition"
+          : slug?.replace("-", " ")}
+      </h1>
+      <div
+        className="prose prose-lg max-w-none text-gray-700"
+        dangerouslySetInnerHTML={{ __html: pageData }}
+      />
     </section>
   );
 };
