@@ -2,17 +2,30 @@ import "aos/dist/aos.css";
 import { ImagePath } from "../../Constants";
 import { SwiperSlide, Swiper } from "swiper/react";
 import { A11y, Autoplay, EffectCards, Pagination } from "swiper/modules";
-// import { Link } from "react-router-dom";
 import AnimationLine from "../Common/AnimationLine";
-import type { InterfaceType } from "./InterfaceSection";
-// import { APP_LINKS } from "../../Data/Links";
 
-const HeroSection = ({ interfaces }: { interfaces: InterfaceType[] }) => {
+const HeroSection = () => {
   const users = [
     `${ImagePath}/home/user01.png`,
     `${ImagePath}/home/user02.png`,
     `${ImagePath}/home/user03.png`,
     `${ImagePath}/home/user04.png`,
+  ];
+  const Banners = [
+    `${ImagePath}/Home_Banner/1.png`,
+    `${ImagePath}/Home_Banner/2.png`,
+    `${ImagePath}/Home_Banner/3.png`,
+    `${ImagePath}/Home_Banner/4.png`,
+    `${ImagePath}/Home_Banner/5.png`,
+    `${ImagePath}/Home_Banner/6.png`,
+    `${ImagePath}/Home_Banner/7.png`,
+    `${ImagePath}/Home_Banner/8.png`,
+    `${ImagePath}/Home_Banner/9.png`,
+    `${ImagePath}/Home_Banner/10.png`,
+    `${ImagePath}/Home_Banner/11.png`,
+    `${ImagePath}/Home_Banner/12.png`,
+    `${ImagePath}/Home_Banner/13.png`,
+    `${ImagePath}/Home_Banner/14.png`,
   ];
 
   return (
@@ -91,12 +104,12 @@ const HeroSection = ({ interfaces }: { interfaces: InterfaceType[] }) => {
               loop={true}
               effect="fade"
               autoplay={{ delay: 2000 }}
-              className=" absolute  z-0 rounded-[30px] !overflow-hidden "
+              className=" absolute  z-0 rounded-[30px] !overflow-hidden bg-white "
             >
-              {interfaces?.map((slide, i) => (
+              {Banners?.map((slide, i) => (
                 <SwiperSlide key={i} className="">
                   <img
-                    src={slide.image}
+                    src={slide}
                     alt={`slide-${i}`}
                     className="w-full h-full object-cover !px-0.5"
                   />

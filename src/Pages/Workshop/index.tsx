@@ -124,7 +124,7 @@ const Workshop = () => {
             variant="scrollable"
             aria-label="primary tabs example"
             allowScrollButtonsMobile
-            className="!w-full !flex !justify-between !gap-4 border-b border-gray-300 mt-6 "
+            className="DetailsTabs !w-full !flex !justify-between !gap-4 border-b border-gray-300 mt-6 "
             sx={{
               "& .MuiTabs-flexContainer": {
                 justifyContent: "space-between",

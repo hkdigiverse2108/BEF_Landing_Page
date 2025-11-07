@@ -39,7 +39,7 @@ const CourseAboutTab = ({
       </div>
       <div>
         <div
-          className={`text-sm text-gray-600 ${isMore ? "" : "line-clamp-8 sm:line-clamp-5"}  `}
+          className={`  ${isMore ? "" : "line-clamp-8 sm:line-clamp-5"}  `}
           dangerouslySetInnerHTML={{ __html: description }}
         />
         <button

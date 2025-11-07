@@ -42,7 +42,6 @@ const CourseDetails = () => {
     pdf = "",
     syllabus,
     courseMoneyBack = "",
-    totalLecture = 0,
     description = "",
     price = 0,
     payingPrice = 0,
@@ -56,6 +55,12 @@ const CourseDetails = () => {
 
   const totalTest = Modules?.reduce(
     (sum: number, module: ModuleType) => sum + Number(module?.totalTest || 0),
+    0
+  );
+
+  const totalLecture = Modules?.reduce(
+    (sum: number, module: ModuleType) =>
+      sum + Number(module?.totalLecture || 0),
     0
   );
 
@@ -103,18 +108,18 @@ const CourseDetails = () => {
           <section className="flex flex-col lg:flex-row gap-5">
             <div className="bg-card-bg  transition-all px-5 py-3 rounded w-full flex flex-col sm:flex-row sm:items-center sm:gap-5">
               <div className="flex items-center  gap-3 mb-3 sm:mb-0">
-                <figure className="rounded-full bg-primary/10 p-3 sm:p-4 h-fit w-fit">
+                <figure className="rounded-full bg-primary/10  w-13 h-13 sm:w-15 sm:h-15 flex items-center justify-center  ">
                   <img
                     src={`${ImagePath}workshop/users.png`}
                     alt="Users"
-                    className="w-8 sm:w-10 h-fit"
+                    className="w-8 h-8  sm:w-10 sm:h-10"
                   />
                 </figure>
                 <p className=" sm:hidden font-medium ">Module</p>
               </div>
               <div className="space-y-2 w-full ">
                 <p className="max-sm:hidden font-medium ">Module</p>
-                <ul className="w-full text-sm flex flex-col sm:flex-row gap-2 sm:gap-4">
+                <ul className="w-full text-sm flex flex-wrap flex-col sm:flex-row gap-2 sm:gap-4">
                   {Modules?.map((module: { name: string }, i: number) => (
                     <li key={i}>
                       {i + 1}. {module.name}
@@ -148,7 +153,7 @@ const CourseDetails = () => {
             textColor="primary"
             variant="scrollable"
             aria-label="primary tabs example"
-            className="!w-full !flex !justify-between !gap-4 border-b border-gray-300 mt-6 "
+            className="!w-full !flex !justify-between !gap-4 border-b border-gray-300 mt-6 DetailsTabs "
             sx={{
               "& .MuiTabs-flexContainer": {
                 justifyContent: "space-between",
@@ -169,7 +174,7 @@ const CourseDetails = () => {
               totalTest={totalTest}
             />
           )}
-          {tabIndex === "lectures" && <CourseLecturesTab id={id} />}
+          {tabIndex === "lectures" && <CourseLecturesTab Modules={Modules} />}
           {tabIndex === "module" && <CourseModuleTab id={id} />}
           {tabIndex === "faqs" && <CourseFaqsTab />}
         </div>

@@ -16,10 +16,20 @@ const App = () => {
       MuiTabs: {
         styleOverrides: {
           indicator: {
-            background: "linear-gradient(90deg, var(--color-primary), var(--color-success))",
+            background:
+              "linear-gradient(90deg, var(--color-primary), var(--color-success))",
             height: "2px",
           },
         },
+      },
+    },
+    breakpoints: {
+      values: {
+        xs: 0,
+        sm: 640,
+        md: 768,
+        lg: 1024,
+        xl: 1280,
       },
     },
   });

@@ -189,17 +189,29 @@ body {
 }
 /* ================  Testimonial Section SWiper End ================ */
 
-/* ================  Workshop Section Start ================ */
+/* ================  Material UI Tab  Section Start ================ */
 
-.MuiTabs-list.MuiTabs-flexContainer {
+.DetailsTabs .MuiTabs-list.MuiTabs-flexContainer {
   @apply flex sm:grid grid-cols-4 gap-0;
 }
-.MuiTabs-list.MuiTabs-flexContainer button {
+.DetailsTabs .MuiTabs-list.MuiTabs-flexContainer button {
   @apply !font-extrabold;
 }
+
+/* .LecturesTabs .MuiTabs-list.MuiTabs-flexContainer {
+  @apply flex sm:grid grid-cols-4 gap-0;
+} */
+.LecturesTabs .MuiTabs-list.MuiTabs-flexContainer button {
+  @apply !font-bold;
+}
+.LecturesTabs .MuiTabs-list.MuiTabs-flexContainer  .Mui-selected {
+  @apply  !bg-card-bg !rounded-l-lg ;
+}
+MuiButtonBase-root MuiTab-root MuiTab-textColorPrimary Mui-selected css-5bs729-MuiButtonBase-root-MuiTab-root
+/* MuiButtonBase-root-MuiTab-root.Mui-selected .LecturesTabs */
 /* MuiButtonBase-root MuiTab-root MuiTab-textColorPrimary !font-bold css-5bs729-MuiButtonBase-root-MuiTab-root */
 
-/* ================  Workshop Section End ================ */
+/* ================  Material UI Tab  Section End ================ */
 
 /* ================  Course Section Start ================ */
 

@@ -17,14 +17,16 @@ const CourseModuleTab = ({ id }: { id?: string }) => {
   return (
     <div className="space-y-4" data-aos="fade-up">
       {Modules?.map((module: ModuleType) => (
-        <a
+        <div
           key={module._id}
           className="flex max-sm:flex-col gap-4 bg-white rounded-lg p-4  border border-gray-200 max-sm:items-center "
         >
           <figure
             onClick={() => {
-              setPlayVideo(true);
-              setVideoLink(module?.link);
+              if (module?.link) {
+                setPlayVideo(true);
+                setVideoLink(module?.link);
+              }
             }}
           >
             <img
@@ -57,7 +59,7 @@ const CourseModuleTab = ({ id }: { id?: string }) => {
               </p>
             </div>
           </div>
-        </a>
+        </div>
       ))}
       <YoutubeVideoModal
         playVideo={playVideo}

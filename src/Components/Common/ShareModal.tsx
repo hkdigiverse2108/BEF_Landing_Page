@@ -1,17 +1,15 @@
 import React, { useState } from "react";
 import { Modal, Button } from "antd";
-import {
-  WhatsAppOutlined,
-  LinkedinOutlined,
-  TwitterOutlined,
-  CopyOutlined,
-  SendOutlined,
-} from "@ant-design/icons";
+import { TwitterOutlined } from "@ant-design/icons";
 import { PiShareFat } from "react-icons/pi";
+import { FaLinkedin, FaTelegram } from "react-icons/fa";
+import { RiWhatsappFill } from "react-icons/ri";
+import { LuCopy, LuCopyCheck } from "react-icons/lu";
 
 const ShareModal: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [pageUrl, setPageUrl] = useState("");
+  const [isCopied, setIsCopied] = useState(false);
 
   const handleOpen = () => {
     const currentUrl = window.location.href;
@@ -48,6 +46,17 @@ const ShareModal: React.FC = () => {
     window.open(shareUrl, "_blank", "noopener,noreferrer");
   };
 
+  const handleCopyLink = () => {
+    const copy = navigator.clipboard.writeText(pageUrl);
+    if (copy) setIsCopied(true);
+
+    setTimeout(() => {
+      setIsCopied(false);
+    }, 5000);
+  };
+
+  const copyIcon = <LuCopyCheck />;
+
   return (
     <>
       <Button
@@ -66,16 +75,17 @@ const ShareModal: React.FC = () => {
         title="Share"
       >
         <div className="flex flex-col gap-4 items-center justify-center text-center ">
-          <div className="flex justify-center gap-6 text-3xl mt-2">
-            <WhatsAppOutlined
+          <div className="flex justify-center gap-6 text-3xl mt-2 w-full ">
+            <RiWhatsappFill
               onClick={() => openShareLink("whatsapp")}
               className="!text-green-500 cursor-pointer hover:scale-110 transition-transform"
             />
-            <SendOutlined
+            {/* <FaTelegram /> */}
+            <FaTelegram
               onClick={() => openShareLink("telegram")}
               className="!text-blue-500 cursor-pointer hover:scale-110 transition-transform"
             />
-            <LinkedinOutlined
+            <FaLinkedin
               onClick={() => openShareLink("linkedin")}
               className="!text-blue-700 cursor-pointer hover:scale-110 transition-transform"
             />
@@ -85,13 +95,11 @@ const ShareModal: React.FC = () => {
             />
           </div>
 
-          <div className="flex justify-between items-center border border-gray-300 rounded-md p-2 w-full  bg-gray-50 break-all">
+          <div className="flex  justify-between items-center border border-gray-300 rounded-md p-2 w-full  bg-gray-50 break-all">
             <p> {pageUrl}</p>
             <Button
-              icon={<CopyOutlined />}
-              onClick={() => {
-                navigator.clipboard.writeText(pageUrl);
-              }}
+              icon={isCopied ? <LuCopyCheck /> : <LuCopy />}
+              onClick={handleCopyLink}
             ></Button>
           </div>
         </div>
