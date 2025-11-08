@@ -22,7 +22,7 @@ const BlogSection = ({ blogs }: { blogs: BlogType[] }) => {
 
       {/* View All Button */}
       <div className="text-center mt-12">
-        <NavLink to={ROUTES.BLOG}>
+        <NavLink to={ROUTES.BLOG.BLOG}>
           <Button className="btn primary_btn !h-12 !rounded-full"> View All</Button>
         </NavLink>
       </div>

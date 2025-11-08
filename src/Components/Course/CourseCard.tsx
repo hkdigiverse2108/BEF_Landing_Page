@@ -26,7 +26,7 @@ const CourseCard = ({ course }: { course: CourseType }) => {
         className="flex flex-nowrap gap-2 cursor-pointer !text-black"
       >
         <IoCall className="me-2 text-lg text-success" />
-        Make Call
+        {CONTACT?.number}
       </Link>
       <span className=" border-t flex border-gray-200  "></span>
       <Link

@@ -32,6 +32,7 @@ export const URL_KEYS = {
   },
   BLOG: {
     ALL: "blog/all",
+    ONE: "blog/",
   },
   CONTACT_US: {
     ADD: "contact-us/add",

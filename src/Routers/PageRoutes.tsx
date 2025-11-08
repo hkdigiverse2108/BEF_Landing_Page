@@ -12,6 +12,7 @@ import Blog from "../Pages/Blog";
 import PageNotFound from "../Components/Common/PageNotFound";
 import PaymentSuccess from "../Components/Common/PaymentSuccess";
 import PaymentFailed from "../Components/Common/PaymentFailed";
+import BlogDetails from "../Pages/Blog/BlogDetails";
 
 export const PageRoutes = [
   {
@@ -19,8 +20,12 @@ export const PageRoutes = [
     element: <Home />,
   },
   {
-    path: ROUTES.BLOG,
+    path: ROUTES.BLOG.BLOG,
     element: <Blog />,
+  },
+  {
+    path: ROUTES.BLOG.DETAILS,
+    element: <BlogDetails />,
   },
   {
     path: ROUTES.WORKSHOP.WORKSHOP,
