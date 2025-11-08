@@ -44,11 +44,11 @@ const Header = () => {
                 {item.Title}
               </NavLink>
             ))}
-            <NavLink to={LOGIN_URL} target="_blank" rel="noopener noreferrer">
+            {/* <NavLink to={LOGIN_URL} target="_blank" rel="noopener noreferrer">
               <button onClick={() => setMenuOpen(!menuOpen)} className="btn primary_btn  w-full ">
                 Login
               </button>
-            </NavLink>
+            </NavLink> */}
           </nav>
 
           <div className="block lg:hidden gap-1 items-center text-2xl ">
@@ -63,11 +63,11 @@ const Header = () => {
             {item.Title}
           </NavLink>
         ))}
-        <NavLink to={LOGIN_URL} target="_blank" rel="noopener noreferrer">
+        {/* <NavLink to={LOGIN_URL} target="_blank" rel="noopener noreferrer">
           <button onClick={() => setMenuOpen(!menuOpen)} className="btn primary_btn  w-fit ">
             Login
           </button>
-        </NavLink>
+        </NavLink> */}
       </div>
     </div>
   );
