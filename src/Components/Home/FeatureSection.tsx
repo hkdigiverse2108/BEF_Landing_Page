@@ -1,7 +1,6 @@
 import "aos/dist/aos.css";
 import { ImagePath } from "../../Constants";
 import SectionHeader from "./SectionHeader";
-import { Link } from "react-router-dom";
 import type { FeatureItem } from "../../Types";
 import YoutubeVideoModal from "../Common/YoutubeVideoModal";
 import { useState } from "react";

@@ -30,7 +30,7 @@ const GoTop = () => {
           onClick={() => {
             window.scrollTo({
               top: 0,
-              behavior: "smooth", // makes it scroll smoothly
+              behavior: "smooth", 
             });
           }}
         >

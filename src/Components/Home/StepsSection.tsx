@@ -1,10 +1,8 @@
 import { ImagePath } from "../../Constants";
 import SectionHeader from "./SectionHeader";
-import { Link } from "react-router-dom";
 import type { StepType } from "../../Types";
 import { useState } from "react";
 import { IoPlayCircle } from "react-icons/io5";
-import { Modal } from "antd";
 import YoutubeVideoModal from "../Common/YoutubeVideoModal";
 
 const StepsSection = ({ steps }: { steps: StepType[] }) => {
@@ -85,14 +83,14 @@ const StepsSection = ({ steps }: { steps: StepType[] }) => {
               alt="Yt-thumbnail"
               data-aos="fade-up"
             />
-            <div className="absolute w-full top-0 left-0 right-0 bottom-0 flex justify-center items-center  ">
-              <button
-                onClick={() => {
-                  setPlayVideo(true);
-                  setVideoLink(defaultLink);
-                }}
-                className="!text-7xl text-primary"
-              >
+            <div
+              onClick={() => {
+                setPlayVideo(true);
+                setVideoLink(defaultLink);
+              }}
+              className="absolute w-full top-0 left-0 right-0 bottom-0 flex justify-center items-center  "
+            >
+              <button className="!text-7xl text-primary">
                 <IoPlayCircle />
               </button>
             </div>

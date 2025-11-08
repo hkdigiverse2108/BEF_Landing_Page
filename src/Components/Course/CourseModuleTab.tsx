@@ -11,7 +11,6 @@ const CourseModuleTab = ({ id }: { id?: string }) => {
   const { data: ModulesData } = useGetApiQuery({
     url: `${URL_KEYS.MODULE.ALL}?courseFilter=${id}`,
   });
-  // console.log(ModulesData?.data?.module_data);
   const Modules = ModulesData?.data?.module_data || [];
 
   return (

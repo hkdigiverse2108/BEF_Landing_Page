@@ -13,11 +13,9 @@ export const URL_KEYS = {
     ALL: "faq/public",
   },
   LECTURE: {
-    // COURSE_WISE: "lecture/course/",
     ALL: "lecture/all",
   },
   MODULE: {
-    COURSE_WISE: "module/course/",
     ALL: "/module/all",
   },
   ABOUT: {
@@ -40,9 +38,9 @@ export const URL_KEYS = {
   },
   HELP_SUPPORT: {
     ABOUT_US: "about-us?type=landing-page",
-    ILLEGALITY: "illegality?type=landing-page",
+    LEGALITY: "illegality?type=landing-page",
     TERM_CONDITION: "terms-condition?type=landing-page",
-    PRIVACY_POLICY: "privacy-policy?type=landing-page'",
+    PRIVACY_POLICY: "privacy-policy?type=landing-page",
     REFUND_POLICY: "refund-policy?type=landing-page",
   },
   SETTINGS: {

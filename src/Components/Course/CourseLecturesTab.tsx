@@ -4,6 +4,7 @@ import { URL_KEYS } from "../../Constants";
 import type { LectureType, ModuleType } from "../../Types";
 import YoutubeVideoModal from "../Common/YoutubeVideoModal";
 import { Tab, Tabs, useMediaQuery, useTheme } from "@mui/material";
+import LectureCard from "../Common/LectureCard";
 
 const CourseLecturesTab = ({ Modules }: { Modules: ModuleType[] }) => {
   const [playVideo, setPlayVideo] = useState(false);
@@ -23,55 +24,6 @@ const CourseLecturesTab = ({ Modules }: { Modules: ModuleType[] }) => {
     setSelectedModule(newValue);
   };
 
-  const LectureCard = ({ lecture }: { lecture: LectureType }) => {
-    return (
-      <div
-        key={lecture?._id}
-        className="flex max-sm:flex-col gap-4 bg-white rounded-lg  border border-gray-200 p-2 h-fit items-stretch"
-      >
-        {/* Image */}
-        <figure
-          onClick={() => {
-            setPlayVideo(true);
-            setVideoLink(lecture?.link);
-          }}
-        >
-          <img
-            src={lecture?.image}
-            alt={lecture?.title}
-            className="w-full h-full sm:w-fit sm:h-23 rounded-lg object-cover"
-          />
-        </figure>
-
-        {/* Content */}
-        <div className="flex flex-col  gap-2 justify-between ">
-          {/* Tags */}
-          <div className="flex items-center gap-2 text-xs">
-            <span className="bg-gray-200 px-1.5 py-0.5 rounded">
-              {lecture?.language}{" "}
-            </span>
-            <span className="text-primary font-semibold">
-              {lecture?.subjectName}
-            </span>
-          </div>
-
-          {/* Title */}
-          <h2 className="font-semibold text-sm sm:text-base">
-            {lecture?.title}
-          </h2>
-
-          {/* Instructor */}
-          <p className="text-gray-600 text-xs font-medium sm:text-sm">
-            {lecture?.subtitle}
-          </p>
-
-          {/* Date */}
-          <p className="text-gray-600 text-xs font-medium">{lecture?.date}</p>
-        </div>
-      </div>
-    );
-  };
-
   return (
     <>
       <div className="flex max-sm:flex-col gap-4" data-aos="fade-up">
@@ -81,10 +33,8 @@ const CourseLecturesTab = ({ Modules }: { Modules: ModuleType[] }) => {
             onChange={handleTabChange}
             textColor="primary"
             variant="scrollable"
-            // variant="scrollable"
             scrollButtons="auto"
             allowScrollButtonsMobile
-            // orientation="vertical"
             orientation={isMdUp ? "vertical" : "horizontal"}
             aria-label="primary tabs example"
             className="LecturesTabs max-sm:!w-full sm:!w-full !flex !justify-between !gap-4 border-b sm:border sm:rounded-lg border-gray-300 "
@@ -103,7 +53,12 @@ const CourseLecturesTab = ({ Modules }: { Modules: ModuleType[] }) => {
         </div>
         <div className="w-full">
           {Lectures?.map((lecture: LectureType) => (
-            <LectureCard key={lecture?._id} lecture={lecture} />
+            <LectureCard
+              key={lecture?._id}
+              lecture={lecture}
+              setPlayVideo={setPlayVideo}
+              setVideoLink={setVideoLink}
+            />
           ))}
         </div>
       </div>

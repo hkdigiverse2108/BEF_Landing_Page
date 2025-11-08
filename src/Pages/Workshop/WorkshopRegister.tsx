@@ -29,12 +29,12 @@ const WorkshopRegister = () => {
   return (
     <section
       id="purchase"
-      className="container flex max-md:flex-col justify-between py-10 px-4 gap-5"
+      className="container flex max-md:flex-col max-md:items-center justify-between py-10 px-4 gap-5"
     >
       {/* Left Box - Image */}
-      <div className="w-full max-w-2xl flex items-center justify-center rounded-2xl ">
+      <div className="order-2 md:order-1 w-full max-w-2xl flex items-center justify-center rounded-2xl ">
         <img
-          src={`${ImagePath}course/CourseModule.png`}
+          src={`${ImagePath}Register/Workshop_Register_1.jpg`}
           alt="Workshop"
           className="rounded-xl w-full h-auto object-cover"
         />
@@ -42,8 +42,8 @@ const WorkshopRegister = () => {
 
       {/* Right Box - Form */}
       <div
-        data-aos="fade-right"
-        className="bg-white hover:shadow-lg transition-all duration-300 rounded-2xl p-6 sm:p-10 w-full max-w-2xl h-fit"
+        // data-aos="fade-right"
+        className="order-1 md:order-2 bg-white hover:shadow-lg transition-all duration-300 rounded-2xl p-6 sm:px-10 sm:py-7  w-full max-w-2xl h-fit"
       >
         <SectionHeader
           title="Workshop  "
@@ -107,7 +107,6 @@ const WorkshopRegister = () => {
               <Option value="other">Other</Option>
             </Select>
           </Form.Item>
-
           <div className="pt-4 flex justify-center">
             <Button
               htmlType="submit"

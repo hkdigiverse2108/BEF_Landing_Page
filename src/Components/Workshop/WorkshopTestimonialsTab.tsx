@@ -19,15 +19,12 @@ const WorkshopTestimonialsTab = () => {
           <div className="bg-white flex flex-col sm:flex-row justify-between items-center rounded-xl p-4 sm:p-6 gap-2 sm:gap-6 border border-gray-200 w-full ">
             {/* Left Content */}
             <div className="order-2 sm:order-1 flex-1">
-              {/* description Icon */}
               <div className="text-3xl sm:text-6xl text-primary  font-serif ">
                 <RiDoubleQuotesL />
               </div>
 
-              {/* description Text */}
               <p className="sm:text-lg mb-6">{description}</p>
 
-              {/* Author Info */}
               <div>
                 <span className="flex max-sm:flex-col sm:gap-3 gap-1">
                   <p className="font-semibold ">{name}</p>

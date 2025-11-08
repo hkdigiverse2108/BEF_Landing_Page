@@ -27,7 +27,7 @@ const Workshop = () => {
 
   const {
     title = "Have questions about this batch?",
-    image = `${ImagePath}course/CourseCardImage.jpg`,
+    image = "",
     pdf = "",
     language = "",
     totalLecture = 0,
@@ -56,11 +56,7 @@ const Workshop = () => {
           <ShareModal />
         </div>
         <figure>
-          <img
-            src={image}
-            alt=""
-            className="w-full h-full rounded-lg "
-          />
+          <img src={image} alt="" className="w-full h-full rounded-lg " />
         </figure>
       </section>
       <section className="">
@@ -85,7 +81,6 @@ const Workshop = () => {
 
           <section className="flex flex-col lg:flex-row gap-5">
             <div className="bg-card-bg  transition-all px-5 py-3 rounded w-full flex max-sm:flex-col  items-center sm:gap-5">
-              {/* <div className="flex items-center  gap-3 mb-3 sm:mb-0"> */}
               <figure className="rounded-full bg-primary/10 p-3 sm:p-4 h-fit w-fit">
                 <img
                   src={`${ImagePath}workshop/users.png`}
@@ -96,7 +91,6 @@ const Workshop = () => {
               <p className=" font-medium capitalize max-sm:text-sm text-center">
                 Secret Workshop on What toppers do differently
               </p>
-              {/* </div> */}
             </div>
             <div className="bg-card-bg  transition-all px-5 py-3 rounded w-full flex flex-col sm:flex-row sm:items-center sm:gap-5">
               {/* Image + Title (top row on mobile) */}

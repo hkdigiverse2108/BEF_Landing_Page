@@ -11,7 +11,6 @@ const YoutubeVideoModal = ({
   setPlayVideo,
   videoLink,
 }: YTModalType) => {
-
   const getEmbedLink = (url: string): string => {
     if (!url) return "";
 
@@ -55,8 +54,6 @@ const YoutubeVideoModal = ({
           <iframe
             width="100%"
             height="400"
-            // src="https://www.youtube.com/embed/0Trxb5WfBKc?autoplay=1&rel=0&modestbranding=1"
-            // src={videoLink}
             src={embedUrl}
             title="YouTube video player"
             frameBorder="0"

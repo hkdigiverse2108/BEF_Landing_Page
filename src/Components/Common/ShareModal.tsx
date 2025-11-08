@@ -47,15 +47,13 @@ const ShareModal: React.FC = () => {
   };
 
   const handleCopyLink = () => {
-    const copy = navigator.clipboard.writeText(pageUrl);
-    if (copy) setIsCopied(true);
+    navigator.clipboard.writeText(pageUrl);
+    setIsCopied(true);
 
     setTimeout(() => {
       setIsCopied(false);
     }, 5000);
   };
-
-  const copyIcon = <LuCopyCheck />;
 
   return (
     <>

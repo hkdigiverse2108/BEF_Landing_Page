@@ -9,11 +9,8 @@ import { CheckCircleOutlined } from "@ant-design/icons";
 
 const { Search } = Input;
 
-const audienceEnum = ["default", "telecaller", "user"];
-
 const WorkshopPayment = () => {
   const [refferCode, setRefferCode] = useState("BHARATEXAMFEST");
-  const [audience, setAudience] = useState(audienceEnum[0]);
   const [isApplyed, setIsApplyed] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -32,8 +29,6 @@ const WorkshopPayment = () => {
   });
 
   const Lectures = data?.data?.lecture_data;
-  // const { data: settingData } = useGetApiQuery({ url: URL_KEYS.SETTINGS.ALL });
-  // console.log("data", settingData);
 
   const {
     title = "Workshop",
@@ -77,7 +72,6 @@ const WorkshopPayment = () => {
       const payload = {
         code: refferCode,
         amount: workshop?.totalAmount,
-        audience,
       };
 
       const res = await PostApi({
@@ -127,22 +121,22 @@ const WorkshopPayment = () => {
   }, []);
 
   return (
-    <section className="container flex max-md:flex-col justify-between py-10 px-4 gap-5">
+    <section className="container flex max-lg:flex-col max-lg:items-center justify-between py-10 px-4 gap-5 h-fit">
       {/* Left Image */}
-      <div className="w-full max-w-2xl flex items-center justify-center rounded-2xl p-6">
+      <div className="order-2 lg:order-1 w-full h-full max-w-2xl flex items-center justify-center rounded-2xl ">
         <img
-          src={`${ImagePath}course/CourseModule.png`}
+          src={`${ImagePath}Register/Payment_1.jpg`}
           alt="Workshop"
-          className="rounded-xl w-full h-auto object-cover"
+          className="rounded-xl w-full h-full object-cover"
         />
       </div>
 
       {/* Right Details */}
       <div
         data-aos="fade-left"
-        className="bg-white hover:shadow-lg transition-all duration-300 rounded-2xl p-6 sm:p-10 w-full max-w-2xl"
+        className="order-1 lg:order-2  bg-white hover:shadow-lg transition-all duration-300 rounded-2xl p-4 sm:p-10 w-full max-w-2xl "
       >
-        <div className="flex flex-col justify-between h-full text-gray-700 text-sm sm:text-base">
+        <div className="flex flex-col max-lg:min-h-[680px] justify-between h-full text-gray-700 gap-20 text-sm sm:text-base">
           <section className="space-y-4">
             <div>
               <strong className="text-2xl font-semibold text-primary">
@@ -157,14 +151,14 @@ const WorkshopPayment = () => {
               </ul>
             </div>
 
-            <div className="flex flex-nowrap justify-between h-fit gap-2">
+            <div className="flex flex-wrap justify-between h-fit gap-2">
               <p className="font-medium ">Referral Code: </p>
               <div>
                 <Search
                   placeholder="Referral Code"
                   value={refferCode}
                   onChange={handleReferralChange}
-                  className="!py-1 placeholder:!font-medium !px-4 rounded-lg !w-fit"
+                  className="!py-1 placeholder:!font-medium rounded-lg !w-fit"
                   // allowClear
                   onClear={() => setIsApplyed(false)}
                   loading={loading}
@@ -187,9 +181,7 @@ const WorkshopPayment = () => {
                     handleAplyyReferCode();
                   }}
                 />
-                {error && (
-                  <p className="text-red-500 text-xs mt-1 px-4 ">{error}</p>
-                )}
+                {error && <p className="text-red-500 text-xs mt-1 ">{error}</p>}
               </div>
             </div>
             {isApplyed && (
@@ -223,7 +215,7 @@ const WorkshopPayment = () => {
                   )}
                 </span>
               </p>
-              <p className="flex justify-between mt-1 mb-3 font-semibold text-lg">
+              <p className="flex justify-between mt-1 mb-3 font-semibold sm:text-lg">
                 Total (Incl. of all taxes):{" "}
                 <span className="">
                   {isApplyed ? (
@@ -236,24 +228,10 @@ const WorkshopPayment = () => {
                   ) : (
                     <span>₹{totalAmount}</span>
                   )}
-                  {/* ₹{discountAmount}/{totalAmount} */}
                 </span>
               </p>
-              {isApplyed && discountAmount > 0 ? (
-                <PaymentModule
-                  values={formValues}
-                  title={title}
-                  amount={{
-                    payingPrice: isApplyed ? discountAmount : totalAmount,
-                    discountPrice: discountAmount,
-                    price: totalAmount,
-                  }}
-                  type="workshop"
-                  itemData={workshop}
-                  referralCode={refferCode}
-                  apiUrl={URL_KEYS.WORKSHOP.REGISTER}
-                />
-              ) : !isApplyed && totalAmount > 0 ? (
+              {(isApplyed && discountAmount > 0) ||
+              (!isApplyed && totalAmount > 0) ? (
                 <PaymentModule
                   values={formValues}
                   title={title}

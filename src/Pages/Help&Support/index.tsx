@@ -12,25 +12,28 @@ type HelpSlug =
   | "refundPolicy";
 
 const HelpSupport = () => {
-  const { slug = "" } = useParams<{ slug?: HelpSlug }>();
-
+  const { slug = "" } = useParams<{ slug?: HelpSlug | "legality" }>();
+  const legality = "legality";
   const apiMap: Record<HelpSlug, string> = {
     aboutUs: URL_KEYS.HELP_SUPPORT.ABOUT_US,
-    illegality: URL_KEYS.HELP_SUPPORT.ILLEGALITY,
+    illegality: URL_KEYS.HELP_SUPPORT.LEGALITY,
     termsCondition: URL_KEYS.HELP_SUPPORT.TERM_CONDITION,
     privacyPolicy: URL_KEYS.HELP_SUPPORT.PRIVACY_POLICY,
     refundPolicy: URL_KEYS.HELP_SUPPORT.REFUND_POLICY,
   };
 
-  const apiUrl = slug ? apiMap[slug] : undefined;
-
+  const apiUrl = slug
+    ? slug === legality
+      ? apiMap.illegality
+      : apiMap[slug]
+    : undefined;
   const { data, isLoading } = useGetApiQuery({ url: apiUrl });
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [slug]);
-
-  const pageData = data?.data?.[slug];
+  const pageData =
+    slug === legality ? data?.data.illegality : data?.data?.[slug];
 
   if (isLoading) return <Loader />;
 

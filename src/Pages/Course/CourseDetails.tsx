@@ -28,16 +28,10 @@ const CourseDetails = () => {
     url: `${URL_KEYS.COURSE.ONE}${id}`,
   });
   const course = courseData?.data || {};
-
-  const { data: modulesData, isLoading: moduleLoading } = useGetApiQuery(
-    { url: `${URL_KEYS.MODULE.ALL}?courseFilter=${course._id}` },
-    { skip: !course._id }
-  );
-  const Modules = modulesData?.data?.module_data || [];
-
   const {
+    _id = "",
     title = "",
-    image = `${ImagePath}course/CourseCardImage.jpg`,
+    image = "",
     language = "",
     pdf = "",
     syllabus,
@@ -48,6 +42,12 @@ const CourseDetails = () => {
     discountPrice = 0,
     priceInStruction = "",
   } = course;
+
+  const { data: modulesData, isLoading: moduleLoading } = useGetApiQuery(
+    { url: `${URL_KEYS.MODULE.ALL}?courseFilter=${_id}` },
+    { skip: !_id }
+  );
+  const Modules = modulesData?.data?.module_data || [];
 
   const handleChange = (_: SyntheticEvent, newValue: string) => {
     setTabIndex(newValue);
@@ -119,7 +119,7 @@ const CourseDetails = () => {
               </div>
               <div className="space-y-2 w-full ">
                 <p className="max-sm:hidden font-medium ">Module</p>
-                <ul className="w-full text-sm flex flex-wrap flex-col sm:flex-row gap-2 sm:gap-4">
+                <ul className="w-full text-sm  grid grid-cols-1  sm:grid-cols-2 sm:flex-row gap-2 sm:gap-4">
                   {Modules?.map((module: { name: string }, i: number) => (
                     <li key={i}>
                       {i + 1}. {module.name}

@@ -14,7 +14,7 @@ export const ROUTES = {
   HELP_SUPPORT: {
     BASE: "/help-support/:slug",
     ABOUT_US: "/help-support/aboutUs",
-    ILLEGALITY: "/help-support/illegality",
+    LEGALITY: "/help-support/legality",
     TERM_CONDITION: "/help-support/termsCondition",
     PRIVACY_POLICY: "/help-support/privacyPolicy",
     REFUND_POLICY: "/help-support/refundPolicy",

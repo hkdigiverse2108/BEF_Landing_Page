@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import type { FormValues, CourseType, ModuleType } from "../../Types";
+import type { FormValues, CourseType } from "../../Types";
 import PaymentModule from "../../Components/Common/PaymentModule ";
 import { ImagePath, ROUTES, URL_KEYS } from "../../Constants";
 import { Input } from "antd";
@@ -9,11 +9,8 @@ import { CheckCircleOutlined } from "@ant-design/icons";
 
 const { Search } = Input;
 
-const audienceEnum = ["default", "telecaller", "user"];
-
 const CoursePayment = () => {
   const [refferCode, setRefferCode] = useState("BHARATEXAMFEST");
-  const [audience, setAudience] = useState(audienceEnum[0]);
   const [isApplyed, setIsApplyed] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -26,11 +23,11 @@ const CoursePayment = () => {
   const { formValues, course }: { formValues: FormValues; course: CourseType } =
     location.state || {};
 
-  const { data: ModulesData } = useGetApiQuery({
-    url: `${URL_KEYS.MODULE.COURSE_WISE}${course?._id}`,
-  });
-
-  const Modules = ModulesData?.data;
+  const { data: modulesData } = useGetApiQuery(
+    { url: `${URL_KEYS.MODULE.ALL}?courseFilter=${course?._id}` },
+    { skip: !course._id }
+  );
+  const Modules = modulesData?.data?.module_data || [];
 
   let {
     title = "Course Name",
@@ -42,6 +39,7 @@ const CoursePayment = () => {
   const isDiscountPrice = !!discountPrice;
   discountPrice = discountPrice === 0 ? price : discountPrice;
   console.log("isDis", isDiscountPrice);
+
   const handleAplyyReferCode = async () => {
     if (!refferCode.trim()) {
       setIsApplyed(false);
@@ -56,7 +54,6 @@ const CoursePayment = () => {
       const payload = {
         code: refferCode,
         amount: course?.payingPrice,
-        audience,
       };
 
       const res = await PostApi({
@@ -81,7 +78,7 @@ const CoursePayment = () => {
     }
   };
 
-  const handleReferralChange = (e:any) => {
+  const handleReferralChange = (e: any) => {
     const value = e.target.value;
     setRefferCode(value);
 
@@ -106,14 +103,14 @@ const CoursePayment = () => {
   }, []);
 
   return (
-    <section className="container flex max-md:flex-col justify-between py-10 px-4 gap-5 h-full">
+    <section className="container flex max-lg:flex-col max-lg:items-center justify-between py-10 px-4 gap-5 h-full">
       {/* Left Image Box */}
       <div
-        data-aos="fade-right"
-        className="w-full max-w-2xl flex items-center justify-center bg-gray-100 rounded-2xl p-6"
+        // data-aos="fade-right"
+        className="order-2 lg:order-1 w-full max-w-2xl flex items-center justify-center rounded-2xl"
       >
         <img
-          src={`${ImagePath}course/CourseModule.png`}
+          src={`${ImagePath}Register/Payment_2.jpg`}
           alt="Course"
           className="rounded-xl w-full h-auto object-cover"
         />
@@ -121,34 +118,34 @@ const CoursePayment = () => {
 
       {/* Right Summary Box */}
       <div
-        data-aos="fade-left"
-        className="bg-white hover:shadow-lg transition-all duration-300 rounded-2xl p-6 sm:p-10 w-full max-w-2xl"
+        // data-aos="fade-left"
+        className="order-1 lg:order-2  bg-white hover:shadow-lg transition-all duration-300 rounded-2xl p-4 sm:p-10 w-full max-w-2xl"
       >
-        <div className="flex flex-col justify-between h-full text-gray-700 text-sm sm:text-base">
-          <section className="space-y-4 ">
+        <div className="flex flex-col max-lg:min-h-[680px] justify-between h-full text-gray-700 gap-20 text-sm sm:text-base">
+          <section className="space-y-6 ">
             <section className="space-y-2">
               <h2 className="text-2xl font-semibold text-primary">{title}</h2>
               <div>
                 <strong>Module Name </strong>
-                <ul>
-                  {Modules?.map((module: ModuleType) => (
-                    <li className="text-sm text-gray-800">{module?.name}</li>
+                <ul className="w-full text-sm  grid grid-cols-1  sm:grid-cols-2 sm:flex-row gap-1 sm:gap-2">
+                  {Modules?.map((module: { name: string }, i: number) => (
+                    <li key={i}>
+                      {i + 1}. {module.name}
+                    </li>
                   ))}
                 </ul>
               </div>
             </section>
-            <div className="flex flex-nowrap justify-between h-fit gap-2">
+            <div className="flex flex-wrap justify-between h-fit gap-2">
               <p className="font-medium ">Referral Code: </p>
               <div>
                 <Search
                   placeholder="Referral Code"
                   value={refferCode}
                   onChange={handleReferralChange}
-                  className="!py-1 placeholder:!font-medium !px-4 rounded-lg !w-fit"
-                  // allowClear
+                  className="!py-1 placeholder:!font-medium  rounded-lg "
                   onClear={() => setIsApplyed(false)}
                   loading={loading}
-                  // enterButton={isApplyed ? "Applied" : "Apply"}
                   enterButton={
                     isApplyed ? (
                       <span className="flex items-center gap-1">
@@ -167,9 +164,7 @@ const CoursePayment = () => {
                     handleAplyyReferCode();
                   }}
                 />
-                {error && (
-                  <p className="text-red-500 text-xs mt-1 px-4 ">{error}</p>
-                )}
+                {error && <p className="text-red-500 text-xs mt-1 ">{error}</p>}
               </div>
             </div>
             {isApplyed && (
@@ -202,7 +197,7 @@ const CoursePayment = () => {
                   <span>₹{price}</span>
                 )}
               </p>
-              <p className="flex justify-between mt-1 mb-3 font-semibold text-lg">
+              <p className="flex justify-between mt-1 mb-3 font-semibold sm:text-lg">
                 Total (Incl. of all taxes):
                 {isApplyed ? (
                   <>

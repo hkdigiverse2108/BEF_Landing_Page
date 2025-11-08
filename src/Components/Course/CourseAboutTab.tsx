@@ -17,7 +17,7 @@ const CourseAboutTab = ({
         <section className="flex gap-3 items-center">
           <img
             src={`${ImagePath}/workshop/VideoIcon.png`}
-            alt=""
+            alt="Lectures"
             className="w-8 h-fit"
           />
           <div>
@@ -28,7 +28,7 @@ const CourseAboutTab = ({
         <section className="flex gap-3 items-center">
           <img
             src={`${ImagePath}/workshop/NotesIcon.png`}
-            alt=""
+            alt="Tests"
             className="w-8 h-fit"
           />
           <div>
