@@ -39,6 +39,8 @@ const App = () => {
       theme={{
         token: {
           colorPrimary: "#eb8844",
+          colorSuccess: "#288f66",
+
         },
       }}
     >

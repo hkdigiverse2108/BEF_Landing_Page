@@ -34,7 +34,7 @@ const WorkshopRegister = () => {
       {/* Left Box - Image */}
       <div className="order-2 md:order-1 w-full max-w-2xl flex items-center justify-center rounded-2xl ">
         <img
-          src={`${ImagePath}Register/Workshop_Register_1.jpg`}
+          src={`${ImagePath}Register/Register_1.jpg`}
           alt="Workshop"
           className="rounded-xl w-full h-auto object-cover"
         />

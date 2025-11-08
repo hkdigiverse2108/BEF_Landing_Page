@@ -153,7 +153,7 @@ const WorkshopPayment = () => {
 
             <div className="flex flex-wrap justify-between h-fit gap-2">
               <p className="font-medium ">Referral Code: </p>
-              <div>
+              <div className={`${isApplyed ? "paymentSuccess" : ""}`}>
                 <Search
                   placeholder="Referral Code"
                   value={refferCode}
@@ -162,7 +162,6 @@ const WorkshopPayment = () => {
                   // allowClear
                   onClear={() => setIsApplyed(false)}
                   loading={loading}
-                  // enterButton={isApplyed ? "Applied" : "Apply"}
                   enterButton={
                     isApplyed ? (
                       <span className="flex items-center gap-1">

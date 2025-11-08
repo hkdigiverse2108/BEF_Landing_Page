@@ -11,8 +11,6 @@ body {
   @apply px-4 md:px-6 xl:px-8;
 }
 
-
-
 /* ================== About Section Start Here ================== */
 /* Smooth float animation */
 @keyframes smoothFloat {
@@ -128,3 +126,14 @@ body {
 }
 
 /* ================  steps Section End ================ */
+
+/* ================  Payment Page Buttons Section Start ================ */
+
+.paymentSuccess .ant-input-group-addon:last-child .ant-input-search-button {
+  @apply !bg-success;
+}
+.paymentSuccess .ant-input-outlined:focus,
+.paymentSuccess .ant-input-outlined:hover {
+  @apply !border-success;
+}
+/* ================  Payment Page Buttons Section End ================ */

@@ -25,7 +25,7 @@ const CoursePayment = () => {
 
   const { data: modulesData } = useGetApiQuery(
     { url: `${URL_KEYS.MODULE.ALL}?courseFilter=${course?._id}` },
-    { skip: !course._id }
+    { skip: !course?._id }
   );
   const Modules = modulesData?.data?.module_data || [];
 
@@ -138,17 +138,17 @@ const CoursePayment = () => {
             </section>
             <div className="flex flex-wrap justify-between h-fit gap-2">
               <p className="font-medium ">Referral Code: </p>
-              <div>
+              <div className={`${isApplyed ? "paymentSuccess" : ""}`}>
                 <Search
                   placeholder="Referral Code"
                   value={refferCode}
                   onChange={handleReferralChange}
-                  className="!py-1 placeholder:!font-medium  rounded-lg "
+                  className="!py-1 placeholder:!font-medium  rounded-lg"
                   onClear={() => setIsApplyed(false)}
                   loading={loading}
                   enterButton={
                     isApplyed ? (
-                      <span className="flex items-center gap-1">
+                      <span className={`flex items-center gap-1  `}>
                         <CheckCircleOutlined /> Applied
                       </span>
                     ) : (

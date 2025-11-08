@@ -38,7 +38,7 @@ const CourseRegister = () => {
         className="order-2 md:order-1  w-full max-w-2xl flex items-center justify-center  rounded-2xl"
       >
         <img
-          src={`${ImagePath}Register/Course_Register_1.jpg`}
+          src={`${ImagePath}Register/Register_2.jpg`}
           alt="Course"
           className="rounded-xl w-full h-auto object-cover"
         />
@@ -47,7 +47,7 @@ const CourseRegister = () => {
       {/* Right Form Box */}
       <div
         // data-aos="fade-right"
-        className="order-1 md:order-2 bg-white hover:shadow-lg transition-all duration-300 rounded-2xl p-6 sm:px-10 sm:py-4 w-full max-w-2xl h-fit"
+        className="order-1 md:order-2 bg-white hover:shadow-lg transition-all duration-300 rounded-2xl p-6 sm:px-10 sm:py-7 w-full max-w-2xl h-fit"
       >
         <SectionHeader
           title="Course"
@@ -95,11 +95,11 @@ const CourseRegister = () => {
             placeholder="City"
           />
 
-          <FormInput
+          {/* <FormInput
             name="pincode"
             className="!py-3 placeholder:!font-medium !px-4 rounded-lg"
             placeholder="Pincode"
-          />
+          /> */}
 
           <Form.Item name="reachFrom">
             <Select

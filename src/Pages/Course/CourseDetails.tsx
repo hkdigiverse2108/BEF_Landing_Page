@@ -205,7 +205,7 @@ const CourseDetails = () => {
             )}
           </div>
           <div>
-            <p className="max-sm:text-xs text-gray-600 font-medium h-full ">
+            <p className="max-sm:text-xs text-red-500  font-bold h-full ">
               {/* Remaining fee pays after prelims cleared */}
               {priceInStruction}
             </p>
