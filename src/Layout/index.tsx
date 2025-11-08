@@ -5,11 +5,14 @@ import GoTop from "../Components/Common/GoTop";
 import { useEffect } from "react";
 import Aos from "aos";
 import { ROUTES } from "../Constants";
+import WhatsappIcon from "../Components/Common/WhatsappIcon";
 
 const Layout = () => {
   const location = useLocation();
 
-  const isShow = location.pathname.startsWith(ROUTES.COURSE.DETAILS.replace("/:id", "")) || location.pathname === ROUTES.WORKSHOP.WORKSHOP;
+  const isShow =
+    location.pathname.startsWith(ROUTES.COURSE.DETAILS.replace("/:id", "")) ||
+    location.pathname === ROUTES.WORKSHOP.WORKSHOP;
 
   useEffect(() => {
     Aos.init({
@@ -35,6 +38,7 @@ const Layout = () => {
       </div>
       {isShow ? <div className="mt-45 sm:mt-55 md:mt-30  "></div> : <Footer />}
       <GoTop />
+      <WhatsappIcon />
     </>
   );
 };
