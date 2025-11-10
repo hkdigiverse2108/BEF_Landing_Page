@@ -13,6 +13,7 @@ const WorkshopPayment = () => {
   const [refferCode, setRefferCode] = useState("BHARATEXAMFEST");
   const [isApplyed, setIsApplyed] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
   const [error, setError] = useState("");
 
   const location = useLocation();
@@ -125,9 +126,17 @@ const WorkshopPayment = () => {
       {/* Left Image */}
       <div className="order-2 lg:order-1 w-full h-full max-w-2xl flex items-center justify-center rounded-2xl ">
         <img
-          src={`${ImagePath}Register/Payment_1.jpg`}
+          src={`${ImagePath}Register/Payment_2.jpg`}
           alt="Workshop"
           className="rounded-xl w-full h-full object-cover"
+        />
+        <img
+          src={`${ImagePath}Register/Payment_2.jpg`}
+          alt={"Payment"}
+          onLoad={() => setImageLoaded(true)}
+          className={`w-full h-full  transition-opacity duration-300 ${
+            imageLoaded ? "opacity-100" : "opacity-0"
+          }`}
         />
       </div>
 

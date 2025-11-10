@@ -15,7 +15,7 @@ const CourseLecturesTab = ({ Modules }: { Modules: ModuleType[] }) => {
   const isMdUp = useMediaQuery(theme.breakpoints.up("sm")); // true for sm and larger
 
   const { data } = useGetApiQuery({
-    url: `${URL_KEYS.LECTURE.ALL}?moduleFilter=${selectedModule}`,
+    url: `${URL_KEYS.LECTURE.ALL}?moduleFilter=${selectedModule}&typeFilter=course`,
   });
 
   const Lectures = data?.data?.lecture_data || [];
@@ -51,7 +51,7 @@ const CourseLecturesTab = ({ Modules }: { Modules: ModuleType[] }) => {
             })}
           </Tabs>
         </div>
-        <div className="w-full">
+        <div className="w-full flex flex-col gap-1">
           {Lectures?.map((lecture: LectureType) => (
             <LectureCard
               key={lecture?._id}

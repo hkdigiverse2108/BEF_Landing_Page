@@ -5,8 +5,11 @@ import type { CourseType } from "../../Types";
 import { Popover } from "antd";
 import { IoCall, IoLogoWhatsapp } from "react-icons/io5";
 import { CONTACT } from "../../Data";
+import { useState } from "react";
 
 const CourseCard = ({ course }: { course: CourseType }) => {
+  const [imageLoaded, setImageLoaded] = useState(false);
+
   const {
     image = "",
     language = "हिंGLISH",
@@ -46,8 +49,15 @@ const CourseCard = ({ course }: { course: CourseType }) => {
       className=" relative rounded-2xl overflow-hidden cursor-pointer shadow-xl flex flex-col justify-end h-fit"
     >
       <div className="relative w-full  rounded-t-2xl overflow-hidden bg-gray-300">
-        <figure className=" ">
-          <img src={image} alt="Course" className=" w-full h-full " />
+        <figure className="">
+          <img
+            src={image}
+            alt={image}
+            onLoad={() => setImageLoaded(true)}
+            className={`w-full h-full  transition-opacity duration-300 ${
+              imageLoaded ? "opacity-100" : "opacity-0"
+            }`}
+          />
         </figure>
         <div className="absolute  top-0 left-0 w-full flex justify-between p-2 gap-7">
           <span className="bg-white/20 text-white font-bold text-sm p-1 px-1.5 rounded backdrop-blur-md">

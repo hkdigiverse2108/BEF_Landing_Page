@@ -17,14 +17,16 @@ const WorkshopLecturesTab = ({ id }: { id?: string }) => {
 
   return (
     <div className="space-y-4" data-aos="fade-up">
-      {Lectures?.map((lecture: LectureType) => (
-        <LectureCard
-          key={lecture?._id}
-          lecture={lecture}
-          setPlayVideo={setPlayVideo}
-          setVideoLink={setVideoLink}
-        />
-      ))}
+      <div className="w-full flex flex-col gap-1">
+        {Lectures?.map((lecture: LectureType) => (
+          <LectureCard
+            key={lecture?._id}
+            lecture={lecture}
+            setPlayVideo={setPlayVideo}
+            setVideoLink={setVideoLink}
+          />
+        ))}
+      </div>
       <YoutubeVideoModal
         playVideo={playVideo}
         setPlayVideo={setPlayVideo}

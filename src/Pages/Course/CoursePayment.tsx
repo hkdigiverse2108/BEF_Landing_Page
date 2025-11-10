@@ -110,10 +110,11 @@ const CoursePayment = () => {
         className="order-2 lg:order-1 w-full max-w-2xl flex items-center justify-center rounded-2xl"
       >
         <img
-          src={`${ImagePath}Register/Payment_2.jpg`}
+          src={`${ImagePath}Register/Payment_1.jpg`}
           alt="Course"
           className="rounded-xl w-full h-auto object-cover"
         />
+        
       </div>
 
       {/* Right Summary Box */}

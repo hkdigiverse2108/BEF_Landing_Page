@@ -2,8 +2,11 @@ import { Link, useParams } from "react-router-dom";
 import { useGetApiQuery } from "../../Api/CommonApi";
 import { URL_KEYS } from "../../Constants";
 import Loader from "../../Components/Common/Loader";
+import { useState } from "react";
 
 const BlogDetails = () => {
+  const [imageLoaded, setImageLoaded] = useState(false);
+
   const { id } = useParams();
   console.log(id);
   const { data: blogData, isLoading: blogLoading } = useGetApiQuery({
@@ -32,7 +35,10 @@ const BlogDetails = () => {
           <img
             src={blog.image}
             alt={blog.title}
-            className="w-full h-full object-cover"
+            onLoad={() => setImageLoaded(true)}
+            className={`w-full h-full  transition-opacity duration-300 ${
+              imageLoaded ? "opacity-100" : "opacity-0"
+            }`}
           />
         )}
 

@@ -9,7 +9,6 @@ export interface BaseEntity {
   updatedBy?: string;
 }
 
-
 export interface FormInputProps extends InputProps {
   name: string;
   label?: string;
@@ -31,7 +30,6 @@ export interface FormValues {
   reachFrom?: string;
 }
 
-
 export interface ModuleType {
   _id: string;
   courseId: string;
@@ -52,8 +50,10 @@ export interface LectureType {
   title: string;
   subtitle: string;
   image: string;
+  pdf:string;
   link: string;
   date?: string;
+  isLocked: boolean;
 }
 
 export interface Testimonial {
@@ -64,11 +64,10 @@ export interface Testimonial {
   image: string;
 }
 
-
 export interface ContactType {
-    number: string;
-    emailInfo: string;
-    emailHelp: string;
-    emailSales: string;
-    address: string;
+  number: string;
+  emailInfo: string;
+  emailHelp: string;
+  emailSales: string;
+  address: string;
 }

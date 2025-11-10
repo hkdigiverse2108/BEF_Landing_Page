@@ -20,6 +20,8 @@ const TabsName = [
 
 const CourseDetails = () => {
   const [tabIndex, setTabIndex] = useState("about");
+  const [imageLoaded, setImageLoaded] = useState(false);
+
   const navigate = useNavigate();
 
   const { id }: { id?: string } = useParams();
@@ -82,7 +84,14 @@ const CourseDetails = () => {
           <ShareModal />
         </div>
         <figure>
-          <img src={image} alt="" className="w-full h-full rounded-lg" />
+          <img
+            src={image}
+            alt={image}
+            onLoad={() => setImageLoaded(true)}
+            className={`w-full h-full  transition-opacity duration-300 ${
+              imageLoaded ? "opacity-100" : "opacity-0"
+            }`}
+          />
         </figure>
       </section>
       <section>
