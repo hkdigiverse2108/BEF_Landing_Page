@@ -28,6 +28,8 @@ export interface FormValues {
   referralCode?: string;
   referral?: string;
   reachFrom?: string;
+  purchaseId?: string;
+  workshopRegisterId?: string;
 }
 
 export interface ModuleType {
@@ -50,7 +52,7 @@ export interface LectureType {
   title: string;
   subtitle: string;
   image: string;
-  pdf:string;
+  pdf: string;
   link: string;
   date?: string;
   isLocked: boolean;

@@ -3,8 +3,15 @@ import { useLocation, useNavigate } from "react-router-dom";
 import SectionHeader from "../../Components/Home/SectionHeader";
 import FormInput from "../../Attribute/FormFields/FormInput";
 import type { FormValues, CourseType } from "../../Types";
-import { ImagePath, ROUTES } from "../../Constants";
+import {
+  HTTP_STATUS,
+  ImagePath,
+  PAYMENT_STATUS,
+  ROUTES,
+  URL_KEYS,
+} from "../../Constants";
 import { useEffect } from "react";
+import { useGetApiQuery, usePostApiMutation } from "../../Api/CommonApi";
 
 const { Option } = Select;
 
@@ -13,12 +20,32 @@ const CourseRegister = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  const [PostApi, { isLoading }] = usePostApiMutation({});
+
   const course: CourseType = location.state || {};
 
-  const onFinish = (values: FormValues) => {
-    navigate(ROUTES.COURSE.PAYMENT, {
-      state: { formValues: values, course },
-    });
+  const onFinish = async (values: FormValues) => {
+    try {
+      const payload = {
+        ...values,
+        courseId: course?._id,
+        amount: 0,
+        status: PAYMENT_STATUS.PENDING,
+      };
+      const res = await PostApi({
+        url: URL_KEYS.COURSE.REGISTER_ADD,
+        data: payload,
+      }).unwrap();
+      console.log(res);
+      if (res?.status === HTTP_STATUS.OK) {
+        navigate(ROUTES.COURSE.PAYMENT, {
+          state: {
+            formValues: { ...values, purchaseId: res?.data?._id },
+            course,
+          },
+        });
+      }
+    } catch (error) {}
   };
 
   useEffect(() => {
@@ -34,7 +61,7 @@ const CourseRegister = () => {
     >
       {/* Left Image Box */}
       <div
-        // data-aos="fade-right"
+        data-aos="fade-right"
         className="order-2 md:order-1  w-full max-w-2xl flex items-center justify-center  rounded-2xl"
       >
         <img
@@ -46,7 +73,7 @@ const CourseRegister = () => {
 
       {/* Right Form Box */}
       <div
-        // data-aos="fade-right"
+        data-aos="fade-left"
         className="order-1 md:order-2 bg-white hover:shadow-lg transition-all duration-300 rounded-2xl p-6 sm:px-10 sm:py-7 w-full max-w-2xl h-fit"
       >
         <SectionHeader
@@ -120,6 +147,7 @@ const CourseRegister = () => {
 
           <div className="pt-4 flex justify-center">
             <Button
+              loading={isLoading}
               htmlType="submit"
               type="primary"
               className="btn primary_btn !h-12 w-full"

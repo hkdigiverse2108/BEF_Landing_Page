@@ -2,12 +2,14 @@ export const URL_KEYS = {
   COURSE: {
     ALL: "course/all",
     ONE: "course/",
-    REGISTER: "course-purchase/add",
+    REGISTER_ADD: "course-purchase/add",
+    REGISTER_EDIT: "course-purchase/edit",
   },
   WORKSHOP: {
     ALL: "workshop/all",
     TESTIMONIAL: "workshop-testimonial/all",
-    REGISTER: "/workshop-register/add",
+    REGISTER_ADD: "/workshop-register/add",
+    REGISTER_EDIT: "/workshop-register/edit",
   },
   FAQ: {
     ALL: "faq/public",
@@ -48,6 +50,7 @@ export const URL_KEYS = {
     ALL: "setting",
   },
   REFERRAL: {
+    ALL: "coupon/all",
     CHECK: "coupon/check",
   },
 };

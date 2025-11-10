@@ -44,7 +44,7 @@ const DownloadSection = () => {
                       />
                     </a>
                   </li>
-                  <li className="">
+                  <li >
                     <a
                       target="_blank"
                       rel="noopener noreferrer"

@@ -2,31 +2,40 @@ import { useLocation, useNavigate } from "react-router-dom";
 import type { FormValues, CourseType } from "../../Types";
 import PaymentModule from "../../Components/Common/PaymentModule ";
 import { ImagePath, ROUTES, URL_KEYS } from "../../Constants";
-import { Input } from "antd";
+import { Input, Skeleton } from "antd";
 import { useGetApiQuery, usePostApiMutation } from "../../Api/CommonApi";
 import { useEffect, useState } from "react";
 import { CheckCircleOutlined } from "@ant-design/icons";
+import Loader from "../../Components/Common/Loader";
 
 const { Search } = Input;
 
 const CoursePayment = () => {
-  const [refferCode, setRefferCode] = useState("BHARATEXAMFEST");
+  const [refferCode, setRefferCode] = useState("");
   const [isApplyed, setIsApplyed] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   const location = useLocation();
   const navigate = useNavigate();
 
   const [PostApi] = usePostApiMutation();
 
+  const { data: CouponData, isLoading: isCouponLoading } = useGetApiQuery({
+    url: `${URL_KEYS.REFERRAL.ALL}?audienceFilter=default`,
+  });
+  const defaultCoupon = CouponData?.data?.coupon_data[0]?.code;
+  // console.log("Coupon All", defaultCoupon);
+
   const { formValues, course }: { formValues: FormValues; course: CourseType } =
     location.state || {};
 
-  const { data: modulesData } = useGetApiQuery(
+  const { data: modulesData, isLoading: isModuleLoading } = useGetApiQuery(
     { url: `${URL_KEYS.MODULE.ALL}?courseFilter=${course?._id}` },
     { skip: !course?._id }
   );
+
   const Modules = modulesData?.data?.module_data || [];
 
   let {
@@ -38,7 +47,7 @@ const CoursePayment = () => {
 
   const isDiscountPrice = !!discountPrice;
   discountPrice = discountPrice === 0 ? price : discountPrice;
-  console.log("isDis", isDiscountPrice);
+  console.log("isDis", formValues, course);
 
   const handleAplyyReferCode = async () => {
     if (!refferCode.trim()) {
@@ -95,88 +104,104 @@ const CoursePayment = () => {
   }, []);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      if (refferCode) handleAplyyReferCode();
-    }, 0);
+    if (refferCode) {
+      const timer = setTimeout(() => {
+        if (refferCode) handleAplyyReferCode();
+      }, 1000);
 
-    return () => clearTimeout(timer);
-  }, []);
+      return () => clearTimeout(timer);
+    }
+  }, [refferCode]);
+
+  useEffect(() => {
+    if (defaultCoupon) {
+      setRefferCode(defaultCoupon);
+    }
+  }, [defaultCoupon]);
 
   return (
     <section className="container flex max-lg:flex-col max-lg:items-center justify-between py-10 px-4 gap-5 h-full">
       {/* Left Image Box */}
       <div
-        // data-aos="fade-right"
+        data-aos="fade-right"
         className="order-2 lg:order-1 w-full max-w-2xl flex items-center justify-center rounded-2xl"
       >
         <img
           src={`${ImagePath}Register/Payment_1.jpg`}
-          alt="Course"
-          className="rounded-xl w-full h-auto object-cover"
+          alt={"Payment"}
+          onLoad={() => setImageLoaded(true)}
+          className={`w-full h-full rounded-xl transition-opacity duration-300 ${
+            imageLoaded ? "opacity-100" : "opacity-0"
+          }`}
         />
-        
       </div>
 
       {/* Right Summary Box */}
       <div
-        // data-aos="fade-left"
+        data-aos="fade-left"
         className="order-1 lg:order-2  bg-white hover:shadow-lg transition-all duration-300 rounded-2xl p-4 sm:p-10 w-full max-w-2xl"
       >
         <div className="flex flex-col max-lg:min-h-[680px] justify-between h-full text-gray-700 gap-20 text-sm sm:text-base">
-          <section className="space-y-6 ">
-            <section className="space-y-2">
-              <h2 className="text-2xl font-semibold text-primary">{title}</h2>
-              <div>
-                <strong>Module Name </strong>
-                <ul className="w-full text-sm  grid grid-cols-1  sm:grid-cols-2 sm:flex-row gap-1 sm:gap-2">
-                  {Modules?.map((module: { name: string }, i: number) => (
-                    <li key={i}>
-                      {i + 1}. {module.name}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </section>
-            <div className="flex flex-wrap justify-between h-fit gap-2">
-              <p className="font-medium ">Referral Code: </p>
-              <div className={`${isApplyed ? "paymentSuccess" : ""}`}>
-                <Search
-                  placeholder="Referral Code"
-                  value={refferCode}
-                  onChange={handleReferralChange}
-                  className="!py-1 placeholder:!font-medium  rounded-lg"
-                  onClear={() => setIsApplyed(false)}
-                  loading={loading}
-                  enterButton={
-                    isApplyed ? (
-                      <span className={`flex items-center gap-1  `}>
-                        <CheckCircleOutlined /> Applied
-                      </span>
-                    ) : (
-                      "Apply"
-                    )
-                  }
-                  size="large"
-                  onSearch={() => {
-                    if (!refferCode.trim()) {
-                      setIsApplyed(false);
-                      return;
+          {isCouponLoading || isModuleLoading ? (
+            <Skeleton.Node active style={{ width: 590, height: 160 }} />
+          ) : (
+            <section className="space-y-6 ">
+              <section className="space-y-2">
+                <h2 className="text-2xl font-semibold text-primary">{title}</h2>
+                <div>
+                  <strong>Module Name </strong>
+                  <ul className="w-full text-sm  grid grid-cols-1  sm:grid-cols-2 sm:flex-row gap-1 sm:gap-2">
+                    {Modules?.map((module: { name: string }, i: number) => (
+                      <li key={i}>
+                        {i + 1}. {module.name}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </section>
+              <div className="flex flex-wrap justify-between h-fit gap-2">
+                <p className="font-medium ">Referral Code: </p>
+                <div className={`${isApplyed ? "paymentSuccess" : ""}`}>
+                  <Search
+                    placeholder="Referral Code"
+                    value={refferCode}
+                    onChange={handleReferralChange}
+                    className="!py-1 placeholder:!font-medium  rounded-lg"
+                    onClear={() => setIsApplyed(false)}
+                    loading={loading}
+                    enterButton={
+                      isApplyed ? (
+                        <span className={`flex items-center gap-1  `}>
+                          <CheckCircleOutlined /> Applied
+                        </span>
+                      ) : (
+                        "Apply"
+                      )
                     }
-                    handleAplyyReferCode();
-                  }}
-                />
-                {error && <p className="text-red-500 text-xs mt-1 ">{error}</p>}
+                    size="large"
+                    onSearch={() => {
+                      if (!refferCode.trim()) {
+                        setIsApplyed(false);
+                        return;
+                      }
+                      handleAplyyReferCode();
+                    }}
+                  />
+                  {error && (
+                    <p className="text-red-500 text-xs mt-1 ">{error}</p>
+                  )}
+                </div>
               </div>
-            </div>
-            {isApplyed && (
-              <div className="bg-success/10 border border-success/30 p-3 space-y-1 rounded-lg">
-                <p className=" ">Offer Applied</p>
-                <p className="text-success font-medium">
-                  Pay just enrollment fee — Remaining after prelims cleared.
-                </p>
-              </div>
-            )}
-          </section>
+              {isApplyed && (
+                <div className="bg-success/10 border border-success/30 p-3 space-y-1 rounded-lg">
+                  <p className=" ">Offer Applied</p>
+                  <p className="text-success font-medium">
+                    Pay just enrollment fee — Remaining after prelims cleared.
+                  </p>
+                </div>
+              )}
+            </section>
+          )}
           <section className="space-y-4">
             {isApplyed && (
               <div className=" flex  justify-between gap-5">
@@ -203,7 +228,7 @@ const CoursePayment = () => {
                 {isApplyed ? (
                   <>
                     {isDiscountPrice ? (
-                      <h1 className="">
+                      <h1>
                         <span className="text-primary"> ₹{payingPrice}/</span>
                         <span className="text-sm">{discountPrice}</span>
                         <span className=" font-medium text-sm text-red-500 line-through ps-1">
@@ -234,7 +259,7 @@ const CoursePayment = () => {
                 referralCode={refferCode}
                 type="course"
                 itemData={course}
-                apiUrl={URL_KEYS.COURSE.REGISTER}
+                apiUrl={URL_KEYS.COURSE.REGISTER_EDIT}
               />
             </div>
           </section>

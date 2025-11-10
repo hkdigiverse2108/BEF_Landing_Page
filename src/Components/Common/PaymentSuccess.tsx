@@ -6,13 +6,13 @@ import { IoCall } from "react-icons/io5";
 
 const PaymentSuccess = () => {
   return (
-    <div>
+    <div className="min-h-[50vh] flex items-center justify-center">
       <Result
         status="success"
         title="Payment Success"
         subTitle="Back To Home Page And Start Learning"
         extra={[
-          <div className=" flex justify-center gap-2">
+          <div className=" flex justify-center gap-2 ">
             <NavLink to={ROUTES.HOME}>
               <Button type="primary" className="btn primary_btn !h-12 ">
                 Back To Home

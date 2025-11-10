@@ -49,7 +49,7 @@ const CourseCard = ({ course }: { course: CourseType }) => {
       className=" relative rounded-2xl overflow-hidden cursor-pointer shadow-xl flex flex-col justify-end h-fit"
     >
       <div className="relative w-full  rounded-t-2xl overflow-hidden bg-gray-300">
-        <figure className="">
+        <figure>
           <img
             src={image}
             alt={image}

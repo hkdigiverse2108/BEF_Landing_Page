@@ -57,7 +57,7 @@ const Workshop = () => {
           <ShareModal />
         </div>
         <figure>
-            <img
+          <img
             src={image}
             alt={image}
             onLoad={() => setImageLoaded(true)}
@@ -67,7 +67,7 @@ const Workshop = () => {
           />
         </figure>
       </section>
-      <section className="">
+      <section>
         <div className="space-y-6">
           <section className=" max-sm:text-sm font-medium flex justify-between  gap-3">
             <div className="flex  gap-2 items-center">

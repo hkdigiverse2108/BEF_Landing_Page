@@ -9,7 +9,7 @@ import type {
   WorkshopType,
 } from "../../Types";
 import { useNavigate } from "react-router-dom";
-import { ROUTES, URL_KEYS } from "../../Constants";
+import { PAYMENT_STATUS, ROUTES, URL_KEYS } from "../../Constants";
 
 declare global {
   interface Window {
@@ -67,6 +67,10 @@ const PaymentModule = ({
     if (type === "course") {
       const course = itemData as CourseType;
       return {
+        purchaseId: values?.purchaseId,
+        paymentId: response.razorpay_payment_id,
+        status,
+        referralCode: referralCode,
         courseId: course._id,
         name: values.name,
         phone: values.phone,
@@ -74,14 +78,12 @@ const PaymentModule = ({
         city: values.city,
         pincode: values.pincode,
         amount: amount?.payingPrice,
-        paymentId: response.razorpay_payment_id,
-        referralCode: referralCode,
         reachFrom: values.reachFrom,
-        status,
       };
     } else {
       // workshop payload
       return {
+        workshopRegisterId : values?.workshopRegisterId ,
         workshopId: itemData?._id,
         name: values.name,
         payingPrice: amount?.payingPrice,
@@ -111,7 +113,7 @@ const PaymentModule = ({
     try {
       const payload = createPayload(response, status);
       const res = await PostApi({ url: apiUrl, data: payload });
-      if (res && status === "COMPLETED") {
+      if (res && status === PAYMENT_STATUS.COMPLETED) {
         navigate(ROUTES.PAYMENT.SUCCESS);
       }
       // else if (res && status === "FAILED") {
@@ -134,7 +136,7 @@ const PaymentModule = ({
       name: "BHARAT EXAM FEST",
       description: title,
       handler: (response: RazorpayResponse) =>
-        handlePayment(response, "COMPLETED"),
+        handlePayment(response, PAYMENT_STATUS.COMPLETED),
       prefill: {
         name: values.name,
         email: values.email,
@@ -148,7 +150,7 @@ const PaymentModule = ({
     rzp.on("payment.failed", (response: RazorpayResponse) => {
       handlePayment(
         { razorpay_payment_id: response?.error?.metadata?.payment_id },
-        "FAILED"
+        PAYMENT_STATUS.FAILED
       );
     });
 

@@ -3,21 +3,48 @@ import { useLocation, useNavigate } from "react-router-dom";
 import SectionHeader from "../../Components/Home/SectionHeader";
 import FormInput from "../../Attribute/FormFields/FormInput";
 import type { FormValues, WorkshopType } from "../../Types";
-import { ImagePath, ROUTES } from "../../Constants";
+import {
+  HTTP_STATUS,
+  ImagePath,
+  PAYMENT_STATUS,
+  ROUTES,
+  URL_KEYS,
+} from "../../Constants";
 import { useEffect } from "react";
+import { usePostApiMutation } from "../../Api/CommonApi";
 const { Option } = Select;
 
 const WorkshopRegister = () => {
   const [form] = Form.useForm();
   const location = useLocation();
   const navigate = useNavigate();
+  const [PostApi] = usePostApiMutation({});
 
   const workshop: WorkshopType = location.state || {};
 
-  const onFinish = (values: FormValues) => {
-    navigate(ROUTES.WORKSHOP.PAYMENT, {
-      state: { formValues: values, workshop },
-    });
+  const onFinish = async (values: FormValues) => {
+    try {
+      const payload = {
+        ...values,
+        workshopId: workshop?._id,
+        price: 0,
+        status: PAYMENT_STATUS.PENDING,
+      };
+      const res = await PostApi({
+        url: URL_KEYS.WORKSHOP.REGISTER_ADD,
+        data: payload,
+      });
+      const resData = res?.data?.data;
+      console.log("res w", res?.data?.data?._id);
+      if (res?.data?.status === HTTP_STATUS.OK) {
+        navigate(ROUTES.WORKSHOP.PAYMENT, {
+          state: {
+            formValues: { ...values, workshopRegisterId: resData?._id },
+            workshop,
+          },
+        });
+      }
+    } catch (error) {}
   };
 
   useEffect(() => {
@@ -32,7 +59,10 @@ const WorkshopRegister = () => {
       className="container flex max-md:flex-col max-md:items-center justify-between py-10 px-4 gap-5"
     >
       {/* Left Box - Image */}
-      <div className="order-2 md:order-1 w-full max-w-2xl flex items-center justify-center rounded-2xl ">
+      <div
+        data-aos="fade-right"
+        className="order-2 md:order-1 w-full max-w-2xl flex items-center justify-center rounded-2xl "
+      >
         <img
           src={`${ImagePath}Register/Register_1.jpg`}
           alt="Workshop"
@@ -42,7 +72,7 @@ const WorkshopRegister = () => {
 
       {/* Right Box - Form */}
       <div
-        // data-aos="fade-right"
+        data-aos="fade-left"
         className="order-1 md:order-2 bg-white hover:shadow-lg transition-all duration-300 rounded-2xl p-6 sm:px-10 sm:py-7  w-full max-w-2xl h-fit"
       >
         <SectionHeader

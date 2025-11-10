@@ -33,7 +33,7 @@ const LectureCard = ({
           <img
             src={lecture?.image}
             alt={lecture?.title}
-            className="min-w-20 max-w-60 w-full h-fit  sm:w-full sm:h-23 rounded-lg object-cover"
+            className="min-w-20 max-h-30 max-w-60 w-full h-fit  sm:w-full sm:h-23 rounded-lg object-cover"
           />
           {lecture?.isLocked && (
             <span className="absolute -top-1 -left-1 bg-black/10 backdrop-blur-md p-2 rounded-full">

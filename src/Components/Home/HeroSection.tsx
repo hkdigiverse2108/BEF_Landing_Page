@@ -107,7 +107,7 @@ const HeroSection = () => {
               className=" absolute  z-0 rounded-[30px] !overflow-hidden bg-white "
             >
               {Banners?.map((slide, i) => (
-                <SwiperSlide key={i} className="">
+                <SwiperSlide key={i} >
                   <img
                     src={slide}
                     alt={`slide-${i}`}
