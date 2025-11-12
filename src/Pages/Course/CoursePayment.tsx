@@ -46,7 +46,7 @@ const CoursePayment = () => {
 
   const isDiscountPrice = !!discountPrice;
   discountPrice = discountPrice === 0 ? price : discountPrice;
-  console.log("isDis", formValues, course);
+  // console.log("isDis", formValues, course);
 
   const handleAplyyReferCode = async () => {
     if (!refferCode.trim()) {
@@ -209,13 +209,13 @@ const CoursePayment = () => {
                   -
                   {isDiscountPrice
                     ? Number(price) - Number(discountPrice)
-                    : Number(price) - Number(payingPrice)}{" "}
+                    : Number(price) - Number(payingPrice)}
                 </p>
               </div>
             )}
             <div className="border-t border-gray-200 pt-2 ">
               <p className="flex justify-between">
-                <strong>Enrollment Fee:</strong>{" "}
+                <strong>Enrollment Fee:</strong>
                 {isApplyed ? (
                   <span className="font-semibold">₹{payingPrice}</span>
                 ) : (

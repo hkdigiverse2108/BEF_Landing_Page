@@ -1,7 +1,13 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import type { FormValues, LectureType, WorkshopType } from "../../Types";
 import PaymentModule from "../../Components/Common/PaymentModule ";
-import { HTTP_STATUS, ImagePath, ROUTES, URL_KEYS } from "../../Constants";
+import {
+  HTTP_STATUS,
+  ImagePath,
+  PAYMENT_STATUS,
+  ROUTES,
+  URL_KEYS,
+} from "../../Constants";
 import { Button, Input, Skeleton } from "antd";
 import { useEffect, useState } from "react";
 import { useGetApiQuery, usePostApiMutation } from "../../Api/CommonApi";
@@ -51,6 +57,7 @@ const WorkshopPayment = () => {
         payingPrice: isApplyed ? discountAmount : totalAmount,
         discountPrice: discountAmount,
         price: totalAmount,
+        status: PAYMENT_STATUS.COMPLETED,
       };
       const res = await PostApi({
         url: URL_KEYS.WORKSHOP.REGISTER_EDIT,
