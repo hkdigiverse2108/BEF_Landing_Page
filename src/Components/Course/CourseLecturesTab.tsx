@@ -18,6 +18,8 @@ const CourseLecturesTab = ({ Modules }: { Modules: ModuleType[] }) => {
     url: `${URL_KEYS.LECTURE.ALL}?moduleFilter=${selectedModule}&typeFilter=course`,
   });
 
+  console.log(data?.data)
+
   const Lectures = data?.data?.lecture_data || [];
 
   const handleTabChange = (_: SyntheticEvent, newValue: string) => {

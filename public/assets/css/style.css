@@ -116,7 +116,7 @@ body {
 
 /* ================  Course Section End ================ */
 
-/* ================  steps Section End ================ */
+/* ================  Video Modal Section End ================ */
 
 .YT-Modal .ant-modal-content {
   @apply !p-0;
@@ -125,7 +125,7 @@ body {
   @apply !hidden;
 }
 
-/* ================  steps Section End ================ */
+/* ================  Video Modal  Section End ================ */
 
 /* ================  Payment Page Buttons Section Start ================ */
 

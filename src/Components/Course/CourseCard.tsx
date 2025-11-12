@@ -20,9 +20,7 @@ const CourseCard = ({ course }: { course: CourseType }) => {
   const title = "Have questions about this Course?";
   const subtitle = "Talk to a counsellor";
 
-  const HandleContactClick = () => {};
-
-  const content = (
+  const ContactContent = (
     <div className="flex flex-col gap-2" onClick={(e) => e.stopPropagation()}>
       <Link
         to={`tel:${CONTACT?.number}`}
@@ -71,21 +69,20 @@ const CourseCard = ({ course }: { course: CourseType }) => {
       <div className="bg-white p-4 grid gap-3">
         <div className="flex flex-nowrap items-center text-xs sm:text-sm justify-between gap-2">
           <span className="font-normal text-xs  ">{title}</span>
-          <span
+          <div
             onClick={(e) => {
               e.preventDefault();
-              HandleContactClick();
             }}
           >
             <Popover
-              content={content}
+              content={ContactContent}
               trigger="click"
               className="w-fit text-nowrap transition-colors hover:bg-input-box-dark/60 border border-gray-300 hover:border-gray-400 hover:bg-gray-50 font-normal text-xs p-1 px-3 rounded-sm capitalize flex items-center cursor-pointer"
             >
               <TbPhoneCall className="me-2 text-lg text-success" />
               {subtitle}
             </Popover>
-          </span>
+          </div>
         </div>
         <button className="btn primary_btn square !h-12 !w-full   ">
           {" "}

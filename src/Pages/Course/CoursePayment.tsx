@@ -6,7 +6,6 @@ import { Input, Skeleton } from "antd";
 import { useGetApiQuery, usePostApiMutation } from "../../Api/CommonApi";
 import { useEffect, useState } from "react";
 import { CheckCircleOutlined } from "@ant-design/icons";
-import Loader from "../../Components/Common/Loader";
 
 const { Search } = Input;
 
