@@ -36,7 +36,6 @@ const CourseRegister = () => {
         url: URL_KEYS.COURSE.REGISTER_ADD,
         data: payload,
       }).unwrap();
-      console.log(res);
       if (res?.status === HTTP_STATUS.OK) {
         navigate(ROUTES.COURSE.PAYMENT, {
           state: {

@@ -8,12 +8,10 @@ const BlogDetails = () => {
   const [imageLoaded, setImageLoaded] = useState(false);
 
   const { id } = useParams();
-  console.log(id);
   const { data: blogData, isLoading: blogLoading } = useGetApiQuery({
     url: `${URL_KEYS.BLOG.ONE}${id}`,
   });
   const blog = blogData?.data || [];
-  console.log(blog);
 
   function formatDate(iso?: string) {
     if (!iso) return "";

@@ -13,7 +13,6 @@ const LectureCard = ({
   setPlayVideo,
   setVideoLink,
 }: LectureCardProps) => {
-  // console.log("l:", lecture);
   return (
     <div
       key={lecture?._id}

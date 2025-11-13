@@ -35,7 +35,6 @@ const WorkshopRegister = () => {
         data: payload,
       });
       const resData = res?.data?.data;
-      console.log("res w", res?.data?.data?._id);
       if (res?.data?.status === HTTP_STATUS.OK) {
         navigate(ROUTES.WORKSHOP.PAYMENT, {
           state: {

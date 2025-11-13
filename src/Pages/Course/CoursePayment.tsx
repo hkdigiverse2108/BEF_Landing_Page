@@ -25,7 +25,6 @@ const CoursePayment = () => {
     url: `${URL_KEYS.REFERRAL.ALL}?audienceFilter=default`,
   });
   const defaultCoupon = CouponData?.data?.coupon_data[0]?.code;
-  // console.log("Coupon All", defaultCoupon);
 
   const { formValues, course }: { formValues: FormValues; course: CourseType } =
     location.state || {};
@@ -46,7 +45,6 @@ const CoursePayment = () => {
 
   const isDiscountPrice = !!discountPrice;
   discountPrice = discountPrice === 0 ? price : discountPrice;
-  // console.log("isDis", formValues, course);
 
   const handleAplyyReferCode = async () => {
     if (!refferCode.trim()) {
