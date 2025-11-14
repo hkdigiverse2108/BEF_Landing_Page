@@ -1,31 +1,28 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import type { FormValues, CourseType } from "../../Types";
-import PaymentModule from "../../Components/Common/PaymentModule ";
-import { ImagePath, ROUTES, URL_KEYS } from "../../Constants";
-import { Input, Skeleton } from "antd";
+import type {
+  FormValues,
+  CourseType,
+  PaymentStatusType,
+  RazorpayResponse,
+} from "../../Types";
+import { HTTP_STATUS, ImagePath, ROUTES, URL_KEYS } from "../../Constants";
+import { Skeleton } from "antd";
 import { useGetApiQuery, usePostApiMutation } from "../../Api/CommonApi";
 import { useEffect, useState } from "react";
-import { CheckCircleOutlined } from "@ant-design/icons";
-
-const { Search } = Input;
+import PaymentModal from "../../Components/Common/PaymentModal";
+import CouponCodeCheck from "../../Components/Common/CouponCodeCheck";
 
 const CoursePayment = () => {
   const [refferCode, setRefferCode] = useState("");
-  const [isApplyed, setIsApplyed] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [isRefferLoading, setIsRefferLoading] = useState(false);
+
+  const [isRefferApplyed, setIsRefferApplyed] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
 
   const location = useLocation();
   const navigate = useNavigate();
 
   const [PostApi] = usePostApiMutation();
-
-  const { data: CouponData, isLoading: isCouponLoading } = useGetApiQuery({
-    url: `${URL_KEYS.REFERRAL.ALL}?audienceFilter=default`,
-  });
-  const defaultCoupon = CouponData?.data?.coupon_data[0]?.code;
-
   const { formValues, course }: { formValues: FormValues; course: CourseType } =
     location.state || {};
 
@@ -43,55 +40,44 @@ const CoursePayment = () => {
     price = 0,
   } = course || {};
 
-  const isDiscountPrice = !!discountPrice;
+  const isDiscountPrice = !!course?.discountPrice;
   discountPrice = discountPrice === 0 ? price : discountPrice;
 
-  const handleAplyyReferCode = async () => {
-    if (!refferCode.trim()) {
-      setIsApplyed(false);
-      setError("Referral code is required");
-      return;
-    }
+  const amountToPay = isRefferApplyed ? Number(payingPrice) : Number(price);
 
+  const handlePaymentComplete = async (
+    status: PaymentStatusType,
+    response: RazorpayResponse
+  ) => {
     try {
-      setLoading(true);
-      setError("");
+      // console.log("Payment Status:", status);
+      // console.log("Payment Response:", response);
 
       const payload = {
-        code: refferCode,
-        amount: course?.payingPrice,
+        purchaseId: formValues?.purchaseId,
+        paymentId: response.razorpay_payment_id,
+        status,
+        amount: amountToPay,
+        referralCode: refferCode,
+        courseId: course._id,
+        name: formValues.name,
+        phone: formValues.phone,
+        email: formValues.email,
+        city: formValues.city,
+        pincode: formValues.pincode,
+        reachFrom: formValues.reachFrom,
       };
 
       const res = await PostApi({
-        url: URL_KEYS.REFERRAL.CHECK,
+        url: URL_KEYS.COURSE.REGISTER_EDIT,
         data: payload,
-      });
+      }).unwrap();
+      console.log("res : ", res);
 
-      const resData = res?.data?.data;
-
-      if (resData?.isValid) {
-        setIsApplyed(true);
-        setError("");
-      } else {
-        setIsApplyed(false);
-        setError("Invalid referral code");
+      if (res?.status === HTTP_STATUS.OK) {
+        navigate(ROUTES.PAYMENT.SUCCESS);
       }
-    } catch (error) {
-      setIsApplyed(false);
-      setError("Something went wrong");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleReferralChange = (e: any) => {
-    const value = e.target.value;
-    setRefferCode(value);
-
-    if (!value.trim()) {
-      setIsApplyed(false);
-      setError("");
-    }
+    } catch (error) {}
   };
 
   useEffect(() => {
@@ -99,22 +85,6 @@ const CoursePayment = () => {
       navigate(ROUTES.COURSE.COURSE);
     }
   }, []);
-
-  useEffect(() => {
-    if (refferCode) {
-      const timer = setTimeout(() => {
-        if (refferCode) handleAplyyReferCode();
-      }, 1000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [refferCode]);
-
-  useEffect(() => {
-    if (defaultCoupon) {
-      setRefferCode(defaultCoupon);
-    }
-  }, [defaultCoupon]);
 
   return (
     <section className="container flex max-lg:flex-col max-lg:items-center justify-between py-10 px-4 gap-5 h-full">
@@ -139,7 +109,7 @@ const CoursePayment = () => {
         className="order-1 lg:order-2  bg-white hover:shadow-lg transition-all duration-300 rounded-2xl p-4 sm:p-10 w-full max-w-2xl"
       >
         <div className="flex flex-col max-lg:min-h-[680px] justify-between h-full text-gray-700 gap-20 text-sm sm:text-base">
-          {isCouponLoading || isModuleLoading ? (
+          {isModuleLoading ? (
             <Skeleton.Node active style={{ width: 590, height: 160 }} />
           ) : (
             <section className="space-y-6 ">
@@ -158,38 +128,16 @@ const CoursePayment = () => {
               </section>
               <div className="flex flex-wrap justify-between h-fit gap-2">
                 <p className="font-medium ">Referral Code: </p>
-                <div className={`${isApplyed ? "paymentSuccess" : ""}`}>
-                  <Search
-                    placeholder="Referral Code"
-                    value={refferCode}
-                    onChange={handleReferralChange}
-                    className="!py-1 placeholder:!font-medium  rounded-lg"
-                    onClear={() => setIsApplyed(false)}
-                    loading={loading}
-                    enterButton={
-                      isApplyed ? (
-                        <span className={`flex items-center gap-1  `}>
-                          <CheckCircleOutlined /> Applied
-                        </span>
-                      ) : (
-                        "Apply"
-                      )
-                    }
-                    size="large"
-                    onSearch={() => {
-                      if (!refferCode.trim()) {
-                        setIsApplyed(false);
-                        return;
-                      }
-                      handleAplyyReferCode();
-                    }}
-                  />
-                  {error && (
-                    <p className="text-red-500 text-xs mt-1 ">{error}</p>
-                  )}
-                </div>
+                <CouponCodeCheck
+                  setIsRefferLoading={setIsRefferLoading}
+                  price={price}
+                  isRefferApplyed={isRefferApplyed}
+                  setIsRefferApplyed={setIsRefferApplyed}
+                  refferCode={refferCode}
+                  setRefferCode={setRefferCode}
+                />
               </div>
-              {isApplyed && (
+              {isRefferApplyed && (
                 <div className="bg-success/10 border border-success/30 p-3 space-y-1 rounded-lg">
                   <p className=" ">Offer Applied</p>
                   <p className="text-success font-medium">
@@ -200,7 +148,7 @@ const CoursePayment = () => {
             </section>
           )}
           <section className="space-y-4">
-            {isApplyed && (
+            {isRefferApplyed && (
               <div className=" flex  justify-between gap-5">
                 <p className=" font-semibold">Discount</p>
                 <p className="text-success font-semibold">
@@ -214,15 +162,15 @@ const CoursePayment = () => {
             <div className="border-t border-gray-200 pt-2 ">
               <p className="flex justify-between">
                 <strong>Enrollment Fee:</strong>
-                {isApplyed ? (
+                {isRefferApplyed ? (
                   <span className="font-semibold">₹{payingPrice}</span>
                 ) : (
                   <span>₹{price}</span>
                 )}
               </p>
-              <p className="flex justify-between mt-1 mb-3 font-semibold sm:text-lg">
+              <div className="flex justify-between mt-1 mb-3 font-semibold sm:text-lg">
                 Total (Incl. of all taxes):
-                {isApplyed ? (
+                {isRefferApplyed ? (
                   <>
                     {isDiscountPrice ? (
                       <h1>
@@ -244,19 +192,17 @@ const CoursePayment = () => {
                 ) : (
                   <span>₹{price}</span>
                 )}
-              </p>
-              <PaymentModule
-                values={formValues}
-                title={title}
-                amount={{
-                  payingPrice: isApplyed ? payingPrice : price,
-                  discountPrice: discountPrice,
-                  price: price,
+              </div>
+              <PaymentModal
+                btnText="Enroll Now"
+                isLoading={isRefferLoading}
+                amount={amountToPay}
+                onPaymentComplete={handlePaymentComplete}
+                userData={{
+                  name: formValues?.name,
+                  email: formValues?.email,
+                  contact: formValues?.phone,
                 }}
-                referralCode={refferCode}
-                type="course"
-                itemData={course}
-                apiUrl={URL_KEYS.COURSE.REGISTER_EDIT}
               />
             </div>
           </section>

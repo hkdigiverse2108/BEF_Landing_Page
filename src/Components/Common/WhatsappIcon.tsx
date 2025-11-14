@@ -19,9 +19,10 @@ const WhatsappIcon = () => {
         to={`https://api.whatsapp.com/send?text=${CONTACT?.number}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="!bg-amber- p-4"
+        className="!bg-amber-300 relative"
       >
-        <RiWhatsappFill className="text-5xl !text-green-500 cursor-pointer hover:scale-110 transition-transform" />
+        <span className="absolute bottom-3 left-2 -z-10 bg-white p-4 rounded-full"></span>
+        <RiWhatsappFill className="text-5xl  !text-green-500 cursor-pointer hover:scale-110 transition-transform" />
       </Link>
     </div>
   );

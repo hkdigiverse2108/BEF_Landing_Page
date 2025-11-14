@@ -1,5 +1,5 @@
 .primary_btn {
-  background-color: var(--color-primary);
+  background-color: var(--color-primary) !important;
   color: white;
   border-radius: 50px;
   padding: 10px 40px;

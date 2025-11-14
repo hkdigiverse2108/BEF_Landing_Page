@@ -11,7 +11,7 @@ import {
   URL_KEYS,
 } from "../../Constants";
 import { useEffect } from "react";
-import { useGetApiQuery, usePostApiMutation } from "../../Api/CommonApi";
+import { usePostApiMutation } from "../../Api/CommonApi";
 
 const { Option } = Select;
 
@@ -36,13 +36,19 @@ const CourseRegister = () => {
         url: URL_KEYS.COURSE.REGISTER_ADD,
         data: payload,
       }).unwrap();
+      const resData = res?.data;
+      console.log(resData);
       if (res?.status === HTTP_STATUS.OK) {
-        navigate(ROUTES.COURSE.PAYMENT, {
-          state: {
-            formValues: { ...values, purchaseId: res?.data?._id },
-            course,
-          },
-        });
+        if (resData?.isExistUser === true) {
+          return navigate(ROUTES.PAYMENT.SUCCESS);
+        } else {
+          navigate(ROUTES.COURSE.PAYMENT, {
+            state: {
+              formValues: { ...values, purchaseId: res?.data?._id },
+              course,
+            },
+          });
+        }
       }
     } catch (error) {}
   };

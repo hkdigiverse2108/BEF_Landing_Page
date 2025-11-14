@@ -33,15 +33,20 @@ const WorkshopRegister = () => {
       const res = await PostApi({
         url: URL_KEYS.WORKSHOP.REGISTER_ADD,
         data: payload,
-      });
-      const resData = res?.data?.data;
-      if (res?.data?.status === HTTP_STATUS.OK) {
-        navigate(ROUTES.WORKSHOP.PAYMENT, {
-          state: {
-            formValues: { ...values, workshopRegisterId: resData?._id },
-            workshop,
-          },
-        });
+      }).unwrap();
+      const resData = res?.data;
+      console.log(resData)
+      if (res?.status === HTTP_STATUS.OK) {
+        if (resData?.isExistUser === true) {
+          return navigate(ROUTES.PAYMENT.SUCCESS);
+        } else {
+          navigate(ROUTES.WORKSHOP.PAYMENT, {
+            state: {
+              formValues: { ...values, workshopRegisterId: resData?._id },
+              workshop,
+            },
+          });
+        }
       }
     } catch (error) {}
   };
