@@ -33,7 +33,6 @@ const WorkshopPayment = () => {
     formValues,
     workshop,
   }: { formValues: FormValues; workshop: WorkshopType } = location.state || {};
-  console.log("formValues", formValues);
 
   const { data: LectureData, isLoading: isLecturesLoading } = useGetApiQuery({
     url: `${URL_KEYS.LECTURE.ALL}?workshopFilter=${workshop?._id}`,
@@ -53,8 +52,6 @@ const WorkshopPayment = () => {
     RazorPayKey?: string
   ) => {
     try {
-      // console.log("Payment Status:", status);
-      // console.log("Payment Response:", response);
 
       const payload = {
         workshopRegisterId: formValues?.workshopRegisterId,
@@ -79,7 +76,6 @@ const WorkshopPayment = () => {
         url: URL_KEYS.WORKSHOP.REGISTER_EDIT,
         data: payload,
       }).unwrap();
-      console.log("res : ", res);
 
       if (res?.status === HTTP_STATUS.OK) {
         navigate(ROUTES.PAYMENT.SUCCESS);
