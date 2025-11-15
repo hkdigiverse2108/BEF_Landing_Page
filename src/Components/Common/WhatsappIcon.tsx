@@ -16,7 +16,11 @@ const WhatsappIcon = () => {
       }`}
     >
       <Link
-        to={`https://api.whatsapp.com/send?text=${CONTACT?.number}`}
+        to={`https://api.whatsapp.com/send?phone=${
+          CONTACT?.number
+        }&text=${encodeURIComponent(
+          `I Need Help In Bharat Exam Fest Landing Page`
+        )}`}
         target="_blank"
         rel="noopener noreferrer"
         className="!bg-amber-300 relative"

@@ -88,7 +88,7 @@ const CourseDetails = () => {
             src={image}
             alt={image}
             onLoad={() => setImageLoaded(true)}
-            className={`w-full h-full  transition-opacity duration-300 ${
+            className={`w-full h-full  transition-opacity rounded-md duration-300 ${
               imageLoaded ? "opacity-100" : "opacity-0"
             }`}
           />
@@ -128,7 +128,7 @@ const CourseDetails = () => {
               </div>
               <div className="space-y-2 w-full ">
                 <p className="max-sm:hidden font-medium ">Module</p>
-                <ul className="w-full text-sm  grid grid-cols-1  sm:grid-cols-2 sm:flex-row gap-2 sm:gap-4">
+                <ul className="w-full text-sm font-medium  grid grid-cols-1  sm:grid-cols-2 sm:flex-row gap-2">
                   {Modules?.map((module: { name: string }, i: number) => (
                     <li key={i}>
                       {i + 1}. {module.name}

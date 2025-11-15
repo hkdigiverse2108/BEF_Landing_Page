@@ -62,7 +62,7 @@ const ShareModal: React.FC = () => {
         onClick={handleOpen}
         className="flex items-center max-sm:!p-2  "
       >
-        <span className="max-sm:hidden">Share</span>
+        <span className="max-sm:hidden font-semibold">Share</span>
       </Button>
 
       <Modal

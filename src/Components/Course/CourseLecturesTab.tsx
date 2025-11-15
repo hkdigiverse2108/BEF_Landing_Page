@@ -5,6 +5,7 @@ import type { LectureType, ModuleType } from "../../Types";
 import YoutubeVideoModal from "../Common/YoutubeVideoModal";
 import { Tab, Tabs, useMediaQuery, useTheme } from "@mui/material";
 import LectureCard from "../Common/LectureCard";
+import { Empty } from "antd";
 
 const CourseLecturesTab = ({ Modules }: { Modules: ModuleType[] }) => {
   const [playVideo, setPlayVideo] = useState(false);
@@ -18,12 +19,12 @@ const CourseLecturesTab = ({ Modules }: { Modules: ModuleType[] }) => {
     url: `${URL_KEYS.LECTURE.ALL}?moduleFilter=${selectedModule}&typeFilter=course`,
   });
 
-
   const Lectures = data?.data?.lecture_data || [];
 
   const handleTabChange = (_: SyntheticEvent, newValue: string) => {
     setSelectedModule(newValue);
   };
+  if (Lectures?.length === 0) return <Empty />;
 
   return (
     <>

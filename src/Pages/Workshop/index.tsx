@@ -61,7 +61,7 @@ const Workshop = () => {
             src={image}
             alt={image}
             onLoad={() => setImageLoaded(true)}
-            className={`w-full h-full  transition-opacity duration-300 ${
+            className={`w-full h-full  transition-opacity rounded-md duration-300 ${
               imageLoaded ? "opacity-100" : "opacity-0"
             }`}
           />
@@ -88,7 +88,7 @@ const Workshop = () => {
           <span className="border-b border-gray-300 flex w-full h-0.5" />
 
           <section className="flex flex-col lg:flex-row gap-5">
-            <div className="bg-card-bg  transition-all px-5 py-3 rounded w-full flex max-sm:flex-col  items-center sm:gap-5">
+            <div className="bg-card-bg  transition-all gap-3 px-3 sm:px-5 py-3 rounded w-full flex items-center sm:gap-5">
               <figure className="rounded-full bg-primary/10 p-3 sm:p-4 h-fit w-fit">
                 <img
                   src={`${ImagePath}workshop/users.png`}
@@ -96,11 +96,11 @@ const Workshop = () => {
                   className="w-8 sm:w-10 h-fit"
                 />
               </figure>
-              <p className=" font-medium capitalize max-sm:text-sm text-center">
+              <p className=" font-medium capitalize max-sm:text-xs">
                 Secret Workshop on What toppers do differently
               </p>
             </div>
-            <div className="bg-card-bg  transition-all px-5 py-3 rounded w-full flex flex-col sm:flex-row sm:items-center sm:gap-5">
+            <div className="bg-card-bg  transition-all gap-3 px-3 sm:px-5 py-3 rounded w-full flex items-center sm:gap-5">
               {/* Image + Title (top row on mobile) */}
               <div className="flex items-center gap-3 sm:mb-0">
                 <figure className="rounded-full bg-primary/10 p-3 sm:p-4 h-fit w-fit">
@@ -110,9 +110,9 @@ const Workshop = () => {
                     className="w-8 sm:w-10 h-fit"
                   />
                 </figure>
-                <div className="space-y-2 w-full font-medium ">
-                  <p>{moneyBack}</p>
-                </div>
+                <p className=" font-medium capitalize max-sm:text-xs ">
+                  {moneyBack}
+                </p>
               </div>
             </div>
           </section>
@@ -125,7 +125,7 @@ const Workshop = () => {
             textColor="primary"
             variant="scrollable"
             aria-label="primary tabs example"
-            allowScrollButtonsMobile
+            // allowScrollButtonsMobile
             className="DetailsTabs !w-full !flex !justify-between !gap-4 border-b border-gray-300 mt-6 "
             sx={{
               "& .MuiTabs-flexContainer": {

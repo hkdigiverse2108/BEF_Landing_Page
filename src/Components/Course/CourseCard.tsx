@@ -12,8 +12,8 @@ const CourseCard = ({ course }: { course: CourseType }) => {
 
   const {
     image = "",
-    language = "हिंGLISH",
-    syllabus: { subjectLevel = "basic" } = {},
+    language = "",
+    syllabus: { subjectLevel = "" } = {},
     _id = "",
   } = course;
 
@@ -31,7 +31,11 @@ const CourseCard = ({ course }: { course: CourseType }) => {
       </Link>
       <span className=" border-t flex border-gray-200  "></span>
       <Link
-        to={`https://api.whatsapp.com/send?text=${CONTACT?.number}`}
+        to={`https://api.whatsapp.com/send?phone=${
+          CONTACT?.number
+        }&text=${encodeURIComponent(
+          `I Need Help In Bharat Exam Fest Landing Page`
+        )}`}
         target="_blank"
         rel="noopener noreferrer"
         className="flex flex-nowrap gap-2 cursor-pointer !text-black"
@@ -52,7 +56,7 @@ const CourseCard = ({ course }: { course: CourseType }) => {
             src={image}
             alt={image}
             onLoad={() => setImageLoaded(true)}
-            className={`w-full h-full  transition-opacity duration-300 ${
+            className={`w-full h-full  transition-opacity  duration-300 ${
               imageLoaded ? "opacity-100" : "opacity-0"
             }`}
           />
