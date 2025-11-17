@@ -13,6 +13,7 @@ import PageNotFound from "../Components/Common/PageNotFound";
 import PaymentSuccess from "../Components/Common/PaymentSuccess";
 import PaymentFailed from "../Components/Common/PaymentFailed";
 import BlogDetails from "../Pages/Blog/BlogDetails";
+import WorkshopDetails from "../Pages/Workshop/WorkshopDetails";
 
 export const PageRoutes = [
   {
@@ -30,6 +31,10 @@ export const PageRoutes = [
   {
     path: ROUTES.WORKSHOP.WORKSHOP,
     element: <Workshop />,
+  },
+  {
+    path: ROUTES.WORKSHOP.DETAILS,
+    element: <WorkshopDetails />,
   },
   {
     path: ROUTES.WORKSHOP.REGISTER,

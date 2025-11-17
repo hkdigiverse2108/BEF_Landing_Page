@@ -2,6 +2,7 @@ export const ROUTES = {
   HOME: "/",
   WORKSHOP: {
     WORKSHOP: "/workshop",
+    DETAILS :"/workshop/details/:id",
     REGISTER: "/workshop/register",
     PAYMENT: "/workshop/payment",
   },

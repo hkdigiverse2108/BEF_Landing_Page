@@ -11,6 +11,10 @@ body {
   @apply px-4 md:px-6 xl:px-8;
 }
 
+.active {
+  @apply text-primary;
+}
+
 /* ================== About Section Start Here ================== */
 /* Smooth float animation */
 @keyframes smoothFloat {

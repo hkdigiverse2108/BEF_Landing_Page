@@ -7,6 +7,7 @@ export const URL_KEYS = {
   },
   WORKSHOP: {
     ALL: "workshop/all",
+    ONE : "workshop/",
     TESTIMONIAL: "workshop-testimonial/all",
     REGISTER_ADD: "/workshop-register/add",
     REGISTER_EDIT: "/workshop-register/edit",

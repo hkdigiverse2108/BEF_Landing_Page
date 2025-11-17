@@ -4,15 +4,32 @@ import Footer from "./Footer";
 import GoTop from "../Components/Common/GoTop";
 import { useEffect } from "react";
 import Aos from "aos";
-import { ROUTES } from "../Constants";
+import { ROUTES, URL_KEYS } from "../Constants";
 import WhatsappIcon from "../Components/Common/WhatsappIcon";
+import { useGetApiQuery } from "../Api/CommonApi";
+import {
+  setworkshopLoading,
+  setWorkshops,
+} from "../Store/Slices/WorkshopSlice";
+import { useAppDispatch } from "../Store/Hook";
 
 const Layout = () => {
   const location = useLocation();
+  const dispatch = useAppDispatch();
+
+  const { data: workshopData, isLoading: workshopLoading } = useGetApiQuery({
+    url: `${URL_KEYS.WORKSHOP.ALL}`,
+  });
+  const workshop = workshopData?.data?.workshop_data || [];
 
   const isShow =
     location.pathname.startsWith(ROUTES.COURSE.DETAILS.replace("/:id", "")) ||
     location.pathname === ROUTES.WORKSHOP.WORKSHOP;
+
+  useEffect(() => {
+    dispatch(setWorkshops(workshop));
+    dispatch(setworkshopLoading(workshopLoading));
+  }, [workshopLoading]);
 
   useEffect(() => {
     Aos.init({

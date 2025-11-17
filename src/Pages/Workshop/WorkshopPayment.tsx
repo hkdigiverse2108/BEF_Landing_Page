@@ -151,14 +151,14 @@ const WorkshopPayment = () => {
                   setRefferCode={setRefferCode}
                 />
               </div>
-              {isRefferApplyed && (
+              {/* {isRefferApplyed && (
                 <div className="bg-success/10 border border-success/30 p-3 space-y-1 rounded-lg">
                   <p className=" ">Offer Applied</p>
                   <p className="text-success font-medium">
                     Pay just enrollment fee — Remaining after prelims cleared.
                   </p>
                 </div>
-              )}
+              )} */}
             </section>
           )}
 

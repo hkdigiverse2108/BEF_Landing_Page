@@ -1,28 +1,23 @@
 import { TbPhoneCall } from "react-icons/tb";
 import { ROUTES } from "../../Constants";
 import { NavLink } from "react-router-dom";
-import type { CourseType } from "../../Types";
 import { Popover } from "antd";
 
-import { useState } from "react";
+import { useState, type FC } from "react";
 import ContactContent from "../WorkshopCourse/ContactContent";
+import type { WorkshopType } from "../../Types";
 
-const CourseCard = ({ course }: { course: CourseType }) => {
+const WorkshopCard: FC<{ data: WorkshopType }> = ({ data }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
 
-  const {
-    image = "",
-    language = "हिंGLISH",
-    syllabus: { subjectLevel = "basic" } = {},
-    _id = "",
-  } = course;
+  const { image = "", language = "", syllabus = "", _id = "" } = data;
 
-  const title = "Have questions about this Course?";
+  const title = "Have questions about this Workshop?";
   const subtitle = "Talk to a counsellor";
 
   return (
     <NavLink
-      to={`${ROUTES.COURSE.DETAILS.replace(":id", _id)}`}
+      to={`${ROUTES.WORKSHOP.DETAILS.replace(":id", _id)}`}
       className=" relative rounded-2xl overflow-hidden cursor-pointer shadow-xl flex flex-col justify-end h-fit"
     >
       <div className="relative w-full  rounded-t-2xl overflow-hidden bg-gray-300">
@@ -41,7 +36,7 @@ const CourseCard = ({ course }: { course: CourseType }) => {
             {language}
           </span>
           <span className="bg-white/20 text-white font-bold text-sm p-1 px-1.5 rounded backdrop-blur-md">
-            {subjectLevel}
+            {syllabus}
           </span>
         </div>
       </div>
@@ -71,4 +66,4 @@ const CourseCard = ({ course }: { course: CourseType }) => {
     </NavLink>
   );
 };
-export default CourseCard;
+export default WorkshopCard;

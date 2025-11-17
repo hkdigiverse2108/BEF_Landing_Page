@@ -20,7 +20,7 @@ const GoTop = () => {
       <div
         className={`fixed right-2 sm:bottom-17 sm:right-8 z-10 ${
           location.pathname === ROUTES.COURSE.DETAILS ||
-          location.pathname === ROUTES.WORKSHOP.WORKSHOP
+          location.pathname === ROUTES.WORKSHOP.DETAILS
             ? "bottom-27"
             : "bottom-0"
         }`}
