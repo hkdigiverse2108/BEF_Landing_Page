@@ -38,6 +38,7 @@ const CoursePayment = () => {
     discountPrice = 0,
     payingPrice = 0,
     price = 0,
+    priceInStruction = "",
   } = course || {};
 
   const isDiscountPrice = !!course?.discountPrice;
@@ -132,11 +133,12 @@ const CoursePayment = () => {
                   setRefferCode={setRefferCode}
                 />
               </div>
-              {isRefferApplyed && (
+              {isRefferApplyed && priceInStruction && (
                 <div className="bg-success/10 border border-success/30 p-3 space-y-1 rounded-lg">
                   <p className=" ">Offer Applied</p>
                   <p className="text-success font-medium">
-                    Pay just enrollment fee — Remaining after prelims cleared.
+                    {/* Pay just enrollment fee — Remaining after prelims cleared. */}
+                    {priceInStruction}
                   </p>
                 </div>
               )}
