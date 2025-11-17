@@ -1,18 +1,20 @@
-import { Rate } from "antd";
+import { Empty, Rate } from "antd";
 import { RiDoubleQuotesL } from "react-icons/ri";
 import { useGetApiQuery } from "../../Api/CommonApi";
 import { URL_KEYS } from "../../Constants";
 import type { Testimonial } from "../../Types";
 
-
-
 const WorkshopTestimonialsTab = () => {
   const { data } = useGetApiQuery({ url: URL_KEYS.WORKSHOP.TESTIMONIAL });
 
   const testimonials = data?.data?.webinar_testimonial_data;
+  if (testimonials?.length === 0) return <Empty />;
 
   return (
-    <div className="flex flex-col items-center justify-center gap-5 " data-aos="fade-up">
+    <div
+      className="flex flex-col items-center justify-center gap-5 "
+      data-aos="fade-up"
+    >
       {testimonials?.map((t: Testimonial) => {
         const { description, name, designation, image, rating } = t;
         return (
@@ -32,7 +34,12 @@ const WorkshopTestimonialsTab = () => {
                   <p className="text-sm ">{designation}</p>
                 </span>
                 <p className="text-primary font-bold tracking-widest mt-2">
-                  <Rate disabled allowHalf defaultValue={rating} className=" !text-primary" />
+                  <Rate
+                    disabled
+                    allowHalf
+                    defaultValue={rating}
+                    className=" !text-primary"
+                  />
                 </p>
               </div>
             </div>
@@ -40,7 +47,11 @@ const WorkshopTestimonialsTab = () => {
             {/* Right - Image */}
             <div className="order-1 sm:order-2 flex-shrink-0">
               <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-full overflow-hidden border-4 border-primary">
-                <img src={image} alt={name} className="w-full h-full object-cover" />
+                <img
+                  src={image}
+                  alt={name}
+                  className="w-full h-full object-cover"
+                />
               </div>
             </div>
           </div>

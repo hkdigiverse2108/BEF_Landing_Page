@@ -4,6 +4,7 @@ import { URL_KEYS } from "../../Constants";
 import type { LectureType } from "../../Types";
 import YoutubeVideoModal from "../Common/YoutubeVideoModal";
 import LectureCard from "../Common/LectureCard";
+import { Empty } from "antd";
 
 const WorkshopLecturesTab = ({ id }: { id?: string }) => {
   const [playVideo, setPlayVideo] = useState(false);
@@ -14,6 +15,7 @@ const WorkshopLecturesTab = ({ id }: { id?: string }) => {
   });
 
   const Lectures = data?.data?.lecture_data;
+  if (Lectures?.length === 0) return <Empty />;
 
   return (
     <div className="space-y-4" data-aos="fade-up">

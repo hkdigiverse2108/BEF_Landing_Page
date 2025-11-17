@@ -91,7 +91,7 @@ body {
   @apply flex sm:grid grid-cols-4 gap-0;
 }
 .DetailsTabs .MuiTabs-list.MuiTabs-flexContainer button {
-  @apply !font-extrabold;
+  @apply !font-extrabold max-sm:text-[10px]! max-sm:p-0! ;
 }
 
 /* .LecturesTabs .MuiTabs-list.MuiTabs-flexContainer {

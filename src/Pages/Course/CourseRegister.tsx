@@ -37,7 +37,6 @@ const CourseRegister = () => {
         data: payload,
       }).unwrap();
       const resData = res?.data;
-      console.log(resData);
       if (res?.status === HTTP_STATUS.OK) {
         if (resData?.isExistUser === true) {
           return navigate(ROUTES.PAYMENT.SUCCESS);

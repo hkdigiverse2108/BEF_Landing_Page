@@ -3,6 +3,7 @@ import { useGetApiQuery } from "../../Api/CommonApi";
 import { URL_KEYS } from "../../Constants";
 import type { ModuleType } from "../../Types";
 import YoutubeVideoModal from "../Common/YoutubeVideoModal";
+import { Empty } from "antd";
 
 const CourseModuleTab = ({ id }: { id?: string }) => {
   const [playVideo, setPlayVideo] = useState(false);
@@ -12,6 +13,8 @@ const CourseModuleTab = ({ id }: { id?: string }) => {
     url: `${URL_KEYS.MODULE.ALL}?courseFilter=${id}`,
   });
   const Modules = ModulesData?.data?.module_data || [];
+
+  if (Modules?.length === 0) return <Empty />;
 
   return (
     <div

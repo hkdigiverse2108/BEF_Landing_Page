@@ -51,9 +51,6 @@ const CoursePayment = () => {
     response: RazorpayResponse
   ) => {
     try {
-      // console.log("Payment Status:", status);
-      // console.log("Payment Response:", response);
-
       const payload = {
         purchaseId: formValues?.purchaseId,
         paymentId: response.razorpay_payment_id,
@@ -73,8 +70,6 @@ const CoursePayment = () => {
         url: URL_KEYS.COURSE.REGISTER_EDIT,
         data: payload,
       }).unwrap();
-      console.log("res : ", res);
-
       if (res?.status === HTTP_STATUS.OK) {
         navigate(ROUTES.PAYMENT.SUCCESS);
       }
@@ -138,7 +133,7 @@ const CoursePayment = () => {
                   setRefferCode={setRefferCode}
                 />
               </div>
-              {isRefferApplyed && (
+              {isRefferApplyed && priceInStruction && (
                 <div className="bg-success/10 border border-success/30 p-3 space-y-1 rounded-lg">
                   <p className=" ">Offer Applied</p>
                   <p className="text-success font-medium">

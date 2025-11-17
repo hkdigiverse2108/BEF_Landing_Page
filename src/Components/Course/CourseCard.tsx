@@ -12,8 +12,8 @@ const CourseCard = ({ course }: { course: CourseType }) => {
 
   const {
     image = "",
-    language = "हिंGLISH",
-    syllabus: { subjectLevel = "basic" } = {},
+    language = "",
+    syllabus: { subjectLevel = "" } = {},
     _id = "",
   } = course;
 
@@ -31,7 +31,7 @@ const CourseCard = ({ course }: { course: CourseType }) => {
             src={image}
             alt={image}
             onLoad={() => setImageLoaded(true)}
-            className={`w-full h-full  transition-opacity duration-300 ${
+            className={`w-full h-full  transition-opacity  duration-300 ${
               imageLoaded ? "opacity-100" : "opacity-0"
             }`}
           />
