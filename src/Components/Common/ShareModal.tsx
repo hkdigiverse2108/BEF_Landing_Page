@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Modal, Button } from "antd";
+import { Modal, Button, Tooltip } from "antd";
 import { TwitterOutlined } from "@ant-design/icons";
 import { PiShareFat } from "react-icons/pi";
 import { FaLinkedin, FaTelegram } from "react-icons/fa";
 import { RiWhatsappFill } from "react-icons/ri";
-import { LuCopy, LuCopyCheck } from "react-icons/lu";
+import { IoCheckmarkDoneSharp, IoCopyOutline } from "react-icons/io5";
 
 const ShareModal: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -92,14 +92,27 @@ const ShareModal: React.FC = () => {
               className="!  !text-sky-500 cursor-pointer hover:scale-110 transition-transform"
             />
           </div>
-
-          <div className="flex  justify-between items-center border border-gray-300 rounded-md p-2 w-full  bg-gray-50 break-all">
-            <p> {pageUrl}</p>
-            <Button
-              icon={isCopied ? <LuCopyCheck /> : <LuCopy />}
+          <Tooltip
+            title={isCopied ? "Copied!" : "Copy"}
+            color={isCopied ? "#288F66" : "#EB8844"}
+            placement="topRight"
+          >
+            <span
               onClick={handleCopyLink}
-            ></Button>
-          </div>
+              className={`flex  justify-between items-center border border-gray-300 rounded-md p-2 w-full  bg-gray-50 break-all cursor-pointer transition ${
+                isCopied
+                  ? "border-success text-success"
+                  : "hover:border-primary hover:text-primary"
+              } `}
+            >
+              <p className="truncate"> {pageUrl}</p>
+              {isCopied ? (
+                <IoCheckmarkDoneSharp className="ms-3 text-success transition-transform duration-300 scale-110" />
+              ) : (
+                <IoCopyOutline className="ms-3 transition-transform duration-300 hover:scale-110" />
+              )}
+            </span>
+          </Tooltip>
         </div>
       </Modal>
     </>

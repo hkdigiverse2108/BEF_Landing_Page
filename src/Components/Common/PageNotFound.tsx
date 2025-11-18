@@ -10,8 +10,8 @@ const PageNotFound = () => {
         title="404"
         subTitle="Sorry, the page you visited does not exist."
         extra={
-          <NavLink to={ROUTES.HOME} className="!text-primary font-semibold ">
-            Back Home
+          <NavLink to={ROUTES.HOME}>
+            <button className="btn primary_btn  !h-12    ">Back Home</button>
           </NavLink>
         }
       />
