@@ -1,5 +1,4 @@
 import { ImagePath, ROUTES } from "../Constants";
-// import { HeaderItems, LOGIN_URL } from "../Data";
 import { RiMenu3Fill } from "react-icons/ri";
 import { IoClose } from "react-icons/io5";
 import { useEffect, useState } from "react";

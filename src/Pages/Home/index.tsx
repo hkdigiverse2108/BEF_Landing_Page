@@ -47,16 +47,6 @@ const Home = () => {
   });
   const aboutUs = aboutData?.data?.aboutUs;
 
-  // if (
-  //   featureLoading ||
-  //   stepsLoading ||
-  //   testimonialLoading ||
-  //   blogLoading ||
-  //   faqLoading ||
-  //   interfaceLoading ||
-  //   aboutLoading
-  // )
-  //   return <Loader />;
   if (featureLoading || testimonialLoading) return <Loader />;
 
   return (

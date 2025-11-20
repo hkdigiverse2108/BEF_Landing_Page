@@ -18,7 +18,7 @@ const YoutubeVideoModal = ({
     let videoId = "";
 
     try {
-      // ✅ Handle YouTube links
+
       if (url.includes("youtube.com/watch?v=")) {
         videoId = url.split("v=")[1]?.split("&")[0];
         return `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`;
@@ -29,7 +29,6 @@ const YoutubeVideoModal = ({
         return url;
       }
 
-      // ✅ Handle Google Drive links
       if (url.includes("drive.google.com")) {
         if (url.includes("/file/d/")) {
           videoId = url.split("/file/d/")[1]?.split("/")[0];
