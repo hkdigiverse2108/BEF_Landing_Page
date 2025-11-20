@@ -4,7 +4,7 @@ import { RiMenu3Fill } from "react-icons/ri";
 import { IoClose } from "react-icons/io5";
 import { useEffect, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import { getHeaderItems } from "../Utils/getHeaderItems";
+import { getHeaderItems } from "../Utils/GetHeaderItems";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);

@@ -18,7 +18,7 @@ const Home = () => {
   });
   const features = featuresData?.data?.feature_data || [];
 
-  const { data: stepsData, isLoading: stepsLoading } = useGetApiQuery({
+  const { data: stepsData,  } = useGetApiQuery({
     url: URL_KEYS.HOW_IT_WORK.ALL,
   });
   const steps = stepsData?.data?.how_it_work_data || [];
@@ -27,22 +27,22 @@ const Home = () => {
     useGetApiQuery({ url: URL_KEYS.WORKSHOP.TESTIMONIAL });
   const testimonials = testimonialsData?.data?.webinar_testimonial_data || [];
 
-  const { data: blogData, isLoading: blogLoading } = useGetApiQuery({
+  const { data: blogData,  } = useGetApiQuery({
     url: URL_KEYS.BLOG.ALL,
   });
   const blogs = blogData?.data?.blog_data || [];
 
-  const { data: faqsData, isLoading: faqLoading } = useGetApiQuery({
+  const { data: faqsData } = useGetApiQuery({
     url: `${URL_KEYS.FAQ.ALL}?typeFilter=landing-page`,
   });
   const faqs = faqsData?.data?.faq_data;
 
-  const { data: interfaceData, isLoading: interfaceLoading } = useGetApiQuery({
+  const { data: interfaceData } = useGetApiQuery({
     url: URL_KEYS.INTERFACE.ALL,
   });
   const interfaces = interfaceData?.data?.interface_data;
 
-  const { data: aboutData, isLoading: aboutLoading } = useGetApiQuery({
+  const { data: aboutData } = useGetApiQuery({
     url: `${URL_KEYS.ABOUT.ALL}?type=course`,
   });
   const aboutUs = aboutData?.data?.aboutUs;

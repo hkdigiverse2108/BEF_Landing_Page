@@ -176,14 +176,12 @@
 // export default ShareModal;
 
 import React, { useState } from "react";
-import { Modal, Button, Tooltip } from "antd";
-import { TwitterOutlined } from "@ant-design/icons";
+import { Modal, Button,  } from "antd";
 import { PiShareFat } from "react-icons/pi";
 import {
   FaFacebookF,
   FaInstagram,
   FaLinkedin,
-  FaTelegram,
   FaTwitter,
 } from "react-icons/fa";
 import { RiWhatsappFill } from "react-icons/ri";
