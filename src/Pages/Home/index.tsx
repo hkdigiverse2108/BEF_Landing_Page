@@ -57,7 +57,7 @@ const Home = () => {
   //   aboutLoading
   // )
   //   return <Loader />;
-  if (featureLoading) return <Loader />;
+  if (featureLoading || testimonialLoading) return <Loader />;
 
   return (
     <>
