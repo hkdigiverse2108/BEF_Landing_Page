@@ -171,7 +171,7 @@ const WorkshopDetails = () => {
           <div className=" md:w-1/4">
             <NavLink to={ROUTES.WORKSHOP.REGISTER} state={workshop}>
               <button className="btn primary_btn !h-12 !w-full  ">
-                Enroll Now
+                Join Now
               </button>
             </NavLink>
           </div>
