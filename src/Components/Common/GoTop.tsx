@@ -4,7 +4,14 @@ import { useLocation } from "react-router-dom";
 
 const GoTop = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const location = useLocation();
+  const { pathname } = useLocation();
+
+  const isCourseDetails = pathname.startsWith(
+    ROUTES.COURSE.DETAILS.replace(":id", "")
+  );
+  const isWorkshopDetails = pathname.startsWith(
+    ROUTES.WORKSHOP.DETAILS.replace(":id", "")
+  );
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,9 +26,8 @@ const GoTop = () => {
     return (
       <div
         className={`fixed right-2 sm:bottom-17 sm:right-8 z-10 ${
-          location.pathname === ROUTES.COURSE.DETAILS ||
-          location.pathname === ROUTES.WORKSHOP.DETAILS
-            ? "bottom-27"
+          isCourseDetails || isWorkshopDetails
+            ? "bottom-15 sm:bottom-20"
             : "bottom-0"
         }`}
       >
@@ -30,7 +36,7 @@ const GoTop = () => {
           onClick={() => {
             window.scrollTo({
               top: 0,
-              behavior: "smooth", 
+              behavior: "smooth",
             });
           }}
         >

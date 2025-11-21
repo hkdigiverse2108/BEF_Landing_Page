@@ -46,7 +46,7 @@ const InterfaceSection = ({ interfaces }: { interfaces: InterfaceType[] }) => {
         >
           {interfaces?.map((item: InterfaceType, i: number) => (
             <SwiperSlide key={i} className="flex justify-center">
-              <div className={`transition-all duration-700 ease-in-out transform  rounded-2xl overflow-hidden ${i === activeIndex ? "scale-120 lg:scale-150 " : " lg:scale-120  opacity-80"}`}>
+              <div className={`transition-all duration-700 ease-in-out transform  rounded-2xl overflow-hidden ${i === activeIndex ? "scale-110 lg:scale-150 " : " lg:scale-115  opacity-80"}`}>
                 <img src={item?.image} alt={`App screen ${i + 1}`} className="w-full h-full object-cover " />
               </div>
             </SwiperSlide>

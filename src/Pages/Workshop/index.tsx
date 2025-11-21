@@ -23,7 +23,6 @@ const Workshop = () => {
     });
   }
 
-  //  Redirect safely
   useEffect(() => {
     if (!workshopLoading && workshop.length === 1) {
       navigate(ROUTES.WORKSHOP.DETAILS.replace(":id", id), {
@@ -32,7 +31,6 @@ const Workshop = () => {
     }
   }, [workshopLoading, workshop]);
 
-  //  NOW handle early returns AFTER hooks
   if (workshopLoading) return <Loader />;
   if (!workshopLoading && workshop.length === 0)
     return (

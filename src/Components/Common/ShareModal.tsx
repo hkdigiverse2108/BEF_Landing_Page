@@ -1,10 +1,10 @@
+
 import React, { useState } from "react";
 import { Modal, Button } from "antd";
-import { TwitterOutlined } from "@ant-design/icons";
 import { PiShareFat } from "react-icons/pi";
-import { FaLinkedin, FaTelegram } from "react-icons/fa";
+import { FaFacebookF, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
 import { RiWhatsappFill } from "react-icons/ri";
-import { LuCopy, LuCopyCheck } from "react-icons/lu";
+import { IoCheckmarkDoneSharp, IoCopyOutline, IoLinkOutline } from "react-icons/io5";
 
 const ShareModal: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -24,25 +24,32 @@ const ShareModal: React.FC = () => {
 
   const openShareLink = (platform: string) => {
     const encodedUrl = encodeURIComponent(pageUrl);
+    const ShareMessage = `Join Bharat Exam Fest — India’s fastest-growing UPSC learning platform! Start your UPSC preparation here: ${encodedUrl}.`
     let shareUrl = "";
 
     switch (platform) {
       case "whatsapp":
-        shareUrl = `https://api.whatsapp.com/send?text=${encodedUrl}`;
+        shareUrl = `https://api.whatsapp.com/send?text=${ShareMessage}`;
         break;
       case "telegram":
-        shareUrl = `https://t.me/share/url?url=${encodedUrl}`;
+        shareUrl = `https://t.me/share/url?url=${ShareMessage}`;
         break;
       case "linkedin":
-        shareUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${encodedUrl}`;
+        shareUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${ShareMessage}`;
         break;
       case "twitter":
-        shareUrl = `https://twitter.com/intent/tweet?url=${encodedUrl}`;
+        shareUrl = `https://twitter.com/intent/tweet?url=${ShareMessage}`;
+        break;
+      case "facebook":
+        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${ShareMessage}`;
+        break;
+      case "instagram":
+        shareUrl = `https://www.instagram.com/?url=${ShareMessage}`;
         break;
       default:
         return;
     }
-
+    navigator.clipboard.writeText(ShareMessage);
     window.open(shareUrl, "_blank", "noopener,noreferrer");
   };
 
@@ -57,49 +64,58 @@ const ShareModal: React.FC = () => {
 
   return (
     <>
-      <Button
-        icon={<PiShareFat />}
-        onClick={handleOpen}
-        className="flex items-center max-sm:!p-2  "
-      >
+      <Button icon={<PiShareFat />} onClick={handleOpen} className="flex items-center max-sm:!p-2  ">
         <span className="max-sm:hidden font-semibold">Share</span>
       </Button>
 
-      <Modal
-        open={isOpen}
-        onCancel={handleClose}
-        footer={null}
-        centered
-        title="Share"
-      >
-        <div className="flex flex-col gap-4 items-center justify-center text-center ">
-          <div className="flex justify-center gap-6 text-3xl mt-2 w-full ">
-            <RiWhatsappFill
-              onClick={() => openShareLink("whatsapp")}
-              className="!text-green-500 cursor-pointer hover:scale-110 transition-transform"
-            />
-            {/* <FaTelegram /> */}
-            <FaTelegram
-              onClick={() => openShareLink("telegram")}
-              className="!text-blue-500 cursor-pointer hover:scale-110 transition-transform"
-            />
-            <FaLinkedin
-              onClick={() => openShareLink("linkedin")}
-              className="!text-blue-700 cursor-pointer hover:scale-110 transition-transform"
-            />
-            <TwitterOutlined
-              onClick={() => openShareLink("twitter")}
-              className="!  !text-sky-500 cursor-pointer hover:scale-110 transition-transform"
-            />
+      <Modal open={isOpen} onCancel={handleClose} footer={null} centered>
+        <div className=" p-3 space-y-3">
+          {/* Title */}
+          <h2 className="text-2xl font-semibold text-primary">Social Share</h2>
+
+          {/* Share Icons */}
+          <p className=" text-gray-700 font-medium"> Share this link via</p>
+
+          <div className="flex gap-4 ">
+            <button onClick={() => openShareLink("facebook")} className="size-12 flex items-center justify-center rounded-xl bg-gray-50 shadow hover:scale-110 transition">
+              <FaFacebookF className="text-blue-600 text-2xl" />
+            </button>
+
+            <button onClick={() => openShareLink("twitter")} className="size-12 flex items-center justify-center rounded-xl bg-gray-50 shadow hover:scale-110 transition">
+              <FaTwitter className="text-sky-500 text-2xl" />
+            </button>
+
+            <button onClick={() => openShareLink("instagram")} className="size-12 flex items-center justify-center rounded-xl bg-gray-50 shadow hover:scale-110 transition">
+              <FaInstagram className="text-pink-600 text-2xl" />
+            </button>
+
+            <button onClick={() => openShareLink("whatsapp")} className="size-12 flex items-center justify-center rounded-xl bg-gray-50 shadow hover:scale-110 transition">
+              <RiWhatsappFill className="text-green-500 text-2xl" />
+            </button>
+
+            <button onClick={() => openShareLink("linkedin")} className="size-12 flex items-center justify-center rounded-xl bg-gray-50 shadow hover:scale-110 transition">
+              <FaLinkedin className="text-blue-700 text-2xl" />
+            </button>
           </div>
 
-          <div className="flex  justify-between items-center border border-gray-300 rounded-md p-2 w-full  bg-gray-50 break-all">
-            <p> {pageUrl}</p>
-            <Button
-              icon={isCopied ? <LuCopyCheck /> : <LuCopy />}
-              onClick={handleCopyLink}
-            ></Button>
+          {/* Copy Link */}
+          <p className=" text-gray-700 font-medium">Copy Link</p>
+
+          <div
+            className={`flex items-center justify-between border rounded-lg px-3 py-3  cursor-pointer 
+              ${isCopied ? "border-green-500 text-green-600" : "border-gray-300 bg-gray-50"}`}
+            onClick={handleCopyLink}
+          >
+            <div className="flex items-center gap-2 overflow-hidden">
+              <IoLinkOutline className="text-xl text-blue-500" />
+              <span className="truncate">{pageUrl}</span>
+            </div>
+
+            {isCopied ? <IoCheckmarkDoneSharp className="text-green-600 text-xl" /> : <IoCopyOutline className="text-xl" />}
           </div>
+
+          {/* Copy Button */}
+          <button className="btn primary_btn  !h-12 w-full    ">Copy URL</button>
         </div>
       </Modal>
     </>

@@ -127,28 +127,28 @@ const ContactSection = () => {
                 Email Us
               </span>
               <Link
-                to={`https://mail.google.com/mail/?view=cm&fs=1&to=${CONTACT?.emailHelp}`}
+                to={`https://mail.google.com/mail/?view=cm&fs=1&to=${CONTACT?.EMAIL_HELP}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block max-sm:text-sm text-gray-600 hover:text-primary"
               >
-                Student: {CONTACT?.emailHelp}
+                Student: {CONTACT?.EMAIL_HELP}
               </Link>
               <Link
-                to={`https://mail.google.com/mail/?view=cm&fs=1&to=${CONTACT?.emailInfo}`}
+                to={`https://mail.google.com/mail/?view=cm&fs=1&to=${CONTACT?.EMAIL_INFO}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block max-sm:text-sm text-gray-600 hover:text-primary"
               >
-                Know More: {CONTACT?.emailInfo}
+                Know More: {CONTACT?.EMAIL_INFO}
               </Link>
               <Link
-                to={`https://mail.google.com/mail/?view=cm&fs=1&to=${CONTACT?.emailSales}`}
+                to={`https://mail.google.com/mail/?view=cm&fs=1&to=${CONTACT?.EMAIL_SALES}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block max-sm:text-sm text-gray-600 hover:text-primary"
               >
-                Institute: {CONTACT?.emailSales}
+                Institute: {CONTACT?.EMAIL_SALES}
               </Link>
             </div>
           </li>
@@ -165,10 +165,10 @@ const ContactSection = () => {
                 Call Us
               </span>
               <Link
-                to={`tel:${CONTACT?.number}`}
+                to={`tel:${CONTACT?.NUMBER}`}
                 className="max-sm:text-sm text-gray-600 hover:text-primary"
               >
-                {CONTACT?.number}
+                {CONTACT?.NUMBER}
               </Link>
             </div>
           </li>
@@ -186,13 +186,13 @@ const ContactSection = () => {
               </span>
               <Link
                 to={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-                  CONTACT?.address
+                  CONTACT?.ADDRESS
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="max-sm:text-sm text-gray-600"
               >
-                {CONTACT?.address}
+                {CONTACT?.ADDRESS}
               </Link>
             </div>
           </li>

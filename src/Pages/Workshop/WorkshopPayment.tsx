@@ -87,8 +87,6 @@ const WorkshopPayment = () => {
     ? Number(discountAmount)
     : Number(totalAmount);
 
-  // const amountToPay = 0;
-
   useEffect(() => {
     if (!formValues || !workshop) {
       navigate(ROUTES.WORKSHOP.WORKSHOP);

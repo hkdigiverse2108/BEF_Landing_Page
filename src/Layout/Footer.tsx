@@ -1,7 +1,7 @@
 import { ImagePath } from "../Constants";
 import { Link } from "react-router-dom";
 import AnimationLine from "../Components/Common/AnimationLine";
-import { CONTACT, Help_Support, SOCIAL_MEDIA } from "../Data";
+import { CONTACT, Help_Support, HK_DIGIVERSE_URL, SOCIAL_MEDIA } from "../Data";
 
 const Footer = () => {
   return (
@@ -24,14 +24,14 @@ const Footer = () => {
 
           {/* Contact Info */}
           <div className="space-y-5 text-sm sm:text-base">
-            <Link to={`https://mail.google.com/mail/?view=cm&fs=1&to=${CONTACT?.emailInfo}`} target="_blank" rel="noopener noreferrer">
-              {CONTACT?.emailInfo}
+            <Link to={`https://mail.google.com/mail/?view=cm&fs=1&to=${CONTACT?.EMAIL_INFO}`} target="_blank" rel="noopener noreferrer">
+              {CONTACT?.EMAIL_INFO}
             </Link>
-            <Link to={`tel:${CONTACT?.number}`} className="flex items-center gap-2">
-              {CONTACT?.number}
+            <Link to={`tel:${CONTACT?.NUMBER}`} className="flex items-center gap-2">
+              {CONTACT?.NUMBER}
             </Link>
-            <Link to={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(CONTACT?.address)}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
-              {CONTACT?.address}
+            <Link to={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(CONTACT?.ADDRESS)}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+              {CONTACT?.ADDRESS}
             </Link>
           </div>
 
@@ -72,7 +72,10 @@ const Footer = () => {
 
       {/* Footer Bottom */}
       <div className="text-center text-sm sm:text-base bg-black border-t border-white/20 py-4">
-        © Copyrights 2024 All rights reserved by <span className="font-medium">HK DigiVerse LLP</span>.
+        © Copyrights 2024 All rights reserved by{" "}
+        <Link target="_blank" to={HK_DIGIVERSE_URL} className="font-medium underline ps-1">
+          HK DigiVerse LLP.
+        </Link>
       </div>
     </footer>
   );

@@ -156,7 +156,7 @@ const CourseRegister = () => {
               type="primary"
               className="btn primary_btn !h-12 w-full"
             >
-              Enroll Now
+              Next
             </Button>
           </div>
         </Form>

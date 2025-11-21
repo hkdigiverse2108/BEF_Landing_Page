@@ -67,9 +67,9 @@ export interface Testimonial {
 }
 
 export interface ContactType {
-  number: string;
-  emailInfo: string;
-  emailHelp: string;
-  emailSales: string;
-  address: string;
+  NUMBER: string;
+  EMAIL_INFO: string;
+  EMAIL_HELP: string;
+  EMAIL_SALES: string;
+  ADDRESS: string;
 }

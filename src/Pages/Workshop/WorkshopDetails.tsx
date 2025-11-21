@@ -63,7 +63,7 @@ const WorkshopDetails = () => {
             src={image}
             alt={image}
             onLoad={() => setImageLoaded(true)}
-            className={`w-full h-full  transition-opacity duration-300 ${
+            className={`w-full h-full  transition-opacity duration-300 rounded-lg ${
               imageLoaded ? "opacity-100" : "opacity-0"
             }`}
           />
@@ -156,8 +156,8 @@ const WorkshopDetails = () => {
       </section>
 
       {/* ==== Fixed Section ==== */}
-      <section className=" !fixed !bottom-0 left-0 right-0 z-10 bg-white  ">
-        <div className="container container-p py-2 sm:py-3 flex max-md:flex-col gap-2 md:gap-4 justify-between md:items-end">
+      <section className=" !fixed !bottom-0 left-0 right-0 z-10 bg-white container-p  ">
+        <div className="container  py-2 sm:py-3 flex max-md:flex-col gap-2 md:gap-4 justify-between md:items-end">
           <div>
             <p className="text-gray-600 font-medium">Price</p>
             <h1 className=" sm:text-xl font-bold flex gap-[2px] items-end">
@@ -171,7 +171,7 @@ const WorkshopDetails = () => {
           <div className=" md:w-1/4">
             <NavLink to={ROUTES.WORKSHOP.REGISTER} state={workshop}>
               <button className="btn primary_btn !h-12 !w-full  ">
-                Enroll Now
+                Join Now
               </button>
             </NavLink>
           </div>

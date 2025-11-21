@@ -1,14 +1,10 @@
-import {
-  FaFacebook,
-  FaInstagram,
-  FaLinkedin,
-  FaTelegramPlane,
-} from "react-icons/fa";
+import { FaFacebook, FaInstagram, FaLinkedin, FaTelegramPlane } from "react-icons/fa";
 import { ImYoutube } from "react-icons/im";
 import { FaXTwitter } from "react-icons/fa6";
 import type { ContactType } from "../Types";
 
 export const LOGIN_URL = "http://course.bharatexamfest.com/";
+export const HK_DIGIVERSE_URL = "https://hkdigiverse.com/";
 
 export const APP_LINKS = {
   PLAY_STORE: "#",
@@ -16,12 +12,11 @@ export const APP_LINKS = {
 } as const;
 
 export const CONTACT: ContactType = {
-  number: "+91 84604 64463",
-  emailInfo: "info@bharatexamfest.com",
-  emailHelp: "help@bharatexamfest.com",
-  emailSales: "sales@bharatexamfest.com",
-  address:
-    "501-502, Silver Trade Center, Mota Varachhha, Surat, Gujarat, India-394101.",
+  NUMBER: "+91 84604 64463",
+  EMAIL_INFO: "info@bharatexamfest.com",
+  EMAIL_HELP: "help@bharatexamfest.com",
+  EMAIL_SALES: "sales@bharatexamfest.com",
+  ADDRESS: "501-502, Silver Trade Center, Mota Varachhha, Surat, Gujarat, India-394101.",
 };
 
 export const SOCIAL_MEDIA = [

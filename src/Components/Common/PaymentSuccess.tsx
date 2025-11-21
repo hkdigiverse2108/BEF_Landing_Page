@@ -7,13 +7,13 @@ import { useEffect } from "react";
 
 const PaymentSuccess = () => {
   useEffect(() => {
-    // 🔙 Block Back Button only
+
     const handleBack = (e: PopStateEvent) => {
       e.preventDefault();
-      // alert("Please click One Button!");
+ 
       window.history.pushState(null, "", window.location.href);
     };
-    // Back button trap
+
     window.history.pushState(null, "", window.location.href);
     window.addEventListener("popstate", handleBack);
     return () => {
@@ -36,7 +36,7 @@ const PaymentSuccess = () => {
             </NavLink>
 
             <Link
-              to={`tel:${CONTACT?.number}`}
+              to={`tel:${CONTACT?.NUMBER}`}
               className="flex flex-nowrap gap-2 cursor-pointer !text-black"
             >
               <Button type="primary" className="btn border-primary_btn !h-12 ">
