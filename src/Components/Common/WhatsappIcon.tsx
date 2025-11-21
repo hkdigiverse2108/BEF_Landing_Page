@@ -25,15 +25,15 @@ const GlobalContactContent = () => {
       </div>
       <div className="space-y-2 font-semibold">
         <Link
-          to={`tel:${CONTACT?.number}`}
+          to={`tel:${CONTACT?.NUMBER}`}
           className="flex flex-nowrap gap-2 cursor-pointer text-black! border p-2 rounded-md border-gray-200 hover:border-gray-400 "
         >
           <IoCall className="me-2 text-xl text-success" />
-          {CONTACT?.number.split("+91")}
+          {CONTACT?.NUMBER.split("+91")}
         </Link>
         <Link
           to={`https://api.whatsapp.com/send?phone=${
-            CONTACT?.number
+            CONTACT?.NUMBER
           }&text=${encodeURIComponent(`I Need Help In Bharat Exam Fest Web`)}`}
           target="_blank"
           rel="noopener noreferrer"

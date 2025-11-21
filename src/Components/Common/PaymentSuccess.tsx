@@ -36,7 +36,7 @@ const PaymentSuccess = () => {
             </NavLink>
 
             <Link
-              to={`tel:${CONTACT?.number}`}
+              to={`tel:${CONTACT?.NUMBER}`}
               className="flex flex-nowrap gap-2 cursor-pointer !text-black"
             >
               <Button type="primary" className="btn border-primary_btn !h-12 ">
