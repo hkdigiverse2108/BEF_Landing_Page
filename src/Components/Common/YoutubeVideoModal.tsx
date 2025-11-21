@@ -1,16 +1,18 @@
-import { Modal } from "antd";
+import { useAppDispatch } from "../../Store/Hook";
+import { setModalVideoLink, setModalVideoPlay } from "../../Store/Slices/VideoModalSlice";
 
 interface YTModalType {
   playVideo: boolean;
-  setPlayVideo: any;
   videoLink: string;
 }
 
-const YoutubeVideoModal = ({
-  playVideo,
-  setPlayVideo,
-  videoLink,
-}: YTModalType) => {
+const YoutubeVideoModal = ({ playVideo, videoLink }: YTModalType) => {
+  const dispatch = useAppDispatch();
+
+  const handleCloseBtn = () => {
+    dispatch(setModalVideoPlay(false));
+    dispatch(setModalVideoLink(""));
+  };
 
   const getEmbedLink = (url: string): string => {
     if (!url) return "";
@@ -37,9 +39,7 @@ const YoutubeVideoModal = ({
           videoId = url.split("id=")[1]?.split("&")[0];
         }
 
-        return videoId
-          ? `https://drive.google.com/file/d/${videoId}/preview`
-          : url;
+        return videoId ? `https://drive.google.com/file/d/${videoId}/preview` : url;
       }
 
       return url;
@@ -50,35 +50,28 @@ const YoutubeVideoModal = ({
   };
   const embedUrl = getEmbedLink(videoLink);
 
-  return (
-    <div>
-      <Modal
-        footer={false}
-        title=""
-        open={playVideo}
-        onCancel={() => setPlayVideo(false)}
-        closable={false}
-        maskClosable={true}
-        keyboard={false}
-        centered
-        destroyOnHidden={true}
-        className="YT-Modal"
-      >
-        {playVideo && (
-          <iframe
-            width="100%"
-            height="400"
-            src={embedUrl}
-            title="YouTube video player"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerPolicy="strict-origin-when-cross-origin"
-            allowFullScreen
-          ></iframe>
-        )}
-      </Modal>
-    </div>
-  );
+  if (playVideo) {
+    return (
+      <div>
+        <div className="fixed inset-0 z-50! flex items-center justify-center bg-black/80 ">
+          {/* Close button */}
+          <button onClick={handleCloseBtn} className="absolute top-5 right-5 text-white text-3xl hover:text-gray-300">
+            ✕
+          </button>
+
+          {/* Modal content */}
+          <div className=" w-[90%] 2xl:h-[90%] h-fit  aspect-video  rounded-lg overflow-hidden shadow-xl">
+            <iframe width="100%" height="100%" src={embedUrl} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
+          </div>
+        </div>
+        {/* <Modal footer={false} title="" open={playVideo} onCancel={() => setPlayVideo(false)} closable={false} maskClosable={true} keyboard={false} centered destroyOnHidden={true} className="YT-Modal">
+        {playVideo && <iframe width="100%" height="400" src={embedUrl} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>}
+      </Modal> */}
+      </div>
+    );
+  } else {
+    return false;
+  }
 };
 
 export default YoutubeVideoModal;

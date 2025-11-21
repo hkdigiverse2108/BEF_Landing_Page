@@ -2,14 +2,11 @@ import { useState, type SyntheticEvent } from "react";
 import { useGetApiQuery } from "../../Api/CommonApi";
 import { URL_KEYS } from "../../Constants";
 import type { LectureType, ModuleType } from "../../Types";
-import YoutubeVideoModal from "../Common/YoutubeVideoModal";
 import { Tab, Tabs, useMediaQuery, useTheme } from "@mui/material";
 import LectureCard from "../Common/LectureCard";
 import { Empty } from "antd";
 
 const CourseLecturesTab = ({ Modules }: { Modules: ModuleType[] }) => {
-  const [playVideo, setPlayVideo] = useState(false);
-  const [videoLink, setVideoLink] = useState("");
   const [selectedModule, setSelectedModule] = useState(Modules[0]?._id);
 
   const theme = useTheme();
@@ -58,17 +55,10 @@ const CourseLecturesTab = ({ Modules }: { Modules: ModuleType[] }) => {
             <LectureCard
               key={lecture?._id}
               lecture={lecture}
-              setPlayVideo={setPlayVideo}
-              setVideoLink={setVideoLink}
             />
           ))}
         </div>
       </div>
-      <YoutubeVideoModal
-        playVideo={playVideo}
-        setPlayVideo={setPlayVideo}
-        videoLink={videoLink}
-      />
     </>
   );
 };

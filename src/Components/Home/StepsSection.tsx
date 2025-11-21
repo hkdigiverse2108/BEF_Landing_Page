@@ -1,25 +1,19 @@
 import { ImagePath } from "../../Constants";
 import SectionHeader from "./SectionHeader";
 import type { StepType } from "../../Types";
-import { useState } from "react";
 import { IoPlayCircle } from "react-icons/io5";
-import YoutubeVideoModal from "../Common/YoutubeVideoModal";
+
+import { setModalVideoLink, setModalVideoPlay } from "../../Store/Slices/VideoModalSlice";
+import { useAppDispatch } from "../../Store/Hook";
 
 const StepsSection = ({ steps }: { steps: StepType[] }) => {
-  const [playVideo, setPlayVideo] = useState(false);
-  const [videoLink, setVideoLink] = useState("");
-  const defaultLink =
-    "https://www.youtube.com/embed/0Trxb5WfBKc?autoplay=1&rel=0&modestbranding=1";
+  const dispatch = useAppDispatch();
+
+  const defaultLink = "https://www.youtube.com/embed/0Trxb5WfBKc?autoplay=1&rel=0&modestbranding=1";
 
   return (
-    <section
-      id="steps"
-      className="pb-20 sm:pb-30 md:pb-40 lg:pb-55  container-p  "
-    >
-      <div
-        className="how_it_works container bg-white rounded-2xl sm:p-4 py-9  "
-        id="how_it_work"
-      >
+    <section id="steps" className="pb-20 sm:pb-30 md:pb-40 lg:pb-55  container-p  ">
+      <div className="how_it_works container bg-white rounded-2xl sm:p-4 py-9  " id="how_it_work">
         <div className="space-y-5 h-fit ">
           <SectionHeader
             title="How it works - 5 easy steps"
@@ -32,34 +26,21 @@ const StepsSection = ({ steps }: { steps: StepType[] }) => {
             <div className="step_block max-lg:px-3 max-lg:overflow-hidden ">
               <ul>
                 {steps?.map((step: StepType, i: number) => (
-                  <li
-                    className={`${
-                      i % 2 === 1 ? `even-step` : `odd-step`
-                    }  px-5 `}
-                    key={i}
-                  >
+                  <li className={`${i % 2 === 1 ? `even-step` : `odd-step`}  px-5 `} key={i}>
                     <div className="step_text !px-0" data-aos="fade-right">
-                      <h4 className=" max-md:text-start max-sm:text-sm">
-                        {step.title}
-                      </h4>
-                      <p className="max-md:text-start max-sm:text-sm">
-                        {step.description}
-                      </p>
+                      <h4 className=" max-md:text-start max-sm:text-sm">{step.title}</h4>
+                      <p className="max-md:text-start max-sm:text-sm">{step.description}</p>
                     </div>
 
-                    <div
-                      className={`${
-                        i % 2 === 1 ? ` md:me-7 ` : `md:ms-7`
-                      } step_number `}
-                    >
+                    <div className={`${i % 2 === 1 ? ` md:me-7 ` : `md:ms-7`} step_number `}>
                       <h3 className="mb-5">{String(i + 1).padStart(2, "0")}</h3>
                     </div>
 
                     <div className="step_img" data-aos="fade-left">
                       <div
                         onClick={() => {
-                          setPlayVideo(true);
-                          setVideoLink(step?.link);
+                          dispatch(setModalVideoPlay(true));
+                          dispatch(setModalVideoLink(step?.link));
                         }}
                         className="popup-youtube play-button"
                         data-toggle="modal"
@@ -77,16 +58,11 @@ const StepsSection = ({ steps }: { steps: StepType[] }) => {
         </div>
         <div className=" h-fit px-6 sm:px-18">
           <div className="relative -mb-20 md:-mb-35 lg:-mb-50">
-            <img
-              src={`${ImagePath}steps/yt_thumb.jpg`}
-              className="w-fit h-fit "
-              alt="Yt-thumbnail"
-              data-aos="fade-up"
-            />
+            <img src={`${ImagePath}steps/yt_thumb.jpg`} className="w-fit h-fit " alt="Yt-thumbnail" data-aos="fade-up" />
             <div
               onClick={() => {
-                setPlayVideo(true);
-                setVideoLink(defaultLink);
+                dispatch(setModalVideoPlay(true));
+                dispatch(setModalVideoLink(defaultLink));
               }}
               className="absolute w-full top-0 left-0 right-0 bottom-0 flex justify-center items-center  "
             >
@@ -96,36 +72,6 @@ const StepsSection = ({ steps }: { steps: StepType[] }) => {
             </div>
           </div>
         </div>
-        {/* <Modal
-          footer={false}
-          title=""
-          open={playVideo}
-          onCancel={() => setPlayVideo(false)}
-          closable={false}
-          maskClosable={true}
-          keyboard={false}
-          centered
-          destroyOnHidden={true}
-          className="YT-Modal"
-        >
-          {playVideo && (
-            <iframe
-              width="100%"
-              height="400"
-              src=""
-              title="YouTube video player"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerPolicy="strict-origin-when-cross-origin"
-              allowFullScreen
-            ></iframe>
-          )}
-        </Modal> */}
-        <YoutubeVideoModal
-          playVideo={playVideo}
-          setPlayVideo={setPlayVideo}
-          videoLink={videoLink}
-        />
       </div>
     </section>
   );

@@ -1,14 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { commonApi } from "../Api/CommonApi";
-import workshopReducer from "./Slices/WorkshopSlice";
+import workshopSlice from "./Slices/WorkshopSlice";
+import VideoModalSlice from "./Slices/VideoModalSlice";
 
 export const Store = configureStore({
   reducer: {
     [commonApi.reducerPath]: commonApi.reducer,
-    workshops: workshopReducer,
+    workshops: workshopSlice,
+    VideoModal: VideoModalSlice,
   },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(commonApi.middleware),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(commonApi.middleware),
 });
 
 export type RootState = ReturnType<typeof Store.getState>;

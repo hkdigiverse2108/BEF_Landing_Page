@@ -15,6 +15,6 @@ const workshopSlice = createSlice({
     },
   },
 });
-
+  
 export const { setWorkshops, setworkshopLoading } = workshopSlice.actions;
 export default workshopSlice.reducer;
