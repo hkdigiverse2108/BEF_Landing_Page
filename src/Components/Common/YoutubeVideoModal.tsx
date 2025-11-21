@@ -20,7 +20,6 @@ const YoutubeVideoModal = ({ playVideo, videoLink }: YTModalType) => {
     let videoId = "";
 
     try {
-
       if (url.includes("youtube.com/watch?v=")) {
         videoId = url.split("v=")[1]?.split("&")[0];
         return `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`;
@@ -51,21 +50,14 @@ const YoutubeVideoModal = ({ playVideo, videoLink }: YTModalType) => {
 
   if (playVideo) {
     return (
-      <div>
-        <div className="fixed inset-0 z-50! flex items-center justify-center bg-black/80 ">
-          {/* Close button */}
-          <button onClick={handleCloseBtn} className="absolute top-5 right-5 text-white text-3xl hover:text-gray-300">
-            ✕
-          </button>
+      <div className="fixed inset-0 z-50! flex items-center justify-center bg-black/80 ">
+        <button onClick={handleCloseBtn} className="absolute top-5 right-5 text-white text-3xl hover:text-gray-300 ">
+          ✕
+        </button>
 
-          {/* Modal content */}
-          <div className=" w-[90%] 2xl:h-[90%] h-fit  aspect-video  rounded-lg overflow-hidden shadow-xl">
-            <iframe width="100%" height="100%" src={embedUrl} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
-          </div>
+        <div className=" w-[90%] 2xl:h-[90%] h-fit  aspect-video  rounded-lg overflow-hidden shadow-xl">
+          <iframe width="100%" height="100%" src={embedUrl} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
         </div>
-        {/* <Modal footer={false} title="" open={playVideo} onCancel={() => setPlayVideo(false)} closable={false} maskClosable={true} keyboard={false} centered destroyOnHidden={true} className="YT-Modal">
-        {playVideo && <iframe width="100%" height="400" src={embedUrl} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>}
-      </Modal> */}
       </div>
     );
   } else {
