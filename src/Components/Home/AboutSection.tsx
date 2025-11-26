@@ -35,7 +35,7 @@ const AboutSection = ({ aboutUs }: { aboutUs: string }) => {
           <img
             src={`${ImagePath}about/about-screen.png`}
             alt="App Secondary Screen"
-            className="w-1/2 sm:w-fit lg:w-1/2 absolute z-50  right-0  sm:bottom-24 
+            className="w-1/2 sm:w-fit lg:w-1/2 absolute z-50  -left-0  sm:bottom-24 
                         smooth-float-delayed"
             data-aos="zoom-in"
           />

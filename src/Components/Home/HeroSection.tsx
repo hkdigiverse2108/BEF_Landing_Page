@@ -3,30 +3,11 @@ import { ImagePath } from "../../Constants";
 import { SwiperSlide, Swiper } from "swiper/react";
 import { A11y, Autoplay, EffectCards, Pagination } from "swiper/modules";
 import AnimationLine from "../Common/AnimationLine";
+import type { InterfaceType } from "./InterfaceSection";
 
-const HeroSection = () => {
-  const users = [
-    `${ImagePath}/home/user01.png`,
-    `${ImagePath}/home/user02.png`,
-    `${ImagePath}/home/user03.png`,
-    `${ImagePath}/home/user04.png`,
-  ];
-  const Banners = [
-    `${ImagePath}/Home_Banner/1.png`,
-    `${ImagePath}/Home_Banner/2.png`,
-    `${ImagePath}/Home_Banner/3.png`,
-    `${ImagePath}/Home_Banner/4.png`,
-    `${ImagePath}/Home_Banner/5.png`,
-    `${ImagePath}/Home_Banner/6.png`,
-    `${ImagePath}/Home_Banner/7.png`,
-    `${ImagePath}/Home_Banner/8.png`,
-    `${ImagePath}/Home_Banner/9.png`,
-    `${ImagePath}/Home_Banner/10.png`,
-    `${ImagePath}/Home_Banner/11.png`,
-    `${ImagePath}/Home_Banner/12.png`,
-    `${ImagePath}/Home_Banner/13.png`,
-    `${ImagePath}/Home_Banner/14.png`,
-  ];
+const HeroSection = ({ interfaces }: { interfaces: InterfaceType[] }) => {
+  const users = [`${ImagePath}/home/user01.png`, `${ImagePath}/home/user02.png`, `${ImagePath}/home/user03.png`, `${ImagePath}/home/user04.png`];
+  const Banners = [`${ImagePath}/Home_Banner/1.png`, `${ImagePath}/Home_Banner/2.png`, `${ImagePath}/Home_Banner/3.png`, `${ImagePath}/Home_Banner/4.png`, `${ImagePath}/Home_Banner/5.png`, `${ImagePath}/Home_Banner/6.png`, `${ImagePath}/Home_Banner/7.png`, `${ImagePath}/Home_Banner/8.png`, `${ImagePath}/Home_Banner/9.png`, `${ImagePath}/Home_Banner/10.png`, `${ImagePath}/Home_Banner/11.png`, `${ImagePath}/Home_Banner/12.png`, `${ImagePath}/Home_Banner/13.png`, `${ImagePath}/Home_Banner/14.png`];
 
   return (
     <section id="hero" className="overflow-hidden">
@@ -34,18 +15,10 @@ const HeroSection = () => {
       {/* Main Container */}
       <div className="container container-p z-10 mx-auto relative px-4 flex flex-col lg:flex-row items-center justify-between gap-10 sm:mt-6">
         {/* Left Text */}
-        <div
-          className="lg:w-1/2 space-y-9 max-lg:flex max-lg:flex-col max-lg:justify-center max-lg:text-center "
-          data-aos="fade-right"
-        >
+        <div className="lg:w-1/2 space-y-9 max-lg:flex max-lg:flex-col max-lg:justify-center max-lg:text-center " data-aos="fade-right">
           <div>
-            <h1 className="text-3xl md:text-4xl lg:text-[55px] text-primary font-bold  leading-tight">
-              Let's Celebrate this Exam Festival
-            </h1>
-            <p className="text-gray-600 mt-4  md:text-lg">
-              First ever in History of UPSC!!! Revolutionizing UPSC Prelims with
-              AI and Advanced Reporting.
-            </p>
+            <h1 className="text-3xl md:text-4xl lg:text-[55px] text-primary font-bold  leading-tight">Let's Celebrate this Exam Festival</h1>
+            <p className="text-gray-600 mt-4  md:text-lg">First ever in History of UPSC!!! Revolutionizing UPSC Prelims with AI and Advanced Reporting.</p>
           </div>
 
           {/* App Buttons */}
@@ -65,12 +38,7 @@ const HeroSection = () => {
           <div className="flex max-lg:justify-center items-center ">
             <div className="flex -space-x-3 mr-4">
               {users?.map((u, i) => (
-                <img
-                  key={i}
-                  src={u}
-                  alt="user"
-                  className="w-12 h-12 sm:w-14 sm:h-14 rounded-full "
-                />
+                <img key={i} src={u} alt="user" className="w-12 h-12 sm:w-14 sm:h-14 rounded-full " />
               ))}
             </div>
             <p className="text-gray-700 text-sm leading-tight">
@@ -79,48 +47,21 @@ const HeroSection = () => {
           </div>
         </div>
 
-        <div
-          className="relative w-fit px-24 flex justify-center items-center "
-          data-aos="fade-left"
-        >
+        <div className="relative w-fit px-24 flex justify-center items-center " data-aos="fade-left">
           <div className=" absolute w-[450px] h-[450px] bg-primary rounded-full -z-10"></div>
 
-          <img
-            src={`${ImagePath}home/message_icon.png`}
-            alt="message"
-            className="hidden sm:block absolute left-0 z-100  bottom-16 "
-          />
-          <img
-            src={`${ImagePath}home/shield_icon.png`}
-            alt="shield"
-            className="hidden sm:block absolute right-0  top-16 "
-          />
+          <img src={`${ImagePath}home/message_icon.png`} alt="message" className="hidden sm:block absolute left-0 z-100  bottom-16 " />
+          <img src={`${ImagePath}home/shield_icon.png`} alt="shield" className="hidden sm:block absolute right-0  top-16 " />
 
-          <div className="relative w-[300px] h-[700px] flex items-center justify-center ">
-            <Swiper
-              modules={[Pagination, A11y, Autoplay, EffectCards]}
-              slidesPerView={1}
-              speed={700}
-              loop={true}
-              effect="fade"
-              autoplay={{ delay: 2000 }}
-              className=" absolute  z-0 rounded-[30px] !overflow-hidden bg-white "
-            >
-              {Banners?.map((slide, i) => (
-                <SwiperSlide key={i} >
-                  <img
-                    src={slide}
-                    alt={`slide-${i}`}
-                    className="w-full h-full object-cover !px-0.5"
-                  />
+          <div className="relative w-[300px] h-[700px] flex items-center justify-center  ">
+            <Swiper modules={[Pagination, A11y, Autoplay, EffectCards]} slidesPerView={1} speed={700} loop={true} effect="fade" autoplay={{ delay: 2000 }} className=" absolute  z-0 rounded-[30px] !overflow-hidden  ">
+              {interfaces?.map((slide, i) => (
+                <SwiperSlide key={i}>
+                  <img src={slide?.image} alt={`slide-${i}`} className="w-full h-full object-cover !px-0.5 " />
                 </SwiperSlide>
               ))}
             </Swiper>
-            <img
-              src={`${ImagePath}/home/f1.png`}
-              alt="frame"
-              className="absolute top-14 left-0 w-full h-fit z-10 pointer-events-none select-none !overflow-hidden scale-110 "
-            />
+            {/* <img src={`${ImagePath}/home/f1.png`} alt="frame" className="absolute top-14 left-0 w-full h-fit z-10 pointer-events-none select-none !overflow-hidden scale-110 " /> */}
           </div>
         </div>
       </div>

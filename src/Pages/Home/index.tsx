@@ -18,16 +18,15 @@ const Home = () => {
   });
   const features = featuresData?.data?.feature_data || [];
 
-  const { data: stepsData,  } = useGetApiQuery({
+  const { data: stepsData } = useGetApiQuery({
     url: URL_KEYS.HOW_IT_WORK.ALL,
   });
   const steps = stepsData?.data?.how_it_work_data || [];
 
-  const { data: testimonialsData, isLoading: testimonialLoading } =
-    useGetApiQuery({ url: URL_KEYS.WORKSHOP.TESTIMONIAL });
+  const { data: testimonialsData, isLoading: testimonialLoading } = useGetApiQuery({ url: URL_KEYS.WORKSHOP.TESTIMONIAL });
   const testimonials = testimonialsData?.data?.webinar_testimonial_data || [];
 
-  const { data: blogData,  } = useGetApiQuery({
+  const { data: blogData } = useGetApiQuery({
     url: URL_KEYS.BLOG.ALL,
   });
   const blogs = blogData?.data?.blog_data || [];
@@ -52,7 +51,7 @@ const Home = () => {
   return (
     <>
       <div className="space-y-18">
-        <HeroSection />
+        <HeroSection interfaces={interfaces} />
         <FeatureSection features={features} />
         <AboutSection aboutUs={aboutUs} />
         <StepsSection steps={steps} />
