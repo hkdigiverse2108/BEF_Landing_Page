@@ -50,13 +50,13 @@ const YoutubeVideoModal = ({ playVideo, videoLink }: YTModalType) => {
 
   if (playVideo) {
     return (
-      <div className="fixed inset-0 z-50! flex items-center justify-center bg-black/80 ">
+      <div className="fixed inset-0 z-50! flex items-center justify-center bg-black/100 ">
         <button onClick={handleCloseBtn} className="absolute top-5 right-5 text-white text-3xl hover:text-gray-300 ">
           ✕
         </button>
 
-        <div className=" w-[90%] 2xl:h-[90%] h-fit  aspect-video  rounded-lg overflow-hidden shadow-xl">
-          <iframe width="100%" height="100%" src={embedUrl} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
+        <div className=" w-[100%] 2xl:h-[100%] h-fit  aspect-video  rounded-lg overflow-hidden shadow-xl">
+          <iframe width="100%" height="100%" src={embedUrl} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay;  " referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
         </div>
       </div>
     );

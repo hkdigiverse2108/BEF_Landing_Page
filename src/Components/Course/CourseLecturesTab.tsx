@@ -6,13 +6,14 @@ import { Tab, Tabs, useMediaQuery, useTheme } from "@mui/material";
 import LectureCard from "../Common/LectureCard";
 import { Empty } from "antd";
 
+
 const CourseLecturesTab = ({ Modules }: { Modules: ModuleType[] }) => {
   const [selectedModule, setSelectedModule] = useState(Modules[0]?._id);
 
   const theme = useTheme();
   const isMdUp = useMediaQuery(theme.breakpoints.up("sm")); // true for sm and larger
 
-  const { data } = useGetApiQuery({
+  const { data, isLoading } = useGetApiQuery({
     url: `${URL_KEYS.LECTURE.ALL}?moduleFilter=${selectedModule}&typeFilter=course`,
   });
 
@@ -21,6 +22,7 @@ const CourseLecturesTab = ({ Modules }: { Modules: ModuleType[] }) => {
   const handleTabChange = (_: SyntheticEvent, newValue: string) => {
     setSelectedModule(newValue);
   };
+  if (isLoading) return null;
   if (Lectures?.length === 0) return <Empty />;
 
   return (
@@ -44,18 +46,13 @@ const CourseLecturesTab = ({ Modules }: { Modules: ModuleType[] }) => {
             }}
           >
             {Modules?.map((module: ModuleType, index) => {
-              return (
-                <Tab key={index} value={module?._id} label={module?.name} />
-              );
+              return <Tab key={index} value={module?._id} label={module?.name} />;
             })}
           </Tabs>
         </div>
         <div className="w-full flex flex-col gap-1">
           {Lectures?.map((lecture: LectureType) => (
-            <LectureCard
-              key={lecture?._id}
-              lecture={lecture}
-            />
+            <LectureCard key={lecture?._id} lecture={lecture} />
           ))}
         </div>
       </div>
