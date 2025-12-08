@@ -72,7 +72,7 @@ const Footer = () => {
 
       {/* Footer Bottom */}
       <div className="text-center text-sm sm:text-base bg-black border-t border-white/20 py-4">
-        © Copyrights 2024 All rights reserved by{" "}
+        © Copyrights {new Date().getFullYear()} All rights reserved by{" "}
         <Link target="_blank" to={HK_DIGIVERSE_URL} className="font-medium underline ps-1">
           HK DigiVerse LLP.
         </Link>
