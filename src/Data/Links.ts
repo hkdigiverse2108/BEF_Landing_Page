@@ -4,7 +4,9 @@ import { FaXTwitter } from "react-icons/fa6";
 import type { ContactType } from "../Types";
 
 export const LOGIN_URL = "http://course.bharatexamfest.com/";
-export const HK_DIGIVERSE_URL = "https://hkdigiverse.com/";
+// export const HK_DIGIVERSE_URL = "https://hkdigiverse.com/";
+export const HK_DIGIVERSE_URL = "http://localhost:3334/";
+
 
 export const APP_LINKS = {
   PLAY_STORE: "#",
