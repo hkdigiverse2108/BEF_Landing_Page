@@ -40,7 +40,7 @@ const PaymentSuccess = () => {
         {/* Login Details Box */}
         {email && password && (
           <>
-            <p className="text-gray-500 mt-2">Your login details are given below:</p>
+            <p className="text-gray-500 mt-2">Your login details are given below</p>
             <div className="mt-6 bg-green-50 px-4 py-3 rounded-lg border border-green-200 text-left">
               <p className="text-gray-700 mb-1">
                 <span className="font-semibold">LOGIN ID:</span> {email}
