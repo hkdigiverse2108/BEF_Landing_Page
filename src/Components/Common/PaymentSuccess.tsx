@@ -41,7 +41,7 @@ const PaymentSuccess = () => {
         {email && password && (
           <>
             <p className="text-gray-500 mt-2">Your login details are given below:</p>
-            <div className="mt-6 bg-blue-50 px-4 py-3 rounded-lg border border-blue-200 text-left">
+            <div className="mt-6 bg-green-50 px-4 py-3 rounded-lg border border-green-200 text-left">
               <p className="text-gray-700 mb-1">
                 <span className="font-semibold">LOGIN ID:</span> {email}
               </p>
@@ -53,8 +53,8 @@ const PaymentSuccess = () => {
         )}
 
         {/* Info Note */}
-        <div className="mt-3 bg-blue-50 px-4 py-3 rounded-lg border border-blue-200 flex items-center gap-2 text-gray-700">
-          <InfoCircleFilled style={{ fontSize: "22px", color: "#1677ff" }} />
+        <div className="mt-3 bg-green-50 px-4 py-3 rounded-lg border border-green-200 flex items-center gap-2 text-gray-700">
+          <InfoCircleFilled  className="text-green-600! text-2xl" />
           <span className="text-sm">The same login details have also been sent to your WhatsApp.</span>
         </div>
 
