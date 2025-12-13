@@ -6,8 +6,7 @@ import type { FormValues, CourseType } from "../../Types";
 import { HTTP_STATUS, ImagePath, PAYMENT_STATUS, ROUTES, URL_KEYS } from "../../Constants";
 import { useEffect } from "react";
 import { usePostApiMutation } from "../../Api/CommonApi";
-import { DISTRICTS } from "../../Constants/District";
-import { REACH_FROM_OPTIONS } from "../../Data";
+import { FINAL_DISTRICTS, REACH_FROM_OPTIONS } from "../../Data";
 
 const { Option } = Select;
 
@@ -95,7 +94,7 @@ const CourseRegister = () => {
 
           <Form.Item name="city" rules={[{ required: true, message: "Please select your district" }]} className="mb-9!">
             <Select virtual showSearch placeholder="Select District" className="rounded-lg" optionFilterProp="children">
-              {DISTRICTS.sort((a, b) => a.toLocaleLowerCase().localeCompare(b.toLocaleLowerCase())).map((district) => (
+              {FINAL_DISTRICTS.map((district) => (
                 <Option key={district} value={district}>
                   {district}
                 </Option>
