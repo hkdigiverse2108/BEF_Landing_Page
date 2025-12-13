@@ -3,15 +3,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 import SectionHeader from "../../Components/Home/SectionHeader";
 import FormInput from "../../Attribute/FormFields/FormInput";
 import type { FormValues, CourseType } from "../../Types";
-import {
-  HTTP_STATUS,
-  ImagePath,
-  PAYMENT_STATUS,
-  ROUTES,
-  URL_KEYS,
-} from "../../Constants";
+import { HTTP_STATUS, ImagePath, PAYMENT_STATUS, ROUTES, URL_KEYS } from "../../Constants";
 import { useEffect } from "react";
 import { usePostApiMutation } from "../../Api/CommonApi";
+import { DISTRICTS } from "../../Constants/District";
+import { REACH_FROM_OPTIONS } from "../../Data";
 
 const { Option } = Select;
 
@@ -59,45 +55,18 @@ const CourseRegister = () => {
   }, []);
 
   return (
-    <section
-      id="purchase"
-      className="container flex max-md:flex-col  max-md:items-center  justify-between py-10 px-4 gap-5 h-full"
-    >
+    <section id="purchase" className="container flex max-md:flex-col  max-md:items-center  justify-between py-10 px-4 gap-5 h-full">
       {/* Left Image Box */}
-      <div
-        data-aos="fade-right"
-        className="order-2 md:order-1  w-full max-w-2xl flex items-center justify-center  rounded-2xl"
-      >
-        <img
-          src={`${ImagePath}Register/Register_2.jpg`}
-          alt="Course"
-          className="rounded-xl w-full h-auto object-cover"
-        />
+      <div data-aos="fade-right" className="order-2 md:order-1  w-full max-w-2xl flex items-center justify-center  rounded-2xl">
+        <img src={`${ImagePath}Register/Register_2.jpg`} alt="Course" className="rounded-xl w-full h-auto object-cover" />
       </div>
 
       {/* Right Form Box */}
-      <div
-        data-aos="fade-left"
-        className="order-1 md:order-2 bg-white hover:shadow-lg transition-all duration-300 rounded-2xl p-6 sm:px-10 sm:py-7 w-full max-w-2xl h-fit"
-      >
-        <SectionHeader
-          title="Course"
-          desc="Enroll Now"
-          className="pb-6 text-center"
-        />
+      <div data-aos="fade-left" className="order-1 md:order-2 bg-white hover:shadow-lg transition-all duration-300 rounded-2xl p-6 sm:px-10 sm:py-7 w-full max-w-2xl h-fit">
+        <SectionHeader title="Course" desc="Enroll Now" className="pb-6 text-center" />
 
-        <Form
-          layout="vertical"
-          form={form}
-          onFinish={onFinish}
-          className="space-y-4"
-        >
-          <FormInput
-            name="name"
-            className="!py-3 placeholder:!font-medium !px-4 rounded-lg"
-            rules={[{ required: true, message: "Please enter your name" }]}
-            placeholder="Name"
-          />
+        <Form layout="vertical" form={form} onFinish={onFinish} className="space-y-4">
+          <FormInput name="name" className="!py-3 placeholder:!font-medium !px-4 rounded-lg" rules={[{ required: true, message: "Please enter your name" }]} placeholder="Name" />
 
           <FormInput
             name="email"
@@ -114,48 +83,37 @@ const CourseRegister = () => {
             className="!py-3 placeholder:!font-medium !px-4 rounded-lg"
             rules={[
               { required: true, message: "Please enter your phone number" },
+              { pattern: /^\d+$/, message: "Only numbers are allowed" },
               { len: 10, message: "Phone number must be 10 digits" },
             ]}
+            inputMode="numeric"
+            maxLength={10}
             placeholder="Phone"
           />
 
-          <FormInput
-            name="city"
-            className="!py-3 placeholder:!font-medium !px-4 rounded-lg"
-            rules={[{ required: true, message: "Please enter your city" }]}
-            placeholder="City"
-          />
+          {/* <FormInput name="city" className="!py-3 placeholder:!font-medium !px-4 rounded-lg" rules={[{ required: true, message: "Please enter your city" }]} placeholder="City" /> */}
 
-          {/* <FormInput
-            name="pincode"
-            className="!py-3 placeholder:!font-medium !px-4 rounded-lg"
-            placeholder="Pincode"
-          /> */}
-
+          <Form.Item name="city" rules={[{ required: true, message: "Please select your district" }]} className="mb-9!">
+            <Select virtual showSearch placeholder="Select District" className="rounded-lg" optionFilterProp="children">
+              {DISTRICTS.sort((a, b) => a.toLocaleLowerCase().localeCompare(b.toLocaleLowerCase())).map((district) => (
+                <Option key={district} value={district}>
+                  {district}
+                </Option>
+              ))}
+            </Select>
+          </Form.Item>
           <Form.Item name="reachFrom">
-            <Select
-              placeholder="Reach From"
-              allowClear
-              className="rounded-lg  "
-            >
-              <Option value="youtube">Youtube</Option>
-              <Option value="google">Google</Option>
-              <Option value="facebook">Facebook</Option>
-              <Option value="instagram">Instagram</Option>
-              <Option value="website">Website</Option>
-              <Option value="app">App</Option>
-              <Option value="friend">Friend</Option>
-              <Option value="other">Other</Option>
+            <Select placeholder="Reach From" allowClear className="rounded-lg">
+              {REACH_FROM_OPTIONS.map((option) => (
+                <Select.Option key={option.value} value={option.value}>
+                  {option.label}
+                </Select.Option>
+              ))}
             </Select>
           </Form.Item>
 
           <div className="pt-4 flex justify-center">
-            <Button
-              loading={isLoading}
-              htmlType="submit"
-              type="primary"
-              className="btn primary_btn !h-12 w-full"
-            >
+            <Button loading={isLoading} htmlType="submit" type="primary" className="btn primary_btn !h-12 w-full">
               Next
             </Button>
           </div>
