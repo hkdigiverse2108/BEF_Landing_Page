@@ -7,7 +7,7 @@ import type { InterfaceType } from "./InterfaceSection";
 
 const HeroSection = ({ interfaces }: { interfaces: InterfaceType[] }) => {
   const users = [`${ImagePath}/home/user01.png`, `${ImagePath}/home/user02.png`, `${ImagePath}/home/user03.png`, `${ImagePath}/home/user04.png`];
-  const Banners = [`${ImagePath}/Home_Banner/1.png`, `${ImagePath}/Home_Banner/2.png`, `${ImagePath}/Home_Banner/3.png`, `${ImagePath}/Home_Banner/4.png`, `${ImagePath}/Home_Banner/5.png`, `${ImagePath}/Home_Banner/6.png`, `${ImagePath}/Home_Banner/7.png`, `${ImagePath}/Home_Banner/8.png`, `${ImagePath}/Home_Banner/9.png`, `${ImagePath}/Home_Banner/10.png`, `${ImagePath}/Home_Banner/11.png`, `${ImagePath}/Home_Banner/12.png`, `${ImagePath}/Home_Banner/13.png`, `${ImagePath}/Home_Banner/14.png`];
+  // const Banners = [`${ImagePath}/Home_Banner/1.png`, `${ImagePath}/Home_Banner/2.png`, `${ImagePath}/Home_Banner/3.png`, `${ImagePath}/Home_Banner/4.png`, `${ImagePath}/Home_Banner/5.png`, `${ImagePath}/Home_Banner/6.png`, `${ImagePath}/Home_Banner/7.png`, `${ImagePath}/Home_Banner/8.png`, `${ImagePath}/Home_Banner/9.png`, `${ImagePath}/Home_Banner/10.png`, `${ImagePath}/Home_Banner/11.png`, `${ImagePath}/Home_Banner/12.png`, `${ImagePath}/Home_Banner/13.png`, `${ImagePath}/Home_Banner/14.png`];
 
   return (
     <section id="hero" className="overflow-hidden">

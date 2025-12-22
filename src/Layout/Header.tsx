@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { getHeaderItems } from "../Utils/GetHeaderItems";
 import { LOGIN_URL } from "../Data";
+import ExamTimer from "../Components/Common/ExamTimer";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -27,8 +28,17 @@ const Header = () => {
 
   return (
     <div className={`${isFixedException ? "relative" : "fixed top-0 w-full z-50"}`}>
-      <header className={` ${!isFixedException && isScrolled ? "bg-white/55 backdrop-blur-md" : !isFixedException ? "md:pt-6" : ""}`}>
-        <div className="container container-p py-4 flex justify-between items-center  ">
+      {/* Timer For Exam */}
+      <section className="relative bg-primary text-white py-2">
+        <div className="container  container-p  flex max-sm:flex-col gap-1  justify-center sm:justify-between items-center   ">
+          <h1 className="max-sm:order-1  md:text-lg px-4 font-bold flex-nowrap text-nowrap ">
+            Let’s Celebrate this <span className=" ">Exam Festival</span>
+          </h1>
+          <ExamTimer />
+        </div>
+      </section>
+      <header className={` ${!isFixedException && isScrolled ? "bg-white/55 backdrop-blur-md" : !isFixedException ? "" : ""}`}>
+        <div className="container container-p py-2 flex justify-between items-center  ">
           {/* Logo */}
           <NavLink to={ROUTES.HOME} className="flex gap-4 items-center">
             <figure className="w-12 sm:w-18 h-full">

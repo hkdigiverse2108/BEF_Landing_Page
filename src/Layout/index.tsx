@@ -48,7 +48,7 @@ const Layout = () => {
   return (
     <>
       <Header />
-      <div className={`${isShow ? "!mt-3" : "!mt-30 sm:!mt-36 mb-12"} `}>
+      <div className={`${isShow ? "!mt-10" : "!mt-30 sm:!mt-46 mb-12"} `}>
         <Outlet />
       </div>
       {isShow ? <div className="mt-45 sm:mt-55 md:mt-30  "></div> : <Footer />}
