@@ -108,11 +108,14 @@ body {
 /* ================  Course Section Start ================ */
 
 #purchase .ant-select-multiple .ant-select-selector {
-  @apply !py-2 placeholder:!font-medium !px-4;
+  @apply !py-2 placeholder:!font-medium px-2!;
+}
+#purchase .ant-select-multiple .ant-select-arrow {
+  @apply -mt-1!;
 }
 
 #purchase .ant-select-selector {
-  @apply !py-6 placeholder:!font-medium !px-4;
+  @apply !py-6 placeholder:!font-medium px-4!;
 }
 #purchase .ant-select-selection-placeholder {
   @apply !font-medium;
@@ -122,7 +125,7 @@ body {
 }
 
 #purchase #city_help {
-  @apply mt-4!
+  @apply mt-4!;
 }
 /* ================  Course Section End ================ */
 
