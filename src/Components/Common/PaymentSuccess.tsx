@@ -26,7 +26,7 @@ const PaymentSuccess = () => {
 
   return (
     <div className="min-h-[80vh] flex items-center justify-center  px-4 py-10">
-      <div className="bg-white rounded-xl shadow-lg p-8 w-full max-w-xl text-center border border-gray-200">
+      <div className="bg-white rounded-xl shadow-lg p-8 w-full max-w-2xl text-center border border-gray-200">
         {/* Success Icon */}
         <div className="flex justify-center mb-3">
           <div className="bg-green-100 w-20 h-20 rounded-full flex items-center justify-center">
@@ -55,7 +55,7 @@ const PaymentSuccess = () => {
         {/* Info Note */}
         <div className="mt-3 bg-green-50 px-4 py-3 rounded-lg border border-green-200 flex items-center gap-2 text-gray-700">
           <InfoCircleFilled  className="text-green-600! text-2xl" />
-          <span className="text-sm">The same login details have also been sent to your WhatsApp.</span>
+          <span className="font-medium">The same login details have also been sent to your WhatsApp.</span>
         </div>
 
         {/* Buttons */}

@@ -6,6 +6,7 @@ import type { FormValues, CourseType } from "../../Types";
 import { HTTP_STATUS, ImagePath, PAYMENT_STATUS, ROUTES, URL_KEYS } from "../../Constants";
 import { useEffect } from "react";
 import { useGetApiQuery, usePostApiMutation } from "../../Api/CommonApi";
+import { FINAL_DISTRICTS, REACH_FROM_OPTIONS } from "../../Data";
 
 const { Option } = Select;
 
@@ -86,12 +87,15 @@ const CourseRegister = () => {
             className="!py-3 placeholder:!font-medium !px-4 rounded-lg"
             rules={[
               { required: true, message: "Please enter your phone number" },
+              { pattern: /^\d+$/, message: "Only numbers are allowed" },
               { len: 10, message: "Phone number must be 10 digits" },
             ]}
+            inputMode="numeric"
+            maxLength={10}
             placeholder="Phone"
           />
 
-          <FormInput name="city" className="!py-3 placeholder:!font-medium !px-4 rounded-lg" rules={[{ required: true, message: "Please enter your city" }]} placeholder="City" />
+          {/* <FormInput name="city" className="!py-3 placeholder:!font-medium !px-4 rounded-lg" rules={[{ required: true, message: "Please enter your city" }]} placeholder="City" /> */}
 
           {/* <FormInput
             name="pincode"
@@ -111,16 +115,25 @@ const CourseRegister = () => {
             ></Select>
           </Form.Item>
 
+       
+          {/* <FormInput name="city" className="!py-3 placeholder:!font-medium !px-4 rounded-lg" rules={[{ required: true, message: "Please enter your city" }]} placeholder="City" /> */}
+
+          <Form.Item name="city" rules={[{ required: true, message: "Please select your district" }]} className="mb-9!">
+            <Select virtual showSearch placeholder="Select District" className="rounded-lg" optionFilterProp="children">
+              {FINAL_DISTRICTS.map((district) => (
+                <Option key={district} value={district}>
+                  {district}
+                </Option>
+              ))}
+            </Select>
+          </Form.Item>
           <Form.Item name="reachFrom">
-            <Select placeholder="Reach From" allowClear className="rounded-lg  ">
-              <Option value="youtube">Youtube</Option>
-              <Option value="google">Google</Option>
-              <Option value="facebook">Facebook</Option>
-              <Option value="instagram">Instagram</Option>
-              <Option value="website">Website</Option>
-              <Option value="app">App</Option>
-              <Option value="friend">Friend</Option>
-              <Option value="other">Other</Option>
+            <Select placeholder="Reach From" allowClear className="rounded-lg">
+              {REACH_FROM_OPTIONS.map((option) => (
+                <Select.Option key={option.value} value={option.value}>
+                  {option.label}
+                </Select.Option>
+              ))}
             </Select>
           </Form.Item>
 

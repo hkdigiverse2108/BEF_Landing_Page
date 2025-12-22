@@ -121,6 +121,9 @@ body {
   @apply !mt-1;
 }
 
+#purchase #city_help {
+  @apply mt-4!
+}
 /* ================  Course Section End ================ */
 
 /* ================  Video Modal Section End ================ */
