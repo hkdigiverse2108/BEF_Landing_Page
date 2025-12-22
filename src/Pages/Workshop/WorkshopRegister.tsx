@@ -95,7 +95,7 @@ const WorkshopRegister = () => {
 
           {/* <FormInput name="city" className="!py-3 placeholder:!font-medium !px-4 rounded-lg" rules={[{ required: true, message: "Please enter your city" }]} placeholder="City" /> */}
 
-          <Form.Item name="examTypeId" required>
+          <Form.Item name="examTypeId" rules={[{ required: true, message: "Please select Exam Type" }]}>
             <Select
               placeholder="Exam Type"
               allowClear

@@ -102,7 +102,7 @@ const CourseRegister = () => {
             className="!py-3 placeholder:!font-medium !px-4 rounded-lg"
             placeholder="Pincode"
           /> */}
-          <Form.Item name="examTypeId" >
+          <Form.Item name="examTypeId" rules={[{ required: true, message: "Please select Exam Type" }]}>
             <Select
               placeholder="Exam Type"
               allowClear
@@ -115,7 +115,6 @@ const CourseRegister = () => {
             ></Select>
           </Form.Item>
 
-       
           {/* <FormInput name="city" className="!py-3 placeholder:!font-medium !px-4 rounded-lg" rules={[{ required: true, message: "Please enter your city" }]} placeholder="City" /> */}
 
           <Form.Item name="city" rules={[{ required: true, message: "Please select your district" }]} className="mb-9!">
