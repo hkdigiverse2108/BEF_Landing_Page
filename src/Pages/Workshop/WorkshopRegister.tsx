@@ -5,7 +5,7 @@ import FormInput from "../../Attribute/FormFields/FormInput";
 import type { FormValues, WorkshopType } from "../../Types";
 import { HTTP_STATUS, ImagePath, PAYMENT_STATUS, ROUTES, URL_KEYS } from "../../Constants";
 import { useEffect } from "react";
-import { usePostApiMutation } from "../../Api/CommonApi";
+import { useGetApiQuery, usePostApiMutation } from "../../Api/CommonApi";
 const { Option } = Select;
 
 const WorkshopRegister = () => {
@@ -15,6 +15,11 @@ const WorkshopRegister = () => {
   const [PostApi] = usePostApiMutation({});
 
   const workshop: WorkshopType = location.state || {};
+
+  const { data: examTypeApi } = useGetApiQuery({
+    url: URL_KEYS.EXAM.TYPE,
+  });
+  let examTypeData = examTypeApi?.data;
 
   const onFinish = async (values: FormValues) => {
     try {
@@ -85,6 +90,19 @@ const WorkshopRegister = () => {
           />
 
           <FormInput name="city" className="!py-3 placeholder:!font-medium !px-4 rounded-lg" rules={[{ required: true, message: "Please enter your city" }]} placeholder="City" />
+
+          <Form.Item name="examTypeId" >
+            <Select
+              placeholder="Exam Type"
+              allowClear
+              className="rounded-lg  "
+              mode="multiple"
+              options={(examTypeData || [])?.map((type: any) => ({
+                label: type?.name,
+                value: type?._id,
+              }))}
+            ></Select>
+          </Form.Item>
 
           <Form.Item name="reachFrom">
             <Select placeholder="Reach From" allowClear className="rounded-lg  ">

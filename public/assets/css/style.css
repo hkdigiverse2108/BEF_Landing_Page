@@ -46,8 +46,7 @@ body {
 .react-international-phone-input-container .react-international-phone-input {
   @apply !bg-primary !border-0 !pe-0 !w-10;
 }
-.react-international-phone-input-container
-  .react-international-phone-country-selector-button {
+.react-international-phone-input-container .react-international-phone-country-selector-button {
   @apply border-0 !bg-primary;
 }
 
@@ -91,7 +90,7 @@ body {
   @apply flex sm:grid grid-cols-4 gap-0;
 }
 .DetailsTabs .MuiTabs-list.MuiTabs-flexContainer button {
-  @apply !font-extrabold max-sm:text-[10px]! max-sm:p-0! ;
+  @apply !font-extrabold max-sm:text-[10px]! max-sm:p-0!;
 }
 
 /* .LecturesTabs .MuiTabs-list.MuiTabs-flexContainer {
@@ -107,6 +106,10 @@ body {
 /* ================  Material UI Tab  Section End ================ */
 
 /* ================  Course Section Start ================ */
+
+#purchase .ant-select-multiple .ant-select-selector {
+  @apply !py-2 placeholder:!font-medium !px-4;
+}
 
 #purchase .ant-select-selector {
   @apply !py-6 placeholder:!font-medium !px-4;

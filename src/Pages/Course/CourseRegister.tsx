@@ -3,15 +3,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 import SectionHeader from "../../Components/Home/SectionHeader";
 import FormInput from "../../Attribute/FormFields/FormInput";
 import type { FormValues, CourseType } from "../../Types";
-import {
-  HTTP_STATUS,
-  ImagePath,
-  PAYMENT_STATUS,
-  ROUTES,
-  URL_KEYS,
-} from "../../Constants";
+import { HTTP_STATUS, ImagePath, PAYMENT_STATUS, ROUTES, URL_KEYS } from "../../Constants";
 import { useEffect } from "react";
-import { usePostApiMutation } from "../../Api/CommonApi";
+import { useGetApiQuery, usePostApiMutation } from "../../Api/CommonApi";
 
 const { Option } = Select;
 
@@ -23,6 +17,11 @@ const CourseRegister = () => {
   const [PostApi, { isLoading }] = usePostApiMutation({});
 
   const course: CourseType = location.state || {};
+
+  const { data: examTypeApi } = useGetApiQuery({
+    url: URL_KEYS.EXAM.TYPE,
+  });
+  let examTypeData = examTypeApi?.data;
 
   const onFinish = async (values: FormValues) => {
     try {
@@ -59,45 +58,18 @@ const CourseRegister = () => {
   }, []);
 
   return (
-    <section
-      id="purchase"
-      className="container flex max-md:flex-col  max-md:items-center  justify-between py-10 px-4 gap-5 h-full"
-    >
+    <section id="purchase" className="container flex max-md:flex-col  max-md:items-center  justify-between py-10 px-4 gap-5 h-full">
       {/* Left Image Box */}
-      <div
-        data-aos="fade-right"
-        className="order-2 md:order-1  w-full max-w-2xl flex items-center justify-center  rounded-2xl"
-      >
-        <img
-          src={`${ImagePath}Register/Register_2.jpg`}
-          alt="Course"
-          className="rounded-xl w-full h-auto object-cover"
-        />
+      <div data-aos="fade-right" className="order-2 md:order-1  w-full max-w-2xl flex items-center justify-center  rounded-2xl">
+        <img src={`${ImagePath}Register/Register_2.jpg`} alt="Course" className="rounded-xl w-full h-auto object-cover" />
       </div>
 
       {/* Right Form Box */}
-      <div
-        data-aos="fade-left"
-        className="order-1 md:order-2 bg-white hover:shadow-lg transition-all duration-300 rounded-2xl p-6 sm:px-10 sm:py-7 w-full max-w-2xl h-fit"
-      >
-        <SectionHeader
-          title="Course"
-          desc="Enroll Now"
-          className="pb-6 text-center"
-        />
+      <div data-aos="fade-left" className="order-1 md:order-2 bg-white hover:shadow-lg transition-all duration-300 rounded-2xl p-6 sm:px-10 sm:py-7 w-full max-w-2xl h-fit">
+        <SectionHeader title="Course" desc="Enroll Now" className="pb-6 text-center" />
 
-        <Form
-          layout="vertical"
-          form={form}
-          onFinish={onFinish}
-          className="space-y-4"
-        >
-          <FormInput
-            name="name"
-            className="!py-3 placeholder:!font-medium !px-4 rounded-lg"
-            rules={[{ required: true, message: "Please enter your name" }]}
-            placeholder="Name"
-          />
+        <Form layout="vertical" form={form} onFinish={onFinish} className="space-y-4">
+          <FormInput name="name" className="!py-3 placeholder:!font-medium !px-4 rounded-lg" rules={[{ required: true, message: "Please enter your name" }]} placeholder="Name" />
 
           <FormInput
             name="email"
@@ -119,25 +91,28 @@ const CourseRegister = () => {
             placeholder="Phone"
           />
 
-          <FormInput
-            name="city"
-            className="!py-3 placeholder:!font-medium !px-4 rounded-lg"
-            rules={[{ required: true, message: "Please enter your city" }]}
-            placeholder="City"
-          />
+          <FormInput name="city" className="!py-3 placeholder:!font-medium !px-4 rounded-lg" rules={[{ required: true, message: "Please enter your city" }]} placeholder="City" />
 
           {/* <FormInput
             name="pincode"
             className="!py-3 placeholder:!font-medium !px-4 rounded-lg"
             placeholder="Pincode"
           /> */}
-
-          <Form.Item name="reachFrom">
+          <Form.Item name="examTypeId" >
             <Select
-              placeholder="Reach From"
+              placeholder="Exam Type"
               allowClear
               className="rounded-lg  "
-            >
+              mode="multiple"
+              options={(examTypeData || [])?.map((type: any) => ({
+                label: type?.name,
+                value: type?._id,
+              }))}
+            ></Select>
+          </Form.Item>
+
+          <Form.Item name="reachFrom">
+            <Select placeholder="Reach From" allowClear className="rounded-lg  ">
               <Option value="youtube">Youtube</Option>
               <Option value="google">Google</Option>
               <Option value="facebook">Facebook</Option>
@@ -150,12 +125,7 @@ const CourseRegister = () => {
           </Form.Item>
 
           <div className="pt-4 flex justify-center">
-            <Button
-              loading={isLoading}
-              htmlType="submit"
-              type="primary"
-              className="btn primary_btn !h-12 w-full"
-            >
+            <Button loading={isLoading} htmlType="submit" type="primary" className="btn primary_btn !h-12 w-full">
               Next
             </Button>
           </div>
