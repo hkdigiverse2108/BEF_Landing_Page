@@ -1,16 +1,18 @@
-import AboutSection from "../../Components/Home/AboutSection";
-import ContactSection from "../../Components/Home/ContactSection";
-// import DownloadSection from "../../Components/Home/DownloadSection";
-import FeatureSection from "../../Components/Home/FeatureSection";
-import HeroSection from "../../Components/Home/HeroSection";
-import StepsSection from "../../Components/Home/StepsSection";
-import InterfaceSection from "../../Components/Home/InterfaceSection";
-import BlogSection from "../../Components/Home/BlogSection";
-import FAQSection from "../../Components/Home/FAQSection";
-import TestimonialSection from "../../Components/Home/TestimonialSection";
+import { lazy, Suspense } from "react";
 import Loader from "../../Components/Common/Loader";
-import { useGetApiQuery } from "../../Api/CommonApi";
 import { URL_KEYS } from "../../Constants";
+
+const AboutSection = lazy(() => import("../../Components/Home/AboutSection"));
+const ContactSection = lazy(() => import("../../Components/Home/ContactSection"));
+// const DownloadSection = lazy(() => import("../../Components/Home/DownloadSection")) ;
+const FeatureSection = lazy(() => import("../../Components/Home/FeatureSection"));
+const HeroSection = lazy(() => import("../../Components/Home/HeroSection"));
+const StepsSection = lazy(() => import("../../Components/Home/StepsSection"));
+const InterfaceSection = lazy(() => import("../../Components/Home/InterfaceSection"));
+const BlogSection = lazy(() => import("../../Components/Home/BlogSection"));
+const FAQSection = lazy(() => import("../../Components/Home/FAQSection"));
+const TestimonialSection = lazy(() => import("../../Components/Home/TestimonialSection"));
+import { useGetApiQuery } from "../../Api/CommonApi";
 
 const Home = () => {
   const { data: featuresData, isLoading: featureLoading } = useGetApiQuery({
@@ -51,16 +53,18 @@ const Home = () => {
   return (
     <>
       <div className="space-y-18">
-        <HeroSection interfaces={interfaces} />
-        <FeatureSection features={features} />
-        <AboutSection aboutUs={aboutUs} />
-        <StepsSection steps={steps} />
-        <TestimonialSection testimonials={testimonials} />
-        <BlogSection blogs={blogs} />
-        <FAQSection faqs={faqs} />
-        <InterfaceSection interfaces={interfaces} />
-        {/* <DownloadSection /> */}
-        <ContactSection />
+        <Suspense fallback={<Loader />}>
+          <HeroSection interfaces={interfaces} />
+          <FeatureSection features={features} />
+          <AboutSection aboutUs={aboutUs} />
+          <StepsSection steps={steps} />
+          <TestimonialSection testimonials={testimonials} />
+          <BlogSection blogs={blogs} />
+          <FAQSection faqs={faqs} />
+          <InterfaceSection interfaces={interfaces} />
+          {/* <DownloadSection /> */}
+          <ContactSection />
+        </Suspense>
       </div>
     </>
   );
