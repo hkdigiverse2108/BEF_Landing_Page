@@ -1,19 +1,40 @@
-import CourseRegister from "../Pages/Course/CourseRegister";
+import { lazy } from "react";
 import { ROUTES } from "../Constants";
-import Course from "../Pages/Course";
-import CourseDetails from "../Pages/Course/CourseDetails";
+
 import Home from "../Pages/Home";
-import Workshop from "../Pages/Workshop";
-import WorkshopRegister from "../Pages/Workshop/WorkshopRegister";
-import HelpSupport from "../Pages/Help&Support";
-import WorkshopPayment from "../Pages/Workshop/WorkshopPayment";
-import CoursePayment from "../Pages/Course/CoursePayment";
 import Blog from "../Pages/Blog";
-import PageNotFound from "../Components/Common/PageNotFound";
+import BlogDetails from "../Pages/Blog/BlogDetails";
+import HelpSupport from "../Pages/Help&Support";
 import PaymentSuccess from "../Components/Common/PaymentSuccess";
 import PaymentFailed from "../Components/Common/PaymentFailed";
-import BlogDetails from "../Pages/Blog/BlogDetails";
-import WorkshopDetails from "../Pages/Workshop/WorkshopDetails";
+import PageNotFound from "../Components/Common/PageNotFound";
+
+const Course = lazy(() => import("../Pages/Course"));
+const CourseDetails = lazy(() => import("../Pages/Course/CourseDetails"));
+const CourseRegister = lazy(() => import("../Pages/Course/CourseRegister"));
+const CoursePayment = lazy(() => import("../Pages/Course/CoursePayment"));
+
+const Workshop = lazy(() => import("../Pages/Workshop"));
+const WorkshopDetails = lazy(() => import("../Pages/Workshop/WorkshopDetails"));
+const WorkshopRegister = lazy(() => import("../Pages/Workshop/WorkshopRegister"));
+const WorkshopPayment = lazy(() => import("../Pages/Workshop/WorkshopPayment"));
+
+// import CourseRegister from "../Pages/Course/CourseRegister";
+// import { ROUTES } from "../Constants";
+// import Course from "../Pages/Course";
+// import CourseDetails from "../Pages/Course/CourseDetails";
+// import Home from "../Pages/Home";
+// import Workshop from "../Pages/Workshop";
+// import WorkshopRegister from "../Pages/Workshop/WorkshopRegister";
+// import HelpSupport from "../Pages/Help&Support";
+// import WorkshopPayment from "../Pages/Workshop/WorkshopPayment";
+// import CoursePayment from "../Pages/Course/CoursePayment";
+// import Blog from "../Pages/Blog";
+// import PageNotFound from "../Components/Common/PageNotFound";
+// import PaymentSuccess from "../Components/Common/PaymentSuccess";
+// import PaymentFailed from "../Components/Common/PaymentFailed";
+// import BlogDetails from "../Pages/Blog/BlogDetails";
+// import WorkshopDetails from "../Pages/Workshop/WorkshopDetails";
 
 export const PageRoutes = [
   {
@@ -47,10 +68,6 @@ export const PageRoutes = [
   {
     path: ROUTES.COURSE.COURSE,
     element: <Course />,
-  },
-  {
-    path: ROUTES.COURSE.DETAILS,
-    element: <CourseDetails />,
   },
   {
     path: ROUTES.COURSE.DETAILS,
