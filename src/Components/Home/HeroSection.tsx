@@ -38,7 +38,7 @@ const HeroSection = ({ interfaces }: { interfaces: InterfaceType[] }) => {
           <div className="flex max-lg:justify-center items-center ">
             <div className="flex -space-x-3 mr-4">
               {users?.map((u, i) => (
-                <img key={i} src={u} alt="user" className="w-12 h-12 sm:w-14 sm:h-14 rounded-full " />
+                <img loading="lazy" key={i} src={u} alt="user" className="w-12 h-12 sm:w-14 sm:h-14 rounded-full " />
               ))}
             </div>
             <p className="text-gray-700 text-sm leading-tight">
@@ -57,7 +57,7 @@ const HeroSection = ({ interfaces }: { interfaces: InterfaceType[] }) => {
             <Swiper modules={[Pagination, A11y, Autoplay, EffectCards]} slidesPerView={1} speed={700} loop={true} effect="fade" autoplay={{ delay: 2000 }} className=" absolute  z-0 rounded-[30px] !overflow-hidden  ">
               {interfaces?.map((slide, i) => (
                 <SwiperSlide key={i}>
-                  <img src={slide?.image} alt={`slide-${i}`} className="w-full h-full object-cover !px-0.5 " />
+                  <img loading="lazy" src={slide?.image} alt={`slide-${i}`} className="w-full h-full object-cover !px-0.5 " />
                 </SwiperSlide>
               ))}
             </Swiper>

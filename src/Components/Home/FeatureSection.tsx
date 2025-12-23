@@ -35,7 +35,7 @@ const FeatureSection = ({ features }: { features: FeatureItem[] }) => {
                   }}
                   className="block w-full  rounded-xl overflow-hidden"
                 >
-                  <img src={item.thumbnailImage} alt={item.title} className="w-full h-full object-cover rounded-xl" />
+                  <img loading="lazy" src={item.thumbnailImage} alt={item.title} className="w-full h-full object-cover rounded-xl" />
                 </div>
                 <h4 className="text-lg font-semibold text-primary uppercase  md:text-right">{item.title}</h4>
               </div>

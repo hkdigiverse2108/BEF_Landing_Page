@@ -37,12 +37,19 @@ const ExamTimer: React.FC = () => {
   }, []);
 
   return (
-    <div className="flex">
-      <TimeBox label="Days" value={timeLeft.days} />
-      <TimeBox label="Hrs" value={timeLeft.hours} />
-      <TimeBox label="Min" value={timeLeft.minutes} />
-      <TimeBox label="Sec" value={timeLeft.seconds} />
-    </div>
+    <section className="relative bg-primary text-white py-2">
+      <div className="container  container-p  flex max-sm:flex-col gap-1  justify-center sm:justify-between items-center   ">
+        <h1 className="max-sm:order-1  md:text-lg px-4 font-bold flex-nowrap text-nowrap">
+          Let’s Celebrate this <span className=" ">Exam Festival</span>
+        </h1>
+        <div className="flex">
+          <TimeBox label="Days" value={timeLeft.days} />
+          <TimeBox label="Hrs" value={timeLeft.hours} />
+          <TimeBox label="Min" value={timeLeft.minutes} />
+          <TimeBox label="Sec" value={timeLeft.seconds} />
+        </div>
+      </div>
+    </section>
   );
 };
 
