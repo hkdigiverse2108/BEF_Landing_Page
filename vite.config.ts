@@ -20,6 +20,11 @@ export default defineConfig(({ mode }) => {
         },
       },
     },
+
+    preview: {
+      port: PORT,
+      strictPort: true,
+    },
     define: {
       "process.env.VITE_API_BASE_URL": JSON.stringify(API_BASE_URL),
     },
