@@ -2,7 +2,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
 import GoTop from "../Components/Common/GoTop";
-import { Suspense, useEffect } from "react";
+import { useEffect } from "react";
 import Aos from "aos";
 import { ROUTES, URL_KEYS } from "../Constants";
 import WhatsappIcon from "../Components/Common/WhatsappIcon";
@@ -10,7 +10,6 @@ import { useGetApiQuery } from "../Api/CommonApi";
 import { setworkshopLoading, setWorkshops } from "../Store/Slices/WorkshopSlice";
 import { useAppDispatch, useAppSelector } from "../Store/Hook";
 import YoutubeVideoModal from "../Components/Common/YoutubeVideoModal";
-import Loader from "../Components/Common/Loader";
 
 const Layout = () => {
   const location = useLocation();
@@ -49,7 +48,7 @@ const Layout = () => {
   return (
     <>
       <Header />
-      <div className={`${isShow ? "!mt-10" : "!mt-30 sm:!mt-46 mb-12"} `}>
+      <div className={`${isShow ? "!mt-10" : "!mt-45 sm:!mt-46 mb-12"} `}>
         {/* <Suspense fallback={<Loader />}> */}
           <Outlet />
         {/* </Suspense> */}
