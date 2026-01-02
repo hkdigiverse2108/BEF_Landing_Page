@@ -57,8 +57,8 @@ const StepsSection = ({ steps }: { steps: StepType[] }) => {
           </div>
         </div>
         <div className=" h-fit px-6 sm:px-18">
-          <div className="relative -mb-20 md:-mb-35 lg:-mb-50">
-            <img src={`${ImagePath}steps/yt_thumb.jpg`} className="w-fit h-fit " alt="Yt-thumbnail" data-aos="fade-up" />
+          <div className="relative -mb-20 md:-mb-35 lg:-mb-50 ">
+            <img src={`${ImagePath}steps/yt_thumb.jpg`} className="w-fit h-fit object-cover" alt="Yt-thumbnail" data-aos="fade-up" />
             <div
               onClick={() => {
                 dispatch(setModalVideoPlay(true));
@@ -66,7 +66,7 @@ const StepsSection = ({ steps }: { steps: StepType[] }) => {
               }}
               className="absolute w-full top-0 left-0 right-0 bottom-0 flex justify-center items-center  "
             >
-              <button className="!text-7xl text-primary">
+              <button className="text-3xl sm:!text-7xl text-primary">
                 <IoPlayCircle />
               </button>
             </div>
