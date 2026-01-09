@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { URL_KEYS } from "../../Constants";
 import { useGetApiQuery } from "../../Api/CommonApi";
 import Loader from "../../Components/Common/Loader";
+import Seo from "../../Components/Common/Seo";
 
 type HelpSlug =
   | "aboutUs"
@@ -38,17 +39,25 @@ const HelpSupport = () => {
   if (isLoading) return <Loader />;
 
   return (
-    <section className="container mx-auto px-5 py-16">
-      <h1 className="text-3xl font-bold text-primary mb-6 capitalize">
-        {slug?.replace("-", " ") === "termsCondition"
-          ? "Terms & Condition"
-          : slug?.replace("-", " ")}
-      </h1>
-      <div
-        className="prose prose-lg max-w-none text-gray-700"
-        dangerouslySetInnerHTML={{ __html: pageData }}
+    <>
+      <Seo
+        title="UPSC Exam Support & Policies | Bharat Exam Fest"
+        description="Find help and support for your UPSC preparation at Bharat Exam Fest, including about us, terms & conditions, privacy policy, refund policy and legal information."
       />
-    </section>
+      <section className="container mx-auto px-5 py-16">
+        <h1 className="text-3xl font-bold text-primary mb-6 capitalize">
+          {slug === "aboutUs"
+            ? "About Us"
+            : slug === "termsCondition"
+            ? "Terms & Condition"
+            : slug?.replace("-", " ")}
+        </h1>
+        <div
+          className="prose prose-lg max-w-none text-gray-700"
+          dangerouslySetInnerHTML={{ __html: pageData }}
+        />
+      </section>
+    </>
   );
 };
 
