@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import type { FormValues, CourseType, PaymentStatusType, RazorpayResponse } from "../../Types";
 import { HTTP_STATUS, ImagePath, ROUTES, URL_KEYS } from "../../Constants";
-import { Skeleton } from "antd";
+import { Button, Skeleton } from "antd";
 import { useGetApiQuery, usePostApiMutation } from "../../Api/CommonApi";
 import { useEffect, useState } from "react";
 import PaymentModal from "../../Components/Common/PaymentModal";
@@ -21,6 +21,8 @@ const CoursePayment = () => {
   const { formValues, course }: { formValues: FormValues; course: CourseType } = location.state || {};
 
   const { data: modulesData, isLoading: isModuleLoading } = useGetApiQuery({ url: `${URL_KEYS.MODULE.ALL}?courseFilter=${course?._id}` }, { skip: !course?._id });
+  const { data: settingData } = useGetApiQuery({ url: URL_KEYS.SETTINGS.ALL });
+  const isRazorpay = settingData?.data?.isRazorpay;
 
   const Modules = modulesData?.data?.module_data || [];
 
@@ -53,7 +55,27 @@ const CoursePayment = () => {
         data: payload,
       }).unwrap();
       if (res?.status === HTTP_STATUS.OK) {
-        navigate(ROUTES.PAYMENT.SUCCESS, { state: { pageName: "Course", email: res?.data?.loginEmail, password: res?.data?.password } });
+        navigate(`${ROUTES.PAYMENT.STATUS}?orderId=${formValues?.purchaseId}&type=course`);
+      }
+    } catch (error) {}
+  };
+
+  const handleStartPayment = async () => {
+    try {
+      const res = await PostApi({
+        url: URL_KEYS.PHONEPE_ORDER.ADD,
+        data: {
+          amount: amountToPay,
+          orderId: formValues?.purchaseId,
+          redirectUrl: `${window.location.origin + ROUTES.PAYMENT.STATUS}?orderId=${formValues?.purchaseId}&type=course`,
+        },
+      }).unwrap();
+      const paymentUrl = res?.data?.paymentUrl;
+
+      if (paymentUrl) {
+        window.location.href = paymentUrl;
+      } else {
+        throw console.error("Payment URL not found");
       }
     } catch (error) {}
   };
@@ -139,17 +161,24 @@ const CoursePayment = () => {
                   <span>₹{price}</span>
                 )}
               </div>
-              <PaymentModal
-                btnText="Enroll Now"
-                isLoading={isRefferLoading}
-                amount={amountToPay}
-                onPaymentComplete={handlePaymentComplete}
-                userData={{
-                  name: formValues?.name,
-                  email: formValues?.email,
-                  contact: formValues?.phone,
-                }}
-              />
+
+              {isRazorpay ? (
+                <PaymentModal
+                  btnText="Enroll Now"
+                  isLoading={isRefferLoading}
+                  amount={amountToPay}
+                  onPaymentComplete={handlePaymentComplete}
+                  userData={{
+                    name: formValues?.name,
+                    email: formValues?.email,
+                    contact: formValues?.phone,
+                  }}
+                />
+              ) : (
+                <Button onClick={handleStartPayment} disabled={isRefferLoading} loading={isRefferLoading} className="btn primary_btn w-full !h-12 font-semibold mt-4">
+                  Enroll Now
+                </Button>
+              )}
             </div>
           </section>
         </div>

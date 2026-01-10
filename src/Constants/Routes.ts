@@ -25,6 +25,7 @@ export const ROUTES = {
     DETAILS: "/blog/details/:id",
   },
   PAYMENT: {
+    STATUS: "/payment/status",
     SUCCESS: "/payment/success",
     FAILED: "/payment/failed",
   },

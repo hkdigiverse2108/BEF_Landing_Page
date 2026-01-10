@@ -8,7 +8,6 @@ import { InfoCircleFilled } from "@ant-design/icons";
 const PaymentSuccess = () => {
   const location = useLocation();
   const { pageName = "", email = "", password = "" } = location?.state || {};
-  console.log("pageName --> ", pageName);
 
   useEffect(() => {
     const handleBack = (e: PopStateEvent) => {

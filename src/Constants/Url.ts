@@ -4,13 +4,19 @@ export const URL_KEYS = {
     ONE: "course/",
     REGISTER_ADD: "course-purchase/add",
     REGISTER_EDIT: "course-purchase/edit",
+    PURCHASE: "/course-purchase/",
   },
   WORKSHOP: {
     ALL: "workshop/all",
-    ONE: "workshop/",
+    ONE: "/workshop/",
     TESTIMONIAL: "workshop-testimonial/all",
+    REGISTER: "/workshop-register/",
     REGISTER_ADD: "/workshop-register/add",
     REGISTER_EDIT: "/workshop-register/edit",
+  },
+  PHONEPE_ORDER: {
+    ADD: "/phonepe/order",
+    STATUS:"/phonepe/status-check/"
   },
   FAQ: {
     ALL: "faq/public",

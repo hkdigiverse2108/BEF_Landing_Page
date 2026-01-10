@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import type { FormValues, LectureType, PaymentStatusType, RazorpayResponse, WorkshopType } from "../../Types";
 import { HTTP_STATUS, ImagePath, ROUTES, URL_KEYS } from "../../Constants";
-import { Skeleton } from "antd";
+import { Button, Skeleton } from "antd";
 import { useEffect, useState } from "react";
 import { useGetApiQuery, usePostApiMutation } from "../../Api/CommonApi";
 import CouponCodeCheck from "../../Components/Common/CouponCodeCheck";
@@ -23,6 +23,8 @@ const WorkshopPayment = () => {
   const { data: LectureData, isLoading: isLecturesLoading } = useGetApiQuery({
     url: `${URL_KEYS.LECTURE.ALL}?workshopFilter=${workshop?._id}`,
   });
+  const { data: settingData } = useGetApiQuery({ url: URL_KEYS.SETTINGS.ALL });
+  const isRazorpay = settingData?.data?.isRazorpay;
 
   const Lectures = LectureData?.data?.lecture_data;
 
@@ -54,7 +56,27 @@ const WorkshopPayment = () => {
         data: payload,
       }).unwrap();
       if (res?.status === HTTP_STATUS.OK) {
-        navigate(ROUTES.PAYMENT.SUCCESS, { state: { pageName: "Workshop", email: res?.data?.loginEmail, password: res?.data?.password } });
+        navigate(`${ROUTES.PAYMENT.STATUS}?orderId=${formValues?.workshopRegisterId}&type=workshop`);
+      }
+    } catch (error) {}
+  };
+
+  const handleStartPayment = async () => {
+    try {
+      const res = await PostApi({
+        url: URL_KEYS.PHONEPE_ORDER.ADD,
+        data: {
+          amount: amountToPay,
+          orderId: formValues?.workshopRegisterId,
+          redirectUrl: `${window.location.origin + ROUTES.PAYMENT.STATUS}?orderId=${formValues?.workshopRegisterId}&type=workshop`,
+        },
+      }).unwrap();
+      const paymentUrl = res?.data?.paymentUrl;
+
+      if (paymentUrl) {
+        window.location.href = paymentUrl;
+      } else {
+        throw console.error("Payment URL not found");
       }
     } catch (error) {}
   };
@@ -133,18 +155,23 @@ const WorkshopPayment = () => {
                   )}
                 </span>
               </div>
-
-              <PaymentModal
-                btnText="Enroll Now"
-                isLoading={isRefferLoading}
-                amount={amountToPay}
-                onPaymentComplete={handlePaymentComplete}
-                userData={{
-                  name: formValues?.name,
-                  email: formValues?.email,
-                  contact: formValues?.phone,
-                }}
-              />
+              {isRazorpay ? (
+                <PaymentModal
+                  btnText="Enroll Now"
+                  isLoading={isRefferLoading}
+                  amount={amountToPay}
+                  onPaymentComplete={handlePaymentComplete}
+                  userData={{
+                    name: formValues?.name,
+                    email: formValues?.email,
+                    contact: formValues?.phone,
+                  }}
+                />
+              ) : (
+                <Button onClick={handleStartPayment} disabled={isRefferLoading} loading={isRefferLoading} className="btn primary_btn w-full !h-12 font-semibold mt-4">
+                  Enroll Now
+                </Button>
+              )}
             </div>
           </section>
         </div>

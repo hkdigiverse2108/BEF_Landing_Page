@@ -8,6 +8,7 @@ import HelpSupport from "../Pages/Help&Support";
 import PaymentSuccess from "../Components/Common/PaymentSuccess";
 import PaymentFailed from "../Components/Common/PaymentFailed";
 import PageNotFound from "../Components/Common/PageNotFound";
+import PaymentStatus from "../Components/Common/PaymentStatus";
 
 const Course = lazy(() => import("../Pages/Course"));
 const CourseDetails = lazy(() => import("../Pages/Course/CourseDetails"));
@@ -84,6 +85,10 @@ export const PageRoutes = [
   {
     path: ROUTES.HELP_SUPPORT.BASE,
     element: <HelpSupport />,
+  },
+  {
+    path: ROUTES.PAYMENT.STATUS,
+    element: <PaymentStatus />,
   },
   {
     path: ROUTES.PAYMENT.SUCCESS,
