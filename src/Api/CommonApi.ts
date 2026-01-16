@@ -17,8 +17,14 @@ export const commonApi = createApi({
                 body: data
             })
         }),
+         DeleteApi: builder.mutation({
+            query: ({ url }) => ({
+                url,
+                method: "DELETE"
+            })
+        })
     })
 })
 
 
-export const { useGetApiQuery, usePostApiMutation } = commonApi;
+export const { useGetApiQuery, usePostApiMutation, useDeleteApiMutation  } = commonApi;

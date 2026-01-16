@@ -19,6 +19,7 @@ const Workshop = lazy(() => import("../Pages/Workshop"));
 const WorkshopDetails = lazy(() => import("../Pages/Workshop/WorkshopDetails"));
 const WorkshopRegister = lazy(() => import("../Pages/Workshop/WorkshopRegister"));
 const WorkshopPayment = lazy(() => import("../Pages/Workshop/WorkshopPayment"));
+const AccountDelete = lazy(() => import("../Pages/Student/AccountDelete"));
 
 // import CourseRegister from "../Pages/Course/CourseRegister";
 // import { ROUTES } from "../Constants";
@@ -97,6 +98,10 @@ export const PageRoutes = [
   {
     path: ROUTES.PAYMENT.FAILED,
     element: <PaymentFailed />,
+  },
+  {
+    path: ROUTES.STUDENT.ACCOUNT_DELETE,
+    element: <AccountDelete />,
   },
   {
     path: "*",

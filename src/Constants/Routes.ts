@@ -12,6 +12,9 @@ export const ROUTES = {
     REGISTER: "/course/register",
     PAYMENT: "/course/payment",
   },
+  STUDENT:{
+    ACCOUNT_DELETE:"/student/account-delete"
+  },
   HELP_SUPPORT: {
     BASE: "/help-support/:slug",
     ABOUT_US: "/help-support/aboutUs",

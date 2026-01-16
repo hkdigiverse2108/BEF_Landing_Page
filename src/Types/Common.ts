@@ -31,6 +31,10 @@ export interface FormValues {
   purchaseId?: string;
   workshopRegisterId?: string;
 }
+export interface DeleteFormValues {
+  uniqueId: string;
+  password: string;
+}
 
 export interface ModuleType {
   _id: string;

@@ -1,4 +1,8 @@
 export const URL_KEYS = {
+  AUTH: {
+    LOGIN: "/auth/login",
+    DELETE: "/user/delete",
+  },
   COURSE: {
     ALL: "course/all",
     ONE: "course/",
@@ -16,7 +20,7 @@ export const URL_KEYS = {
   },
   PHONEPE_ORDER: {
     ADD: "/phonepe/order",
-    STATUS:"/phonepe/status-check/"
+    STATUS: "/phonepe/status-check/",
   },
   FAQ: {
     ALL: "faq/public",
