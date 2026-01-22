@@ -12,12 +12,8 @@ import StructuredData from "../../Components/Common/StructuredData";
 const Workshop = () => {
   const navigate = useNavigate();
 
-  const workshop: WorkshopType[] = useAppSelector(
-    (state) => state.workshops.AllWorkshop
-  );
-  const workshopLoading = useAppSelector(
-    (state) => state.workshops.workshopLoading
-  );
+  const workshop: WorkshopType[] = useAppSelector((state) => state.workshops.AllWorkshop);
+  const workshopLoading = useAppSelector((state) => state.workshops.workshopLoading);
   const id = workshop[0]?._id ?? "";
   if (!workshopLoading && workshop.length === 1) {
     navigate(ROUTES.WORKSHOP.DETAILS.replace(":id", id), {
@@ -43,10 +39,7 @@ const Workshop = () => {
 
   return (
     <>
-      <Seo
-        title="UPSC & Competitive Exam Workshops | Bharat Exam Fest"
-        description="Join expert-led UPSC & competitive exam workshops at Bharat Exam Fest. Learn smart strategies, exam techniques & AI-powered preparation methods to boost your performance."
-      />
+      <Seo title="UPSC & Competitive Exam Workshops | Bharat Exam Fest" description="Join expert-led UPSC & competitive exam workshops at Bharat Exam Fest. Learn smart strategies, exam techniques & AI-powered preparation methods to boost your performance." />
       <StructuredData
         data={{
           "@context": "https://schema.org",
@@ -57,13 +50,8 @@ const Workshop = () => {
               name: "Bharat Exam Fest",
               url: "https://www.bharatexamfest.com/",
               logo: "https://www.bharatexamfest.com/logo.png",
-              description:
-                "Bharat Exam Fest is an AI-powered UPSC and competitive exam preparation platform offering free mock tests, expert workshops, interactive courses and personalized study tools.",
-              sameAs: [
-                "https://www.facebook.com/bharatexamfest",
-                "https://www.instagram.com/bharatexamfest",
-                "https://www.youtube.com/@bharatexamfest",
-              ],
+              description: "Bharat Exam Fest is an AI-powered UPSC and competitive exam preparation platform offering free mock tests, expert workshops, interactive courses and personalized study tools.",
+              sameAs: ["https://www.facebook.com/bharatexamfest", "https://www.instagram.com/bharatexamfest", "https://www.youtube.com/@bharatexamfest"],
             },
             {
               "@type": "WebSite",
@@ -72,8 +60,7 @@ const Workshop = () => {
               name: "Bharat Exam Fest",
               potentialAction: {
                 "@type": "SearchAction",
-                target:
-                  "https://www.bharatexamfest.com/search?q={search_term_string}",
+                target: "https://www.bharatexamfest.com/search?q={search_term_string}",
                 "query-input": "required name=search_term_string",
               },
             },
@@ -82,8 +69,7 @@ const Workshop = () => {
               "@id": "https://www.bharatexamfest.com/workshop#webpage",
               url: "https://www.bharatexamfest.com/workshop",
               name: "UPSC & Competitive Exam Workshops – Bharat Exam Fest",
-              description:
-                "Explore expert-led UPSC and competitive exam workshops on Bharat Exam Fest. Attend interactive sessions on exam strategies, smart preparation tips and AI-enhanced learning.",
+              description: "Explore expert-led UPSC and competitive exam workshops on Bharat Exam Fest. Attend interactive sessions on exam strategies, smart preparation tips and AI-enhanced learning.",
               inLanguage: "en",
               isPartOf: {
                 "@id": "https://www.bharatexamfest.com/#website",
@@ -148,24 +134,10 @@ const Workshop = () => {
         }}
       />
       <div className="container container-p">
-        <h1 className="text-2xl md:text-3xl font-bold text-primary mb-6 hidden">
-          Workshop
-        </h1>
+        <h1 className="text-2xl md:text-3xl font-bold text-primary mb-6 hidden">Workshop</h1>
         {workshop?.length !== 0 && (
           <>
-            <div className="grid gap-5 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-              {workshopLoading
-                ? [...Array(3)].map((_, i) => (
-                    <Skeleton.Node
-                      key={i}
-                      active
-                      style={{ width: "100%", height: 300, borderRadius: 15 }}
-                    />
-                  ))
-                : workshop?.map((item: WorkshopType, index: number) => (
-                    <WorkshopCard key={index} data={item} />
-                  ))}
-            </div>
+            <div className="grid gap-5 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">{workshopLoading ? [...Array(3)].map((_, i) => <Skeleton.Node key={i} active style={{ width: "100%", height: 300, borderRadius: 15 }} />) : workshop?.map((item: WorkshopType, index: number) => <WorkshopCard key={index} data={item} />)}</div>
           </>
         )}
       </div>

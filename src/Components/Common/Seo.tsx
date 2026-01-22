@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 interface SeoProps {
   title?: string;
-  description?: string;
+  description?: string | string[];
   keywords?: string;
 }
 
@@ -13,13 +13,14 @@ const Seo = ({ title, description, keywords }: SeoProps) => {
     }
 
     if (description) {
+      const content = Array.isArray(description) ? description.join(", ") : description;
       let descriptionTag = document.querySelector('meta[name="description"]');
       if (!descriptionTag) {
         descriptionTag = document.createElement("meta");
         descriptionTag.setAttribute("name", "description");
         document.head.appendChild(descriptionTag);
       }
-      descriptionTag.setAttribute("content", description);
+      descriptionTag.setAttribute("content", content);
     }
 
     if (keywords) {
@@ -37,5 +38,3 @@ const Seo = ({ title, description, keywords }: SeoProps) => {
 };
 
 export default Seo;
-
-
