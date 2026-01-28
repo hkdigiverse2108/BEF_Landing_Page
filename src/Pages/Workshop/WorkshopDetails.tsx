@@ -39,7 +39,7 @@ const WorkshopDetails = () => {
 
   return (
     <>
-      <Seo title={workshopData?.metaTitle} description={workshopData?.metaDescription} />
+      <Seo title={workshop?.metaTitle} description={workshop?.metaDescription} />
       <h1 className="text-2xl md:text-3xl font-bold text-primary mb-6 hidden">{workshopData?.metaHeading}</h1>
       <div id="Workshop" className="container container-p space-y-9 py-9 bg-white rounded-xl Workshop">
         <section className="group space-y-6 rounded-md relative">
