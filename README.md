@@ -1,3 +1,7 @@
+VITE_PORT=3335
+# VITE_API_BASE_URL=http://localhost:4000/
+VITE_API_BASE_URL=https://api-bef.bharatexamfest.com
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
