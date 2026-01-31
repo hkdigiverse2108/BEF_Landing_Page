@@ -7,11 +7,7 @@ export const LOGIN_URL = "http://course.bharatexamfest.com/";
 // export const HK_DIGIVERSE_URL = "https://hkdigiverse.com/";
 export const HK_DIGIVERSE_URL = "http://localhost:3334/";
 
-
-export const APP_LINKS = {
-  PLAY_STORE: "#",
-  APP_STORE: "#",
-} as const;
+export const APP_LINKS = "https://play.google.com/store/apps/details?id=com.bharat.examfest.app&pcampaignid=web_share";
 
 export const CONTACT: ContactType = {
   NUMBER: "+91 84604 64463",

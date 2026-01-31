@@ -4,6 +4,8 @@ import { SwiperSlide, Swiper } from "swiper/react";
 import { A11y, Autoplay, EffectCards, Pagination } from "swiper/modules";
 import AnimationLine from "../Common/AnimationLine";
 import type { InterfaceType } from "./InterfaceSection";
+import { Link } from "react-router-dom";
+import { APP_LINKS } from "../../Data";
 
 const HeroSection = ({ interfaces }: { interfaces: InterfaceType[] }) => {
   const users = [`${ImagePath}/home/user01.png`, `${ImagePath}/home/user02.png`, `${ImagePath}/home/user03.png`, `${ImagePath}/home/user04.png`];
@@ -22,17 +24,17 @@ const HeroSection = ({ interfaces }: { interfaces: InterfaceType[] }) => {
           </div>
 
           {/* App Buttons */}
-          {/* <div className="flex gap-5 max-lg:justify-center">
-            <Link to={APP_LINKS.APP_STORE} className="relative border-2 border-success rounded-xl px-3 py-2 sm:px-6 sm:py-3 bg-white hover:bg-success transition group ">
+          <div className="flex gap-5 max-lg:justify-center">
+            {/* <Link to={APP_LINKS} className="relative border-2 border-success rounded-xl px-3 py-2 sm:px-6 sm:py-3 bg-white hover:bg-success transition group ">
               <img src={`${ImagePath}common/appstore_blue.png`} alt="App Store" className="h-8 block group-hover:hidden" />
               <img src={`${ImagePath}common/appstore_white.png`} alt="App Store" className="h-8 hidden group-hover:block" />
-            </Link>
+            </Link> */}
 
-            <Link to={APP_LINKS.PLAY_STORE} className="relative border-2 border-success  rounded-xl px-3 py-2 sm:px-6 sm:py-3 bg-white hover:bg-success transition group">
+            <Link to={APP_LINKS} target="_blank" className="relative border-2 border-success  rounded-xl px-3 py-2 sm:px-6 sm:py-3 bg-white hover:bg-success transition group">
               <img src={`${ImagePath}common/googleplay_blue.png`} alt="Play Store" className="h-8 block group-hover:hidden" />
               <img src={`${ImagePath}common/googleplay_white.png`} alt="Play Store" className="h-8 hidden group-hover:block" />
             </Link>
-          </div> */}
+          </div>
 
           {/* Users */}
           <div className="flex max-lg:justify-center items-center ">
@@ -42,7 +44,7 @@ const HeroSection = ({ interfaces }: { interfaces: InterfaceType[] }) => {
               ))}
             </div>
             <p className="text-gray-700 text-sm leading-tight">
-              50K+ <br /> user this app
+              50K+ <br /> user this platform
             </p>
           </div>
         </div>

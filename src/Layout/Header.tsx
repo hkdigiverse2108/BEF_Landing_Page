@@ -47,7 +47,7 @@ const Header = () => {
           {/* Menu Items */}
           <nav className="hidden lg:flex gap-6 items-center">
             {menuItems?.map((item, index) => (
-              <NavLink onClick={() => setMenuOpen(!menuOpen)} key={index} to={item?.link || ""} className={`flex gap-1 cursor-pointer items-center text-lg font-medium text-gray-800 hover:text-primary transition  px-3 py-2 rounded-t-lg `}>
+              <NavLink target={`${item.Title === "Download Now" ? "_blank" : ""}`} onClick={() => setMenuOpen(!menuOpen)} key={index} to={item?.link || ""} className={`flex gap-1 cursor-pointer items-center text-lg font-medium text-gray-800 hover:text-primary transition  px-3 py-2 rounded-t-lg `}>
                 {item.Title}
               </NavLink>
             ))}
