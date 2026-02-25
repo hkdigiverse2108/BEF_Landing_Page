@@ -6,4 +6,5 @@ export const Help_Support = [
     { label: "Terms & conditions", path: ROUTES.HELP_SUPPORT.TERM_CONDITION },
     { label: "Privacy Policy", path: ROUTES.HELP_SUPPORT.PRIVACY_POLICY },
     { label: "Refund policy", path: ROUTES.HELP_SUPPORT.REFUND_POLICY },
+    { label: "Blog", path: ROUTES.BLOG.BLOG },
 ];
