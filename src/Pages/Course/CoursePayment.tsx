@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import type { FormValues, CourseType, PaymentStatusType, RazorpayResponse } from "../../Types";
-import { HTTP_STATUS, ImagePath, ROUTES, URL_KEYS } from "../../Constants";
+import { HTTP_STATUS, ImagePath, PAYMENT_STATUS, ROUTES, URL_KEYS } from "../../Constants";
 import { Button, Skeleton } from "antd";
 import { useGetApiQuery, usePostApiMutation } from "../../Api/CommonApi";
 import { useEffect, useState } from "react";
@@ -61,23 +61,47 @@ const CoursePayment = () => {
   };
 
   const handleStartPayment = async () => {
-    try {
-      const res = await PostApi({
-        url: URL_KEYS.PHONEPE_ORDER.ADD,
-        data: {
-          amount: amountToPay,
-          orderId: formValues?.purchaseId,
-          redirectUrl: `${window.location.origin + ROUTES.PAYMENT.STATUS}?orderId=${formValues?.purchaseId}&type=course`,
-        },
-      }).unwrap();
-      const paymentUrl = res?.data?.paymentUrl;
+    if (amountToPay <= 0) {
+      const payload = {
+        purchaseId: formValues?.purchaseId,
+        status: PAYMENT_STATUS.COMPLETED,
+        amount: amountToPay,
+        referralCode: refferCode,
+        courseId: course._id,
+        name: formValues.name,
+        phone: formValues.phone,
+        email: formValues.email,
+        city: formValues.city,
+        pincode: formValues.pincode,
+        reachFrom: formValues.reachFrom,
+      };
 
-      if (paymentUrl) {
-        window.location.href = paymentUrl;
-      } else {
-        throw console.error("Payment URL not found");
+      const res = await PostApi({
+        url: URL_KEYS.COURSE.REGISTER_EDIT,
+        data: payload,
+      }).unwrap();
+      if (res?.status === HTTP_STATUS.OK) {
+        navigate(`${ROUTES.PAYMENT.STATUS}?orderId=${formValues?.purchaseId}&type=course`);
       }
-    } catch (error) {}
+    } else {
+      try {
+        const res = await PostApi({
+          url: URL_KEYS.PHONEPE_ORDER.ADD,
+          data: {
+            amount: amountToPay,
+            orderId: formValues?.purchaseId,
+            redirectUrl: `${window.location.origin + ROUTES.PAYMENT.STATUS}?orderId=${formValues?.purchaseId}&type=course`,
+          },
+        }).unwrap();
+        const paymentUrl = res?.data?.paymentUrl;
+
+        if (paymentUrl) {
+          window.location.href = paymentUrl;
+        } else {
+          throw console.error("Payment URL not found");
+        }
+      } catch (error) {}
+    }
   };
 
   useEffect(() => {

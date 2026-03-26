@@ -26,7 +26,7 @@ const PaymentStatus = () => {
     pageName: pageName || workshop?.data?.userId?.pageName || courser?.data?.userId?.pageName,
     email: email || workshop?.data?.userId?.email || courser?.data?.userId?.email,
     password: password || workshop?.data?.userId?.showPassword || courser?.data?.userId?.showPassword,
-    status: status || LectureData?.data,
+    status: status || paymentId ? LectureData?.data : workshop?.data?.status || courser?.data?.status,
   };
 
   useEffect(() => {

@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import type { FormValues, LectureType, PaymentStatusType, RazorpayResponse, WorkshopType } from "../../Types";
-import { HTTP_STATUS, ImagePath, ROUTES, URL_KEYS } from "../../Constants";
+import { HTTP_STATUS, ImagePath, PAYMENT_STATUS, ROUTES, URL_KEYS } from "../../Constants";
 import { Button, Skeleton } from "antd";
 import { useEffect, useState } from "react";
 import { useGetApiQuery, usePostApiMutation } from "../../Api/CommonApi";
@@ -29,6 +29,7 @@ const WorkshopPayment = () => {
   const Lectures = LectureData?.data?.lecture_data;
 
   const { title = "Workshop", discountAmount = 0, totalAmount = 0 } = workshop || {};
+  const amountToPay = isRefferApplyed ? Number(discountAmount) : Number(totalAmount);
 
   const handlePaymentComplete = async (status: PaymentStatusType, response: RazorpayResponse, RazorPayKey?: string) => {
     try {
@@ -62,26 +63,49 @@ const WorkshopPayment = () => {
   };
 
   const handleStartPayment = async () => {
-    try {
+    if (amountToPay <= 0) {
+      const payload = {
+        workshopRegisterId: formValues?.workshopRegisterId,
+        workshopId: workshop?._id,
+        name: formValues?.name,
+        payingPrice: amountToPay,
+        discountPrice: discountAmount,
+        price: totalAmount,
+        phone: formValues?.phone,
+        city: formValues?.city,
+        paymentDate: new Date().toISOString(),
+        email: formValues?.email,
+        referralCode: refferCode,
+        reachFrom: formValues?.reachFrom,
+        status: PAYMENT_STATUS.COMPLETED,
+      };
       const res = await PostApi({
-        url: URL_KEYS.PHONEPE_ORDER.ADD,
-        data: {
-          amount: amountToPay,
-          orderId: formValues?.workshopRegisterId,
-          redirectUrl: `${window.location.origin + ROUTES.PAYMENT.STATUS}?orderId=${formValues?.workshopRegisterId}&type=workshop`,
-        },
+        url: URL_KEYS.WORKSHOP.REGISTER_EDIT,
+        data: payload,
       }).unwrap();
-      const paymentUrl = res?.data?.paymentUrl;
-
-      if (paymentUrl) {
-        window.location.href = paymentUrl;
-      } else {
-        throw console.error("Payment URL not found");
+      if (res?.status === HTTP_STATUS.OK) {
+        navigate(`${ROUTES.PAYMENT.STATUS}?orderId=${formValues?.workshopRegisterId}&type=workshop`);
       }
-    } catch (error) {}
-  };
+    } else {
+      try {
+        const res = await PostApi({
+          url: URL_KEYS.PHONEPE_ORDER.ADD,
+          data: {
+            amount: amountToPay,
+            orderId: formValues?.workshopRegisterId,
+            redirectUrl: `${window.location.origin + ROUTES.PAYMENT.STATUS}?orderId=${formValues?.workshopRegisterId}&type=workshop`,
+          },
+        }).unwrap();
+        const paymentUrl = res?.data?.paymentUrl;
 
-  const amountToPay = isRefferApplyed ? Number(discountAmount) : Number(totalAmount);
+        if (paymentUrl) {
+          window.location.href = paymentUrl;
+        } else {
+          throw console.error("Payment URL not found");
+        }
+      } catch (error) {}
+    }
+  };
 
   useEffect(() => {
     if (!formValues || !workshop) {
