@@ -39,7 +39,7 @@ const Workshop = () => {
 
   return (
     <>
-      <Seo title="UPSC & Competitive Exam Workshops | Bharat Exam Fest" description="Join expert-led UPSC & competitive exam workshops at Bharat Exam Fest. Learn smart strategies, exam techniques & AI-powered preparation methods to boost your performance." />
+      <Seo title="UPSC & Competitive Exam Workshops | Achiwon" description="Join expert-led UPSC & competitive exam workshops at Achiwon. Learn smart strategies, exam techniques & AI-powered preparation methods to boost your performance." />
       <StructuredData
         data={{
           "@context": "https://schema.org",
@@ -47,17 +47,17 @@ const Workshop = () => {
             {
               "@type": "Organization",
               "@id": "https://www.bharatexamfest.com/#organization",
-              name: "Bharat Exam Fest",
+              name: "Achiwon",
               url: "https://www.bharatexamfest.com/",
               logo: "https://www.bharatexamfest.com/logo.png",
-              description: "Bharat Exam Fest is an AI-powered UPSC and competitive exam preparation platform offering free mock tests, expert workshops, interactive courses and personalized study tools.",
+              description: "Achiwon is an AI-powered UPSC and competitive exam preparation platform offering free mock tests, expert workshops, interactive courses and personalized study tools.",
               sameAs: ["https://www.facebook.com/bharatexamfest", "https://www.instagram.com/bharatexamfest", "https://www.youtube.com/@bharatexamfest"],
             },
             {
               "@type": "WebSite",
               "@id": "https://www.bharatexamfest.com/#website",
               url: "https://www.bharatexamfest.com/",
-              name: "Bharat Exam Fest",
+              name: "Achiwon",
               potentialAction: {
                 "@type": "SearchAction",
                 target: "https://www.bharatexamfest.com/search?q={search_term_string}",
@@ -68,12 +68,8 @@ const Workshop = () => {
               "@type": "WebPage",
               "@id": "https://www.bharatexamfest.com/workshop#webpage",
               url: "https://www.bharatexamfest.com/workshop",
-              name: "UPSC & Competitive Exam Workshops – Bharat Exam Fest",
-              description: "Explore expert-led UPSC and competitive exam workshops on Bharat Exam Fest. Attend interactive sessions on exam strategies, smart preparation tips and AI-enhanced learning.",
-              inLanguage: "en",
-              isPartOf: {
-                "@id": "https://www.bharatexamfest.com/#website",
-              },
+              name: "UPSC & Competitive Exam Workshops – Achiwon",
+              description: "Explore expert-led UPSC and competitive exam workshops on Achiwon. Attend interactive sessions on exam strategies, smart preparation tips and AI-enhanced learning.",
               breadcrumb: {
                 "@type": "BreadcrumbList",
                 itemListElement: [
@@ -86,7 +82,7 @@ const Workshop = () => {
                   {
                     "@type": "ListItem",
                     position: 2,
-                    name: "Workshop",
+                    name: "Workshops",
                     item: "https://www.bharatexamfest.com/workshop",
                   },
                 ],
@@ -98,26 +94,26 @@ const Workshop = () => {
               mainEntity: [
                 {
                   "@type": "Question",
-                  name: "What are the Bharat Exam Fest workshops?",
+                  name: "What are the Achiwon workshops?",
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "The Bharat Exam Fest workshops are expert-led interactive sessions designed for UPSC and competitive exam aspirants to learn strategic preparation techniques, smart study methods and exam insights.",
+                    text: "The Achiwon workshops are expert-led interactive sessions designed for UPSC and competitive exam aspirants to learn strategic preparation techniques, smart study methods and exam insights.",
                   },
                 },
                 {
                   "@type": "Question",
-                  name: "Who can attend the workshops on Bharat Exam Fest?",
+                  name: "Who can attend the workshops on Achiwon?",
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "UPSC and competitive exam aspirants seeking expert guidance, strategy sessions, mock test analysis, and AI-powered tips can attend the Bharat Exam Fest workshops.",
+                    text: "UPSC and competitive exam aspirants seeking expert guidance, strategy sessions, mock test analysis, and AI-powered tips can attend the Achiwon workshops.",
                   },
                 },
                 {
                   "@type": "Question",
-                  name: "Do Bharat Exam Fest workshops require registration?",
+                  name: "Do Achiwon workshops require registration?",
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "Yes, users may need to register or log in on Bharat Exam Fest to attend workshops, depending on the session format and availability.",
+                    text: "Yes, users may need to register or log in on Achiwon to attend workshops, depending on the session format and availability.",
                   },
                 },
                 {
@@ -125,7 +121,7 @@ const Workshop = () => {
                   name: "Are the workshops free or paid?",
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "Workshops on Bharat Exam Fest include both free and premium sessions depending on topic and expert availability.",
+                    text: "Workshops on Achiwon include both free and premium sessions depending on topic and expert availability.",
                   },
                 },
               ],
@@ -141,13 +137,13 @@ const Workshop = () => {
           </>
         )}
         <section className="mt-14 space-y-6 text-gray-700 leading-relaxed">
-          <h2 className="text-2xl md:text-3xl font-bold text-primary">UPSC Workshop by Bharat Exam Fest: Your Gateway to IAS Success</h2>
+          <h2 className="text-2xl md:text-3xl font-bold text-primary">UPSC Workshop by Achiwon: Your Gateway to IAS Success</h2>
 
           <p>One of the most demanding yet rewarding paths in India is the preparation for the UPSC exam. With a dynamic syllabus, intense competition, and evolving exam patterns, aspirants need proper mentoring, structured learning, and the right strategy.</p>
 
-          <p>The UPSC Workshop by Bharat Exam Fest is designed to bridge the gap between aspiration and success by providing conceptual clarity, exam-focused preparation, and practical insights into the UPSC examination process.</p>
+          <p>The UPSC Workshop by Achiwon is designed to bridge the gap between aspiration and success by providing conceptual clarity, exam-focused preparation, and practical insights into the UPSC examination process.</p>
 
-          <h3 className="text-xl font-semibold text-gray-900 mt-8">Why Choose UPSC Workshop at Bharat Exam Fest?</h3>
+          <h3 className="text-xl font-semibold text-gray-900 mt-8">Why Choose UPSC Workshop at Achiwon?</h3>
 
           <p>The workshop is conducted by experienced mentors and civil servants who understand the real demands of the UPSC examination. It goes beyond generic coaching by focusing on syllabus relevance, strategy building, and updated exam trends.</p>
 
@@ -207,9 +203,9 @@ const Workshop = () => {
             <li>Aspirants confused about UPSC strategy</li>
           </ul>
 
-          <h3 className="text-xl font-semibold text-primary mt-10">Start Your UPSC Journey with Bharat Exam Fest</h3>
+          <h3 className="text-xl font-semibold text-primary mt-10">Start Your UPSC Journey with Achiwon</h3>
 
-          <p>With the right combination of knowledge, strategy, practice, and mentorship, cracking UPSC becomes achievable. Bharat Exam Fest workshops bring all these elements together to help aspirants move confidently toward their IAS dream.</p>
+          <p>With the right combination of knowledge, strategy, practice, and mentorship, cracking UPSC becomes achievable. Achiwon workshops bring all these elements together to help aspirants move confidently toward their IAS dream.</p>
         </section>
       </div>
     </>

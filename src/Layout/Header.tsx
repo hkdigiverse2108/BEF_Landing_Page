@@ -34,14 +34,9 @@ const Header = () => {
       <header className={` ${!isFixedException && isScrolled ? "bg-white/55 backdrop-blur-md" : !isFixedException ? "" : ""}`}>
         <div className="container container-p py-2 flex justify-between items-center  ">
           {/* Logo */}
-          <NavLink to={ROUTES.HOME} className="flex gap-4 items-center">
-            <figure className="w-12 sm:w-18 h-full">
-              <img src={`${ImagePath}/logo/logo.png`} alt="BEF-Logo" className="w-full h-full object-contain" />
-            </figure>
-            <section className="flex flex-col justify-center">
-              <h1 className="text-sm sm:text-xl text-primary font-extrabold">Bharat Exam Fest</h1>
-              <p className="text-xs sm:text-sm text-success">Learn & Earn</p>
-            </section>
+          <NavLink to={ROUTES.HOME} className="flex flex-col items-start justify-center py-1">
+            <img src={`${ImagePath}logo/logo.png`} alt="Achiwon" className="h-7 sm:h-9 w-auto object-contain" />
+            <span className="text-[10px] sm:text-xs font-semibold text-success tracking-wider leading-none mt-1">UPSC & GPSC CSE</span>
           </NavLink>
 
           {/* Menu Items */}

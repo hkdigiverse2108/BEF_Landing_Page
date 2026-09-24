@@ -71,14 +71,14 @@ const PaymentModal: React.FC<PaymentModalProps> = ({
       key: RazorPayKey,
       amount: amount * 100,
       currency: "INR",
-      name: "BHARAT EXAM FEST",
+      name: "ACHIWON",
       handler: (res) => safeComplete(PAYMENT_STATUS.COMPLETED, res),
       prefill: {
         name,
         email,
         contact,
       },
-      theme: { color: "#eb8844" },
+      theme: { color: "#124699" },
     };
 
     const rzp = new window.Razorpay(options);

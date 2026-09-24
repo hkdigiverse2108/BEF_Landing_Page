@@ -41,8 +41,8 @@ const HelpSupport = () => {
   return (
     <>
       <Seo
-        title="UPSC Exam Support & Policies | Bharat Exam Fest"
-        description="Find help and support for your UPSC preparation at Bharat Exam Fest, including about us, terms & conditions, privacy policy, refund policy and legal information."
+        title="UPSC Exam Support & Policies | Achiwon"
+        description="Find help and support for your UPSC preparation at Achiwon, including about us, terms & conditions, privacy policy, refund policy and legal information."
       />
       <section className="container mx-auto px-5 py-16">
         <h1 className="text-3xl font-bold text-primary mb-6 capitalize">

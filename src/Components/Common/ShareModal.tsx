@@ -24,7 +24,7 @@ const ShareModal: React.FC = () => {
 
   const openShareLink = (platform: string) => {
     const encodedUrl = encodeURIComponent(pageUrl);
-    const ShareMessage = `Join Bharat Exam Fest — India’s fastest-growing UPSC learning platform! Start your UPSC preparation here: ${encodedUrl}.`
+    const ShareMessage = `Join Achiwon — India’s fastest-growing UPSC learning platform! Start your UPSC preparation here: ${encodedUrl}.`
     let shareUrl = "";
 
     switch (platform) {

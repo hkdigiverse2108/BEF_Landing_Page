@@ -14,12 +14,11 @@ const Footer = () => {
         {/* Left Column */}
         <div className="space-y-6 md:space-y-12">
           {/* Logo */}
-          <div className="flex items-center gap-4">
-            <img src={`${ImagePath}/logo/logo.png`} alt="BEF Logo" className="w-12 sm:w-16 object-contain" />
-            <div>
-              <h1 className="text-lg sm:text-2xl font-extrabold">Bharat Exam Fest</h1>
-              <p className="text-sm sm:text-base text-success">Learn & Earn</p>
+          <div className="flex flex-col items-start gap-2">
+            <div className="bg-white px-3 py-1.5 rounded-lg shadow-sm">
+              <img src={`${ImagePath}logo/logo.png`} alt="Achiwon" className="h-7 sm:h-8 w-auto object-contain" />
             </div>
+            <p className="text-sm sm:text-base font-semibold text-white">UPSC & GPSC CSE</p>
           </div>
 
           {/* Contact Info */}
@@ -40,7 +39,7 @@ const Footer = () => {
             {SOCIAL_MEDIA?.map((item) => {
               const Icon = item?.icon;
               return (
-                <Link key={item?.title} to={item?.link} className="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center hover:bg-white hover:text-orange-500 transition">
+                <Link key={item?.title} to={item?.link} className="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center hover:bg-white hover:text-primary transition">
                   <Icon />
                 </Link>
               );

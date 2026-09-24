@@ -17,7 +17,7 @@ const ContactContent = () => {
       <Link
         to={`https://api.whatsapp.com/send?phone=${
           CONTACT?.NUMBER
-        }&text=${encodeURIComponent(`I Need Help In Bharat Exam Fest Web`)}`}
+        }&text=${encodeURIComponent(`I Need Help In Achiwon Web`)}`}
         target="_blank"
         rel="noopener noreferrer"
         className="flex flex-nowrap gap-2 cursor-pointer text-black!"

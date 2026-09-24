@@ -7,7 +7,7 @@
 //   seconds: number;
 // };
 
-// const TARGET_DATE: Date = new Date("2026-05-24T09:30:00");
+// const TARGET_DATE: Date = new Date("2027-05-23T09:30:00");
 
 const ExamTimer: React.FC = () => {
   // const [timeLeft, setTimeLeft] = useState<TimeLeft>(getTimeRemaining());

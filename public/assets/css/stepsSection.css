@@ -22,7 +22,7 @@
   transform: translateX(-50%);
   width: 4px;
   height: calc(100% + 100px);
-  background-color: #ffe4d1;
+  background-color: #dbeafe;
 }
 .how_it_works .step_block ul li:first-child::after {
   content: "";
@@ -32,7 +32,7 @@
   transform: translateX(-50%);
   width: 14px;
   height: 14px;
-  background-color: #ffa261;
+  background-color: #124699;
   border-radius: 15px;
 }
 .how_it_works .step_block ul li:first-child::before {
@@ -105,7 +105,7 @@
 .how_it_works .step_block ul li .step_number h3 {
   font-size: 30px;
   font-weight: 600;
-  color: #203b30;
+  color: #124699;
 }
 /* how it works video  */
 .how_it_works .yt_video {

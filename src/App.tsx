@@ -9,7 +9,7 @@ const App = () => {
   const theme = createTheme({
     palette: {
       primary: {
-        main: "#eb8844",
+        main: "#124699",
       },
     },
     components: {
@@ -38,8 +38,8 @@ const App = () => {
     <ConfigProvider
       theme={{
         token: {
-          colorPrimary: "#eb8844",
-          colorSuccess: "#288f66",
+          colorPrimary: "#124699",
+          colorSuccess: "#F48224",
 
         },
       }}

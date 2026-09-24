@@ -41,7 +41,7 @@ const TestimonialSection = ({
       {/* Title */}
       <SectionHeader
         title=" What our customer say"
-        desc=" What Makes Bharat Exam Fest a Game-Changer—In Their Words!
+        desc=" What Makes Achiwon a Game-Changer—In Their Words!
             See How We’re Transforming UPSC Preparation for Students and
             Institutes!"
         className="space-y-6"

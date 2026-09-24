@@ -17,7 +17,7 @@ const Course = () => {
 
   return (
     <>
-      <Seo title="UPSC & Competitive Exam Courses Online | Bharat Exam Fest" description="Explore UPSC & competitive exam courses at Bharat Exam Fest. Get structured learning, expert guidance, AI-driven tools & smart study plans for exam success." />
+      <Seo title="UPSC & Competitive Exam Courses Online | Achiwon" description="Explore UPSC & competitive exam courses at Achiwon. Get structured learning, expert guidance, AI-driven tools & smart study plans for exam success." />
       <StructuredData
         data={{
           "@context": "https://schema.org",
@@ -25,17 +25,17 @@ const Course = () => {
             {
               "@type": "Organization",
               "@id": "https://www.bharatexamfest.com/#organization",
-              name: "Bharat Exam Fest",
+              name: "Achiwon",
               url: "https://www.bharatexamfest.com/",
               logo: "https://www.bharatexamfest.com/logo.png",
-              description: "Bharat Exam Fest is an AI-powered UPSC & competitive exam preparation platform offering structured courses, mock tests, workshops and smart study tools.",
+              description: "Achiwon is an AI-powered UPSC & competitive exam preparation platform offering structured courses, mock tests, workshops and smart study tools.",
               sameAs: ["https://www.facebook.com/bharatexamfest", "https://www.instagram.com/bharatexamfest", "https://www.youtube.com/@bharatexamfest"],
             },
             {
               "@type": "WebSite",
               "@id": "https://www.bharatexamfest.com/#website",
               url: "https://www.bharatexamfest.com/",
-              name: "Bharat Exam Fest",
+              name: "Achiwon",
               potentialAction: {
                 "@type": "SearchAction",
                 target: "https://www.bharatexamfest.com/search?q={search_term_string}",
@@ -46,8 +46,8 @@ const Course = () => {
               "@type": "WebPage",
               "@id": "https://www.bharatexamfest.com/course#webpage",
               url: "https://www.bharatexamfest.com/course",
-              name: "UPSC & Competitive Exam Courses – Bharat Exam Fest",
-              description: "Explore a comprehensive list of UPSC & competitive exam preparation courses on Bharat Exam Fest with structured learning, AI tools, mock practice and expert guidance.",
+              name: "UPSC & Competitive Exam Courses – Achiwon",
+              description: "Explore a comprehensive list of UPSC & competitive exam preparation courses on Achiwon with structured learning, AI tools, mock practice and expert guidance.",
               breadcrumb: {
                 "@type": "BreadcrumbList",
                 itemListElement: [
@@ -80,7 +80,7 @@ const Course = () => {
                     description: "Structured UPSC preparation covering prelims, mains & practice tests designed for aspirants.",
                     provider: {
                       "@type": "Organization",
-                      name: "Bharat Exam Fest",
+                      name: "Achiwon",
                       sameAs: "https://www.bharatexamfest.com/",
                     },
                   },
@@ -93,15 +93,15 @@ const Course = () => {
               mainEntity: [
                 {
                   "@type": "Question",
-                  name: "What types of courses are available on Bharat Exam Fest?",
+                  name: "What types of courses are available on Achiwon?",
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "Bharat Exam Fest offers UPSC and competitive exam preparation courses, including strategy, mock tests, AI tools and topic-wise learning modules.",
+                    text: "Achiwon offers UPSC and competitive exam preparation courses, including strategy, mock tests, AI tools and topic-wise learning modules.",
                   },
                 },
                 {
                   "@type": "Question",
-                  name: "How do I enroll in a course on Bharat Exam Fest?",
+                  name: "How do I enroll in a course on Achiwon?",
                   acceptedAnswer: {
                     "@type": "Answer",
                     text: "You can view course details and enroll by clicking on the specific course link, logging in, and following the registration instructions.",
@@ -112,7 +112,7 @@ const Course = () => {
                   name: "Are the courses free or paid?",
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "Some courses on Bharat Exam Fest may be free, while advanced or expert-led courses may require payment or subscription.",
+                    text: "Some courses on Achiwon may be free, while advanced or expert-led courses may require payment or subscription.",
                   },
                 },
               ],
@@ -129,15 +129,15 @@ const Course = () => {
         </div>
         {/* ================= UPSC SEO CONTENT ================= */}
         <section className="mt-14 space-y-6 text-gray-700 leading-relaxed">
-          <h2 className="text-2xl md:text-3xl font-bold text-primary">Best UPSC Courses by Bharat Exam Fest</h2>
+          <h2 className="text-2xl md:text-3xl font-bold text-primary">Best UPSC Courses by Achiwon</h2>
 
-          <p>The process of preparing for the UPSC examination is not only hard work, but it also requires proper guidance, organized learning, and smart planning. Bharat Exam Fest provides highly structured UPSC courses that enable aspirants to build a strong conceptual understanding, exam-focused training, and sustained assessment to succeed in one of India’s most competitive examinations.</p>
+          <p>The process of preparing for the UPSC examination is not only hard work, but it also requires proper guidance, organized learning, and smart planning. Achiwon provides highly structured UPSC courses that enable aspirants to build a strong conceptual understanding, exam-focused training, and sustained assessment to succeed in one of India’s most competitive examinations.</p>
 
-          <p>Our UPSC courses are designed by professional mentors, subject experts, and former aspirants who understand the evolving UPSC syllabus, answer writing patterns, and evaluation criteria. Whether you are a first-time aspirant or a repeat candidate, Bharat Exam Fest ensures a clear and effective path toward success.</p>
+          <p>Our UPSC courses are designed by professional mentors, subject experts, and former aspirants who understand the evolving UPSC syllabus, answer writing patterns, and evaluation criteria. Whether you are a first-time aspirant or a repeat candidate, Achiwon ensures a clear and effective path toward success.</p>
 
-          <h3 className="text-xl font-semibold text-gray-900 mt-8">Why Choose Bharat Exam Fest for UPSC Preparation?</h3>
+          <h3 className="text-xl font-semibold text-gray-900 mt-8">Why Choose Achiwon for UPSC Preparation?</h3>
 
-          <p>Bharat Exam Fest is a reputed academic platform offering a balanced blend of academic excellence and practical exam-oriented learning. Our courses help aspirants develop strong fundamentals and analytical abilities required for the Civil Services Examination.</p>
+          <p>Achiwon is a reputed academic platform offering a balanced blend of academic excellence and practical exam-oriented learning. Our courses help aspirants develop strong fundamentals and analytical abilities required for the Civil Services Examination.</p>
 
           <h3 className="text-xl font-semibold text-gray-900 mt-8">Major Features of Our UPSC Courses</h3>
 
@@ -180,7 +180,7 @@ const Course = () => {
           </ul>
 
           <h3 className="text-xl font-semibold text-gray-900 mt-8">Concept Clarification and Strategy Workshops</h3>
-          <p>Bharat Exam Fest conducts special UPSC strategy workshops focusing on answer writing, revision techniques, time management, and examination psychology.</p>
+          <p>Achiwon conducts special UPSC strategy workshops focusing on answer writing, revision techniques, time management, and examination psychology.</p>
 
           <h4 className="text-lg font-semibold text-gray-800 mt-4">Benefits of UPSC Workshops</h4>
           <ul className="list-disc pl-6 space-y-2">
@@ -220,10 +220,10 @@ const Course = () => {
             <li>Repeat candidates</li>
           </ul>
 
-          <h3 className="text-xl font-semibold text-primary mt-10">Prepare Your UPSC with Bharat Exam Fest</h3>
-          <p>Cracking the UPSC exam requires discipline, clarity, and expert guidance. Bharat Exam Fest provides complete UPSC courses, specialized workshops, thorough syllabus coverage, and exam-oriented mock tests to help aspirants achieve their civil services goals.</p>
+          <h3 className="text-xl font-semibold text-primary mt-10">Prepare Your UPSC with Achiwon</h3>
+          <p>Cracking the UPSC exam requires discipline, clarity, and expert guidance. Achiwon provides complete UPSC courses, specialized workshops, thorough syllabus coverage, and exam-oriented mock tests to help aspirants achieve their civil services goals.</p>
 
-          <p className="font-medium">Register today and take your first step toward UPSC success with Bharat Exam Fest.</p>
+          <p className="font-medium">Register today and take your first step toward UPSC success with Achiwon.</p>
         </section>
       </div>
     </>

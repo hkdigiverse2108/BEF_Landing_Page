@@ -71,8 +71,8 @@ const Home = () => {
   return (
     <>
       <Seo
-        title="Bharat Exam Fest - UPSC Prelims, Mains & AI Answer Writing Practice"
-        description="Get free UPSC Prelims & Mains prep with mock tests, AI answer evaluation, tailored study plans & daily current affairs on Bharat Exam Fest — your smart exam partner."
+        title="Achiwon - UPSC Prelims, Mains & AI Answer Writing Practice"
+        description="Get free UPSC Prelims & Mains prep with mock tests, AI answer evaluation, tailored study plans & daily current affairs on Achiwon — your smart exam partner."
         keywords="upsc prelims, upsc mains, ai answer writing, upsc mock test, upsc preparation platform"
       />
       <StructuredData
@@ -82,11 +82,11 @@ const Home = () => {
             {
               "@type": "Organization",
               "@id": "https://www.bharatexamfest.com/#organization",
-              name: "Bharat Exam Fest",
+              name: "Achiwon",
               url: "https://www.bharatexamfest.com/",
               logo: "https://www.bharatexamfest.com/logo.png",
               description:
-                "Bharat Exam Fest is an AI-powered UPSC and competitive exam preparation platform offering mock tests, courses, workshops, current affairs and smart study tools.",
+                "Achiwon is an AI-powered UPSC and competitive exam preparation platform offering mock tests, courses, workshops, current affairs and smart study tools.",
               sameAs: [
                 "https://www.facebook.com/bharatexamfest",
                 "https://www.instagram.com/bharatexamfest",
@@ -96,7 +96,7 @@ const Home = () => {
             {
               "@type": "EducationalOrganization",
               "@id": "https://www.bharatexamfest.com/#education",
-              name: "Bharat Exam Fest",
+              name: "Achiwon",
               url: "https://www.bharatexamfest.com/",
               description:
                 "Online education platform for UPSC and competitive exams with AI-driven learning tools, expert-led courses and workshops.",
@@ -108,7 +108,7 @@ const Home = () => {
               "@type": "WebSite",
               "@id": "https://www.bharatexamfest.com/#website",
               url: "https://www.bharatexamfest.com/",
-              name: "Bharat Exam Fest",
+              name: "Achiwon",
               publisher: {
                 "@id": "https://www.bharatexamfest.com/#organization",
               },
@@ -125,34 +125,34 @@ const Home = () => {
               mainEntity: [
                 {
                   "@type": "Question",
-                  name: "What is Bharat Exam Fest?",
+                  name: "What is Achiwon?",
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "Bharat Exam Fest is an AI-powered online platform designed for UPSC and competitive exam preparation, offering mock tests, courses, workshops, current affairs and smart learning tools.",
+                    text: "Achiwon is an AI-powered online platform designed for UPSC and competitive exam preparation, offering mock tests, courses, workshops, current affairs and smart learning tools.",
                   },
                 },
                 {
                   "@type": "Question",
-                  name: "Is Bharat Exam Fest free?",
+                  name: "Is Achiwon free?",
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "Yes, Bharat Exam Fest offers free access to several learning resources including mock tests, current affairs and AI-powered study tools.",
+                    text: "Yes, Achiwon offers free access to several learning resources including mock tests, current affairs and AI-powered study tools.",
                   },
                 },
                 {
                   "@type": "Question",
-                  name: "Which exams does Bharat Exam Fest support?",
+                  name: "Which exams does Achiwon support?",
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "Bharat Exam Fest supports UPSC Civil Services and various other competitive and government exams through structured courses and practice tools.",
+                    text: "Achiwon supports UPSC Civil Services and various other competitive and government exams through structured courses and practice tools.",
                   },
                 },
                 {
                   "@type": "Question",
-                  name: "Does Bharat Exam Fest provide AI-based exam preparation?",
+                  name: "Does Achiwon provide AI-based exam preparation?",
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "Yes, Bharat Exam Fest uses AI-powered tools for smart study planning, performance analysis and exam-focused learning support.",
+                    text: "Yes, Achiwon uses AI-powered tools for smart study planning, performance analysis and exam-focused learning support.",
                   },
                 },
               ],

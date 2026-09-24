@@ -25,7 +25,7 @@ const DownloadSection = () => {
                     Prepare, Compete, and Win Big!
                   </h2>
                   <p className="text-xs sm:text-xl">
-                    Download the Bharat Exam Fest app for free on the App Store
+                    Download the Achiwon app for free on the App Store
                     and Play Store. Participate in mega contests and stand a
                     chance to win the biggest cash prizes—because your
                     preparation deserves more than just success!
@@ -39,7 +39,7 @@ const DownloadSection = () => {
                       className="block max-sm:px-12 px-6 py-3 bg-white border border-primary rounded-xl  hover:shadow-sm shadow-black"
                     >
                       <img
-                        src={`${ImagePath}common/appstore_orange.png`}
+                        src={`${ImagePath}common/appstore_blue.png`}
                         alt="App Store"
                       />
                     </a>
@@ -51,7 +51,7 @@ const DownloadSection = () => {
                       className="block max-sm:px-12 px-6 py-3  bg-white border border-primary rounded-xl  hover:shadow-sm shadow-black"
                     >
                       <img
-                        src={`${ImagePath}common/appstore_orange.png`}
+                        src={`${ImagePath}common/googleplay_blue.png`}
                         alt="Play Store"
                       />
                     </a>
