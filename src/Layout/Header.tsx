@@ -27,12 +27,12 @@ const Header = () => {
   }, []);
 
   return (
-    <div className={`${isFixedException ? "relative" : "fixed top-0 w-full z-50"}`}>
+    <div className={`${isFixedException ? "relative" : "fixed top-0 w-full z-50 bg-white"}`}>
       {/* Timer For Exam */}
       <ExamTimer />
 
-      <header className={` ${!isFixedException && isScrolled ? "bg-white/55 backdrop-blur-md" : !isFixedException ? "" : ""}`}>
-        <div className="container container-p py-2 flex justify-between items-center  ">
+      <header className={`bg-white ${!isFixedException && isScrolled ? "shadow-md bg-white/95 backdrop-blur-md" : "bg-white"}`}>
+        <div className="container container-p py-2 flex justify-between items-center bg-white">
           {/* Logo */}
           <NavLink to={ROUTES.HOME} className="flex flex-col items-start justify-center py-1">
             <img src={`${ImagePath}logo/logo.png`} alt="Achiwon" className="h-7 sm:h-9 w-auto object-contain" />
@@ -42,7 +42,7 @@ const Header = () => {
           {/* Menu Items */}
           <nav className="hidden lg:flex gap-6 items-center">
             {menuItems?.map((item, index) => (
-              <NavLink target={`${item.Title === "Download Now" ? "_blank" : ""}`} onClick={() => setMenuOpen(!menuOpen)} key={index} to={item?.link || ""} className={`flex gap-1 cursor-pointer items-center text-lg font-medium text-gray-800 hover:text-primary transition  px-3 py-2 rounded-t-lg `}>
+              <NavLink target={`${item.Title === "Download Now" ? "_blank" : ""}`} onClick={() => setMenuOpen(!menuOpen)} key={index} to={item?.link || ""} className={`flex gap-1 cursor-pointer items-center text-lg font-medium text-gray-800 hover:text-primary transition px-3 py-2 rounded-t-lg focus:outline-none focus:ring-0 focus-visible:outline-none`}>
                 {item.Title}
               </NavLink>
             ))}

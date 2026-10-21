@@ -4,9 +4,11 @@ interface SeoProps {
   title?: string;
   description?: string | string[];
   keywords?: string;
+  noIndex?: boolean;
+  robots?: string;
 }
 
-const Seo = ({ title, description, keywords }: SeoProps) => {
+const Seo = ({ title, description, keywords, noIndex, robots }: SeoProps) => {
   useEffect(() => {
     if (title) {
       document.title = title;
@@ -32,7 +34,29 @@ const Seo = ({ title, description, keywords }: SeoProps) => {
       }
       keywordsTag.setAttribute("content", keywords);
     }
-  }, [title, description, keywords]);
+
+    const robotsContent = robots || (noIndex ? "noindex" : undefined);
+    let robotsTag = document.querySelector('meta[name="robots"]');
+    if (robotsContent) {
+      if (!robotsTag) {
+        robotsTag = document.createElement("meta");
+        robotsTag.setAttribute("name", "robots");
+        document.head.appendChild(robotsTag);
+      }
+      robotsTag.setAttribute("content", robotsContent);
+    } else if (robotsTag) {
+      robotsTag.remove();
+    }
+
+    return () => {
+      if (robotsContent) {
+        const currentRobots = document.querySelector('meta[name="robots"]');
+        if (currentRobots) {
+          currentRobots.remove();
+        }
+      }
+    };
+  }, [title, description, keywords, noIndex, robots]);
 
   return null;
 };

@@ -14,11 +14,12 @@ export const getHeaderItems = () => {
   }
 
   return [
-    { Title: "Download Now", link: APP_LINKS },
+    { Title: "Free Mock Test", link: ROUTES.FREE_PRACTICE },
     { Title: "Workshop", link: workshopLink },
     {
       Title: "Course",
       link: ROUTES.COURSE.COURSE,
     },
+    { Title: "Download Now", link: APP_LINKS },
   ];
 };

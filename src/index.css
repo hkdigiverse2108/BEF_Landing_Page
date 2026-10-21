@@ -15,3 +15,346 @@
 @import "swiper/css/effect-fade";
 @import "swiper/css/autoplay";
 
+/* Achiwon Blog Variations & Typography */
+.blog-content {
+  font-size: 1rem;
+  line-height: 1.85;
+  color: #334155;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+.blog-content table {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.blog-content img {
+  max-width: 100%;
+  height: auto;
+}
+.blog-content pre, .blog-content code {
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+.blog-content p {
+  margin-bottom: 1.5rem;
+}
+.blog-content h2 {
+  font-size: 1.625rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin-top: 2.75rem;
+  margin-bottom: 1.25rem;
+  line-height: 1.35;
+  scroll-margin-top: 100px;
+}
+.blog-content h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #0F172A;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  scroll-margin-top: 100px;
+}
+.blog-content a {
+  color: #124699;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.blog-content a:hover {
+  color: #F48224;
+}
+.blog-content ul, .blog-content ol {
+  margin-bottom: 1.5rem;
+  padding-left: 1.5rem;
+}
+.blog-content ul {
+  list-style-type: disc;
+}
+.blog-content ol {
+  list-style-type: decimal;
+}
+.blog-content li {
+  margin-bottom: 0.5rem;
+}
+.blog-content blockquote {
+  border-left: 4px solid #124699;
+  background: #EFF6FF;
+  padding: 1rem 1.25rem;
+  border-radius: 0 0.75rem 0.75rem 0;
+  margin: 1.75rem 0;
+  font-style: italic;
+  color: #1E3A8A;
+}
+.blog-content table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 2rem 0;
+  border: 1px solid #E2E8F0;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #FFFFFF;
+}
+.blog-content th {
+  background: #124699;
+  color: #FFFFFF;
+  padding: 12px 16px;
+  font-weight: 700;
+  font-size: 0.875rem;
+  text-align: left;
+}
+.blog-content td {
+  padding: 12px 16px;
+  border-top: 1px solid #E2E8F0;
+  font-size: 0.875rem;
+  color: #1E293B;
+}
+.blog-content tr:nth-child(even) td {
+  background: #F8FAFC;
+}
+.blog-content img {
+  border-radius: 14px;
+  margin: 1.75rem 0;
+  max-width: 100%;
+  height: auto;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+}
+.content-image-card {
+  overflow: hidden;
+  border: 1px solid #E2E8F0;
+  border-radius: 16px;
+  background: #FFFFFF;
+  box-shadow: 0 8px 25px rgba(15, 23, 42, 0.07);
+  margin: 2rem 0;
+}
+.content-image-card img {
+  width: 100%;
+  display: block;
+  aspect-ratio: 16/7;
+  object-fit: cover;
+  margin: 0 !important;
+  border-radius: 0 !important;
+}
+.content-image-card .image-caption {
+  padding: 12px 16px;
+  font-size: 0.8125rem;
+  color: #64748B;
+  background: #F8FAFC;
+  border-top: 1px solid #E2E8F0;
+}
+
+/* Styled variation tables */
+.variation-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  border: 1px solid #E2E8F0;
+  border-radius: 14px;
+  background: #FFFFFF;
+  margin: 1.5rem 0;
+}
+.variation-table th {
+  background: #124699;
+  color: #FFFFFF;
+  padding: 14px 16px;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 700;
+}
+.variation-table td {
+  padding: 14px 16px;
+  border-top: 1px solid #E2E8F0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: #1E293B;
+}
+.variation-table tr:nth-child(even) td {
+  background: #EFF6FF;
+}
+
+/* Marketing & Preparation CTA Ad Banners */
+.ad-banner {
+  position: relative;
+  display: flex;
+  min-height: 130px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  overflow: hidden;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #124699, #1e5fc9);
+  padding: 26px 30px;
+  color: #FFFFFF;
+  box-shadow: 0 10px 30px rgba(18, 70, 153, 0.18);
+  margin: 2.5rem 0;
+}
+.ad-banner:after {
+  content: "";
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  border-radius: 999px;
+  border: 35px solid rgba(255, 255, 255, 0.10);
+  right: -55px;
+  top: -80px;
+  pointer-events: none;
+}
+.ad-banner .ad-copy {
+  position: relative;
+  z-index: 1;
+  max-width: 650px;
+}
+.ad-banner .ad-label {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 0.85;
+  color: #FFFFFF;
+}
+.ad-banner h3 {
+  margin: 6px 0 5px;
+  font-size: 22px;
+  font-weight: 800;
+  color: #FFFFFF;
+}
+.ad-banner p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  opacity: 0.95;
+  color: #FFFFFF;
+}
+.ad-banner a {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  border-radius: 999px;
+  background: #FFFFFF;
+  color: #124699 !important;
+  padding: 11px 18px;
+  font-size: 13px;
+  font-weight: 800;
+  text-decoration: none !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  transition: all 0.2s ease;
+}
+.ad-banner a:hover {
+  background: #F8FAFC;
+  transform: translateY(-1px);
+}
+
+/* Interactive MCQ Quiz Box */
+.mcq-box {
+  border: 1px solid #E2E8F0;
+  border-radius: 16px;
+  background: #FFFFFF;
+  padding: 24px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+  margin: 2.5rem 0;
+}
+.mcq-question {
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid #E2E8F0;
+}
+.mcq-question:first-of-type {
+  margin-top: 8px;
+  padding-top: 0;
+  border-top: 0;
+}
+.mcq-question p {
+  font-weight: 700;
+  line-height: 1.55;
+  color: #0F172A;
+  margin-bottom: 10px;
+}
+.mcq-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 9px;
+  border: 1px solid #E2E8F0;
+  border-radius: 9px;
+  padding: 10px 14px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #334155;
+  transition: all 0.2s ease;
+}
+.mcq-option:hover {
+  border-color: #124699;
+  background: #EFF6FF;
+}
+.mcq-option input[type="radio"] {
+  margin-top: 3px;
+  accent-color: #124699;
+}
+.mcq-result {
+  margin-top: 18px;
+  border-radius: 10px;
+  background: #EFF6FF;
+  color: #124699;
+  border: 1px solid #BFDBFE;
+  padding: 14px 16px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+@media (max-width: 640px) {
+  .blog-content {
+    font-size: 0.9375rem;
+    line-height: 1.75;
+  }
+  .blog-content h2 {
+    font-size: 1.35rem;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+  .blog-content h3 {
+    font-size: 1.125rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .ad-banner {
+    display: block;
+    padding: 16px 18px;
+  }
+  .ad-banner a {
+    margin-top: 14px;
+    font-size: 12px;
+    padding: 9px 14px;
+  }
+  .variation-table {
+    font-size: 12px;
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+  }
+  .variation-table th,
+  .variation-table td {
+    padding: 8px 10px;
+    min-width: 90px;
+  }
+  .mcq-box {
+    padding: 16px;
+  }
+}
+
+.swiper-pagination-bullet {
+  background: #cbd5e1;
+  opacity: 1;
+  transition: all 0.3s ease;
+}
+.swiper-pagination-bullet-active {
+  background: #124699 !important;
+  width: 24px !important;
+  border-radius: 6px !important;
+}

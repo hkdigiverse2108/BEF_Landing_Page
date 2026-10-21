@@ -67,4 +67,7 @@ export const URL_KEYS = {
   EXAM: {
     TYPE: "/exam-type",
   },
+  MOCK_TEST: {
+    QUESTIONS: "/mock-test/questions",
+  },
 };

@@ -1,0 +1,179 @@
+/* ==========================================================================
+   COURSE CARD STYLES (from Course.html)
+   ========================================================================== */
+
+.course-card {
+  background: #fff;
+  border: 1px solid #e3eaf4;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(22, 61, 118, 0.06);
+  transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.course-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(23, 63, 128, 0.16);
+  border-color: #b9d3ff;
+}
+
+/* Card Body */
+.card-body {
+  padding: 16px 18px 18px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.support {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #edf0f5;
+}
+
+.support strong {
+  font-size: 12.5px;
+  display: block;
+  color: #0f172a;
+}
+
+.support small {
+  display: block;
+  color: #8a95a6;
+  font-size: 10.5px;
+  margin-top: 2px;
+}
+
+.phone-mini {
+  background: #fff1e6;
+  color: #ef8a44;
+  width: 34px;
+  height: 34px;
+  border-radius: 11px;
+  display: grid;
+  place-items: center;
+  transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+  border: 0;
+  cursor: pointer;
+}
+
+.phone-mini:hover {
+  transform: rotate(-10deg) scale(1.08);
+  background: #f48224;
+  color: #fff;
+}
+
+/* Module link */
+.module {
+  width: 100%;
+  margin-top: 10px;
+  background: #f8faff;
+  border: 1px solid #e8edf5;
+  border-radius: 10px;
+  padding: 11px 12px;
+  text-align: left;
+  color: #27538f;
+  font-size: 11.5px;
+  font-weight: 800;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-decoration: none;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  cursor: pointer;
+}
+
+.module:hover {
+  background: #eaf3ff;
+  border-color: #b8d2ff;
+  transform: translateY(-1px);
+  color: #124699;
+}
+
+.module-go {
+  font-size: 10.5px;
+  color: #ed8538;
+  white-space: nowrap;
+  font-weight: 800;
+}
+
+/* Guarantee row */
+.guarantee {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  background: #edf6ff;
+  border: 1px solid #d7e8ff;
+  border-radius: 10px;
+  padding: 10px 11px;
+  margin-top: 11px;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #34577f;
+  line-height: 1.35;
+}
+
+.guarantee svg {
+  flex-shrink: 0;
+  color: #2c6ec2;
+}
+
+/* Card CTA button */
+.card-cta {
+  width: 100%;
+  margin-top: 14px;
+  background: linear-gradient(110deg, #fff 0%, #fff8f0 45%, #ffe4c9 100%);
+  border: 1.5px solid #ff9b54;
+  color: #273b57;
+  border-radius: 11px;
+  padding: 11px 14px;
+  font-size: 11.5px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 7px;
+  text-decoration: none;
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.card-cta:hover {
+  background: linear-gradient(100deg, #ff963f, #ff742f);
+  color: #fff;
+  border-color: transparent;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(255, 116, 47, 0.25);
+}
+
+.course-card-discount-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #fff0d8, #ffe1b0);
+  color: #a64b0b;
+  border: 1px solid #ffc27e;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.card-cta:hover .course-card-discount-badge {
+  background: #fff;
+  color: #a64b0b;
+  border-color: #fff;
+}
+
+.card-cta .arrow {
+  font-size: 15px;
+  transition: transform 0.2s ease;
+}
+
+.card-cta:hover .arrow {
+  transform: translateX(4px);
+}

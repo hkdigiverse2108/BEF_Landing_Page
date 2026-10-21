@@ -7,6 +7,7 @@ import { HTTP_STATUS, ImagePath, PAYMENT_STATUS, ROUTES, URL_KEYS } from "../../
 import { useEffect } from "react";
 import { useGetApiQuery, usePostApiMutation } from "../../Api/CommonApi";
 import { FINAL_DISTRICTS, REACH_FROM_OPTIONS } from "../../Data";
+import { getMockTestReward, isLastPrelimsCourse } from "../../Utils/mockTestReward";
 
 const { Option } = Select;
 
@@ -68,6 +69,31 @@ const CourseRegister = () => {
       {/* Right Form Box */}
       <div data-aos="fade-left" className="order-1 md:order-2 bg-white hover:shadow-lg transition-all duration-300 rounded-2xl p-6 sm:px-10 sm:py-7 w-full max-w-2xl h-fit">
         <SectionHeader title="Course" desc="Enroll Now" className="pb-6 text-center" />
+
+        {/* Mock Test Score Discount alert */}
+        {(() => {
+          const isLastPrelims = isLastPrelimsCourse(course);
+          if (!isLastPrelims) return null;
+          const mockReward = (course as any)?.mockReward || getMockTestReward();
+          if (!mockReward || !mockReward.scoreDiscount) return null;
+          return (
+            <div className="mb-4 rounded-xl border border-emerald-300 bg-emerald-50 p-3.5 text-xs text-emerald-800 flex items-center justify-between shadow-xs">
+              <div>
+                <span className="font-extrabold text-sm block text-emerald-900">
+                  🏆 Mock Test Score Discount Applied!
+                </span>
+                <span className="text-[11px] text-emerald-700">
+                  Score: {mockReward.score.toFixed(1)}/{mockReward.totalMarks}
+                </span>
+              </div>
+              <div className="text-right">
+                <span className="text-base font-black text-emerald-700">
+                  -₹{mockReward.scoreDiscount.toLocaleString()} OFF
+                </span>
+              </div>
+            </div>
+          );
+        })()}
 
         <Form layout="vertical" form={form} onFinish={onFinish} className="space-y-4">
           <FormInput name="name" className="!py-3 placeholder:!font-medium !px-4 rounded-lg" rules={[{ required: true, message: "Please enter your name" }]} placeholder="Name" />

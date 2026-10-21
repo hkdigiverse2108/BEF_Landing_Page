@@ -4,6 +4,7 @@ import { ROUTES } from "../Constants";
 import Home from "../Pages/Home";
 import Blog from "../Pages/Blog";
 import BlogDetails from "../Pages/Blog/BlogDetails";
+import PyqPage from "../Pages/Pyq";
 import HelpSupport from "../Pages/Help&Support";
 import PaymentSuccess from "../Components/Common/PaymentSuccess";
 import PaymentFailed from "../Components/Common/PaymentFailed";
@@ -48,8 +49,28 @@ export const PageRoutes = [
     element: <Blog />,
   },
   {
+    path: ROUTES.BLOG.CATEGORY,
+    element: <Blog />,
+  },
+  {
+    path: ROUTES.BLOG.DETAILS_WITH_CATEGORY,
+    element: <BlogDetails />,
+  },
+  {
     path: ROUTES.BLOG.DETAILS,
     element: <BlogDetails />,
+  },
+  {
+    path: ROUTES.BLOG.SLUG,
+    element: <BlogDetails />,
+  },
+  {
+    path: ROUTES.PYQ,
+    element: <PyqPage />,
+  },
+  {
+    path: ROUTES.UPSC_PRELIMS_PYQ,
+    element: <PyqPage />,
   },
   {
     path: ROUTES.WORKSHOP.WORKSHOP,

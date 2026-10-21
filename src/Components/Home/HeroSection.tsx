@@ -1,5 +1,5 @@
 import "aos/dist/aos.css";
-import { ImagePath } from "../../Constants";
+import { ImagePath, ROUTES } from "../../Constants";
 import { SwiperSlide, Swiper } from "swiper/react";
 import { A11y, Autoplay, EffectCards, Pagination } from "swiper/modules";
 import AnimationLine from "../Common/AnimationLine";
@@ -23,14 +23,16 @@ const HeroSection = ({ interfaces }: { interfaces: InterfaceType[] }) => {
             <p className="text-gray-600 mt-4  md:text-lg">First ever in History of UPSC!!! Revolutionizing UPSC Prelims with AI and Advanced Reporting.</p>
           </div>
 
-          {/* App Buttons */}
-          <div className="flex gap-5 max-lg:justify-center">
-            {/* <Link to={APP_LINKS} className="relative border-2 border-success rounded-xl px-3 py-2 sm:px-6 sm:py-3 bg-white hover:bg-success transition group ">
-              <img src={`${ImagePath}common/appstore_blue.png`} alt="App Store" className="h-8 block group-hover:hidden" />
-              <img src={`${ImagePath}common/appstore_white.png`} alt="App Store" className="h-8 hidden group-hover:block" />
-            </Link> */}
+          {/* App Buttons & Free Mock Practice */}
+          <div className="flex flex-wrap gap-4 max-lg:justify-center items-center">
+            <Link
+              to={ROUTES.FREE_PRACTICE}
+              className="flex items-center gap-2.5 rounded-xl bg-gradient-to-r from-primary to-accent text-white font-bold px-5 py-3 sm:px-6 sm:py-3.5 shadow-md hover:shadow-lg transition-all hover:brightness-105 active:scale-98"
+            >
+              <span className="text-sm sm:text-base">Start Free Mock Test</span>
+            </Link>
 
-            <Link to={APP_LINKS} target="_blank" className="relative border-2 border-success  rounded-xl px-3 py-2 sm:px-6 sm:py-3 bg-white hover:bg-success transition group">
+            <Link to={APP_LINKS} target="_blank" className="relative border-2 border-success rounded-xl px-3 py-2 sm:px-6 sm:py-3 bg-white hover:bg-success transition group">
               <img src={`${ImagePath}common/googleplay_blue.png`} alt="Play Store" className="h-8 block group-hover:hidden" />
               <img src={`${ImagePath}common/googleplay_white.png`} alt="Play Store" className="h-8 hidden group-hover:block" />
             </Link>
