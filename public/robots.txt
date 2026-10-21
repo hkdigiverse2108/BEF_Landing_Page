@@ -1,0 +1,10 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+Disallow: /payment/
+Disallow: /course/register
+Disallow: /course/payment
+Disallow: /workshop/register
+Disallow: /workshop/payment
+
+Sitemap: https://achiwon.com/sitemap.xml
