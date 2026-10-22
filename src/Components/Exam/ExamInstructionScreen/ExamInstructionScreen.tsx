@@ -775,6 +775,12 @@ export const ExamInstructionScreen: React.FC<ExamInstructionScreenProps> = ({
                   onContextMenu={(e) => e.preventDefault()}
                   title="Click to Play/Pause"
                 />
+                {/* Bottom area completely disabled: no clicking, no interaction */}
+                <div
+                  className="video-bottom-shield"
+                  onClick={(e) => e.stopPropagation()}
+                  onContextMenu={(e) => e.preventDefault()}
+                />
               </div>
             ) : (
               <video
