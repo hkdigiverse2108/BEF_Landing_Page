@@ -72,13 +72,13 @@
   transition: 0.4s all;
 }
 .how_it_works .step_block ul li .step_text .app_icon a:hover {
-  background-color: var(--purple);
+  background-color: var(--primary);
 }
 .how_it_works .step_block ul li .step_text span {
   font-weight: 600;
 }
 .how_it_works .step_block ul li .step_text span a {
-  color: var(--purple);
+  color: var(--primary);
   text-decoration: underline;
 }
 /* .how_it_works .step_block ul li:nth-child(2) {

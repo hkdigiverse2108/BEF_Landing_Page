@@ -43,5 +43,13 @@ export const ROUTES = {
   },
   FREE_PRACTICE: "/free-upsc-mock-test",
   PYQ: "/pyq",
+  PYQ_EXPLORE: "/pyq/explore-topics",
+  PYQ_YEAR: "/pyq/:year",
+  PYQ_PAPER: "/pyq/:year/:paper",
+  PYQ_SUBJECT: "/pyq/:year/:paper/:subject",
   UPSC_PRELIMS_PYQ: "/upsc-prelims-pyq",
+  SUPERKALAM_PYQ: "/upsc-prelims/previous-year-question-paper",
+  SUPERKALAM_PYQ_YEAR: "/upsc-prelims/previous-year-question-paper/:year",
+  SUPERKALAM_PYQ_PAPER: "/upsc-prelims/previous-year-question-paper/:year/:paper",
+  SUPERKALAM_PYQ_SUBJECT: "/upsc-prelims/previous-year-question-paper/:year/:paper/:subject",
 };

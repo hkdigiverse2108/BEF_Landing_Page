@@ -2,12 +2,12 @@
   --primary: #124699;
   --success: #f48224;
   --success-dark: #50655e;
-  --light-bg: #f6f4fe;
+  --light-bg: #ffffff;
   --card-bg: #f5f5f5;
   --font-poppins: "Poppins", sans-serif;
   --ink: #1f2937;
   --body: #4a5468;
-  --line: #e4e0f3;
+  --line: #e5e7eb;
   --accent: #124699;
 
   font-family: var(--font-poppins);

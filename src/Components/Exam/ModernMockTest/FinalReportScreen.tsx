@@ -2,6 +2,11 @@ import React, { useState, useMemo } from "react";
 import "./FinalReport.css";
 import type { BackendQuestionItem } from "./mockQuestionsData";
 import type { UserQuestionAnswerState } from "./MockTestQuestionView";
+import FormattedSolution from "../../Common/FormattedSolution";
+
+const isImage = (str?: any): boolean => {
+  return typeof str === "string" && /^https?:\/\/.*\.(png|jpg|jpeg|webp|gif)/i.test(str.trim());
+};
 
 export const isMongoId = (val?: any): boolean => {
   return typeof val === "string" && /^[0-9a-fA-F]{24}$/.test(val.trim());
@@ -165,6 +170,14 @@ export const FinalReportScreen: React.FC<FinalReportScreenProps> = ({
   const [compareSubTab, setCompareSubTab] = useState<"sub" | "strategy">("sub");
   const [eliminationSubTab, setEliminationSubTab] = useState<"fiftyFifty" | "oneEliminate">("fiftyFifty");
   const [solutionFilter, setSolutionFilter] = useState<"all" | "correct" | "incorrect" | "skipped">("all");
+  const [viewLang, setViewLang] = useState<"englishQuestion" | "hindiQuestion">(() => {
+    try {
+      const saved = sessionStorage.getItem("mock_test_lang");
+      return saved === "hindiQuestion" ? "hindiQuestion" : "englishQuestion";
+    } catch (e) {
+      return "englishQuestion";
+    }
+  });
 
   // User-classified Mistake Map state (maps question index -> category key)
   const [userMistakeMap, setUserMistakeMap] = useState<Record<number, MistakeCategoryKey>>(() => {
@@ -651,7 +664,12 @@ export const FinalReportScreen: React.FC<FinalReportScreenProps> = ({
                 <div className="final-hero-actions">
                   <button
                     type="button"
-                    onClick={() => setActiveTab("solution")}
+                    onClick={() => {
+                      setActiveTab("solution");
+                      setTimeout(() => {
+                        document.getElementById("solution-panel-anchor")?.scrollIntoView({ behavior: "smooth" });
+                      }, 60);
+                    }}
                     className="final-hero-btn final-hero-btn-primary"
                   >
                     View Solution <span>→</span>
@@ -1346,9 +1364,39 @@ export const FinalReportScreen: React.FC<FinalReportScreenProps> = ({
 
             {/* Panel 5: View Solution */}
             {activeTab === "solution" && (
-              <section className="final-panel">
-                <h2 className="final-panel-heading">View Solution &amp; Explanations</h2>
-                <p className="final-subheading">Comprehensive Hindi &amp; English Explanations</p>
+              <section id="solution-panel-anchor" className="final-panel">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                  <div>
+                    <h2 className="final-panel-heading">View Solution &amp; Explanations</h2>
+                    <p className="final-subheading">Comprehensive UPSC Prelims standard explanations &amp; elimination rationale</p>
+                  </div>
+
+                  {/* Language Toggle */}
+                  <div className="inline-flex rounded-xl border border-gray-200 bg-white p-1 shadow-2xs self-start sm:self-auto">
+                    <button
+                      type="button"
+                      onClick={() => setViewLang("englishQuestion")}
+                      className={`px-3 py-1 rounded-lg text-xs font-bold transition cursor-pointer ${
+                        viewLang === "englishQuestion"
+                          ? "bg-[#124699] text-white shadow-xs"
+                          : "text-gray-600 hover:text-[#124699]"
+                      }`}
+                    >
+                      English
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setViewLang("hindiQuestion")}
+                      className={`px-3 py-1 rounded-lg text-xs font-bold transition cursor-pointer ${
+                        viewLang === "hindiQuestion"
+                          ? "bg-[#124699] text-white shadow-xs"
+                          : "text-gray-600 hover:text-[#124699]"
+                      }`}
+                    >
+                      हिन्दी
+                    </button>
+                  </div>
+                </div>
 
                 <div className="final-solution-card">
                   <h3>Full Test Solution Guide</h3>
@@ -1416,90 +1464,177 @@ export const FinalReportScreen: React.FC<FinalReportScreenProps> = ({
                 </div>
 
                 {/* Question List */}
-                <div className="space-y-4">
+                <div className="space-y-5">
                   {filteredSolutions.map((item) => {
                     const q = item.question;
                     const ans = item.ans;
                     const isRight = item.status === "correct";
                     const isIncorrect = item.status === "incorrect";
 
+                    // Language specific content
+                    const content = (q as any)?.[viewLang] || q.englishQuestion || q.hindiQuestion || {};
+                    const qText = content.question || q.question || "";
+                    const statements: any[] = content.statementQuestion || [];
+                    const pairs: any[] = content.pairQuestion || [];
+                    const lastQuestion = content.lastQuestion;
+                    const correctAns = getCorrectAnswer(q);
+                    const solutionText =
+                      content.solution ||
+                      q.englishQuestion?.solution ||
+                      q.hindiQuestion?.solution ||
+                      q.solution ||
+                      q.explanation;
+
+                    const subjectBadge = getSubjectName(q);
+
                     return (
                       <div
                         key={item.index}
-                        className={`rounded-2xl border p-4 sm:p-5 transition ${
+                        className={`rounded-2xl border p-4 sm:p-6 transition shadow-xs ${
                           isRight
-                            ? "border-emerald-300 bg-emerald-50/30"
+                            ? "border-emerald-300 bg-emerald-50/20"
                             : isIncorrect
-                            ? "border-rose-300 bg-rose-50/30"
-                            : "border-slate-200 bg-slate-50/50"
+                            ? "border-rose-300 bg-rose-50/20"
+                            : "border-slate-200 bg-white"
                         }`}
                       >
-                        <div className="flex items-center justify-between pb-2 border-b border-gray-200/60">
-                          <span className="font-bold text-xs sm:text-sm text-[#124699]">
-                            Question {item.index + 1}
-                          </span>
-                          <span
-                            className={`text-[10px] font-black uppercase px-2 py-0.5 rounded-full ${
-                              isRight
-                                ? "bg-emerald-100 text-emerald-800"
-                                : isIncorrect
-                                ? "bg-rose-100 text-rose-800"
-                                : "bg-slate-200 text-slate-700"
-                            }`}
-                          >
-                            {item.status}
-                          </span>
+                        {/* Header Row */}
+                        <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-gray-200/80">
+                          <div className="flex items-center gap-2">
+                            <span className="font-heading font-extrabold text-sm sm:text-base text-[#124699]">
+                              Question {item.index + 1}
+                            </span>
+                            <span className="rounded-md bg-blue-50 border border-blue-200 px-2 py-0.5 text-[11px] font-bold text-[#124699]">
+                              {subjectBadge}
+                            </span>
+                          </div>
+
+                          <div className="flex items-center gap-2">
+                            <span
+                              className={`text-[11px] font-black uppercase px-2.5 py-1 rounded-full ${
+                                isRight
+                                  ? "bg-emerald-100 text-emerald-800 border border-emerald-300"
+                                  : isIncorrect
+                                  ? "bg-rose-100 text-rose-800 border border-rose-300"
+                                  : "bg-slate-100 text-slate-700 border border-slate-300"
+                              }`}
+                            >
+                              {isRight ? "✓ Correct" : isIncorrect ? "✕ Incorrect" : "○ Skipped"}
+                            </span>
+                            <span className="text-xs font-bold text-[#64748B]">
+                              {isRight ? "+2.0" : isIncorrect ? "-0.67" : "0.0"} Marks
+                            </span>
+                          </div>
                         </div>
 
-                        <p className="mt-2.5 text-xs sm:text-sm font-semibold text-[#0F172A] leading-relaxed">
-                          {q.englishQuestion?.question || q.question}
-                        </p>
+                        {/* Question Text */}
+                        <div className="mt-3 text-sm sm:text-base font-semibold text-[#0F172A] leading-relaxed">
+                          {isImage(qText) ? (
+                            <img src={qText} alt="Question" className="max-h-64 object-contain rounded-lg" />
+                          ) : (
+                            <p className="whitespace-pre-wrap">{qText}</p>
+                          )}
+                        </div>
 
-                        <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        {/* Statements (if any) */}
+                        {statements && statements.length > 0 && (
+                          <div className="mt-3 space-y-2">
+                            {statements.map((stmt, sIdx) => {
+                              const sText = typeof stmt === "string" ? stmt : stmt.combined || stmt.statement || "";
+                              return (
+                                <div
+                                  key={sIdx}
+                                  className="flex items-start gap-2.5 rounded-xl border border-gray-200/80 bg-white/90 p-2.5 text-xs sm:text-sm font-medium text-[#1E293B]"
+                                >
+                                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blue-100 text-xs font-bold text-[#124699]">
+                                    {sIdx + 1}
+                                  </span>
+                                  <span className="flex-1 whitespace-pre-wrap leading-relaxed">{sText}</span>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        )}
+
+                        {/* Pairs (if any) */}
+                        {pairs && pairs.length > 0 && (
+                          <div className="mt-3 space-y-1.5">
+                            {pairs.map((pair, pIdx) => {
+                              const pText = typeof pair === "string" ? pair : pair.combined || "";
+                              return (
+                                <div
+                                  key={pIdx}
+                                  className="rounded-lg bg-gray-50 border border-gray-200 p-2 text-xs sm:text-sm font-medium text-gray-800"
+                                >
+                                  {pText}
+                                </div>
+                              );
+                            })}
+                          </div>
+                        )}
+
+                        {/* Last Question Prompt */}
+                        {lastQuestion && (
+                          <p className="mt-3 text-xs sm:text-sm font-bold text-[#334155] italic">
+                            {lastQuestion}
+                          </p>
+                        )}
+
+                        {/* Options */}
+                        <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                           {(["A", "B", "C", "D"] as const).map((optKey) => {
-                            const optText = (q.englishQuestion?.options as any)?.[optKey] || (q.options as any)?.[optKey];
+                            const optText =
+                              (content?.options as any)?.[optKey] ||
+                              (q.englishQuestion?.options as any)?.[optKey] ||
+                              (q.options as any)?.[optKey];
                             if (!optText) return null;
 
                             const isUserSelected = ans?.selectedOption === optKey;
-                            const isCorrectOpt = getCorrectAnswer(q) === optKey;
+                            const isCorrectOpt = correctAns === optKey;
 
-                            let optBorder = "border-gray-200 bg-white text-gray-700";
+                            let optBorder = "border-gray-200 bg-white text-gray-800";
                             if (isCorrectOpt) {
-                              optBorder = "border-emerald-500 bg-emerald-100/70 text-emerald-950 font-bold";
+                              optBorder = "border-emerald-500 bg-emerald-50/90 text-emerald-950 font-bold shadow-xs";
                             } else if (isUserSelected && !isRight) {
-                              optBorder = "border-rose-500 bg-rose-100/70 text-rose-950 line-through";
+                              optBorder = "border-rose-500 bg-rose-50/90 text-rose-950 line-through";
                             }
 
                             return (
                               <div
                                 key={optKey}
-                                className={`flex items-center gap-2 rounded-xl border px-3 py-2 text-xs ${optBorder}`}
+                                className={`flex items-start gap-2.5 rounded-xl border p-3 text-xs sm:text-sm transition ${optBorder}`}
                               >
-                                <span className="font-mono font-bold">{optKey}.</span>
-                                <span className="flex-1">{optText}</span>
-                                {isCorrectOpt && <span className="text-emerald-700 text-xs">✓ Correct</span>}
-                                {isUserSelected && !isCorrectOpt && <span className="text-rose-700 text-xs">✕ Your Ans</span>}
+                                <span className="font-mono font-bold flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-black/5">
+                                  {optKey}
+                                </span>
+                                <div className="flex-1 min-w-0 break-words leading-relaxed">
+                                  {isImage(optText) ? (
+                                    <img src={optText} alt={`Option ${optKey}`} className="max-h-20 object-contain" />
+                                  ) : (
+                                    <span>{optText}</span>
+                                  )}
+                                </div>
+                                {isCorrectOpt && (
+                                  <span className="shrink-0 rounded-md bg-emerald-600 px-2 py-0.5 text-[11px] font-extrabold text-white">
+                                    ✓ Correct
+                                  </span>
+                                )}
+                                {isUserSelected && !isCorrectOpt && (
+                                  <span className="shrink-0 rounded-md bg-rose-600 px-2 py-0.5 text-[11px] font-extrabold text-white">
+                                    ✕ Your Ans
+                                  </span>
+                                )}
                               </div>
                             );
                           })}
                         </div>
 
-                        {/* Explanation */}
-                        {(() => {
-                          const exp =
-                            q.englishQuestion?.solution ||
-                            q.englishQuestion?.explanation ||
-                            q.hindiQuestion?.solution ||
-                            q.hindiQuestion?.explanation ||
-                            q.solution ||
-                            q.explanation;
-                          if (!exp) return null;
-                          return (
-                            <div className="mt-3.5 rounded-xl border border-sky-200 bg-sky-50/60 p-3 text-xs text-sky-950">
-                              <strong>Explanation:</strong> <span>{exp}</span>
-                            </div>
-                          );
-                        })()}
+                        {/* Detailed Solution Box */}
+                        <FormattedSolution
+                          solution={solutionText}
+                          correctAnswer={correctAns}
+                          className="mt-4"
+                        />
 
                         {/* Why False Reason Tagging (Mistake Mapping) */}
                         {isIncorrect && (

@@ -144,6 +144,86 @@ async function generateSitemap(customApiUrl) {
     console.warn("Could not fetch blogs from API:", err.message);
   }
 
+  // 6. Dynamic PYQs (Years and Subject-wise Slugs)
+  try {
+    const res = await fetch(`${apiEndpoint}/pyq/meta`);
+    const data = await res.json();
+    const pyqMeta = data?.data || [];
+
+    // Hub routes
+    urlEntries.push({
+      loc: `${BASE_URL}/pyq`,
+      lastmod: currentDate,
+      changefreq: "daily",
+      priority: "0.9",
+    });
+    urlEntries.push({
+      loc: `${BASE_URL}/pyq/explore-topics`,
+      lastmod: currentDate,
+      changefreq: "weekly",
+      priority: "0.8",
+    });
+    urlEntries.push({
+      loc: `${BASE_URL}/upsc-prelims/previous-year-question-paper`,
+      lastmod: currentDate,
+      changefreq: "daily",
+      priority: "0.9",
+    });
+
+    for (const item of pyqMeta) {
+      const year = item.year;
+      // Year level URLs
+      urlEntries.push({
+        loc: `${BASE_URL}/pyq/${year}`,
+        lastmod: currentDate,
+        changefreq: "weekly",
+        priority: "0.85",
+      });
+      urlEntries.push({
+        loc: `${BASE_URL}/pyq/${year}/gs-paper`,
+        lastmod: currentDate,
+        changefreq: "weekly",
+        priority: "0.85",
+      });
+      urlEntries.push({
+        loc: `${BASE_URL}/upsc-prelims/previous-year-question-paper/${year}`,
+        lastmod: currentDate,
+        changefreq: "weekly",
+        priority: "0.85",
+      });
+      urlEntries.push({
+        loc: `${BASE_URL}/upsc-prelims/previous-year-question-paper/${year}/gs-paper`,
+        lastmod: currentDate,
+        changefreq: "weekly",
+        priority: "0.85",
+      });
+
+      // Subject level URLs
+      if (Array.isArray(item.subjects)) {
+        for (const sub of item.subjects) {
+          const subSlug = sub.slug || slugify(sub.name);
+          if (subSlug) {
+            urlEntries.push({
+              loc: `${BASE_URL}/pyq/${year}/gs-paper/${subSlug}`,
+              lastmod: currentDate,
+              changefreq: "weekly",
+              priority: "0.8",
+            });
+            urlEntries.push({
+              loc: `${BASE_URL}/upsc-prelims/previous-year-question-paper/${year}/gs-paper/${subSlug}`,
+              lastmod: currentDate,
+              changefreq: "weekly",
+              priority: "0.8",
+            });
+          }
+        }
+      }
+    }
+    console.log(`Fetched and generated sitemap for ${pyqMeta.length} PYQ years.`);
+  } catch (err) {
+    console.warn("Could not fetch PYQ metadata for sitemap:", err.message);
+  }
+
   // Build XML
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"

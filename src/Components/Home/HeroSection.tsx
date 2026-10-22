@@ -6,6 +6,7 @@ import AnimationLine from "../Common/AnimationLine";
 import type { InterfaceType } from "./InterfaceSection";
 import { Link } from "react-router-dom";
 import { APP_LINKS } from "../../Data";
+import { LuZap, LuArrowRight } from "react-icons/lu";
 
 const HeroSection = ({ interfaces }: { interfaces: InterfaceType[] }) => {
   const users = [`${ImagePath}/home/user01.png`, `${ImagePath}/home/user02.png`, `${ImagePath}/home/user03.png`, `${ImagePath}/home/user04.png`];
@@ -27,9 +28,11 @@ const HeroSection = ({ interfaces }: { interfaces: InterfaceType[] }) => {
           <div className="flex flex-wrap gap-4 max-lg:justify-center items-center">
             <Link
               to={ROUTES.FREE_PRACTICE}
-              className="flex items-center gap-2.5 rounded-xl bg-gradient-to-r from-primary to-accent text-white font-bold px-5 py-3 sm:px-6 sm:py-3.5 shadow-md hover:shadow-lg transition-all hover:brightness-105 active:scale-98"
+              className="hero-animated-btn rounded-xl px-6 py-3.5 sm:px-7 sm:py-4 text-white text-sm sm:text-base font-bold tracking-wide shadow-md group cursor-pointer"
             >
-              <span className="text-sm sm:text-base">Start Free Mock Test</span>
+              <LuZap className="hero-zap-icon text-lg sm:text-xl text-yellow-200 fill-yellow-300 shrink-0" />
+              <span>Start Free Mock Test</span>
+              <LuArrowRight className="text-base sm:text-lg transition-transform duration-300 group-hover:translate-x-1 shrink-0" />
             </Link>
 
             <Link to={APP_LINKS} target="_blank" className="relative border-2 border-success rounded-xl px-3 py-2 sm:px-6 sm:py-3 bg-white hover:bg-success transition group">

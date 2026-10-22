@@ -69,7 +69,39 @@ export const PageRoutes = [
     element: <PyqPage />,
   },
   {
+    path: ROUTES.PYQ_EXPLORE,
+    element: <PyqPage />,
+  },
+  {
+    path: ROUTES.PYQ_YEAR,
+    element: <PyqPage />,
+  },
+  {
+    path: ROUTES.PYQ_PAPER,
+    element: <PyqPage />,
+  },
+  {
+    path: ROUTES.PYQ_SUBJECT,
+    element: <PyqPage />,
+  },
+  {
     path: ROUTES.UPSC_PRELIMS_PYQ,
+    element: <PyqPage />,
+  },
+  {
+    path: ROUTES.SUPERKALAM_PYQ,
+    element: <PyqPage />,
+  },
+  {
+    path: ROUTES.SUPERKALAM_PYQ_YEAR,
+    element: <PyqPage />,
+  },
+  {
+    path: ROUTES.SUPERKALAM_PYQ_PAPER,
+    element: <PyqPage />,
+  },
+  {
+    path: ROUTES.SUPERKALAM_PYQ_SUBJECT,
     element: <PyqPage />,
   },
   {

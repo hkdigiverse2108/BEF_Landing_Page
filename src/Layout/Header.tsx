@@ -1,7 +1,7 @@
 import { ImagePath, ROUTES } from "../Constants";
 import { RiMenu3Fill } from "react-icons/ri";
 import { IoClose } from "react-icons/io5";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { getHeaderItems } from "../Utils/GetHeaderItems";
 import { LOGIN_URL } from "../Data";
@@ -10,6 +10,8 @@ import ExamTimer from "../Components/Common/ExamTimer";
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const [headerHeight, setHeaderHeight] = useState(116);
 
   const location = useLocation();
 
@@ -26,52 +28,80 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    const updateHeight = () => {
+      if (headerRef.current) {
+        setHeaderHeight(headerRef.current.offsetHeight);
+      }
+    };
+
+    updateHeight();
+
+    const ro = new ResizeObserver(updateHeight);
+    if (headerRef.current) {
+      ro.observe(headerRef.current);
+    }
+    window.addEventListener("resize", updateHeight);
+
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", updateHeight);
+    };
+  }, [menuOpen, isFixedException]);
+
   return (
-    <div className={`${isFixedException ? "relative" : "fixed top-0 w-full z-50 bg-white"}`}>
-      {/* Timer For Exam */}
-      <ExamTimer />
+    <>
+      <div ref={headerRef} className={`${isFixedException ? "relative" : "fixed top-0 w-full z-50 bg-white"}`}>
+        {/* Timer For Exam */}
+        <ExamTimer />
 
-      <header className={`bg-white ${!isFixedException && isScrolled ? "shadow-md bg-white/95 backdrop-blur-md" : "bg-white"}`}>
-        <div className="container container-p py-2 flex justify-between items-center bg-white">
-          {/* Logo */}
-          <NavLink to={ROUTES.HOME} className="flex flex-col items-start justify-center py-1">
-            <img src={`${ImagePath}logo/logo.png`} alt="Achiwon" className="h-7 sm:h-9 w-auto object-contain" />
-            <span className="text-[10px] sm:text-xs font-semibold text-success tracking-wider leading-none mt-1">UPSC & GPSC CSE</span>
-          </NavLink>
-
-          {/* Menu Items */}
-          <nav className="hidden lg:flex gap-6 items-center">
-            {menuItems?.map((item, index) => (
-              <NavLink target={`${item.Title === "Download Now" ? "_blank" : ""}`} onClick={() => setMenuOpen(!menuOpen)} key={index} to={item?.link || ""} className={`flex gap-1 cursor-pointer items-center text-lg font-medium text-gray-800 hover:text-primary transition px-3 py-2 rounded-t-lg focus:outline-none focus:ring-0 focus-visible:outline-none`}>
-                {item.Title}
-              </NavLink>
-            ))}
-            <NavLink to={LOGIN_URL} target="_blank" rel="noopener noreferrer">
-              <button onClick={() => setMenuOpen(!menuOpen)} className="btn primary_btn  w-full ">
-                Login
-              </button>
+        <header className={`bg-white ${!isFixedException && isScrolled ? "shadow-md bg-white/95 backdrop-blur-md" : "bg-white"}`}>
+          <div className="container container-p py-2 flex justify-between items-center bg-white">
+            {/* Logo */}
+            <NavLink to={ROUTES.HOME} className="flex flex-col items-start justify-center py-1">
+              <img src={`${ImagePath}logo/logo.png`} alt="Achiwon" className="h-7 sm:h-9 w-auto object-contain" />
+              <span className="text-[10px] sm:text-xs font-semibold text-success tracking-wider leading-none mt-1">UPSC & GPSC CSE</span>
             </NavLink>
-          </nav>
 
-          <div className="block lg:hidden gap-1 items-center text-2xl ">
-            <button onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <IoClose /> : <RiMenu3Fill />}</button>
+            {/* Menu Items */}
+            <nav className="hidden lg:flex gap-6 items-center">
+              {menuItems?.map((item, index) => (
+                <NavLink target={`${item.Title === "Download Now" ? "_blank" : ""}`} onClick={() => setMenuOpen(!menuOpen)} key={index} to={item?.link || ""} className={`flex gap-1 cursor-pointer items-center text-lg font-medium text-gray-800 hover:text-primary transition px-3 py-2 rounded-t-lg focus:outline-none focus:ring-0 focus-visible:outline-none`}>
+                  {item.Title}
+                </NavLink>
+              ))}
+              <NavLink to={LOGIN_URL} target="_blank" rel="noopener noreferrer">
+                <button onClick={() => setMenuOpen(!menuOpen)} className="btn primary_btn  w-full ">
+                  Login
+                </button>
+              </NavLink>
+            </nav>
+
+            <div className="block lg:hidden gap-1 items-center text-2xl ">
+              <button onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <IoClose /> : <RiMenu3Fill />}</button>
+            </div>
           </div>
-        </div>
-      </header>
-      {/* Animated Mobile Menu */}
-      <div className={`lg:hidden flex flex-col bg-white gap-1 mt-2 mx-3 md:mx-5 p-4 rounded-2xl overflow-hidden transition-all duration-500 ease-in-out ${menuOpen ? "max-h-[500px] opacity-100 scale-y-100" : "max-h-0 opacity-0 scale-y-0"} origin-top`}>
-        {menuItems?.map((item, index) => (
-          <NavLink onClick={() => setMenuOpen(!menuOpen)} key={index} to={item?.link || ""} className={`flex gap-1 cursor-pointer items-center font-medium text-gray-800 hover:text-primary transition px-2 md:px-4 py-2 rounded-t-lg`}>
-            {item.Title}
+        </header>
+        {/* Animated Mobile Menu */}
+        <div className={`lg:hidden flex flex-col bg-white gap-1 mt-2 mx-3 md:mx-5 p-4 rounded-2xl overflow-hidden transition-all duration-500 ease-in-out ${menuOpen ? "max-h-[500px] opacity-100 scale-y-100" : "max-h-0 opacity-0 scale-y-0"} origin-top`}>
+          {menuItems?.map((item, index) => (
+            <NavLink onClick={() => setMenuOpen(!menuOpen)} key={index} to={item?.link || ""} className={`flex gap-1 cursor-pointer items-center font-medium text-gray-800 hover:text-primary transition px-2 md:px-4 py-2 rounded-t-lg`}>
+              {item.Title}
+            </NavLink>
+          ))}
+          <NavLink to={LOGIN_URL} target="_blank" rel="noopener noreferrer">
+            <button onClick={() => setMenuOpen(!menuOpen)} className="btn primary_btn  w-fit ">
+              Login
+            </button>
           </NavLink>
-        ))}
-        <NavLink to={LOGIN_URL} target="_blank" rel="noopener noreferrer">
-          <button onClick={() => setMenuOpen(!menuOpen)} className="btn primary_btn  w-fit ">
-            Login
-          </button>
-        </NavLink>
+        </div>
       </div>
-    </div>
+
+      {/* Dynamic Spacer: guarantees fixed header does not overlap content on any screen size */}
+      {!isFixedException && (
+        <div style={{ height: `${headerHeight}px` }} aria-hidden="true" />
+      )}
+    </>
   );
 };
 

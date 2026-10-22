@@ -23,18 +23,13 @@ const Layout = () => {
   const workshop = workshopData?.data?.workshop_data || [];
 
   const isShow = location.pathname.startsWith(ROUTES.COURSE.DETAILS.replace("/:id", "")) || location.pathname === ROUTES.WORKSHOP.WORKSHOP;
-  const isBlog = location.pathname.startsWith(ROUTES.BLOG.BLOG);
 
   useEffect(() => {
-    if (isBlog) {
-      document.body.style.backgroundColor = "#ffffff";
-    } else {
-      document.body.style.backgroundColor = "";
-    }
+    document.body.style.backgroundColor = "#ffffff";
     return () => {
-      document.body.style.backgroundColor = "";
+      document.body.style.backgroundColor = "#ffffff";
     };
-  }, [isBlog]);
+  }, []);
 
   useEffect(() => {
     dispatch(setWorkshops(workshop));
@@ -60,7 +55,7 @@ const Layout = () => {
   return (
     <>
       <Header />
-      <div className={`${isShow ? "!mt-10" : isBlog ? "!mt-0 pt-[100px] sm:pt-[110px] bg-white min-h-screen" : "!mt-45 sm:!mt-46 mb-12"} `}>
+      <div className={`${isShow ? "!mt-10" : "mb-12"} min-h-screen bg-white`}>
         {/* <Suspense fallback={<Loader />}> */}
           <Outlet />
         {/* </Suspense> */}

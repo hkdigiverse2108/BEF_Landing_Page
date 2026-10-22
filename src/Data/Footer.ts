@@ -7,4 +7,5 @@ export const Help_Support = [
     { label: "Privacy Policy", path: ROUTES.HELP_SUPPORT.PRIVACY_POLICY },
     { label: "Refund policy", path: ROUTES.HELP_SUPPORT.REFUND_POLICY },
     { label: "Blog", path: ROUTES.BLOG.BLOG },
+    { label: "Previous Year Questions (PYQ)", path: ROUTES.PYQ },
 ];

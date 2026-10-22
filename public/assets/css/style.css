@@ -1,6 +1,6 @@
 body {
   font-family: var(--font-poppins) !important;
-  background-color: var(--light-bg);
+  background-color: #ffffff !important;
 }
 
 .container {

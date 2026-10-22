@@ -1,4 +1,5 @@
 import { ImagePath } from "../Constants";
+import { ROUTES } from "../Constants/Routes";
 import { Link } from "react-router-dom";
 import AnimationLine from "../Components/Common/AnimationLine";
 import { CONTACT, Help_Support, HK_DIGIVERSE_URL, SOCIAL_MEDIA } from "../Data";
@@ -10,9 +11,9 @@ const Footer = () => {
       <div className="pointer-events-none absolute inset-0 z-0">
         <AnimationLine />
       </div>
-      <div className=" container container-p mx-auto py-12 md:py-24 px-5 lg:px-10  grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-10">
+      <div className=" container container-p mx-auto py-12 md:py-20 px-5 lg:px-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
         {/* Left Column */}
-        <div className="space-y-6 md:space-y-12">
+        <div className="space-y-6 md:space-y-10">
           {/* Logo */}
           <div className="flex flex-col items-start gap-2">
             <div className="bg-white px-3 py-1.5 rounded-lg shadow-sm">
@@ -22,14 +23,14 @@ const Footer = () => {
           </div>
 
           {/* Contact Info */}
-          <div className="space-y-5 text-sm sm:text-base">
-            <Link to={`https://mail.google.com/mail/?view=cm&fs=1&to=${CONTACT?.EMAIL_INFO}`} target="_blank" rel="noopener noreferrer">
+          <div className="space-y-4 text-sm sm:text-base">
+            <Link to={`https://mail.google.com/mail/?view=cm&fs=1&to=${CONTACT?.EMAIL_INFO}`} target="_blank" rel="noopener noreferrer" className="block hover:underline">
               {CONTACT?.EMAIL_INFO}
             </Link>
-            <Link to={`tel:${CONTACT?.NUMBER}`} className="flex items-center gap-2">
+            <Link to={`tel:${CONTACT?.NUMBER}`} className="flex items-center gap-2 hover:underline">
               {CONTACT?.NUMBER}
             </Link>
-            <Link to={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(CONTACT?.ADDRESS)}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+            <Link to={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(CONTACT?.ADDRESS)}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:underline">
               {CONTACT?.ADDRESS}
             </Link>
           </div>
@@ -47,13 +48,48 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Middle Column: Help & Support */}
-        <div className=" space-y-6 md:space-y-12">
+        {/* Middle Column: Quick Links & PYQ */}
+        <div className="space-y-6 md:space-y-10">
+          <h4 className="text-lg md:text-2xl font-bold">Quick Links</h4>
+          <ul className="space-y-4 text-sm sm:text-base">
+            <li>
+              <Link to={ROUTES.PYQ} className="inline-flex items-center gap-2 font-bold text-[#F48224] hover:text-white transition">
+                <span>Previous Year Questions (PYQs)</span>
+                <span className="text-[10px] font-extrabold uppercase px-1.5 py-0.5 rounded bg-[#F48224] text-white">
+                  NEW
+                </span>
+              </Link>
+            </li>
+            <li>
+              <Link to={ROUTES.FREE_PRACTICE} className="hover:underline">
+                Free Mock Test
+              </Link>
+            </li>
+            <li>
+              <Link to={ROUTES.COURSE.COURSE} className="hover:underline">
+                Courses
+              </Link>
+            </li>
+            <li>
+              <Link to={ROUTES.WORKSHOP.WORKSHOP} className="hover:underline">
+                Workshops
+              </Link>
+            </li>
+            <li>
+              <Link to={ROUTES.BLOG.BLOG} className="hover:underline">
+                UPSC Strategy Blogs
+              </Link>
+            </li>
+          </ul>
+        </div>
+
+        {/* Right Column: Help & Support */}
+        <div className="space-y-6 md:space-y-10">
           <h4 className="text-lg md:text-2xl font-bold">Help & Support</h4>
           <ul className="space-y-4 text-sm sm:text-base">
             {Help_Support.map((item, idx) => (
               <li key={idx}>
-                <Link to={item.path}>{item.label}</Link>
+                <Link to={item.path} className="hover:underline">{item.label}</Link>
               </li>
             ))}
           </ul>
