@@ -18,7 +18,6 @@ import {
   LuLandmark,
   LuTreePine,
   LuCpu,
-  LuDownload,
   LuBookmark,
   LuScanLine,
   LuTrophy,
