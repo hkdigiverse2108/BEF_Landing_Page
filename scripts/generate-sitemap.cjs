@@ -7,7 +7,7 @@ const fs = require("fs");
 const path = require("path");
 
 const BASE_URL = "https://achiwon.com";
-const API_BASE_URL = "http://localhost:4455";
+const API_BASE_URL = process.env.VITE_API_BASE_URL || process.env.API_BASE_URL || "https://api.achiwon.com";
 
 // Static routes from PageRoutes.tsx & index.tsx
 const staticRoutes = [
