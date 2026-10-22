@@ -3,12 +3,18 @@ import { Link } from "react-router-dom";
 import "./ExamInstructionScreen.css";
 
 export const DEFAULT_INSTRUCTION_VIDEOS = [
-  "https://www.w3schools.com/html/mov_bbb.mp4",
-  "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
-  "https://www.w3schools.com/html/movie.mp4",
-  "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/friday.mp4",
-  "https://media.w3.org/2010/05/sintel/trailer.mp4",
+  "https://youtu.be/wACoSenM5Yk",
+  "https://youtu.be/KGkSDBR07wE",
+  "https://youtu.be/Jge6kx4jQtw",
+  "https://youtu.be/_FyyxoV6aZI",
+  "https://youtu.be/UoqxXPNqOlM",
 ];
+
+export const getYouTubeVideoId = (url?: string): string | null => {
+  if (!url) return null;
+  const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
+  return match ? match[1] : null;
+};
 
 export interface ExamInstructionScreenProps {
   onStartExam?: (selectedLanguage: "English" | "Hindi") => void;
@@ -57,10 +63,8 @@ export const ExamInstructionScreen: React.FC<ExamInstructionScreenProps> = ({
 }) => {
   const [activeTab, setActiveTab] = useState(initialTab);
   const [isTextOut, setIsTextOut] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
   const [isEnded, setIsEnded] = useState(false);
-  const [videoProgress, setVideoProgress] = useState(0);
-  const [isFullscreen, setIsFullscreen] = useState(false);
   const [userPaused, setUserPaused] = useState(false);
 
   // Interactive sample state
@@ -79,6 +83,7 @@ export const ExamInstructionScreen: React.FC<ExamInstructionScreenProps> = ({
   });
 
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const iframeRef = useRef<HTMLIFrameElement | null>(null);
   const frameRef = useRef<HTMLDivElement | null>(null);
   const tabsContainerRef = useRef<HTMLDivElement | null>(null);
   const tabButtonRefs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -159,12 +164,19 @@ export const ExamInstructionScreen: React.FC<ExamInstructionScreenProps> = ({
       btn.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
     }
 
-    // Video update
+    const youtubeId = getYouTubeVideoId(currentFeature.video);
+    if (youtubeId) {
+      setUserPaused(false);
+      setIsPlaying(true);
+      setIsEnded(false);
+      return;
+    }
+
+    // Video update for HTML5 video
     const vid = videoRef.current;
     if (vid) {
       vid.style.display = "";
       setUserPaused(false);
-      setVideoProgress(0);
       setIsEnded(false);
       vid.src = currentFeature.video;
       vid.load();
@@ -175,7 +187,7 @@ export const ExamInstructionScreen: React.FC<ExamInstructionScreenProps> = ({
     }
   }, [activeTab, currentFeature.video]);
 
-  // Video event listeners
+  // Video event listeners for HTML5 video
   useEffect(() => {
     const vid = videoRef.current;
     if (!vid) return;
@@ -189,11 +201,6 @@ export const ExamInstructionScreen: React.FC<ExamInstructionScreenProps> = ({
       setIsPlaying(false);
       setIsEnded(true);
     };
-    const handleTimeUpdate = () => {
-      if (vid.duration) {
-        setVideoProgress((vid.currentTime / vid.duration) * 100);
-      }
-    };
     const handleError = () => {
       // Graceful fallback
       setIsPlaying(false);
@@ -202,48 +209,47 @@ export const ExamInstructionScreen: React.FC<ExamInstructionScreenProps> = ({
     vid.addEventListener("play", handlePlay);
     vid.addEventListener("pause", handlePause);
     vid.addEventListener("ended", handleEnded);
-    vid.addEventListener("timeupdate", handleTimeUpdate);
     vid.addEventListener("error", handleError);
 
     return () => {
       vid.removeEventListener("play", handlePlay);
       vid.removeEventListener("pause", handlePause);
       vid.removeEventListener("ended", handleEnded);
-      vid.removeEventListener("timeupdate", handleTimeUpdate);
       vid.removeEventListener("error", handleError);
-    };
-  }, []);
-
-  // Fullscreen change listener
-  useEffect(() => {
-    const handleFullscreenChange = () => {
-      const isFs = document.fullscreenElement === frameRef.current;
-      setIsFullscreen(isFs);
-      if (videoRef.current) {
-        videoRef.current.muted = !isFs;
-      }
-    };
-    document.addEventListener("fullscreenchange", handleFullscreenChange);
-    return () => {
-      document.removeEventListener("fullscreenchange", handleFullscreenChange);
     };
   }, []);
 
   // IntersectionObserver to pause when scrolled out of view
   useEffect(() => {
     const frame = frameRef.current;
-    const vid = videoRef.current;
-    if (!frame || !vid) return;
+    if (!frame) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
+          const youtubeId = getYouTubeVideoId(currentFeature.video);
           if (entry.isIntersecting) {
-            if (!userPaused && !vid.ended) {
-              vid.play().catch(() => {});
+            if (!userPaused) {
+              if (youtubeId && iframeRef.current?.contentWindow) {
+                iframeRef.current.contentWindow.postMessage(
+                  JSON.stringify({ event: "command", func: "playVideo", args: "" }),
+                  "*"
+                );
+                setIsPlaying(true);
+              } else if (videoRef.current && !videoRef.current.ended) {
+                videoRef.current.play().catch(() => {});
+              }
             }
-          } else if (!document.fullscreenElement) {
-            vid.pause();
+          } else {
+            if (youtubeId && iframeRef.current?.contentWindow) {
+              iframeRef.current.contentWindow.postMessage(
+                JSON.stringify({ event: "command", func: "pauseVideo", args: "" }),
+                "*"
+              );
+              setIsPlaying(false);
+            } else if (videoRef.current) {
+              videoRef.current.pause();
+            }
           }
         });
       },
@@ -252,7 +258,7 @@ export const ExamInstructionScreen: React.FC<ExamInstructionScreenProps> = ({
 
     observer.observe(frame);
     return () => observer.disconnect();
-  }, [userPaused]);
+  }, [userPaused, currentFeature.video]);
 
   // Keyboard navigation Left / Right
   useEffect(() => {
@@ -286,6 +292,26 @@ export const ExamInstructionScreen: React.FC<ExamInstructionScreenProps> = ({
 
   // Play / Pause toggle
   const togglePlayPause = () => {
+    const youtubeId = getYouTubeVideoId(currentFeature.video);
+    if (youtubeId && iframeRef.current?.contentWindow) {
+      if (isPlaying) {
+        iframeRef.current.contentWindow.postMessage(
+          JSON.stringify({ event: "command", func: "pauseVideo", args: "" }),
+          "*"
+        );
+        setIsPlaying(false);
+        setUserPaused(true);
+      } else {
+        iframeRef.current.contentWindow.postMessage(
+          JSON.stringify({ event: "command", func: "playVideo", args: "" }),
+          "*"
+        );
+        setIsPlaying(true);
+        setUserPaused(false);
+      }
+      return;
+    }
+
     const vid = videoRef.current;
     if (!vid) return;
 
@@ -299,24 +325,6 @@ export const ExamInstructionScreen: React.FC<ExamInstructionScreenProps> = ({
     } else {
       setUserPaused(true);
       vid.pause();
-    }
-  };
-
-  // Fullscreen toggle
-  const toggleFullscreen = () => {
-    const frame = frameRef.current;
-    const vid = videoRef.current;
-    if (!frame) return;
-
-    if (document.fullscreenElement) {
-      document.exitFullscreen().catch(() => {});
-    } else {
-      if (vid) vid.muted = false;
-      if (frame.requestFullscreen) {
-        frame.requestFullscreen().catch(() => {});
-      } else if ((frame as any).webkitRequestFullscreen) {
-        (frame as any).webkitRequestFullscreen();
-      }
     }
   };
 
@@ -353,16 +361,6 @@ export const ExamInstructionScreen: React.FC<ExamInstructionScreenProps> = ({
   const replayIcon = (
     <svg viewBox="0 0 24 24">
       <path d="M12 5V1L7 6l5 5V7a6 6 0 1 1-6 6H4a8 8 0 1 0 8-8z" />
-    </svg>
-  );
-  const expandIcon = (
-    <svg viewBox="0 0 24 24">
-      <path d="M14 4h6v6h-2V6h-4V4zM4 14h2v4h4v2H4v-6z" />
-    </svg>
-  );
-  const shrinkIcon = (
-    <svg viewBox="0 0 24 24">
-      <path d="M16 4h2v4h4v2h-6V4zM2 14h6v6H6v-4H2v-2z" />
     </svg>
   );
 
@@ -757,15 +755,39 @@ export const ExamInstructionScreen: React.FC<ExamInstructionScreenProps> = ({
                 "--tab-bg": currentFeature.bg,
               } as React.CSSProperties
             }
+            onContextMenu={(e) => e.preventDefault()}
           >
-            <video
-              ref={videoRef}
-              id="vid"
-              muted
-              playsInline
-              preload="metadata"
-              src={currentFeature.video}
-            />
+            {getYouTubeVideoId(currentFeature.video) ? (
+              <div className="yt-player-container">
+                <iframe
+                  ref={iframeRef}
+                  key={`${activeTab}-${getYouTubeVideoId(currentFeature.video)}`}
+                  src={`https://www.youtube-nocookie.com/embed/${getYouTubeVideoId(currentFeature.video)}?autoplay=1&mute=1&loop=1&playlist=${getYouTubeVideoId(currentFeature.video)}&controls=0&modestbranding=1&rel=0&iv_load_policy=3&disablekb=1&playsinline=1&enablejsapi=1`}
+                  title={currentFeature.title}
+                  className="yt-iframe"
+                  allow="autoplay; encrypted-media"
+                  tabIndex={-1}
+                />
+                {/* Protective overlay: blocks right-click, copy link, header/sharing click, and scrolling */}
+                <div
+                  className="video-shield-overlay"
+                  onClick={togglePlayPause}
+                  onContextMenu={(e) => e.preventDefault()}
+                  title="Click to Play/Pause"
+                />
+              </div>
+            ) : (
+              <video
+                ref={videoRef}
+                id="vid"
+                muted
+                playsInline
+                preload="metadata"
+                src={currentFeature.video}
+                loop
+                onClick={togglePlayPause}
+              />
+            )}
 
             {/* Play/Pause Button */}
             <button
@@ -777,28 +799,6 @@ export const ExamInstructionScreen: React.FC<ExamInstructionScreenProps> = ({
             >
               {isEnded ? replayIcon : isPlaying ? pauseIcon : playIcon}
             </button>
-
-            {/* Fullscreen Button */}
-            <button
-              type="button"
-              className="cbtn fs"
-              id="fs"
-              aria-label={isFullscreen ? "Exit full screen" : "Full screen"}
-              onClick={toggleFullscreen}
-            >
-              {isFullscreen ? shrinkIcon : expandIcon}
-            </button>
-
-            {/* Progress Bar */}
-            <div className="bar">
-              <i
-                id="prog"
-                style={{
-                  width: `${videoProgress}%`,
-                  background: currentFeature.bd,
-                }}
-              />
-            </div>
           </div>
         </div>
       </main>
