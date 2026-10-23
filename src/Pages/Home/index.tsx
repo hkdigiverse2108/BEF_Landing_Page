@@ -9,7 +9,7 @@ const ContactSection = lazy(() => import("../../Components/Home/ContactSection")
 // const DownloadSection = lazy(() => import("../../Components/Home/DownloadSection")) ;
 const FeatureSection = lazy(() => import("../../Components/Home/FeatureSection"));
 const HeroSection = lazy(() => import("../../Components/Home/HeroSection"));
-const StepsSection = lazy(() => import("../../Components/Home/StepsSection"));
+// const StepsSection = lazy(() => import("../../Components/Home/StepsSection"));
 const InterfaceSection = lazy(() => import("../../Components/Home/InterfaceSection"));
 const BlogSection = lazy(() => import("../../Components/Home/BlogSection"));
 const FAQSection = lazy(() => import("../../Components/Home/FAQSection"));
@@ -169,7 +169,7 @@ const Home = () => {
         <Suspense fallback={<div className="py-30! flex w-full justify-center items-center">{isHeroLoaded && <Spin indicator={<LoadingOutlined style={{ fontSize: 48 }} spin />} />}</div>}>
           <FeatureSection features={features} />
           <AboutSection aboutUs={aboutUs} />
-          <StepsSection steps={steps} />
+          {/* <StepsSection steps={steps} /> */}
           <TestimonialSection testimonials={testimonials} />
           <BlogSection blogs={blogs} />
           <FAQSection faqs={faqs} />
