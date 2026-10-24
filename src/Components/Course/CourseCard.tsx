@@ -77,35 +77,6 @@ export const CourseCard: React.FC<CourseCardProps> = ({
 
       {/* 2. Card Body */}
       <div className="card-body">
-        {/* Support Row */}
-        <div className="support">
-          <div>
-            <strong>Course support</strong>
-            <small>Talk to an academic counsellor</small>
-          </div>
-          <Popover content={<ContactContent />} trigger="click" placement="bottomRight">
-            <button
-              type="button"
-              className="phone-mini"
-              aria-label="Call course support"
-              title="Call counsellor"
-            >
-              <svg
-                viewBox="0 0 24 24"
-                width="16"
-                height="16"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M21 16.5v3a1.5 1.5 0 0 1-1.65 1.5A18.9 18.9 0 0 1 11.1 18a18.6 18.6 0 0 1-5.7-5.7A18.9 18.9 0 0 1 3.1 3.65 1.5 1.5 0 0 1 4.6 2h3a1.5 1.5 0 0 1 1.5 1.3c.1 1 .35 1.98.72 2.9a1.5 1.5 0 0 1-.34 1.58L8.2 9.06a15 15 0 0 0 6.74 6.74l1.28-1.28a1.5 1.5 0 0 1 1.58-.34c.92.37 1.9.62 2.9.72a1.5 1.5 0 0 1 1.3 1.6Z" />
-              </svg>
-            </button>
-          </Popover>
-        </div>
-
         {/* Module Details Direct Link (Opens Course Details with Module Tab) */}
         <NavLink
           to={targetUrl}
@@ -134,18 +105,41 @@ export const CourseCard: React.FC<CourseCardProps> = ({
           <span>Minimum 60+ Marks Direct Hit Guarantee, otherwise 100% refund</span>
         </div>
 
-        {/* View Batch Details CTA */}
-        <NavLink
-          to={targetUrl}
-          state={{ mockReward: eligibleReward }}
-          className="card-cta"
-        >
-          <span>View Batch Details</span>
-          {isLastPrelims && scoreDiscount > 0 && (
-            <span className="course-card-discount-badge">₹{scoreDiscount.toLocaleString()} Rs Discount</span>
-          )}
-          <span className="arrow">→</span>
-        </NavLink>
+        {/* View Batch Details CTA & Call Support Button */}
+        <div className="card-cta-row">
+          <NavLink
+            to={targetUrl}
+            state={{ mockReward: eligibleReward }}
+            className="card-cta"
+          >
+            <span>View Batch Details</span>
+            {isLastPrelims && scoreDiscount > 0 && (
+              <span className="course-card-discount-badge">₹{scoreDiscount.toLocaleString()} Rs Discount</span>
+            )}
+            <span className="arrow">→</span>
+          </NavLink>
+          <Popover content={<ContactContent />} trigger="click" placement="topRight">
+            <button
+              type="button"
+              className="phone-cta-btn"
+              aria-label="Call course support"
+              title="Call counsellor"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                width="18"
+                height="18"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M21 16.5v3a1.5 1.5 0 0 1-1.65 1.5A18.9 18.9 0 0 1 11.1 18a18.6 18.6 0 0 1-5.7-5.7A18.9 18.9 0 0 1 3.1 3.65 1.5 1.5 0 0 1 4.6 2h3a1.5 1.5 0 0 1 1.5 1.3c.1 1 .35 1.98.72 2.9a1.5 1.5 0 0 1-.34 1.58L8.2 9.06a15 15 0 0 0 6.74 6.74l1.28-1.28a1.5 1.5 0 0 1 1.58-.34c.92.37 1.9.62 2.9.72a1.5 1.5 0 0 1 1.3 1.6Z" />
+              </svg>
+            </button>
+          </Popover>
+        </div>
       </div>
     </article>
   );
