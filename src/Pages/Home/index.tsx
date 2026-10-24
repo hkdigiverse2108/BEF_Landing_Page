@@ -81,10 +81,10 @@ const Home = () => {
           "@graph": [
             {
               "@type": "Organization",
-              "@id": "https://www.bharatexamfest.com/#organization",
+              "@id": "https://www.achiwon.com/#organization",
               name: "Achiwon",
-              url: "https://www.bharatexamfest.com/",
-              logo: "https://www.bharatexamfest.com/logo.png",
+              url: "https://www.achiwon.com/",
+              logo: "https://www.achiwon.com/logo.png",
               description:
                 "Achiwon is an AI-powered UPSC and competitive exam preparation platform offering mock tests, courses, workshops, current affairs and smart study tools.",
               sameAs: [
@@ -95,33 +95,33 @@ const Home = () => {
             },
             {
               "@type": "EducationalOrganization",
-              "@id": "https://www.bharatexamfest.com/#education",
+              "@id": "https://www.achiwon.com/#education",
               name: "Achiwon",
-              url: "https://www.bharatexamfest.com/",
+              url: "https://www.achiwon.com/",
               description:
                 "Online education platform for UPSC and competitive exams with AI-driven learning tools, expert-led courses and workshops.",
               parentOrganization: {
-                "@id": "https://www.bharatexamfest.com/#organization",
+                "@id": "https://www.achiwon.com/#organization",
               },
             },
             {
               "@type": "WebSite",
-              "@id": "https://www.bharatexamfest.com/#website",
-              url: "https://www.bharatexamfest.com/",
+              "@id": "https://www.achiwon.com/#website",
+              url: "https://www.achiwon.com/",
               name: "Achiwon",
               publisher: {
-                "@id": "https://www.bharatexamfest.com/#organization",
+                "@id": "https://www.achiwon.com/#organization",
               },
               potentialAction: {
                 "@type": "SearchAction",
                 target:
-                  "https://www.bharatexamfest.com/search?q={search_term_string}",
+                  "https://www.achiwon.com/search?q={search_term_string}",
                 "query-input": "required name=search_term_string",
               },
             },
             {
               "@type": "FAQPage",
-              "@id": "https://www.bharatexamfest.com/#faq",
+              "@id": "https://www.achiwon.com/#faq",
               mainEntity: [
                 {
                   "@type": "Question",

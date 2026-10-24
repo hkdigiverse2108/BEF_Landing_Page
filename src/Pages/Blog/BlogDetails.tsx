@@ -114,7 +114,7 @@ export const BlogDetails = () => {
       "@type": "BlogPosting",
       "headline": blog.title,
       "description": blog.subTitle || blog.title,
-      "image": [blog.image || "https://bharatexamfest.com/logo.png"],
+      "image": [blog.image || "https://achiwon.com/logo.png"],
       "datePublished": blog.createdAt || new Date().toISOString(),
       "dateModified": blog.updatedAt || blog.createdAt || new Date().toISOString(),
       "author": {
@@ -123,10 +123,10 @@ export const BlogDetails = () => {
       },
       "publisher": {
         "@type": "Organization",
-        "name": "Bharat Exam Fest (BEF)",
+        "name": "Achiwon",
         "logo": {
           "@type": "ImageObject",
-          "url": "https://bharatexamfest.com/logo.png",
+          "url": "https://achiwon.com/logo.png",
         },
       },
       "mainEntityOfPage": {
@@ -205,7 +205,7 @@ export const BlogDetails = () => {
   return (
     <>
       <Seo
-        title={blog.metaTitle || `${blog.title} | Bharat Exam Fest`}
+        title={blog.metaTitle || `${blog.title} | Achiwon`}
         description={blog.metaDescription || blog.subTitle || blog.title}
         noIndex={true}
       />

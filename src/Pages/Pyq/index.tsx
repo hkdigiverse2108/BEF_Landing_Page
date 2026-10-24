@@ -130,7 +130,7 @@ const FAQS = [
   {
     question: "Can I practice these PYQs in a timed mock test simulator?",
     answer:
-      "Yes! Bharat Exam Fest provides a full-fledged timed mock exam simulator with real negative marking (-0.66 marks) and instant percentile ranking. Click 'Start Free Mock Test' anytime.",
+      "Yes! Achiwon provides a full-fledged timed mock exam simulator with real negative marking (-0.66 marks) and instant percentile ranking. Click 'Start Free Mock Test' anytime.",
   },
 ];
 

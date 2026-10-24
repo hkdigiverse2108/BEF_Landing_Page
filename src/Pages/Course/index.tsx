@@ -179,10 +179,10 @@ const Course: React.FC = () => {
           "@graph": [
             {
               "@type": "Organization",
-              "@id": "https://www.bharatexamfest.com/#organization",
+              "@id": "https://www.achiwon.com/#organization",
               name: "Achiwon",
-              url: "https://www.bharatexamfest.com/",
-              logo: "https://www.bharatexamfest.com/logo.png",
+              url: "https://www.achiwon.com/",
+              logo: "https://www.achiwon.com/logo.png",
               description:
                 "Achiwon is an AI-powered UPSC & competitive exam preparation platform offering structured courses, mock tests, workshops and smart study tools.",
               sameAs: [
@@ -193,8 +193,8 @@ const Course: React.FC = () => {
             },
             {
               "@type": "WebPage",
-              "@id": "https://www.bharatexamfest.com/course#webpage",
-              url: "https://www.bharatexamfest.com/course",
+              "@id": "https://www.achiwon.com/course#webpage",
+              url: "https://www.achiwon.com/course",
               name: "UPSC & Competitive Exam Courses – Achiwon",
               description:
                 "Explore a comprehensive list of UPSC & competitive exam preparation courses on Achiwon with structured learning, AI tools, mock practice and expert guidance.",

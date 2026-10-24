@@ -22,7 +22,7 @@ export const BlogBlueAdBanner: React.FC<{
       <div className="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
         <div className="max-w-2xl">
           <span className="flex items-center gap-1.5 text-[11px] font-extrabold uppercase tracking-widest text-white/80">
-            <LuSparkles /> Bharat Exam Fest Initiative
+            <LuSparkles /> Achiwon Initiative
           </span>
           <h3 className="mt-1 text-xl sm:text-2xl font-black tracking-tight text-white">
             {title}

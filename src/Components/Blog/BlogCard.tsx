@@ -24,7 +24,7 @@ const BlogCard = ({ blog }: { blog: BlogType }) => {
             />
           ) : (
             <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-[#124699]/10 to-[#F48224]/10 text-xs font-bold text-[#124699]">
-              Bharat Exam Fest
+              Achiwon
             </div>
           )}
         </Link>

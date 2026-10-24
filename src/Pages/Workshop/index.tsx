@@ -46,28 +46,28 @@ const Workshop = () => {
           "@graph": [
             {
               "@type": "Organization",
-              "@id": "https://www.bharatexamfest.com/#organization",
+              "@id": "https://www.achiwon.com/#organization",
               name: "Achiwon",
-              url: "https://www.bharatexamfest.com/",
-              logo: "https://www.bharatexamfest.com/logo.png",
+              url: "https://www.achiwon.com/",
+              logo: "https://www.achiwon.com/logo.png",
               description: "Achiwon is an AI-powered UPSC and competitive exam preparation platform offering free mock tests, expert workshops, interactive courses and personalized study tools.",
               sameAs: ["https://www.facebook.com/bharatexamfest", "https://www.instagram.com/bharatexamfest", "https://www.youtube.com/@bharatexamfest"],
             },
             {
               "@type": "WebSite",
-              "@id": "https://www.bharatexamfest.com/#website",
-              url: "https://www.bharatexamfest.com/",
+              "@id": "https://www.achiwon.com/#website",
+              url: "https://www.achiwon.com/",
               name: "Achiwon",
               potentialAction: {
                 "@type": "SearchAction",
-                target: "https://www.bharatexamfest.com/search?q={search_term_string}",
+                target: "https://www.achiwon.com/search?q={search_term_string}",
                 "query-input": "required name=search_term_string",
               },
             },
             {
               "@type": "WebPage",
-              "@id": "https://www.bharatexamfest.com/workshop#webpage",
-              url: "https://www.bharatexamfest.com/workshop",
+              "@id": "https://www.achiwon.com/workshop#webpage",
+              url: "https://www.achiwon.com/workshop",
               name: "UPSC & Competitive Exam Workshops – Achiwon",
               description: "Explore expert-led UPSC and competitive exam workshops on Achiwon. Attend interactive sessions on exam strategies, smart preparation tips and AI-enhanced learning.",
               breadcrumb: {
@@ -77,20 +77,20 @@ const Workshop = () => {
                     "@type": "ListItem",
                     position: 1,
                     name: "Home",
-                    item: "https://www.bharatexamfest.com/",
+                    item: "https://www.achiwon.com/",
                   },
                   {
                     "@type": "ListItem",
                     position: 2,
                     name: "Workshops",
-                    item: "https://www.bharatexamfest.com/workshop",
+                    item: "https://www.achiwon.com/workshop",
                   },
                 ],
               },
             },
             {
               "@type": "FAQPage",
-              "@id": "https://www.bharatexamfest.com/workshop#faq",
+              "@id": "https://www.achiwon.com/workshop#faq",
               mainEntity: [
                 {
                   "@type": "Question",

@@ -145,8 +145,8 @@ const Blog = () => {
       <Seo
         title={
           selectedCategory === "All"
-            ? "UPSC Preparation & Study Library | Bharat Exam Fest"
-            : `${selectedCategory} Blogs & Guidance | Bharat Exam Fest`
+            ? "UPSC Preparation & Study Library | Achiwon"
+            : `${selectedCategory} Blogs & Guidance | Achiwon`
         }
         description={
           selectedCategory === "All"
@@ -514,7 +514,7 @@ const BlogLibraryCard = ({ blog }: { blog: BlogType }) => {
             />
           ) : (
             <div className="flex h-full w-full items-center justify-center bg-gray-100 text-xs font-bold text-gray-400">
-              Bharat Exam Fest
+              Achiwon
             </div>
           )}
         </div>
