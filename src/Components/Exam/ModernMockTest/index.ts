@@ -8,7 +8,9 @@ export { MockTestPalette } from "./MockTestPalette";
 export { MockTestQuestionView } from "./MockTestQuestionView";
 export { MockTestSubmissionDrawer } from "./MockTestSubmissionDrawer";
 export { MockTestResultModal } from "./MockTestResultModal";
+export { MockTestLeadModal } from "./MockTestLeadModal";
 export { ALL_SUBJECT_QUESTIONS, getRandomMockQuestions } from "./mockQuestionsData";
+
 export type {
   MockQuestionItem,
   StatementItem,

@@ -76,6 +76,9 @@ const MockTestAnalysisPage = () => {
     navigate(lastPrelimsTarget);
   };
 
+  const candidateName = storedResult?.candidateName || storedResult?.name;
+  const candidatePhone = storedResult?.candidatePhone || storedResult?.phone;
+
   return (
     <>
       <Seo
@@ -92,11 +95,14 @@ const MockTestAnalysisPage = () => {
         unattemptedCount={unattemptedCount}
         timeTakenSeconds={timeTakenSeconds}
         earnedDiscount={earnedDiscount}
+        candidateName={candidateName}
+        candidatePhone={candidatePhone}
         onRestartTest={handleRestartTest}
         onEnrollCourse={handleEnrollCourse}
       />
     </>
   );
+
 };
 
 export default MockTestAnalysisPage;

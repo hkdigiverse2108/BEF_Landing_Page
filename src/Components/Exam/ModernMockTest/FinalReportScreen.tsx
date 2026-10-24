@@ -146,6 +146,8 @@ export interface FinalReportScreenProps {
   unattemptedCount: number;
   timeTakenSeconds: number;
   earnedDiscount?: number;
+  candidateName?: string;
+  candidatePhone?: string;
   onReviewSolutions?: () => void;
   onRestartTest?: () => void;
   onEnrollCourse: () => void;
@@ -161,6 +163,8 @@ export const FinalReportScreen: React.FC<FinalReportScreenProps> = ({
   unattemptedCount,
   timeTakenSeconds,
   earnedDiscount = 0,
+  candidateName,
+  candidatePhone,
   onEnrollCourse,
 }) => {
   const [activeTab, setActiveTab] = useState<
@@ -586,8 +590,17 @@ export const FinalReportScreen: React.FC<FinalReportScreenProps> = ({
     <div className="final-report-wrapper">
       <div className="final-report-container">
         {/* Title */}
-        <div className="final-report-title">
+        <div className="final-report-title flex flex-wrap items-center justify-between gap-3">
           <span>Result</span>
+          {candidateName && (
+            <div className="flex items-center gap-2 text-xs sm:text-sm font-bold bg-[#EFF6FF] text-[#124699] px-4 py-1.5 rounded-full border border-[#BFDBFE] shadow-2xs">
+              <span className="w-2 h-2 rounded-full bg-[#16A34A] animate-pulse" />
+              <span>Candidate: {candidateName}</span>
+              {candidatePhone && (
+                <span className="text-[#64748B] font-mono font-medium">({candidatePhone})</span>
+              )}
+            </div>
+          )}
         </div>
 
         {/* 2-Column Responsive Layout */}

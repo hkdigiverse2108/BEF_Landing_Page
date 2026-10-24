@@ -10,6 +10,7 @@ import { MockTestPalette, type QuestionStatus } from "./MockTestPalette";
 import { MockTestInstructionsModal } from "./MockTestInstructionsModal";
 import { MockTestSubmissionDrawer, type MockTestStats } from "./MockTestSubmissionDrawer";
 import { MockTestResultModal } from "./MockTestResultModal";
+import { MockTestLeadModal } from "./MockTestLeadModal";
 import { FinalReportScreen } from "./FinalReportScreen";
 import {
   type BackendQuestionItem,
@@ -17,7 +18,7 @@ import {
   FALLBACK_BACKEND_QUESTIONS,
 } from "./mockQuestionsData";
 import { ROUTES, URL_KEYS } from "../../../Constants";
-import { useGetApiQuery } from "../../../Api/CommonApi";
+import { useGetApiQuery, usePostApiMutation } from "../../../Api/CommonApi";
 import {
   matchScoreDiscount,
   saveMockTestReward,
@@ -81,10 +82,15 @@ export const FreePracticeTest: React.FC<FreePracticeTestProps> = ({
   const [isInstructionsOpen, setInstructionsOpen] = useState(false);
   const [isEndTestDrawerOpen, setEndTestDrawerOpen] = useState(false);
   const [isResultModalOpen, setResultModalOpen] = useState(false);
+  const [isLeadModalOpen, setLeadModalOpen] = useState(false);
+  const [isTimeUp, setIsTimeUp] = useState(false);
+  const [candidateInfo, setCandidateInfo] = useState<{ name: string; phone: string; email?: string } | null>(null);
   const [showSolutions, setShowSolutions] = useState(false);
   const [isPaletteCollapsed, setPaletteCollapsed] = useState(false);
   const [hasFinishedTest, setHasFinishedTest] = useState(false);
 
+  // Backend Mutation for Lead Recording
+  const [submitMockTestLead, { isLoading: isSubmittingLead }] = usePostApiMutation();
 
   // Format countdown hh:mm:ss
   const formatTime = (totalSeconds: number) => {
@@ -255,23 +261,53 @@ export const FreePracticeTest: React.FC<FreePracticeTestProps> = ({
   const discountTiers: DiscountTier[] = settings?.mockTestDiscountTiers || [];
   const earnedDiscount = matchScoreDiscount(calculatedScore, discountTiers);
 
-  // Finalize test and persist merit discount reward
-  const finishAndSubmitTest = () => {
-    setEndTestDrawerOpen(false);
-    setResultModalOpen(false);
-    setHasFinishedTest(true);
+  // Lead Submission & Test Finalization
+  const handleLeadSubmit = async (lead: { name: string; phone: string; email?: string }) => {
+    setCandidateInfo(lead);
+    const timeTaken = Math.max(0, initialDurationSeconds - secondsRemaining);
+    const percentage = totalPossibleMarks > 0 ? Math.round((calculatedScore / totalPossibleMarks) * 100) : 0;
+    const attempted = correctCount + incorrectCount;
+    const accuracy = attempted > 0 ? Math.round((correctCount / attempted) * 100) : 0;
 
-    const resultData = {
-      questions,
-      answersState,
+    const payload = {
+      name: lead.name,
+      phone: lead.phone,
+      email: lead.email || undefined,
       score: calculatedScore,
       totalMarks: totalPossibleMarks,
+      totalQuestions,
       correctCount,
       incorrectCount,
       unattemptedCount: unattempted,
-      timeTakenSeconds: Math.max(0, initialDurationSeconds - secondsRemaining),
+      timeTakenSeconds: timeTaken,
       earnedDiscount,
+      percentage,
+      accuracy,
+      subjectTitle: typeof currentSubject === "string" ? currentSubject : subjectTitle,
+      seriesTitle,
     };
+
+    try {
+      await submitMockTestLead({
+        url: URL_KEYS.MOCK_TEST.SUBMIT,
+        data: payload,
+      }).unwrap();
+    } catch (err) {
+      console.error("Mock test lead submission API error:", err);
+    }
+
+    setLeadModalOpen(false);
+    setHasFinishedTest(true);
+
+    const resultData = {
+      ...payload,
+      candidateName: lead.name,
+      candidatePhone: lead.phone,
+      candidateEmail: lead.email,
+      questions,
+      answersState,
+    };
+
     try {
       sessionStorage.setItem("mock_test_latest_result", JSON.stringify(resultData));
     } catch (e) {}
@@ -291,25 +327,30 @@ export const FreePracticeTest: React.FC<FreePracticeTestProps> = ({
     navigate(ROUTES.MOCK_TEST.ANALYSIS);
   };
 
-  // Countdown timer: 10 minutes (600 seconds) - automatically ends test when reaching 0
+  // Countdown timer: 10 minutes (600 seconds) - automatically triggers lead modal when reaching 0
   useEffect(() => {
-    if (hasFinishedTest || isResultModalOpen) return;
+    if (hasFinishedTest || isResultModalOpen || isLeadModalOpen) return;
     const interval = setInterval(() => {
       setSecondsRemaining((prev) => {
         if (prev <= 1) {
           clearInterval(interval);
-          finishAndSubmitTest();
+          setEndTestDrawerOpen(false);
+          setIsTimeUp(true);
+          setLeadModalOpen(true);
           return 0;
         }
         return prev - 1;
       });
     }, 1000);
     return () => clearInterval(interval);
-  }, [hasFinishedTest, isResultModalOpen, earnedDiscount, calculatedScore, totalPossibleMarks]);
+  }, [hasFinishedTest, isResultModalOpen, isLeadModalOpen]);
 
   const handleConfirmEndTest = () => {
-    finishAndSubmitTest();
+    setEndTestDrawerOpen(false);
+    setIsTimeUp(false);
+    setLeadModalOpen(true);
   };
+
 
   // Single game rule: Once played, taking another test requires refreshing the page
   const handleRestartTest = () => {
@@ -379,9 +420,12 @@ export const FreePracticeTest: React.FC<FreePracticeTestProps> = ({
         unattemptedCount={unattempted}
         timeTakenSeconds={Math.max(0, initialDurationSeconds - secondsRemaining)}
         earnedDiscount={earnedDiscount}
+        candidateName={candidateInfo?.name}
+        candidatePhone={candidateInfo?.phone}
         onRestartTest={handleRestartTest}
         onEnrollCourse={handleEnrollCourse}
       />
+
     );
   }
 
@@ -531,7 +575,22 @@ export const FreePracticeTest: React.FC<FreePracticeTestProps> = ({
         onRestartTest={handleRestartTest}
         onEnrollCourse={handleEnrollCourse}
       />
+      {/* End Test Lead Collection Modal */}
+      <MockTestLeadModal
+        isOpen={isLeadModalOpen}
+        score={calculatedScore}
+        totalMarks={totalPossibleMarks}
+        correctCount={correctCount}
+        incorrectCount={incorrectCount}
+        unattemptedCount={unattempted}
+        earnedDiscount={earnedDiscount}
+        onSubmit={handleLeadSubmit}
+        onClose={() => setLeadModalOpen(false)}
+        isLoading={isSubmittingLead}
+        isTimeUp={isTimeUp}
+      />
       </div>
     </div>
+
   );
 };

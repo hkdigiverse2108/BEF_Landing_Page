@@ -69,7 +69,9 @@ export const URL_KEYS = {
   },
   MOCK_TEST: {
     QUESTIONS: "/mock-test/questions",
+    SUBMIT: "free-mock-test/add",
   },
+
   PYQ: {
     META: "/pyq/meta",
     QUESTIONS: "/pyq/questions",

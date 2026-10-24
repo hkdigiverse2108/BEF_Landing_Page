@@ -31,6 +31,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({
   const scoreDiscount = eligibleReward?.scoreDiscount || 0;
 
   const targetUrl = _id ? ROUTES.COURSE.DETAILS.replace(":id", _id) : ROUTES.COURSE.COURSE;
+  const moduleUrl = _id ? `${ROUTES.COURSE.DETAILS.replace(":id", _id)}?tab=module#modules` : ROUTES.COURSE.COURSE;
 
   return (
     <article className="course-card">
@@ -79,7 +80,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({
       <div className="card-body">
         {/* Module Details Direct Link (Opens Course Details with Module Tab) */}
         <NavLink
-          to={targetUrl}
+          to={moduleUrl}
           state={{ mockReward: eligibleReward, activeTab: "module" }}
           className="module"
           title="Click to view all modules and syllabus in course"
