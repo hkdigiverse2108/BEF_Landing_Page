@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useMemo } from "react";
 import {
   LuTrophy,
   LuArrowRight,
@@ -6,6 +6,7 @@ import {
 } from "react-icons/lu";
 import { IoLogoWhatsapp } from "react-icons/io";
 import { CONTACT } from "../../../Data";
+import { getActiveSessionMockTestSet } from "./mockQuestionsData";
 
 export interface FreeMockTestIntroScreenProps {
   onStartTest: () => void;
@@ -16,6 +17,11 @@ export const FreeMockTestIntroScreen: React.FC<FreeMockTestIntroScreenProps> = (
   onStartTest,
   onEnrollCourse,
 }) => {
+  const activeSet = useMemo(() => getActiveSessionMockTestSet(), []);
+  const qCount = activeSet?.totalQuestions || 12;
+  const marksCount = activeSet?.totalMarks || 24;
+  const minsCount = Math.round((activeSet?.durationSeconds || 900) / 60);
+
   const [activeTab, setActiveTab] = useState<
     "ai" | "summary" | "compare" | "elimination" | "solution"
   >("ai");
@@ -51,7 +57,7 @@ export const FreeMockTestIntroScreen: React.FC<FreeMockTestIntroScreenProps> = (
             ACHIWON <span className="text-[#f48224]">UPSC CSE</span>
           </span>
           <span className="hidden sm:inline-block text-[11px] font-semibold text-[#64748b] bg-[#eef4ff] px-2.5 py-0.5 rounded-full border border-[#d6e4ff]">
-            All India Free Mock Fest
+            All India Free Mock Fest · {activeSet?.shortTitle || "PYQs & Clones"}
           </span>
         </div>
         <button
@@ -70,7 +76,7 @@ export const FreeMockTestIntroScreen: React.FC<FreeMockTestIntroScreenProps> = (
         <section className="free-test-copy">
           <div className="free-test-eyebrow">
             <span className="free-test-eyebrow-dot" />
-            <span>Free UPSC Mock Test · Live Now</span>
+            <span>Free UPSC Mock Test · {activeSet?.shortTitle || "Live Now"}</span>
           </div>
 
           <h1>
@@ -81,21 +87,21 @@ export const FreeMockTestIntroScreen: React.FC<FreeMockTestIntroScreenProps> = (
 
           <p className="free-test-lead">
             Experience the UPSC Prelims test interface, practise your answer
-            strategy, and discover where to focus next — all with a free mock test.
+            strategy, and discover where to focus next — all with our free mock test series.
           </p>
 
           {/* Test Highlights Banner */}
           <div className="free-test-score-banner">
             <div className="free-test-score-stat">
-              <b className="text-[#124699]">10</b>
+              <b className="text-[#124699]">{qCount}</b>
               <span>Questions</span>
             </div>
             <div className="free-test-score-stat">
-              <b className="text-[#16A34A]">20</b>
+              <b className="text-[#16A34A]">{marksCount}</b>
               <span>Marks</span>
             </div>
             <div className="free-test-score-stat">
-              <b className="text-[#F48224]">20</b>
+              <b className="text-[#F48224]">{minsCount}</b>
               <span>Minutes</span>
             </div>
             <div className="free-test-score-stat">

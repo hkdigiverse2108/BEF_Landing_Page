@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { message } from "antd";
 import { MockTestHeader } from "./MockTestHeader";
@@ -16,6 +16,8 @@ import {
   type BackendQuestionItem,
   type LanguageKey,
   FALLBACK_BACKEND_QUESTIONS,
+  getActiveSessionMockTestSet,
+  resetSessionMockTestSet,
 } from "./mockQuestionsData";
 import { ROUTES, URL_KEYS } from "../../../Constants";
 import { useGetApiQuery, usePostApiMutation } from "../../../Api/CommonApi";
@@ -48,31 +50,35 @@ export const FreePracticeTest: React.FC<FreePracticeTestProps> = ({
 }) => {
   const navigate = useNavigate();
 
+  // Active Mock Test Set (picks Set 1 or randomly from available sets)
+  const activeSet = useMemo(() => getActiveSessionMockTestSet(), []);
+
+  // Questions: statically curated from activeSet (or customQuestions override)
+  const questions: BackendQuestionItem[] = useMemo(() => {
+    if (customQuestions && customQuestions.length > 0) return customQuestions;
+    if (activeSet?.questions && activeSet.questions.length > 0) return activeSet.questions;
+    return FALLBACK_BACKEND_QUESTIONS;
+  }, [customQuestions, activeSet]);
+
+  const totalQuestions = questions.length;
+  const effectiveSeriesTitle =
+    seriesTitle !== "Achiwon mock series" ? seriesTitle : (activeSet?.seriesTitle || seriesTitle);
+  const effectiveSubjectTitle =
+    subjectTitle !== "UPSC Multi-Subject Prelims" ? subjectTitle : (activeSet?.subjectTitle || subjectTitle);
+  const effectiveDurationSeconds =
+    initialDurationSeconds !== 600 ? initialDurationSeconds : (activeSet?.durationSeconds || 900);
+
   // Dynamic Settings from Admin Panel
   const { data: settingApi } = useGetApiQuery({ url: URL_KEYS.SETTINGS.ALL });
   const settings = settingApi?.data;
-  const configuredCount = Number(settings?.mockTestQuestionCount) || 10;
 
   // Language state (English / Hindi toggle like in BEF_APP_WEB)
   const [language, setLanguage] = useState<LanguageKey>(initialLanguage);
-  const [reloadToken] = useState<number>(() => Date.now());
-
-  // Dynamic Questions from Backend MongoDB
-  const { data: questionsApi, isLoading: isQuestionsLoading } = useGetApiQuery({
-    url: `${URL_KEYS.MOCK_TEST.QUESTIONS}?count=${configuredCount}&_t=${reloadToken}`,
-  });
-
-  const questions: BackendQuestionItem[] =
-    Array.isArray(questionsApi?.data) && questionsApi.data.length > 0
-      ? questionsApi.data
-      : customQuestions || FALLBACK_BACKEND_QUESTIONS;
-
-  const totalQuestions = questions.length;
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answersState, setAnswersState] = useState<Record<number, UserQuestionAnswerState>>({});
   const [visitedIndices, setVisitedIndices] = useState<Set<number>>(new Set([0]));
-  const [secondsRemaining, setSecondsRemaining] = useState(initialDurationSeconds);
+  const [secondsRemaining, setSecondsRemaining] = useState(effectiveDurationSeconds);
 
   // Ant Design message hook & inline validation state
   const [, contextHolder] = message.useMessage();
@@ -264,7 +270,7 @@ export const FreePracticeTest: React.FC<FreePracticeTestProps> = ({
   // Lead Submission & Test Finalization
   const handleLeadSubmit = async (lead: { name: string; phone: string; email?: string }) => {
     setCandidateInfo(lead);
-    const timeTaken = Math.max(0, initialDurationSeconds - secondsRemaining);
+    const timeTaken = Math.max(0, effectiveDurationSeconds - secondsRemaining);
     const percentage = totalPossibleMarks > 0 ? Math.round((calculatedScore / totalPossibleMarks) * 100) : 0;
     const attempted = correctCount + incorrectCount;
     const accuracy = attempted > 0 ? Math.round((correctCount / attempted) * 100) : 0;
@@ -283,8 +289,8 @@ export const FreePracticeTest: React.FC<FreePracticeTestProps> = ({
       earnedDiscount,
       percentage,
       accuracy,
-      subjectTitle: typeof currentSubject === "string" ? currentSubject : subjectTitle,
-      seriesTitle,
+      subjectTitle: typeof currentSubject === "string" ? currentSubject : effectiveSubjectTitle,
+      seriesTitle: effectiveSeriesTitle,
     };
 
     try {
@@ -304,6 +310,8 @@ export const FreePracticeTest: React.FC<FreePracticeTestProps> = ({
       candidateName: lead.name,
       candidatePhone: lead.phone,
       candidateEmail: lead.email,
+      setId: activeSet?.id,
+      setTitle: activeSet?.title,
       questions,
       answersState,
     };
@@ -331,7 +339,7 @@ export const FreePracticeTest: React.FC<FreePracticeTestProps> = ({
   useEffect(() => {
     if (hasFinishedTest || isResultModalOpen || isLeadModalOpen) return;
     const interval = setInterval(() => {
-      setSecondsRemaining((prev) => {
+      setSecondsRemaining((prev: number) => {
         if (prev <= 1) {
           clearInterval(interval);
           setEndTestDrawerOpen(false);
@@ -352,8 +360,12 @@ export const FreePracticeTest: React.FC<FreePracticeTestProps> = ({
   };
 
 
-  // Single game rule: Once played, taking another test requires refreshing the page
+  // Once played, taking another test resets to a fresh random set from available sets
   const handleRestartTest = () => {
+    resetSessionMockTestSet();
+    try {
+      sessionStorage.removeItem("mock_test_latest_result");
+    } catch (e) {}
     window.location.reload();
   };
 
@@ -397,17 +409,6 @@ export const FreePracticeTest: React.FC<FreePracticeTestProps> = ({
     excludedOptions: {},
   };
 
-  if (isQuestionsLoading && (!questions || questions.length === 0)) {
-    return (
-      <div className="min-h-screen w-full bg-[#F8FAFC] flex flex-col items-center justify-center font-sans text-[#0F172A]">
-        <div className="flex flex-col items-center gap-4">
-          <div className="h-10 w-10 animate-spin rounded-full border-4 border-[#124699] border-t-transparent" />
-          <p className="font-bold text-sm text-[#64748B]">Loading mock test questions...</p>
-        </div>
-      </div>
-    );
-  }
-
   if (hasFinishedTest && !showSolutions) {
     return (
       <FinalReportScreen
@@ -418,14 +419,13 @@ export const FreePracticeTest: React.FC<FreePracticeTestProps> = ({
         correctCount={correctCount}
         incorrectCount={incorrectCount}
         unattemptedCount={unattempted}
-        timeTakenSeconds={Math.max(0, initialDurationSeconds - secondsRemaining)}
+        timeTakenSeconds={Math.max(0, effectiveDurationSeconds - secondsRemaining)}
         earnedDiscount={earnedDiscount}
         candidateName={candidateInfo?.name}
         candidatePhone={candidateInfo?.phone}
         onRestartTest={handleRestartTest}
         onEnrollCourse={handleEnrollCourse}
       />
-
     );
   }
 
@@ -441,7 +441,7 @@ export const FreePracticeTest: React.FC<FreePracticeTestProps> = ({
         {contextHolder}
         {/* Top Header & Safeguard Alert */}
         <MockTestHeader
-          seriesTitle={seriesTitle}
+          seriesTitle={effectiveSeriesTitle}
           subjectTitle={currentSubject}
           timeRemaining={formatTime(secondsRemaining)}
           onOpenSettings={() => setInstructionsOpen(true)}

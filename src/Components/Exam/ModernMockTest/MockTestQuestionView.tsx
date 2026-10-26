@@ -19,6 +19,7 @@ import {
 } from "react-icons/lu";
 import { IoLanguage } from "react-icons/io5";
 import "./ModernMockTest.css";
+import FormattedSolution from "../../Common/FormattedSolution";
 import {
   type BackendQuestionItem,
   type LanguageKey,
@@ -96,6 +97,12 @@ export const MockTestQuestionView: React.FC<MockTestQuestionViewProps> = ({
     (typeof (question as any)?.subjectId === "object" ? ((question as any)?.subjectId as any)?.name : (question as any)?.subjectId) ||
     (typeof question?.type === "string" ? question?.type : "") ||
     "General Studies";
+  const subtopicName =
+    (typeof question?.subtopic === "object" ? question?.subtopic?.name : question?.subtopic) ||
+    (typeof (question as any)?.subtopicId === "object" ? ((question as any)?.subtopicId as any)?.name : (question as any)?.subtopicId) ||
+    "";
+  const questionTitle = question?.title || "";
+  const cloneOf = question?.cloneOf || "";
   const positiveMarks = question?.positiveMarks ?? 2;
   const negativeMarks = question?.negativeMarks ?? 0.67;
 
@@ -294,10 +301,22 @@ export const MockTestQuestionView: React.FC<MockTestQuestionViewProps> = ({
 
       {/* Question Body */}
       <div className="pt-6">
-        {/* Topic / Subject Tag */}
-        <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#124699]">
-          {subjectName}
-        </p>
+        {/* Topic / Subject & Subtopic Tag */}
+        <div className="flex flex-wrap items-center gap-2">
+          <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#124699]">
+            {subjectName} {subtopicName ? `· ${subtopicName}` : ""}
+          </p>
+          {questionTitle && (
+            <span className="rounded-md bg-amber-50 border border-amber-200 px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-wide text-amber-800">
+              {questionTitle}
+            </span>
+          )}
+          {cloneOf && (
+            <span className="rounded-md bg-purple-50 border border-purple-200 px-2 py-0.5 text-[10px] font-semibold text-purple-900">
+              Clone: {cloneOf}
+            </span>
+          )}
+        </div>
 
         {/* Question Text */}
         <div className="mt-2.5">
@@ -611,21 +630,11 @@ export const MockTestQuestionView: React.FC<MockTestQuestionViewProps> = ({
 
           {/* Correct answer callout banner (if enabled) */}
           {showCorrectAnswerBanner && (
-            <div className="mt-4 flex items-start gap-3 rounded-xl border border-[#16A34A] bg-[#F0FDF4] p-4 animate-in fade-in">
-              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#16A34A] text-white">
-                <LuCheck className="text-base" />
-              </span>
-              <div>
-                <p className="font-bold text-sm text-[#166534]">
-                  Correct Answer: {correctAns}
-                </p>
-                {solution && (
-                  <p className="mt-0.5 text-xs text-[#0F172A] leading-relaxed">
-                    {solution}
-                  </p>
-                )}
-              </div>
-            </div>
+            <FormattedSolution
+              solution={solution}
+              correctAnswer={correctAns}
+              className="mt-4"
+            />
           )}
         </div>
 

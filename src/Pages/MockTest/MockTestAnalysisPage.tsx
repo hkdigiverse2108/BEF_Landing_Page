@@ -7,6 +7,8 @@ import { useGetApiQuery } from "../../Api/CommonApi";
 import {
   FALLBACK_BACKEND_QUESTIONS,
   type BackendQuestionItem,
+  getActiveSessionMockTestSet,
+  resetSessionMockTestSet,
 } from "../../Components/Exam/ModernMockTest/mockQuestionsData";
 import { isLastPrelimsCourse } from "../../Utils/mockTestReward";
 
@@ -23,20 +25,11 @@ const MockTestAnalysisPage = () => {
     }
   }, []);
 
-  // Fetch dynamic questions if no stored session questions
-  const { data: questionsApi } = useGetApiQuery(
-    {
-      url: `${URL_KEYS.MOCK_TEST.QUESTIONS}?count=10`,
-    },
-    { skip: Boolean(storedResult?.questions?.length) }
-  );
+  const activeSet = useMemo(() => getActiveSessionMockTestSet(), []);
 
   const fallbackQuestions: BackendQuestionItem[] = useMemo(() => {
-    const apiQuestions: BackendQuestionItem[] = Array.isArray(questionsApi?.data)
-      ? questionsApi.data
-      : questionsApi?.data?.question_data || [];
-    return apiQuestions.length > 0 ? apiQuestions : FALLBACK_BACKEND_QUESTIONS;
-  }, [questionsApi]);
+    return activeSet?.questions || FALLBACK_BACKEND_QUESTIONS;
+  }, [activeSet]);
 
   const questions: BackendQuestionItem[] =
     storedResult?.questions?.length > 0
@@ -66,6 +59,7 @@ const MockTestAnalysisPage = () => {
     : "/course/details/690ccd4aafdfb3c841183295";
 
   const handleRestartTest = () => {
+    resetSessionMockTestSet();
     try {
       sessionStorage.removeItem("mock_test_latest_result");
     } catch (e) {}

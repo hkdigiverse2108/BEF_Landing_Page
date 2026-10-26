@@ -1513,13 +1513,25 @@ export const FinalReportScreen: React.FC<FinalReportScreenProps> = ({
                       >
                         {/* Header Row */}
                         <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-gray-200/80">
-                          <div className="flex items-center gap-2">
+                          <div className="flex items-center gap-2 flex-wrap">
                             <span className="font-heading font-extrabold text-sm sm:text-base text-[#124699]">
                               Question {item.index + 1}
                             </span>
                             <span className="rounded-md bg-blue-50 border border-blue-200 px-2 py-0.5 text-[11px] font-bold text-[#124699]">
                               {subjectBadge}
                             </span>
+                            {(q.subtopic || (q as any).subtopicId) && (
+                              <span className="rounded-md bg-slate-50 border border-slate-200 px-2 py-0.5 text-[11px] font-semibold text-[#475569]">
+                                {typeof q.subtopic === "object"
+                                  ? q.subtopic?.name
+                                  : q.subtopic || (typeof (q as any).subtopicId === "object" ? (q as any).subtopicId?.name : (q as any).subtopicId)}
+                              </span>
+                            )}
+                            {q.title && (
+                              <span className="rounded-md bg-amber-50 border border-amber-200 px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-wide text-amber-800">
+                                {q.title}
+                              </span>
+                            )}
                           </div>
 
                           <div className="flex items-center gap-2">
@@ -1539,6 +1551,14 @@ export const FinalReportScreen: React.FC<FinalReportScreenProps> = ({
                             </span>
                           </div>
                         </div>
+
+                        {/* Clone Reference Callout if present */}
+                        {q.cloneOf && (
+                          <div className="mt-2.5 inline-flex items-center gap-1.5 rounded-lg bg-purple-50 border border-purple-200 px-2.5 py-1 text-xs text-purple-900 shadow-2xs">
+                            <span className="font-extrabold text-purple-700">Clone Reference:</span>
+                            <span>{q.cloneOf}</span>
+                          </div>
+                        )}
 
                         {/* Question Text */}
                         <div className="mt-3 text-sm sm:text-base font-semibold text-[#0F172A] leading-relaxed">
