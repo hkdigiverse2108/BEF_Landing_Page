@@ -76,6 +76,9 @@ const CourseRegister = () => {
           if (!isLastPrelims) return null;
           const mockReward = (course as any)?.mockReward || getMockTestReward();
           if (!mockReward || !mockReward.scoreDiscount) return null;
+          const coursePrice = Number(course?.price) || 20000;
+          const targetPay = Number(mockReward.scoreDiscount);
+          const saveAmount = Math.max(0, coursePrice - targetPay);
           return (
             <div className="mb-4 rounded-xl border border-emerald-300 bg-emerald-50 p-3.5 text-xs text-emerald-800 flex items-center justify-between shadow-xs">
               <div>
@@ -83,12 +86,12 @@ const CourseRegister = () => {
                   🏆 Mock Test Score Discount Applied!
                 </span>
                 <span className="text-[11px] text-emerald-700">
-                  Score: {mockReward.score.toFixed(1)}/{mockReward.totalMarks}
+                  Score: {mockReward.score.toFixed(1)}/{mockReward.totalMarks} • Special Fee: ₹{targetPay.toLocaleString()}
                 </span>
               </div>
               <div className="text-right">
                 <span className="text-base font-black text-emerald-700">
-                  -₹{mockReward.scoreDiscount.toLocaleString()} OFF
+                  -₹{saveAmount.toLocaleString()} OFF
                 </span>
               </div>
             </div>

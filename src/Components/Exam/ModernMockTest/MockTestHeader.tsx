@@ -134,9 +134,11 @@ export const MockTestHeader: React.FC<MockTestHeaderProps> = ({
         <div className="flex items-start gap-2 rounded-xl border border-[#F48224]/30 bg-[#FFF7ED] px-3 py-2 text-xs sm:text-sm text-[#0F172A]">
           <LuCircleAlert className="mt-0.5 shrink-0 text-sm sm:text-base text-[#F48224]" />
           <p className="leading-snug">
-            <span className="font-bold text-[#F48224]">Test safeguard.</span>{" "}
+            {/* <span className="font-bold text-[#F48224]">Test safeguard.</span>{" "}
             Do not exit the test otherwise your test will end. Press{" "}
-            <span className="font-semibold text-[#DC2626]">End Test</span> to submit.
+            <span className="font-semibold text-[#DC2626]">End Test</span> to submit. */}
+            STAY REGULAR, STAY DISCIPLINED — GET 100% DEPOSIT BACK! - Press{" "}
+            <span className="font-semibold text-[#DC2626]">Enjoy 100% Free COURSE</span>
           </p>
         </div>
       </div>

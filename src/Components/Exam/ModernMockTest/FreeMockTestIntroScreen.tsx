@@ -1,4 +1,4 @@
-import React, { useState, useRef, useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import {
   LuTrophy,
   LuArrowRight,
@@ -7,6 +7,8 @@ import {
 import { IoLogoWhatsapp } from "react-icons/io";
 import { CONTACT } from "../../../Data";
 import { getActiveSessionMockTestSet } from "./mockQuestionsData";
+import ModernVideoPlayer from "../../Common/ModernVideoPlayer";
+import { REPORT_VIDEOS } from "../../../Constants/reportVideosData";
 
 export interface FreeMockTestIntroScreenProps {
   onStartTest: () => void;
@@ -23,22 +25,9 @@ export const FreeMockTestIntroScreen: React.FC<FreeMockTestIntroScreenProps> = (
   const minsCount = Math.round((activeSet?.durationSeconds || 900) / 60);
 
   const [activeTab, setActiveTab] = useState<
-    "ai" | "summary" | "compare" | "elimination" | "solution"
+    "ai" | "summary" | "compare" | "elimination" | "solution" | "mistakemap"
   >("ai");
-  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [isEnrollModalOpen, setEnrollModalOpen] = useState(false);
-
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-
-  const fallbackVideo =
-    "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4";
-
-  const handlePlayVideo = () => {
-    if (videoRef.current) {
-      videoRef.current.play().catch(() => {});
-      setIsVideoPlaying(true);
-    }
-  };
 
   const whatsappMessage = encodeURIComponent(
     "Hello Achiwon Team! I want to enroll in the UPSC Prelims Course. Please guide me for course admissions."
@@ -116,7 +105,7 @@ export const FreeMockTestIntroScreen: React.FC<FreeMockTestIntroScreenProps> = (
               type="button"
               onClick={() => setActiveTab("ai")}
               onMouseEnter={() => setActiveTab("ai")}
-              className={`report-tab ${
+              className={`report-tab report-ai ${
                 activeTab === "ai" ? "report-active" : ""
               }`}
             >
@@ -169,8 +158,21 @@ export const FreeMockTestIntroScreen: React.FC<FreeMockTestIntroScreenProps> = (
               }`}
               title="Click to view question-by-question solutions"
             >
-              <span className="report-icon">▤</span>
+              <span className="report-icon">📖</span>
               <span>View Solution</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setActiveTab("mistakemap")}
+              onMouseEnter={() => setActiveTab("mistakemap")}
+              className={`report-tab report-mistakemap ${
+                activeTab === "mistakemap" ? "report-active" : ""
+              }`}
+              title="Click to view Mistake Map Diagnostic Report"
+            >
+              <span className="report-icon">🗺</span>
+              <span>Mistake Map Report</span>
             </button>
           </div>
 
@@ -209,6 +211,13 @@ export const FreeMockTestIntroScreen: React.FC<FreeMockTestIntroScreenProps> = (
                 English explanations for every question after completing the test.
               </p>
             )}
+            {activeTab === "mistakemap" && (
+              <p>
+                🗺️ <strong>Mistake Map Report:</strong> Classify every negative mark into
+                Concept, Elimination, Silly, or Overthinking errors to permanently eliminate repeat
+                blunders in UPSC Prelims.
+              </p>
+            )}
           </div>
 
           {/* CTA Row */}
@@ -243,43 +252,20 @@ export const FreeMockTestIntroScreen: React.FC<FreeMockTestIntroScreenProps> = (
           className="free-test-visual-column"
           aria-label="UPSC test video tutorial"
         >
-          <div className="video-shell">
-            <div className="video-frame">
-              <video
-                ref={videoRef}
-                controls={isVideoPlaying}
-                playsInline
-                preload="metadata"
-                onPlay={() => setIsVideoPlaying(true)}
-                onPause={() => setIsVideoPlaying(false)}
-              >
-                <source src={fallbackVideo} type="video/mp4" />
-                Your browser does not support HTML video.
-              </video>
-
-              {/* Placeholder overlay (visible when not playing) */}
-              {!isVideoPlaying && (
-                <div
-                  className="video-placeholder"
-                  onClick={handlePlayVideo}
-                  role="button"
-                  tabIndex={0}
-                  aria-label="Play video walkthrough"
-                >
-                  <div className="play-button">▶</div>
-                  <div className="video-title">UPSC Mock Test Walkthrough</div>
-                  <div className="video-subtitle">
-                    See how the test works, learn option elimination, and master
-                    your prelims strategy.
-                  </div>
-                </div>
-              )}
-            </div>
+          <div className="video-shell overflow-hidden rounded-3xl">
+            <ModernVideoPlayer
+              key={activeTab}
+              src={REPORT_VIDEOS[activeTab]?.src || "/videos/report/ai-powered.mp4"}
+              title={REPORT_VIDEOS[activeTab]?.title || "UPSC Mock Test Walkthrough"}
+              subtitle={REPORT_VIDEOS[activeTab]?.subtitle || "See how the test works, learn option elimination, and master your prelims strategy."}
+              badge={REPORT_VIDEOS[activeTab]?.badge}
+              bannerMode={false}
+            />
 
             <div className="video-meta">
               <div className="video-meta-left">
                 <span className="live-dot" />
-                <span>Test interface walkthrough</span>
+                <span>{REPORT_VIDEOS[activeTab]?.title || "Test interface walkthrough"}</span>
               </div>
               <button
                 className="video-action"
@@ -291,6 +277,24 @@ export const FreeMockTestIntroScreen: React.FC<FreeMockTestIntroScreenProps> = (
               </button>
             </div>
           </div>
+
+          {/* Dynamic Walkthrough Highlights for Active Tab */}
+          {REPORT_VIDEOS[activeTab]?.points && REPORT_VIDEOS[activeTab].points.length > 0 && (
+            <div className="mt-3 rounded-2xl border border-[#E2E8F0] bg-white/95 p-3.5 shadow-2xs">
+              <div className="text-[11px] font-extrabold uppercase tracking-wider text-[#124699] mb-1.5 flex items-center gap-1.5">
+                <span>✦</span>
+                <span>{REPORT_VIDEOS[activeTab]?.badge || "Report Highlights"}</span>
+              </div>
+              <ul className="space-y-1 text-xs text-[#475569]">
+                {REPORT_VIDEOS[activeTab].points.map((pt, idx) => (
+                  <li key={idx} className="flex items-start gap-1.5">
+                    <span className="text-[#10B981] font-bold mt-0.5">✓</span>
+                    <span>{pt}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           <div className="free-test-visual-caption">
             <span className="free-test-caption-line" />

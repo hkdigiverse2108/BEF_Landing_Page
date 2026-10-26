@@ -1,5 +1,4 @@
 import { ROUTES } from "../Constants";
-import { APP_LINKS } from "../Data";
 import { useAppSelector } from "../Store/Hook";
 import type { WorkshopType } from "../Types";
 
@@ -20,6 +19,6 @@ export const getHeaderItems = () => {
       Title: "Course",
       link: ROUTES.COURSE.COURSE,
     },
-    { Title: "Download Now", link: APP_LINKS },
+    // { Title: "Download Now", link: APP_LINKS },
   ];
 };

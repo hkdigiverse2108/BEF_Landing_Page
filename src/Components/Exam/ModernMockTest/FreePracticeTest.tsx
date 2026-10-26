@@ -320,17 +320,14 @@ export const FreePracticeTest: React.FC<FreePracticeTestProps> = ({
       sessionStorage.setItem("mock_test_latest_result", JSON.stringify(resultData));
     } catch (e) {}
 
-    if (earnedDiscount > 0) {
-      saveMockTestReward({
-        score: calculatedScore,
-        totalMarks: totalPossibleMarks,
-        scoreDiscount: earnedDiscount,
-        active: true,
-        timestamp: Date.now(),
-      });
-    } else {
-      clearMockTestReward();
-    }
+    const finalDiscount = earnedDiscount > 0 ? earnedDiscount : 7499;
+    saveMockTestReward({
+      score: calculatedScore,
+      totalMarks: totalPossibleMarks,
+      scoreDiscount: finalDiscount,
+      active: true,
+      timestamp: Date.now(),
+    });
 
     navigate(ROUTES.MOCK_TEST.ANALYSIS);
   };

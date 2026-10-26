@@ -10,7 +10,7 @@ import {
   getActiveSessionMockTestSet,
   resetSessionMockTestSet,
 } from "../../Components/Exam/ModernMockTest/mockQuestionsData";
-import { isLastPrelimsCourse } from "../../Utils/mockTestReward";
+import { isLastPrelimsCourse, saveMockTestReward, type MockTestReward } from "../../Utils/mockTestReward";
 
 const MockTestAnalysisPage = () => {
   const navigate = useNavigate();
@@ -46,7 +46,8 @@ const MockTestAnalysisPage = () => {
       ? Number(storedResult.unattemptedCount)
       : Math.max(0, questions.length - (correctCount + incorrectCount));
   const timeTakenSeconds = Number(storedResult?.timeTakenSeconds) || 180;
-  const earnedDiscount = Number(storedResult?.earnedDiscount) || 0;
+  const rawDiscount = Number(storedResult?.earnedDiscount) || 0;
+  const effectiveDiscount = rawDiscount > 0 ? rawDiscount : 7499;
 
   // Course linking
   const { data: coursesListData } = useGetApiQuery({
@@ -67,7 +68,15 @@ const MockTestAnalysisPage = () => {
   };
 
   const handleEnrollCourse = () => {
-    navigate(lastPrelimsTarget);
+    const reward: MockTestReward = {
+      score,
+      totalMarks,
+      scoreDiscount: effectiveDiscount,
+      active: true,
+      timestamp: Date.now(),
+    };
+    saveMockTestReward(reward);
+    navigate(lastPrelimsTarget, { state: { mockReward: reward } });
   };
 
   const candidateName = storedResult?.candidateName || storedResult?.name;
@@ -88,7 +97,7 @@ const MockTestAnalysisPage = () => {
         incorrectCount={incorrectCount}
         unattemptedCount={unattemptedCount}
         timeTakenSeconds={timeTakenSeconds}
-        earnedDiscount={earnedDiscount}
+        earnedDiscount={effectiveDiscount}
         candidateName={candidateName}
         candidatePhone={candidatePhone}
         onRestartTest={handleRestartTest}
@@ -96,7 +105,6 @@ const MockTestAnalysisPage = () => {
       />
     </>
   );
-
 };
 
 export default MockTestAnalysisPage;

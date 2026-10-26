@@ -11,11 +11,7 @@ import {
   clearMockTestReward,
   type MockTestReward,
 } from "../../Utils/mockTestReward";
-import {
-  LuSlidersHorizontal,
-  LuChevronDown,
-  LuCheck,
-} from "react-icons/lu";
+import { LuChevronDown } from "react-icons/lu";
 
 const FALLBACK_MY_COURSES: CourseType[] = [
   {
@@ -101,31 +97,6 @@ const FALLBACK_MY_COURSES: CourseType[] = [
 const Course: React.FC = () => {
   const [mockReward, setMockReward] = useState<MockTestReward | null>(null);
   const [showAllMyCourses, setShowAllMyCourses] = useState(false);
-  const [selectedSort, setSelectedSort] = useState<"all" | "victory" | "popular">("all");
-  const [sortDropdownOpen, setSortDropdownOpen] = useState(false);
-
-  // Live Exam Festival Countdown (UPSC Prelims 2026 Target: May 24, 2026)
-  const [timeLeft, setTimeLeft] = useState({
-    days: 231,
-    hours: 16,
-    minutes: 30,
-    seconds: 59,
-  });
-
-  useEffect(() => {
-    const targetDate = new Date("2026-05-24T09:30:00").getTime();
-    const interval = setInterval(() => {
-      const now = new Date().getTime();
-      const diff = Math.max(0, targetDate - now);
-      setTimeLeft({
-        days: Math.floor(diff / (1000 * 60 * 60 * 24)),
-        hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
-        minutes: Math.floor((diff / 1000 / 60) % 60),
-        seconds: Math.floor((diff / 1000) % 60),
-      });
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
 
   useEffect(() => {
     const reward = getMockTestReward();
@@ -157,12 +128,8 @@ const Course: React.FC = () => {
     });
   }
 
-  // Filter & sort
-  let displayedMyCourses = [...combinedCourses];
-  if (selectedSort === "victory") {
-    displayedMyCourses = displayedMyCourses.filter((c) => c.courseMoneyBack || c.title?.includes("Prelims"));
-  }
-
+  // Display courses
+  const displayedMyCourses = [...combinedCourses];
   const visibleMyCourses = showAllMyCourses ? displayedMyCourses : displayedMyCourses.slice(0, 6);
 
   if (courseLoading && apiCourses.length === 0) return <Loader />;
@@ -186,9 +153,10 @@ const Course: React.FC = () => {
               description:
                 "Achiwon is an AI-powered UPSC & competitive exam preparation platform offering structured courses, mock tests, workshops and smart study tools.",
               sameAs: [
-                "https://www.facebook.com/bharatexamfest",
-                "https://www.instagram.com/bharatexamfest",
-                "https://www.youtube.com/@bharatexamfest",
+                "https://www.facebook.com/achiwoncse",
+                "https://www.instagram.com/achiwoncse/",
+                "https://www.youtube.com/@achiwon",
+                "https://t.me/+F5nF-pfPwpczNjZl",
               ],
             },
             {
@@ -202,31 +170,6 @@ const Course: React.FC = () => {
           ],
         }}
       />
-
-      {/* ================= 1. EXAM FESTIVAL COUNTDOWN TOP BAR ================= */}
-      <div className="w-full bg-[#124699] text-white border-b border-[#1E5FC9]/30">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 py-2.5 text-xs font-semibold">
-          <div className="flex items-center gap-2">
-            <span className="h-2.5 w-2.5 rounded-full bg-[#F48224] animate-ping" />
-            <span className="tracking-wide">Let's celebrate this Exam Festival</span>
-          </div>
-
-          <div className="flex items-center gap-3 sm:gap-6 font-mono font-bold text-[11px] sm:text-xs text-white/95">
-            <span className="bg-white/10 px-2 py-0.5 rounded-md backdrop-blur-xs">
-              {timeLeft.days} Days
-            </span>
-            <span className="bg-white/10 px-2 py-0.5 rounded-md backdrop-blur-xs">
-              {String(timeLeft.hours).padStart(2, "0")} Hrs
-            </span>
-            <span className="bg-white/10 px-2 py-0.5 rounded-md backdrop-blur-xs">
-              {String(timeLeft.minutes).padStart(2, "0")} Min
-            </span>
-            <span className="bg-[#F48224] text-white px-2 py-0.5 rounded-md shadow-xs">
-              {String(timeLeft.seconds).padStart(2, "0")} Sec
-            </span>
-          </div>
-        </div>
-      </div>
 
       <div className="min-h-screen bg-[#F8FAFC] pb-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-6 sm:pt-10">
@@ -242,50 +185,8 @@ const Course: React.FC = () => {
                   </h1>
                 </div>
                 <p className="mt-1.5 text-xs sm:text-sm font-medium text-[#64748B]">
-                  Pick up where you left off and stay ready for Prelims.
+                  150+ Marks Guaranteed Prelims
                 </p>
-              </div>
-
-              {/* Sort / Filter Button */}
-              <div className="relative">
-                <button
-                  type="button"
-                  onClick={() => setSortDropdownOpen((prev) => !prev)}
-                  className="flex min-h-11 items-center gap-2 rounded-xl border border-[#CBD5E1] bg-white px-4 text-xs sm:text-sm font-bold text-[#124699] shadow-xs transition-all duration-200 hover:border-[#124699] hover:bg-[#F8FAFC] cursor-pointer"
-                >
-                  <LuSlidersHorizontal className="text-base" />
-                  <span>
-                    Sort: {selectedSort === "victory" ? "Victory Fest" : "All Batches"}
-                  </span>
-                  <LuChevronDown className="text-sm" />
-                </button>
-
-                {sortDropdownOpen && (
-                  <div className="absolute right-0 top-12 z-30 w-48 rounded-xl border border-[#E2E8F0] bg-white p-1.5 shadow-lg">
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setSelectedSort("all");
-                        setSortDropdownOpen(false);
-                      }}
-                      className="flex w-full items-center justify-between rounded-lg px-3 py-2 text-xs font-semibold text-[#0F172A] hover:bg-[#F1F5F9] cursor-pointer"
-                    >
-                      <span>All Batches</span>
-                      {selectedSort === "all" && <LuCheck className="text-sm text-[#124699]" />}
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setSelectedSort("victory");
-                        setSortDropdownOpen(false);
-                      }}
-                      className="flex w-full items-center justify-between rounded-lg px-3 py-2 text-xs font-semibold text-[#0F172A] hover:bg-[#F1F5F9] cursor-pointer"
-                    >
-                      <span>Victory Fest Batches</span>
-                      {selectedSort === "victory" && <LuCheck className="text-sm text-[#124699]" />}
-                    </button>
-                  </div>
-                )}
               </div>
             </div>
 

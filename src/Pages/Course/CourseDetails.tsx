@@ -70,7 +70,7 @@ const CourseDetails = () => {
     url: `${URL_KEYS.COURSE.ONE}${id}`,
   });
   const course = courseData?.data || {};
-  const { _id = "", title = "", image = "", language = "", pdf = "", syllabus, courseMoneyBack = "", description = "", price = 0, payingPrice = 0, discountPrice = 0, priceInStruction = "" } = course;
+  const { _id = "", title = "", image = "", language = "", pdf = "", courseMoneyBack = "", description = "", price = 0, payingPrice = 0, discountPrice = 0, priceInStruction = "" } = course;
 
   const isLastPrelims = isLastPrelimsCourse(course);
   const eligibleReward = isLastPrelims ? mockReward : null;
@@ -128,13 +128,12 @@ const CourseDetails = () => {
         </section>
         <section>
           <div className="space-y-6">
-            <section className=" max-sm:text-sm font-medium flex justify-between  gap-3">
-              <div className="flex  gap-2 items-center">
-                <div className="bg-white border border-gray-300  w-fit h-fit px-3 py-1  rounded-md ">
+            <section className="max-sm:text-sm font-medium flex justify-end gap-3">
+              {language && (
+                <div className="bg-white border border-gray-300 w-fit h-fit px-3 py-1 rounded-md">
                   <span>{language}</span>
                 </div>
-                <div className="uppercase max-sm:text-xs text-primary font-bold ">{syllabus?.subjectLevel}</div>
-              </div>
+              )}
             </section>
             <section className="flex max-sm:flex-col gap-4 justify-between">
               <h1 className="capitalize font-semibold sm:text-2xl">{title}</h1>
@@ -179,8 +178,18 @@ const CourseDetails = () => {
                   <figure className="rounded-full bg-primary/10 p-3 sm:p-4 h-fit w-fit">
                     <img src={`${ImagePath}workshop/wallet.png`} alt="Users" className="w-8 sm:w-10 h-fit" />
                   </figure>
-                  <div className="space-y-2 w-full font-medium ">
-                    <p>{courseMoneyBack}</p>
+                  <div className="space-y-1.5 w-full font-medium">
+                    {courseMoneyBack ? (
+                      String(courseMoneyBack)
+                        .split(",")
+                        .map((line) => line.trim())
+                        .filter(Boolean)
+                        .map((line, idx) => (
+                          <p key={idx} className="leading-snug">
+                            {line}
+                          </p>
+                        ))
+                    ) : null}
                   </div>
                 </div>
               </div>
@@ -223,13 +232,13 @@ const CourseDetails = () => {
                 <div>
                   <h1 className="sm:text-xl font-bold flex gap-2 items-baseline">
                     <span className="text-2xl font-black text-primary">
-                      ₹{Math.max(0, (payingPrice || price) - scoreDiscount).toLocaleString()}
+                      ₹{scoreDiscount.toLocaleString()}
                     </span>
                     <span className="text-base text-gray-400 line-through">
-                      ₹{(payingPrice || price).toLocaleString()}
+                      ₹{Number(price || 20000).toLocaleString()}
                     </span>
                     <span className="text-xs bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded-full">
-                      -₹{scoreDiscount.toLocaleString()} Mock Test Discount
+                      -₹{Math.max(0, Number(price || 20000) - scoreDiscount).toLocaleString()} Mock Test Discount
                     </span>
                   </h1>
                 </div>
@@ -249,7 +258,7 @@ const CourseDetails = () => {
             <div>
               <p className="max-sm:text-xs text-emerald-600 font-bold h-full">
                 {scoreDiscount > 0
-                  ? `🏆 Mock Test Score Discount Applied (-₹${scoreDiscount.toLocaleString()})`
+                  ? `🏆 Mock Test Score Discount Applied (Pay ₹${scoreDiscount.toLocaleString()} Only)`
                   : priceInStruction}
               </p>
             </div>
@@ -260,9 +269,7 @@ const CourseDetails = () => {
                   ...course,
                   mockReward: eligibleReward,
                   scoreDiscount,
-                  payingPrice: scoreDiscount > 0
-                    ? Math.max(0, (payingPrice || price) - scoreDiscount)
-                    : payingPrice,
+                  payingPrice: scoreDiscount > 0 ? scoreDiscount : payingPrice,
                 }}
               >
                 <button className="btn primary_btn !h-12 !w-full  ">Join Now</button>

@@ -3,17 +3,15 @@ import { Link } from "react-router-dom";
 import "./ExamInstructionScreen.css";
 
 export const DEFAULT_INSTRUCTION_VIDEOS = [
-  "https://youtu.be/wACoSenM5Yk",
-  "https://youtu.be/KGkSDBR07wE",
-  "https://youtu.be/Jge6kx4jQtw",
-  "https://youtu.be/_FyyxoV6aZI",
-  "https://youtu.be/UoqxXPNqOlM",
+  "/videos/instruction/1.mp4",
+  "/videos/instruction/2.mp4",
+  "/videos/instruction/3.mp4",
+  "/videos/instruction/4.mp4",
+  "/videos/instruction/5.mp4",
 ];
 
-export const getYouTubeVideoId = (url?: string): string | null => {
-  if (!url) return null;
-  const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
-  return match ? match[1] : null;
+export const getYouTubeVideoId = (_url?: string): string | null => {
+  return null; // Clean static local MP4 videos used
 };
 
 export interface ExamInstructionScreenProps {
@@ -66,6 +64,7 @@ export const ExamInstructionScreen: React.FC<ExamInstructionScreenProps> = ({
   const [isPlaying, setIsPlaying] = useState(true);
   const [isEnded, setIsEnded] = useState(false);
   const [userPaused, setUserPaused] = useState(false);
+  const [isEnlarged, setIsEnlarged] = useState(false);
 
   // Interactive sample state
   const [selectedTrueFalse, setSelectedTrueFalse] = useState<"true" | "false" | null>(null);
@@ -83,13 +82,17 @@ export const ExamInstructionScreen: React.FC<ExamInstructionScreenProps> = ({
   });
 
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const iframeRef = useRef<HTMLIFrameElement | null>(null);
   const frameRef = useRef<HTMLDivElement | null>(null);
   const tabsContainerRef = useRef<HTMLDivElement | null>(null);
   const tabButtonRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
-  // 5 Steps configuration with videos
-  const activeVideos = videoUrls && videoUrls.length >= 5 ? videoUrls : DEFAULT_INSTRUCTION_VIDEOS;
+  // 5 Steps configuration with videos (clean static MP4 videos from /videos/instruction)
+  const activeVideos =
+    videoUrls &&
+    videoUrls.length >= 5 &&
+    !videoUrls.some((u) => u?.includes("youtube") || u?.includes("youtu.be"))
+      ? videoUrls
+      : DEFAULT_INSTRUCTION_VIDEOS;
 
   const FEATURES: StepFeature[] = [
     {
@@ -164,60 +167,21 @@ export const ExamInstructionScreen: React.FC<ExamInstructionScreenProps> = ({
       btn.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
     }
 
-    const youtubeId = getYouTubeVideoId(currentFeature.video);
-    if (youtubeId) {
-      setUserPaused(false);
-      setIsPlaying(true);
-      setIsEnded(false);
-      return;
-    }
-
-    // Video update for HTML5 video
     const vid = videoRef.current;
     if (vid) {
-      vid.style.display = "";
+      vid.muted = true;
+      vid.defaultMuted = true;
       setUserPaused(false);
       setIsEnded(false);
-      vid.src = currentFeature.video;
-      vid.load();
-      vid
-        .play()
-        .then(() => setIsPlaying(true))
-        .catch(() => setIsPlaying(false));
+      vid.currentTime = 0;
+      const playPromise = vid.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => setIsPlaying(true))
+          .catch(() => setIsPlaying(false));
+      }
     }
   }, [activeTab, currentFeature.video]);
-
-  // Video event listeners for HTML5 video
-  useEffect(() => {
-    const vid = videoRef.current;
-    if (!vid) return;
-
-    const handlePlay = () => {
-      setIsPlaying(true);
-      setIsEnded(false);
-    };
-    const handlePause = () => setIsPlaying(false);
-    const handleEnded = () => {
-      setIsPlaying(false);
-      setIsEnded(true);
-    };
-    const handleError = () => {
-      // Graceful fallback
-      setIsPlaying(false);
-    };
-
-    vid.addEventListener("play", handlePlay);
-    vid.addEventListener("pause", handlePause);
-    vid.addEventListener("ended", handleEnded);
-    vid.addEventListener("error", handleError);
-
-    return () => {
-      vid.removeEventListener("play", handlePlay);
-      vid.removeEventListener("pause", handlePause);
-      vid.removeEventListener("ended", handleEnded);
-      vid.removeEventListener("error", handleError);
-    };
-  }, []);
 
   // IntersectionObserver to pause when scrolled out of view
   useEffect(() => {
@@ -227,27 +191,12 @@ export const ExamInstructionScreen: React.FC<ExamInstructionScreenProps> = ({
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          const youtubeId = getYouTubeVideoId(currentFeature.video);
           if (entry.isIntersecting) {
-            if (!userPaused) {
-              if (youtubeId && iframeRef.current?.contentWindow) {
-                iframeRef.current.contentWindow.postMessage(
-                  JSON.stringify({ event: "command", func: "playVideo", args: "" }),
-                  "*"
-                );
-                setIsPlaying(true);
-              } else if (videoRef.current && !videoRef.current.ended) {
-                videoRef.current.play().catch(() => {});
-              }
+            if (!userPaused && videoRef.current && !videoRef.current.ended) {
+              videoRef.current.play().catch(() => {});
             }
           } else {
-            if (youtubeId && iframeRef.current?.contentWindow) {
-              iframeRef.current.contentWindow.postMessage(
-                JSON.stringify({ event: "command", func: "pauseVideo", args: "" }),
-                "*"
-              );
-              setIsPlaying(false);
-            } else if (videoRef.current) {
+            if (videoRef.current) {
               videoRef.current.pause();
             }
           }
@@ -292,39 +241,23 @@ export const ExamInstructionScreen: React.FC<ExamInstructionScreenProps> = ({
 
   // Play / Pause toggle
   const togglePlayPause = () => {
-    const youtubeId = getYouTubeVideoId(currentFeature.video);
-    if (youtubeId && iframeRef.current?.contentWindow) {
-      if (isPlaying) {
-        iframeRef.current.contentWindow.postMessage(
-          JSON.stringify({ event: "command", func: "pauseVideo", args: "" }),
-          "*"
-        );
-        setIsPlaying(false);
-        setUserPaused(true);
-      } else {
-        iframeRef.current.contentWindow.postMessage(
-          JSON.stringify({ event: "command", func: "playVideo", args: "" }),
-          "*"
-        );
-        setIsPlaying(true);
-        setUserPaused(false);
-      }
-      return;
-    }
-
     const vid = videoRef.current;
     if (!vid) return;
 
-    if (vid.ended) {
+    if (vid.ended || isEnded) {
       vid.currentTime = 0;
       setUserPaused(false);
+      setIsEnded(false);
       vid.play().catch(() => {});
+      setIsPlaying(true);
     } else if (vid.paused) {
       setUserPaused(false);
       vid.play().catch(() => {});
+      setIsPlaying(true);
     } else {
       setUserPaused(true);
       vid.pause();
+      setIsPlaying(false);
     }
   };
 
@@ -380,7 +313,7 @@ export const ExamInstructionScreen: React.FC<ExamInstructionScreenProps> = ({
           <div className="in">
             <div className="flex items-center">
               <span className="dot"></span>
-              <span>Let's Celebrate this Exam Festival</span>
+              <span>Stay REGULAR & Enjoy 100% FREE Course</span>
             </div>
             <div className="cd">
               <b>{countdown.days} Days</b>
@@ -757,43 +690,27 @@ export const ExamInstructionScreen: React.FC<ExamInstructionScreenProps> = ({
             }
             onContextMenu={(e) => e.preventDefault()}
           >
-            {getYouTubeVideoId(currentFeature.video) ? (
-              <div className="yt-player-container">
-                <iframe
-                  ref={iframeRef}
-                  key={`${activeTab}-${getYouTubeVideoId(currentFeature.video)}`}
-                  src={`https://www.youtube-nocookie.com/embed/${getYouTubeVideoId(currentFeature.video)}?autoplay=1&mute=1&loop=1&playlist=${getYouTubeVideoId(currentFeature.video)}&controls=0&modestbranding=1&rel=0&iv_load_policy=3&disablekb=1&playsinline=1&enablejsapi=1`}
-                  title={currentFeature.title}
-                  className="yt-iframe"
-                  allow="autoplay; encrypted-media"
-                  tabIndex={-1}
-                />
-                {/* Protective overlay: blocks right-click, copy link, header/sharing click, and scrolling */}
-                <div
-                  className="video-shield-overlay"
-                  onClick={togglePlayPause}
-                  onContextMenu={(e) => e.preventDefault()}
-                  title="Click to Play/Pause"
-                />
-                {/* Bottom area completely disabled: no clicking, no interaction */}
-                <div
-                  className="video-bottom-shield"
-                  onClick={(e) => e.stopPropagation()}
-                  onContextMenu={(e) => e.preventDefault()}
-                />
-              </div>
-            ) : (
-              <video
-                ref={videoRef}
-                id="vid"
-                muted
-                playsInline
-                preload="metadata"
-                src={currentFeature.video}
-                loop
-                onClick={togglePlayPause}
-              />
-            )}
+            <video
+              ref={videoRef}
+              key={`inst-vid-${activeTab}`}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="auto"
+              src={currentFeature.video}
+              controls={false}
+              onClick={togglePlayPause}
+              onEnded={() => {
+                setIsPlaying(false);
+                setIsEnded(true);
+              }}
+              onPlay={() => {
+                setIsPlaying(true);
+                setIsEnded(false);
+              }}
+              onPause={() => setIsPlaying(false)}
+            />
 
             {/* Play/Pause Button */}
             <button
@@ -805,9 +722,80 @@ export const ExamInstructionScreen: React.FC<ExamInstructionScreenProps> = ({
             >
               {isEnded ? replayIcon : isPlaying ? pauseIcon : playIcon}
             </button>
+
+            {/* Bottom-Right Enlarge / Motu Karvanu Button */}
+            <button
+              type="button"
+              className="cbtn fs"
+              id="fs"
+              aria-label="Enlarge Video"
+              title="Enlarge Video"
+              onClick={() => setIsEnlarged(true)}
+            >
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+              </svg>
+            </button>
           </div>
         </div>
       </main>
+
+      {/* Enlarged Video Modal (matching Image 2) */}
+      {isEnlarged && (
+        <div
+          className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/85 backdrop-blur-sm p-4 sm:p-8"
+          onClick={() => setIsEnlarged(false)}
+        >
+          <div
+            className="relative w-full max-w-5xl aspect-video rounded-3xl overflow-hidden shadow-2xl bg-black border border-white/10"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <video
+              key={`modal-vid-${activeTab}`}
+              src={currentFeature.video}
+              autoPlay
+              muted
+              loop
+              playsInline
+              controls={false}
+              className="w-full h-full object-contain bg-black"
+              onClick={togglePlayPause}
+              onEnded={() => {
+                setIsPlaying(false);
+                setIsEnded(true);
+              }}
+              onPlay={() => {
+                setIsPlaying(true);
+                setIsEnded(false);
+              }}
+              onPause={() => setIsPlaying(false)}
+            />
+
+            {/* Top-Left Play/Pause/Restart */}
+            <button
+              type="button"
+              className="cbtn pp !top-4 !left-4"
+              onClick={togglePlayPause}
+              title={isEnded ? "Restart" : isPlaying ? "Pause" : "Play"}
+            >
+              {isEnded ? replayIcon : isPlaying ? pauseIcon : playIcon}
+            </button>
+
+            {/* Top-Right Close Button */}
+            <button
+              type="button"
+              className="cbtn fs !top-4 !right-4 !bottom-auto !bg-white/95 !text-slate-900 hover:!bg-white"
+              onClick={() => setIsEnlarged(false)}
+              title="Close Enlarged View"
+            >
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* 5. 5 Step Tabs + Navigation Arrows */}
       <div className="tabsrow">

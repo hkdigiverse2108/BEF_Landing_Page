@@ -50,8 +50,14 @@ const Workshop = () => {
               name: "Achiwon",
               url: "https://www.achiwon.com/",
               logo: "https://www.achiwon.com/logo.png",
-              description: "Achiwon is an AI-powered UPSC and competitive exam preparation platform offering free mock tests, expert workshops, interactive courses and personalized study tools.",
-              sameAs: ["https://www.facebook.com/bharatexamfest", "https://www.instagram.com/bharatexamfest", "https://www.youtube.com/@bharatexamfest"],
+              description:
+                "Achiwon is an AI-powered UPSC and competitive exam preparation platform offering free mock tests, expert workshops, interactive courses and personalized study tools.",
+              sameAs: [
+                "https://www.facebook.com/achiwoncse",
+                "https://www.instagram.com/achiwoncse/",
+                "https://www.youtube.com/@achiwon",
+                "https://t.me/+F5nF-pfPwpczNjZl",
+              ],
             },
             {
               "@type": "WebSite",

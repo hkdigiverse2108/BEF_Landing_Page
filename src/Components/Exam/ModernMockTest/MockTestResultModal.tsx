@@ -157,7 +157,7 @@ export const MockTestResultModal: React.FC<MockTestResultModalProps> = ({
                   </span>
                 </div>
                 <span className="rounded-md bg-[#16A34A] px-2.5 py-0.5 text-xs font-black text-white">
-                  ₹{scoreDiscount.toLocaleString()} OFF
+                  -₹{Math.max(0, 20000 - scoreDiscount).toLocaleString()} OFF
                 </span>
               </div>
 
@@ -166,9 +166,9 @@ export const MockTestResultModal: React.FC<MockTestResultModalProps> = ({
                   Congratulations on scoring {score.toFixed(1)} marks!
                 </p>
                 <p className="text-[#475569] leading-relaxed">
-                  Based on your test performance, you have earned an exclusive{" "}
-                  <strong className="text-[#166534]">₹{scoreDiscount.toLocaleString()} discount</strong>{" "}
-                  applicable on whichever course you choose to enroll in.
+                  Based on your test performance, you have unlocked an exclusive admission fee of{" "}
+                  <strong className="text-[#166534]">₹{scoreDiscount.toLocaleString()}</strong>{" "}
+                  (Save ₹{Math.max(0, 20000 - scoreDiscount).toLocaleString()} on Last Prelims course).
                 </p>
               </div>
             </div>
@@ -186,7 +186,7 @@ export const MockTestResultModal: React.FC<MockTestResultModalProps> = ({
               className="flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#124699] via-[#1E5FC9] to-[#F48224] px-5 text-sm sm:text-base font-bold text-white shadow-md transition hover:brightness-105 active:scale-98 cursor-pointer"
             >
               {scoreDiscount > 0
-                ? `Claim ₹${scoreDiscount.toLocaleString()} Discount on Courses`
+                ? `Claim ₹${scoreDiscount.toLocaleString()} Offer on Last Prelims`
                 : "Explore All Courses"}{" "}
               <LuArrowRight className="text-base" />
             </button>

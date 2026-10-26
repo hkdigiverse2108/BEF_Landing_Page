@@ -18,17 +18,18 @@ export const CourseCard: React.FC<CourseCardProps> = ({
   mockReward,
 }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [hasError, setHasError] = useState(false);
   const {
     _id = "",
     title = "Sure Shot Prelims",
     image = "",
     language = "English",
-    syllabus,
   } = course;
 
   const isLastPrelims = isLastPrelimsCourse(course);
   const eligibleReward = isLastPrelims ? mockReward : null;
   const scoreDiscount = eligibleReward?.scoreDiscount || 0;
+  const coursePrice = Number(course?.price) || 20000;
 
   const targetUrl = _id ? ROUTES.COURSE.DETAILS.replace(":id", _id) : ROUTES.COURSE.COURSE;
   const moduleUrl = _id ? `${ROUTES.COURSE.DETAILS.replace(":id", _id)}?tab=module#modules` : ROUTES.COURSE.COURSE;
@@ -41,13 +42,14 @@ export const CourseCard: React.FC<CourseCardProps> = ({
         state={{ mockReward: eligibleReward }}
         className="relative block w-full rounded-t-2xl overflow-hidden bg-gray-200 aspect-[16/9] sm:h-52 cursor-pointer group"
       >
-        {image ? (
+        {image && !hasError ? (
           <img
             src={image}
             alt={title || "Course"}
             onLoad={() => setImageLoaded(true)}
+            onError={() => setHasError(true)}
             className={`w-full h-full object-cover transition-transform duration-300 group-hover:scale-105 ${
-              imageLoaded ? "opacity-100" : "opacity-0"
+              imageLoaded ? "opacity-100" : "opacity-90"
             }`}
           />
         ) : (
@@ -57,21 +59,16 @@ export const CourseCard: React.FC<CourseCardProps> = ({
         )}
 
         {/* Top Badges */}
-        <div className="absolute top-2.5 left-2.5 flex gap-1.5 items-center">
+        <div className="absolute top-2.5 right-2.5 flex items-center gap-1.5 z-10">
           <span className="bg-black/60 text-white font-bold text-xs px-2.5 py-1 rounded-md backdrop-blur-md shadow-xs">
             {language || "Gujarati"}
           </span>
-          {syllabus?.subjectLevel && (
-            <span className="bg-[#124699] text-white font-bold text-xs px-2.5 py-1 rounded-md backdrop-blur-md shadow-xs uppercase">
-              {syllabus.subjectLevel}
-            </span>
-          )}
         </div>
 
         {/* Discount tag is ONLY displayed for the eligible 'LAST PRELIMS' course */}
         {isLastPrelims && scoreDiscount > 0 && (
-          <span className="absolute top-2.5 right-2.5 bg-emerald-600 text-white font-black text-xs px-2.5 py-1 rounded-full shadow-md animate-pulse">
-            ₹{scoreDiscount.toLocaleString()} OFF
+          <span className="absolute top-2.5 left-2.5 bg-emerald-600 text-white font-black text-xs px-2.5 py-1 rounded-full shadow-md animate-pulse z-10">
+            -₹{Math.max(0, coursePrice - scoreDiscount).toLocaleString()} OFF
           </span>
         )}
       </NavLink>
@@ -103,7 +100,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({
             <path d="M12 3 20 6v6c0 5-4 8-8 10-4-2-8-5-8-10V6z" />
             <path d="m8 12 3 3 5-6" />
           </svg>
-          <span>Minimum 60+ Marks Direct Hit Guarantee, otherwise 100% refund</span>
+          <span>STAY REGULAR, STAY DISCIPLINED — GET 100% DEPOSIT BACK!</span>
         </div>
 
         {/* View Batch Details CTA & Call Support Button */}
@@ -115,7 +112,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({
           >
             <span>View Batch Details</span>
             {isLastPrelims && scoreDiscount > 0 && (
-              <span className="course-card-discount-badge">₹{scoreDiscount.toLocaleString()} Rs Discount</span>
+              <span className="course-card-discount-badge">Pay ₹{scoreDiscount.toLocaleString()} Only</span>
             )}
             <span className="arrow">→</span>
           </NavLink>

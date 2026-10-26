@@ -38,19 +38,21 @@ const CoursePayment = () => {
   const isDiscountPrice = !!course?.discountPrice;
   discountPrice = discountPrice === 0 ? price : discountPrice;
 
-  // Base payable:
-  // If referral is applied: payingPrice
-  // If no referral:
-  //   For Last Prelims: payingPrice (₹6,999 base enrollment)
-  //   Otherwise: discountPrice || price
-  const basePayable = isRefferApplyed
+  // Base enrollment fee (₹20,000 for Last Prelims or course price)
+  const enrollmentFee = Number(price || 20000);
+
+  // For students coming from Free Mock Test with an unlocked score tier:
+  // The fee they pay is that tier price directly (e.g. ₹8,499).
+  // Otherwise, normal pricing applies (referral or standard course fee).
+  const amountToPay = scoreDiscount > 0
+    ? scoreDiscount
+    : isRefferApplyed
     ? Number(payingPrice)
-    : isLastPrelims
-    ? Number(payingPrice || discountPrice || price)
     : Number(discountPrice || price);
 
-  // Final amount to pay after deducting mock test score discount (Last Prelims only):
-  const amountToPay = Math.max(0, basePayable - scoreDiscount);
+  const mockDiscountAmount = scoreDiscount > 0
+    ? Math.max(0, enrollmentFee - amountToPay)
+    : 0;
 
   const handlePaymentComplete = async (status: PaymentStatusType, response: RazorpayResponse) => {
     try {
@@ -171,7 +173,7 @@ const CoursePayment = () => {
                       🏆 Mock Test Score Discount Applied
                     </span>
                     <span className="text-xs bg-emerald-700 text-white font-bold px-2.5 py-0.5 rounded-full">
-                      -₹{scoreDiscount.toLocaleString()} OFF
+                      -₹{mockDiscountAmount.toLocaleString()} OFF
                     </span>
                   </div>
                   <p className="text-xs text-emerald-700">
@@ -198,13 +200,13 @@ const CoursePayment = () => {
             <div className="border-t border-gray-200 pt-3 space-y-2">
               <p className="flex justify-between items-center text-gray-700">
                 <span className="font-medium">Enrollment Fee:</span>
-                <span className="font-bold text-gray-900 text-lg">₹{basePayable.toLocaleString()}</span>
+                <span className="font-bold text-gray-900 text-lg">₹{enrollmentFee.toLocaleString()}</span>
               </p>
 
               {scoreDiscount > 0 && (
                 <div className="flex justify-between items-center text-emerald-800">
                   <span className="font-semibold">Mock Test Score Discount:</span>
-                  <span className="font-bold text-emerald-700">-₹{scoreDiscount.toLocaleString()}</span>
+                  <span className="font-bold text-emerald-700">-₹{mockDiscountAmount.toLocaleString()}</span>
                 </div>
               )}
 
@@ -212,8 +214,8 @@ const CoursePayment = () => {
                 <span>Total (Incl. of all taxes):</span>
                 <h1 className="flex gap-2 items-baseline">
                   <span className="text-primary font-black text-2xl">₹{amountToPay.toLocaleString()}</span>
-                  {Number(price) > amountToPay && (
-                    <span className="text-sm text-gray-400 line-through">₹{Number(price).toLocaleString()}</span>
+                  {enrollmentFee > amountToPay && (
+                    <span className="text-sm text-gray-400 line-through">₹{enrollmentFee.toLocaleString()}</span>
                   )}
                 </h1>
               </div>

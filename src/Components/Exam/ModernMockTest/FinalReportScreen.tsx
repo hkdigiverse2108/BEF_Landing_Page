@@ -3,6 +3,10 @@ import "./FinalReport.css";
 import type { BackendQuestionItem } from "./mockQuestionsData";
 import type { UserQuestionAnswerState } from "./MockTestQuestionView";
 import FormattedSolution from "../../Common/FormattedSolution";
+import ModernVideoPlayer from "../../Common/ModernVideoPlayer";
+import { REPORT_VIDEOS } from "../../../Constants";
+import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
+import { saveMockTestReward, type MockTestReward } from "../../../Utils/mockTestReward";
 
 const isImage = (str?: any): boolean => {
   return typeof str === "string" && /^https?:\/\/.*\.(png|jpg|jpeg|webp|gif)/i.test(str.trim());
@@ -183,27 +187,8 @@ export const FinalReportScreen: React.FC<FinalReportScreenProps> = ({
     }
   });
 
-  // User-classified Mistake Map state (maps question index -> category key)
-  const [userMistakeMap, setUserMistakeMap] = useState<Record<number, MistakeCategoryKey>>(() => {
-    const initial: Record<number, MistakeCategoryKey> = {};
-    questions.forEach((q, idx) => {
-      const ans = answersState[idx];
-      const correctAns = getCorrectAnswer(q);
-      const isAttempted = Boolean(ans && ans.selectedOption);
-      const isRight = isAttempted && ans.selectedOption === correctAns;
-      if (isAttempted && !isRight) {
-        const s = String(ans?.strategy || "").toLowerCase();
-        if (s.includes("sure") || s.includes("100") || s.includes("intuition")) {
-          initial[idx] = "sillyMistake";
-        } else if (s.includes("blind")) {
-          initial[idx] = "revisionLacking";
-        } else {
-          initial[idx] = "conceptMistake";
-        }
-      }
-    });
-    return initial;
-  });
+  // User-classified Mistake Map state (starts empty - counts are 0 until student classifies each mistake)
+  const [userMistakeMap, setUserMistakeMap] = useState<Record<number, MistakeCategoryKey>>({});
 
   const totalQuestions = questions.length;
   const attemptedCount = correctCount + incorrectCount;
@@ -300,6 +285,133 @@ export const FinalReportScreen: React.FC<FinalReportScreenProps> = ({
 
     return { data, fearSkipsCount, normalSkipsCount };
   }, [questions, answersState, totalQuestions]);
+
+  // Fear Driver Skip Metrics & Formula matching BEF_APP_WEB AiPowered.tsx
+  const fearDriverMetrics = useMemo(() => {
+    let directCorrect = 0;
+    let directTotal = 0;
+    let fiftyFiftyCorrect = 0;
+    let fiftyFiftyTotal = 0;
+    let oneEliminateCorrect = 0;
+    let oneEliminateTotal = 0;
+
+    questions.forEach((q, idx) => {
+      const ans = answersState[idx];
+      if (!ans) return;
+      const strat = String(ans.strategy || "").toLowerCase();
+      const isFearSkip = strat.includes("fear");
+
+      if (isFearSkip) {
+        const isRight = ans.selectedOption === getCorrectAnswer(q);
+        const excludedCount = ans.excludedOptions
+          ? Object.values(ans.excludedOptions).filter(Boolean).length
+          : 0;
+
+        if (excludedCount === 2) {
+          fiftyFiftyTotal++;
+          if (isRight) fiftyFiftyCorrect++;
+        } else if (excludedCount === 1) {
+          oneEliminateTotal++;
+          if (isRight) oneEliminateCorrect++;
+        } else {
+          directTotal++;
+          if (isRight) directCorrect++;
+        }
+      }
+    });
+
+    return {
+      direct: { correct: directCorrect, total: directTotal },
+      fiftyFifty: { correct: fiftyFiftyCorrect, total: fiftyFiftyTotal },
+      oneEliminate: { correct: oneEliminateCorrect, total: oneEliminateTotal },
+    };
+  }, [questions, answersState]);
+
+  const positiveWeight = totalMarks > 0 && questions.length > 0 ? totalMarks / questions.length : 2;
+  const negativeWeight = Number((positiveWeight / 3).toFixed(2)) || 0.67;
+
+  const calcFinalScore = (
+    attempt?: { correct?: number; total?: number },
+    correctWeight = positiveWeight,
+    wrongWeight = negativeWeight
+  ): number => {
+    const correct = attempt?.correct ?? 0;
+    const total = attempt?.total ?? 0;
+    const wrong = total - correct;
+    const scoreVal = correct * correctWeight - wrong * wrongWeight;
+    return Number(scoreVal.toFixed(2));
+  };
+
+  const TotalFearSkips = Number((
+    calcFinalScore(fearDriverMetrics.direct) +
+    calcFinalScore(fearDriverMetrics.fiftyFifty) +
+    calcFinalScore(fearDriverMetrics.oneEliminate)
+  ).toFixed(2));
+
+  const fearCards = [
+    {
+      title: "Fear Skips",
+      topText: undefined,
+      bottomValue: TotalFearSkips,
+      bottomText: "Total",
+    },
+    {
+      title: undefined,
+      topText: `${fearDriverMetrics.direct.correct}/${fearDriverMetrics.direct.total}`,
+      bottomValue: calcFinalScore(fearDriverMetrics.direct),
+      bottomText: "Marks Chance",
+    },
+    {
+      title: undefined,
+      topText: `${fearDriverMetrics.fiftyFifty.correct}/${fearDriverMetrics.fiftyFifty.total}`,
+      bottomValue: calcFinalScore(fearDriverMetrics.fiftyFifty),
+      bottomText: "Marks Chance",
+    },
+    {
+      title: undefined,
+      topText: `${fearDriverMetrics.oneEliminate.correct}/${fearDriverMetrics.oneEliminate.total}`,
+      bottomValue: calcFinalScore(fearDriverMetrics.oneEliminate),
+      bottomText: "Marks Chance",
+    },
+  ];
+
+  // List of all incorrect questions for Mistake Map classification
+  const incorrectQuestions = useMemo(() => {
+    return questions
+      .map((q, idx) => {
+        const ans = answersState[idx];
+        const correctAns = getCorrectAnswer(q);
+        const isAttempted = Boolean(ans && ans.selectedOption);
+        const isRight = isAttempted && ans.selectedOption === correctAns;
+        return {
+          question: q,
+          index: idx,
+          ans,
+          correctAns,
+          isAttempted,
+          isRight,
+          isIncorrect: isAttempted && !isRight,
+        };
+      })
+      .filter((item) => item.isIncorrect);
+  }, [questions, answersState]);
+
+  // Guaranteed Merit Discount (at least ₹7,499 if earnedDiscount is 0 or unassigned)
+  const effectiveDiscount = earnedDiscount && earnedDiscount > 0 ? earnedDiscount : 7499;
+
+  const handleEnrollWithDiscount = () => {
+    const reward: MockTestReward = {
+      score,
+      totalMarks,
+      scoreDiscount: effectiveDiscount,
+      active: true,
+      timestamp: Date.now(),
+    };
+    saveMockTestReward(reward);
+    if (onEnrollCourse) {
+      onEnrollCourse();
+    }
+  };
 
   // Subject Wise Breakdown
   const subjectBreakdown = useMemo(() => {
@@ -755,44 +867,45 @@ export const FinalReportScreen: React.FC<FinalReportScreenProps> = ({
           {/* Right Column: 5 Tabs & Associated Report Panels */}
           <section className="final-report-right">
             {/* Full-Width Merit Reward Discount Banner (placed BEFORE all 6 buttons) */}
-            {earnedDiscount > 0 && (
-              <div className="discount-cta-container">
-                <div
-                  className="discount-cta"
-                  onClick={onEnrollCourse}
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      onEnrollCourse();
-                    }
-                  }}
-                  title="Claim discount for Last Prelims course"
-                >
-                  <div className="discount-icon" aria-hidden="true">✓</div>
+            {/* Full-Width Merit Reward Discount Banner (always visible on result page) */}
+            <div className="discount-cta-container">
+              <div
+                className="discount-cta"
+                onClick={handleEnrollWithDiscount}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    handleEnrollWithDiscount();
+                  }
+                }}
+                title="Claim discount for Last Prelims course"
+              >
+                <div className="discount-icon" aria-hidden="true">✓</div>
 
-                  <div className="discount-content">
-                    <div className="discount-label">YOUR DISCOUNT IS UNLOCKED!</div>
-                    <div className="discount-amount">₹{earnedDiscount.toLocaleString()} OFF</div>
-                    <div className="discount-subtitle">Your score-based benefit is ready. Claim on Last Prelims course.</div>
+                <div className="discount-content">
+                  <div className="discount-label">YOUR SPECIAL ADMISSION FEE IS UNLOCKED!</div>
+                  <div className="discount-amount">Pay ₹{effectiveDiscount.toLocaleString()} Only</div>
+                  <div className="discount-subtitle">
+                    Save ₹{Math.max(0, 20000 - effectiveDiscount).toLocaleString()} on Last Prelims course based on your mock score.
                   </div>
-
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onEnrollCourse();
-                    }}
-                    className="enroll-btn"
-                  >
-                    ENROLL FOR LAST PRELIMS
-                    <span className="arrow">→</span>
-                  </button>
                 </div>
-              </div>
-            )}
 
-            {/* Tab Bar */}
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleEnrollWithDiscount();
+                  }}
+                  className="enroll-btn"
+                >
+                  ENROLL FOR LAST PRELIMS (₹{effectiveDiscount.toLocaleString()})
+                  <span className="arrow">→</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Tab Bar (6 buttons in 2 rows of 3) */}
             <div className="final-tab-rows" role="tablist">
               <div className="final-tab-row final-tab-row-top">
                 <button
@@ -852,6 +965,24 @@ export const FinalReportScreen: React.FC<FinalReportScreenProps> = ({
                 </button>
               </div>
             </div>
+
+            {/* Clean Divider Line below the 6 buttons */}
+            <div className="w-full border-b border-[#e2e8f0]" />
+
+            {/* Tutorial Walkthrough Video for Active Report Tab */}
+            {REPORT_VIDEOS[activeTab] && (
+              <div className="p-4 sm:p-5 pb-0">
+                <ModernVideoPlayer
+                  key={activeTab}
+                  src={REPORT_VIDEOS[activeTab].src}
+                  title={REPORT_VIDEOS[activeTab].title}
+                  subtitle={REPORT_VIDEOS[activeTab].subtitle}
+                  badge={REPORT_VIDEOS[activeTab].badge}
+                  points={REPORT_VIDEOS[activeTab].points}
+                  bannerMode={true}
+                />
+              </div>
+            )}
 
             {/* Panel 1: AI Powered Report Analysis */}
             {activeTab === "ai" && (
@@ -918,31 +1049,66 @@ export const FinalReportScreen: React.FC<FinalReportScreenProps> = ({
                   </table>
                 </div>
 
+                {/* 4 Cards matching BEF_APP_WEB AiPowered.tsx */}
                 <div className="final-insight-grid">
-                  <div className="final-insight">
-                    <strong>{strategyStats.fearSkipsCount}</strong>
-                    <span>
-                      <b className="up">↑ FEAR SKIPS</b> Total
-                    </span>
-                  </div>
-                  <div className="final-insight">
-                    <strong>{correctCount}/{attemptedCount}</strong>
-                    <span>
-                      <b className="up">Accuracy: {Math.round(accuracy)}%</b>
-                    </span>
-                  </div>
-                  <div className="final-insight">
-                    <strong>{unattemptedCount}</strong>
-                    <span>
-                      <b className="up">Skipped</b> Questions
-                    </span>
-                  </div>
-                  <div className="final-insight">
-                    <strong>+{correctCount * 2}</strong>
-                    <span>
-                      <b className="up">Gross Marks</b> Earned
-                    </span>
-                  </div>
+                  {fearCards.map((card, idx) => {
+                    const val = Number(card.bottomValue);
+                    const isPositive = val >= 0.1;
+                    const isZero = Math.abs(val) < 0.01;
+                    const isUp = isPositive || isZero;
+                    const formattedVal = val > 0 ? `+${val}` : `${val}`;
+
+                    return (
+                      <div
+                        key={idx}
+                        className={`relative rounded-xl p-4 flex flex-col justify-between min-h-[96px] border ${
+                          idx === 0
+                            ? "bg-[#fff7ed] border-[#fed7aa] text-[#1e293b]"
+                            : "bg-[#f8fafc] border-[#e2e8f0] text-[#0f172a]"
+                        }`}
+                      >
+                        {/* Left vertical accent bar */}
+                        <div
+                          className={`w-1 h-3/5 rounded-r absolute left-0 top-1/2 -translate-y-1/2 ${
+                            idx === 0 ? "bg-black" : "bg-[#124699]"
+                          }`}
+                        />
+
+                        {/* Top Header */}
+                        <div className={`pb-1.5 border-b ${idx === 0 ? "border-[#fed7aa]" : "border-[#e2e8f0]"}`}>
+                          {card.title && (
+                            <div className="text-xs sm:text-sm font-bold uppercase tracking-wider text-gray-800">
+                              {card.title}
+                            </div>
+                          )}
+                          {card.topText && (
+                            <div className="text-lg sm:text-2xl font-extrabold text-gray-900 tracking-tight">
+                              {card.topText}
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Bottom Score & Label */}
+                        <div className="pt-2 flex items-center justify-between">
+                          <div
+                            className={`flex items-center text-base sm:text-lg font-bold ${
+                              isPositive ? "text-emerald-600" : isZero ? "text-gray-700" : "text-rose-600"
+                            }`}
+                          >
+                            {isUp ? (
+                              <IoMdArrowDropup className="text-xl" />
+                            ) : (
+                              <IoMdArrowDropdown className="text-xl" />
+                            )}
+                            <span>{formattedVal}</span>
+                          </div>
+                          <span className="text-[11px] font-medium text-gray-500 ps-2">
+                            {card.bottomText}
+                          </span>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
               </section>
             )}
@@ -1118,26 +1284,26 @@ export const FinalReportScreen: React.FC<FinalReportScreenProps> = ({
                   <article className="final-compare-stat">
                     <h3>Correct</h3>
                     <p>You <b>{correctCount}</b></p>
-                    <p>Others <b>{Math.max(1, Math.round(totalQuestions * 0.42))}</b></p>
-                    <p>Toppers <b>{Math.round(totalQuestions * 0.85)}</b></p>
+                    <p>Others <b>0</b></p>
+                    <p>Toppers <b>0</b></p>
                   </article>
                   <article className="final-compare-stat">
                     <h3>Incorrect</h3>
                     <p>You <b>{incorrectCount}</b></p>
-                    <p>Others <b>{Math.round(totalQuestions * 0.35)}</b></p>
-                    <p>Toppers <b>{Math.max(1, Math.round(totalQuestions * 0.1))}</b></p>
+                    <p>Others <b>0</b></p>
+                    <p>Toppers <b>0</b></p>
                   </article>
                   <article className="final-compare-stat">
                     <h3>Skip</h3>
                     <p>You <b>{unattemptedCount}</b></p>
-                    <p>Others <b>{Math.round(totalQuestions * 0.23)}</b></p>
-                    <p>Toppers <b>{Math.round(totalQuestions * 0.05)}</b></p>
+                    <p>Others <b>0</b></p>
+                    <p>Toppers <b>0</b></p>
                   </article>
                   <article className="final-compare-stat">
                     <h3>Accuracy</h3>
                     <p>You <b>{Math.round(accuracy)}%</b></p>
-                    <p>Others <b>54%</b></p>
-                    <p>Toppers <b>89%</b></p>
+                    <p>Others <b>0%</b></p>
+                    <p>Toppers <b>0%</b></p>
                   </article>
                 </div>
 
@@ -1170,10 +1336,10 @@ export const FinalReportScreen: React.FC<FinalReportScreenProps> = ({
                               <span style={{ width: `${userPct}%` }} />
                             </div>
                             <div className="final-mini-bar" title="Average">
-                              <span style={{ width: `52%` }} />
+                              <span style={{ width: `0%` }} />
                             </div>
                             <div className="final-mini-bar" title="Toppers">
-                              <span style={{ width: `88%` }} />
+                              <span style={{ width: `0%` }} />
                             </div>
                           </div>
                         </article>
@@ -1190,10 +1356,10 @@ export const FinalReportScreen: React.FC<FinalReportScreenProps> = ({
                               <span style={{ width: `${youPct}%` }} />
                             </div>
                             <div className="final-mini-bar" title="Average">
-                              <span style={{ width: `45%` }} />
+                              <span style={{ width: `0%` }} />
                             </div>
                             <div className="final-mini-bar" title="Toppers">
-                              <span style={{ width: `82%` }} />
+                              <span style={{ width: `0%` }} />
                             </div>
                           </div>
                         </article>
@@ -1716,7 +1882,7 @@ export const FinalReportScreen: React.FC<FinalReportScreenProps> = ({
                 <div className="mt-6">
                   <button
                     type="button"
-                    onClick={onEnrollCourse}
+                    onClick={handleEnrollWithDiscount}
                     className="final-btn-explore"
                   >
                     <span>Explore Courses &amp; Offers for Last Prelims →</span>
@@ -1822,6 +1988,77 @@ export const FinalReportScreen: React.FC<FinalReportScreenProps> = ({
                   </div>
                 </div>
 
+                {/* Interactive Question Mistake Classification */}
+                {incorrectQuestions.length > 0 && (
+                  <div className="mb-6 rounded-xl border border-gray-200 bg-white p-4 sm:p-5 shadow-xs">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3 pb-2 border-b border-gray-100">
+                      <div>
+                        <h3 className="text-sm sm:text-base font-bold text-gray-800 flex items-center gap-2">
+                          <span>🗺️</span> Categorize Your Incorrect Questions ({mistakeMapStats.mappedCount}/{incorrectQuestions.length} Mapped)
+                        </h3>
+                        <p className="text-xs text-gray-500">
+                          Select the reason for each mistake below to update your diagnostic counters in real time:
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="space-y-3">
+                      {incorrectQuestions.map((item) => {
+                        const qNum = item.index + 1;
+                        const assignedCat = userMistakeMap[item.index];
+                        const qText = item.question.englishQuestion?.question || item.question.question || `Question ${qNum}`;
+                        const snippet = qText.length > 120 ? qText.slice(0, 120) + "..." : qText;
+
+                        return (
+                          <div
+                            key={item.index}
+                            className={`p-3 rounded-lg border transition ${
+                              assignedCat ? "bg-gray-50 border-gray-200" : "bg-rose-50/40 border-rose-200"
+                            }`}
+                          >
+                            <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+                              <div className="text-xs font-semibold text-gray-800">
+                                <span className="font-bold text-[#124699] mr-2">Q{qNum}:</span>
+                                <span className="text-gray-600 font-normal">{snippet}</span>
+                              </div>
+                              {assignedCat && (
+                                <span className="text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                                  ✓ {MISTAKE_CATEGORIES.find((c) => c.key === assignedCat)?.title}
+                                </span>
+                              )}
+                            </div>
+
+                            <div className="flex flex-wrap gap-1.5">
+                              {MISTAKE_CATEGORIES.map((cat) => {
+                                const isSelected = assignedCat === cat.key;
+                                return (
+                                  <button
+                                    key={cat.key}
+                                    type="button"
+                                    onClick={() => {
+                                      setUserMistakeMap((prev) => ({
+                                        ...prev,
+                                        [item.index]: cat.key,
+                                      }));
+                                    }}
+                                    className={`text-xs px-2.5 py-1 rounded-md border font-medium transition-all cursor-pointer ${
+                                      isSelected
+                                        ? "bg-[#124699] text-white border-[#124699] shadow-xs font-bold"
+                                        : "bg-white text-gray-700 border-gray-300 hover:border-gray-400 hover:bg-gray-100"
+                                    }`}
+                                  >
+                                    {isSelected ? "✓ " : ""}{cat.title}
+                                  </button>
+                                );
+                              })}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+
                 {/* 5 Mistake Categories Grid */}
                 <div className="mistake-categories-grid">
                   {MISTAKE_CATEGORIES.map((cat) => {
@@ -1876,7 +2113,7 @@ export const FinalReportScreen: React.FC<FinalReportScreenProps> = ({
                   </button>
                   <button
                     type="button"
-                    onClick={onEnrollCourse}
+                    onClick={handleEnrollWithDiscount}
                     className="flex-1 py-3 px-4 rounded-xl font-bold text-xs bg-gradient-to-r from-amber-500 to-orange-600 text-white hover:from-amber-600 hover:to-orange-700 transition-colors text-center cursor-pointer shadow-sm"
                   >
                     Explore Courses &amp; Offers for Last Prelims →

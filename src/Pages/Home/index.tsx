@@ -1,15 +1,12 @@
-import { lazy, Suspense, useEffect, useState, type FC, type ReactNode } from "react";
-import Loader from "../../Components/Common/Loader";
+import { lazy, Suspense } from "react";
 import { URL_KEYS } from "../../Constants";
 import Seo from "../../Components/Common/Seo";
 import StructuredData from "../../Components/Common/StructuredData";
 
 const AboutSection = lazy(() => import("../../Components/Home/AboutSection"));
 const ContactSection = lazy(() => import("../../Components/Home/ContactSection"));
-// const DownloadSection = lazy(() => import("../../Components/Home/DownloadSection")) ;
 const FeatureSection = lazy(() => import("../../Components/Home/FeatureSection"));
-const HeroSection = lazy(() => import("../../Components/Home/HeroSection"));
-// const StepsSection = lazy(() => import("../../Components/Home/StepsSection"));
+import HeroSection from "../../Components/Home/HeroSection";
 const InterfaceSection = lazy(() => import("../../Components/Home/InterfaceSection"));
 const BlogSection = lazy(() => import("../../Components/Home/BlogSection"));
 const FAQSection = lazy(() => import("../../Components/Home/FAQSection"));
@@ -18,20 +15,7 @@ import { useGetApiQuery } from "../../Api/CommonApi";
 import { Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 
-interface LazyTrackerProps {
-  onLoaded?: () => void;
-  children: ReactNode;
-}
-
 const Home = () => {
-  const [isHeroLoaded, setIsHeroLoaded] = useState(false);
-  const LazyTracker: FC<LazyTrackerProps> = ({ onLoaded, children }) => {
-    useEffect(() => {
-      onLoaded?.();
-    }, []);
-
-    return children;
-  };
 
   const { data: featuresData } = useGetApiQuery({
     url: URL_KEYS.FEATURE.ALL,
@@ -56,7 +40,7 @@ const Home = () => {
   });
   const faqs = faqsData?.data?.faq_data;
 
-  const { data: interfaceData, isLoading: interfaceLoading } = useGetApiQuery({
+  const { data: interfaceData } = useGetApiQuery({
     url: URL_KEYS.INTERFACE.ALL,
   });
   const interfaces = interfaceData?.data?.interface_data;
@@ -65,8 +49,6 @@ const Home = () => {
     url: `${URL_KEYS.ABOUT.ALL}?type=course`,
   });
   const aboutUs = aboutData?.data?.aboutUs;
-
-  if (interfaceLoading) return <Loader />;
 
   return (
     <>
@@ -88,9 +70,10 @@ const Home = () => {
               description:
                 "Achiwon is an AI-powered UPSC and competitive exam preparation platform offering mock tests, courses, workshops, current affairs and smart study tools.",
               sameAs: [
-                "https://www.facebook.com/bharatexamfest",
-                "https://www.instagram.com/bharatexamfest",
-                "https://www.youtube.com/@bharatexamfest",
+                "https://www.facebook.com/achiwoncse",
+                "https://www.instagram.com/achiwoncse/",
+                "https://www.youtube.com/@achiwon",
+                "https://t.me/+F5nF-pfPwpczNjZl",
               ],
             },
             {
@@ -161,12 +144,8 @@ const Home = () => {
         }}
       />
       <div className="space-y-18">
-        <Suspense fallback={<Loader />}>
-          <LazyTracker onLoaded={() => setIsHeroLoaded(true)}>
-            <HeroSection interfaces={interfaces} />
-          </LazyTracker>
-        </Suspense>
-        <Suspense fallback={<div className="py-30! flex w-full justify-center items-center">{isHeroLoaded && <Spin indicator={<LoadingOutlined style={{ fontSize: 48 }} spin />} />}</div>}>
+        <HeroSection interfaces={interfaces || []} />
+        <Suspense fallback={<div className="py-20 flex w-full justify-center items-center"><Spin indicator={<LoadingOutlined style={{ fontSize: 48 }} spin />} /></div>}>
           <FeatureSection features={features} />
           <AboutSection aboutUs={aboutUs} />
           {/* <StepsSection steps={steps} /> */}
