@@ -151,16 +151,39 @@ const CoursePayment = () => {
             <section className="space-y-6 ">
               <section className="space-y-2">
                 <h2 className="text-2xl font-semibold text-primary">{title}</h2>
-                <div>
-                  <strong>Module Name </strong>
-                  <ul className="w-full text-sm  grid grid-cols-1  sm:grid-cols-2 sm:flex-row gap-1 sm:gap-2">
-                    {Modules?.map((module: { name: string }, i: number) => (
-                      <li key={i}>
-                        {i + 1}. {module.name}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                {Modules && Modules.length > 0 && (
+                  <div className="mt-3 rounded-xl border border-slate-200/80 bg-slate-50/70 p-3 sm:p-4">
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-center gap-2">
+                        <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-[#124699]/10 text-[#124699] text-xs font-bold">
+                          📚
+                        </span>
+                        <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-700">
+                          Course Modules
+                        </span>
+                      </div>
+                      <span className="rounded-full bg-[#124699] px-2.5 py-0.5 text-[11px] font-bold text-white shadow-2xs">
+                        {Modules.length} Modules Included
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-56 overflow-y-auto pr-1">
+                      {Modules.map((module: { name: string }, i: number) => (
+                        <div
+                          key={i}
+                          className="flex items-center gap-2.5 rounded-lg border border-slate-200 bg-white px-2.5 py-2 text-xs font-semibold text-slate-800 shadow-2xs hover:border-[#124699]/40 hover:bg-blue-50/30 transition"
+                        >
+                          <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#124699]/10 text-[10px] font-extrabold text-[#124699]">
+                            {i + 1}
+                          </span>
+                          <span className="truncate" title={module.name}>
+                            {module.name}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </section>
               <div className="flex flex-wrap justify-between h-fit gap-2">
                 <p className="font-medium ">Referral Code: </p>

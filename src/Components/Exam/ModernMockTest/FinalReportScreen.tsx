@@ -174,6 +174,17 @@ export const FinalReportScreen: React.FC<FinalReportScreenProps> = ({
   const [activeTab, setActiveTab] = useState<
     "ai" | "summary" | "compare" | "elimination" | "solution" | "mistakemap"
   >("ai");
+  const [mobileVideoModalOpen, setMobileVideoModalOpen] = useState(false);
+
+  const handleTabClick = (
+    tabKey: "ai" | "summary" | "compare" | "elimination" | "solution" | "mistakemap"
+  ) => {
+    setActiveTab(tabKey);
+    // On mobile view (< 768px), auto-open video modal walkthrough for that tab
+    if (typeof window !== "undefined" && window.innerWidth < 768 && REPORT_VIDEOS[tabKey]) {
+      setMobileVideoModalOpen(true);
+    }
+  };
   const [summarySubTab, setSummarySubTab] = useState<"sub" | "strategy">("sub");
   const [compareSubTab, setCompareSubTab] = useState<"sub" | "strategy">("sub");
   const [eliminationSubTab, setEliminationSubTab] = useState<"fiftyFifty" | "oneEliminate">("fiftyFifty");
@@ -910,7 +921,7 @@ export const FinalReportScreen: React.FC<FinalReportScreenProps> = ({
               <div className="final-tab-row final-tab-row-top">
                 <button
                   type="button"
-                  onClick={() => setActiveTab("ai")}
+                  onClick={() => handleTabClick("ai")}
                   className={`final-tab ${activeTab === "ai" ? "active" : ""}`}
                 >
                   <span className="final-tab-vector">↗</span>
@@ -919,7 +930,7 @@ export const FinalReportScreen: React.FC<FinalReportScreenProps> = ({
 
                 <button
                   type="button"
-                  onClick={() => setActiveTab("summary")}
+                  onClick={() => handleTabClick("summary")}
                   className={`final-tab ${activeTab === "summary" ? "active" : ""}`}
                 >
                   <span className="final-tab-vector">▤</span>
@@ -928,7 +939,7 @@ export const FinalReportScreen: React.FC<FinalReportScreenProps> = ({
 
                 <button
                   type="button"
-                  onClick={() => setActiveTab("compare")}
+                  onClick={() => handleTabClick("compare")}
                   className={`final-tab ${activeTab === "compare" ? "active" : ""}`}
                 >
                   <span className="final-tab-vector">▧</span>
@@ -939,7 +950,7 @@ export const FinalReportScreen: React.FC<FinalReportScreenProps> = ({
               <div className="final-tab-row final-tab-row-bottom">
                 <button
                   type="button"
-                  onClick={() => setActiveTab("elimination")}
+                  onClick={() => handleTabClick("elimination")}
                   className={`final-tab ${activeTab === "elimination" ? "active" : ""}`}
                 >
                   <span className="final-tab-vector">⚠</span>
@@ -948,7 +959,7 @@ export const FinalReportScreen: React.FC<FinalReportScreenProps> = ({
 
                 <button
                   type="button"
-                  onClick={() => setActiveTab("solution")}
+                  onClick={() => handleTabClick("solution")}
                   className={`final-tab ${activeTab === "solution" ? "active" : ""}`}
                 >
                   <span className="final-tab-vector">📖</span>
@@ -957,7 +968,7 @@ export const FinalReportScreen: React.FC<FinalReportScreenProps> = ({
 
                 <button
                   type="button"
-                  onClick={() => setActiveTab("mistakemap")}
+                  onClick={() => handleTabClick("mistakemap")}
                   className={`final-tab ${activeTab === "mistakemap" ? "active" : ""}`}
                 >
                   <span className="final-tab-vector">🗺</span>
@@ -968,6 +979,71 @@ export const FinalReportScreen: React.FC<FinalReportScreenProps> = ({
 
             {/* Clean Divider Line below the 6 buttons */}
             <div className="w-full border-b border-[#e2e8f0]" />
+
+            {/* Mobile Video Walkthrough Popup Modal (triggered when clicking any of the 6 buttons on mobile) */}
+            {mobileVideoModalOpen && REPORT_VIDEOS[activeTab] && (
+              <div
+                className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-3 backdrop-blur-xs md:hidden"
+                onClick={() => setMobileVideoModalOpen(false)}
+              >
+                <div
+                  className="relative w-full max-w-md rounded-2xl bg-white shadow-2xl overflow-hidden border border-slate-200"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  {/* Modal Header */}
+                  <div className="flex items-center justify-between border-b border-slate-100 px-4 py-3 bg-slate-50">
+                    <div className="flex items-center gap-2">
+                      <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#124699]/10 text-[#124699] font-bold text-xs">
+                        🎬
+                      </span>
+                      <div>
+                        <h3 className="text-xs font-bold text-slate-800 m-0">
+                          {REPORT_VIDEOS[activeTab].title}
+                        </h3>
+                        <p className="text-[10px] text-slate-500 m-0">
+                          {REPORT_VIDEOS[activeTab].badge || "Walkthrough Tutorial"}
+                        </p>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setMobileVideoModalOpen(false)}
+                      className="flex h-7 w-7 items-center justify-center rounded-lg text-slate-400 hover:bg-slate-200 hover:text-slate-700 transition cursor-pointer"
+                      aria-label="Close video"
+                    >
+                      ✕
+                    </button>
+                  </div>
+
+                  {/* Video Player */}
+                  <div className="p-3">
+                    <ModernVideoPlayer
+                      key={`mobile-modal-${activeTab}`}
+                      src={REPORT_VIDEOS[activeTab].src}
+                      title={REPORT_VIDEOS[activeTab].title}
+                      subtitle={REPORT_VIDEOS[activeTab].subtitle}
+                      badge={REPORT_VIDEOS[activeTab].badge}
+                      points={REPORT_VIDEOS[activeTab].points}
+                      bannerMode={true}
+                    />
+                  </div>
+
+                  {/* Modal Footer */}
+                  <div className="flex items-center justify-between border-t border-slate-100 px-4 py-2.5 bg-slate-50">
+                    <span className="text-[11px] text-slate-500">
+                      Tap close to view detailed report data
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => setMobileVideoModalOpen(false)}
+                      className="rounded-lg bg-[#124699] px-3 py-1.5 text-xs font-bold text-white hover:bg-[#0e3575] transition cursor-pointer"
+                    >
+                      View Report ↓
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
 
             {/* Tutorial Walkthrough Video for Active Report Tab */}
             {REPORT_VIDEOS[activeTab] && (

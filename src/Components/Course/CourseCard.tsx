@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Popover } from "antd";
-import { ROUTES } from "../../Constants";
+import { ROUTES, getCourseUrl } from "../../Constants";
 import type { CourseType } from "../../Types";
 import ContactContent from "../WorkshopCourse/ContactContent";
 import { isLastPrelimsCourse, type MockTestReward } from "../../Utils/mockTestReward";
@@ -31,8 +31,8 @@ export const CourseCard: React.FC<CourseCardProps> = ({
   const scoreDiscount = eligibleReward?.scoreDiscount || 0;
   const coursePrice = Number(course?.price) || 20000;
 
-  const targetUrl = _id ? ROUTES.COURSE.DETAILS.replace(":id", _id) : ROUTES.COURSE.COURSE;
-  const moduleUrl = _id ? `${ROUTES.COURSE.DETAILS.replace(":id", _id)}?tab=module#modules` : ROUTES.COURSE.COURSE;
+  const targetUrl = _id ? getCourseUrl(_id) : ROUTES.COURSE.COURSE;
+  const moduleUrl = _id ? `${getCourseUrl(_id)}?tab=module#modules` : ROUTES.COURSE.COURSE;
 
   return (
     <article className="course-card">

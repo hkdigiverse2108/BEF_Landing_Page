@@ -3,12 +3,14 @@ export const ROUTES = {
   WORKSHOP: {
     WORKSHOP: "/workshop",
     DETAILS :"/workshop/details/:id",
+    SLUG: "/workshop/:slug",
     REGISTER: "/workshop/register",
     PAYMENT: "/workshop/payment",
   },
   COURSE: {
     COURSE: "/course",
     DETAILS: "/course/details/:id",
+    SLUG: "/course/:slug",
     REGISTER: "/course/register",
     PAYMENT: "/course/payment",
   },

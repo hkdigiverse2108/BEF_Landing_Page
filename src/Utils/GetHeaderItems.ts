@@ -14,11 +14,9 @@ export const getHeaderItems = () => {
 
   return [
     { Title: "Free Mock Test", link: ROUTES.FREE_PRACTICE },
+    { Title: "PYQs", link: ROUTES.PYQ },
+    { Title: "Course", link: ROUTES.COURSE.COURSE },
     { Title: "Workshop", link: workshopLink },
-    {
-      Title: "Course",
-      link: ROUTES.COURSE.COURSE,
-    },
     // { Title: "Download Now", link: APP_LINKS },
   ];
 };

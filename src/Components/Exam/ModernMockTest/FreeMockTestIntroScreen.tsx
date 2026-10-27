@@ -365,7 +365,7 @@ export const FreeMockTestIntroScreen: React.FC<FreeMockTestIntroScreenProps> = (
                 className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl border border-emerald-500 bg-emerald-50 text-xs sm:text-sm font-bold text-emerald-800 transition hover:bg-emerald-100"
               >
                 <IoLogoWhatsapp className="text-lg text-emerald-600" />
-                <span>Chat on WhatsApp for Counselors</span>
+                <span>Chat on WhatsApp for Counsellor</span>
               </a>
             </div>
           </div>

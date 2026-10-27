@@ -41,9 +41,9 @@ const ExamTimer: React.FC = () => {
   return (
     <section className="relative bg-primary text-white py-2">
       <div className="container container-p flex max-sm:flex-col gap-2 justify-center sm:justify-between items-center">
-        <h1 className="max-sm:order-1 md:text-lg px-2 sm:px-4 font-bold flex-nowrap text-nowrap text-center sm:text-left">
+        <p className="max-sm:order-1 md:text-lg px-2 sm:px-4 font-bold flex-nowrap text-nowrap text-center sm:text-left">
           Stay REGULAR &amp; Enjoy 100% FREE Course
-        </h1>
+        </p>
 
         <div className="max-sm:order-2 flex flex-wrap items-center justify-center sm:justify-end gap-2.5 sm:gap-3">
           {/* Running Live Countdown Timer */}

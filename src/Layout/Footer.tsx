@@ -2,7 +2,7 @@ import { ImagePath } from "../Constants";
 import { ROUTES } from "../Constants/Routes";
 import { Link } from "react-router-dom";
 import AnimationLine from "../Components/Common/AnimationLine";
-import { CONTACT, Help_Support, HK_DIGIVERSE_URL, SOCIAL_MEDIA } from "../Data";
+import { CONTACT, Help_Support, HK_DIGIVERSE_URL, SOCIAL_MEDIA, FOOTER_COURSES, FOOTER_BLOG_CATEGORIES } from "../Data";
 
 const Footer = () => {
   return (
@@ -11,8 +11,8 @@ const Footer = () => {
       <div className="pointer-events-none absolute inset-0 z-0">
         <AnimationLine />
       </div>
-      <div className=" container container-p mx-auto py-12 md:py-20 px-5 lg:px-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-        {/* Left Column */}
+      <div className=" container container-p mx-auto py-12 md:py-20 px-5 lg:px-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
+        {/* Column 1: Brand & Contact Info */}
         <div className="space-y-6 md:space-y-10">
           {/* Logo */}
           <div className="flex flex-col items-start gap-2">
@@ -40,7 +40,7 @@ const Footer = () => {
             {SOCIAL_MEDIA?.map((item) => {
               const Icon = item?.icon;
               return (
-                <Link key={item?.title} to={item?.link} className="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center hover:bg-white hover:text-primary transition">
+                <Link key={item?.title} to={item?.link} target="_blank" rel="noopener noreferrer" aria-label={item?.title} className="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center hover:bg-white hover:text-primary transition">
                   <Icon />
                 </Link>
               );
@@ -48,13 +48,33 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Middle Column: Quick Links & PYQ */}
+        {/* Column 2: UPSC Courses */}
+        <div className="space-y-6 md:space-y-10">
+          <h4 className="text-lg md:text-2xl font-bold">UPSC Courses</h4>
+          <ul className="space-y-3.5 text-sm sm:text-base">
+            {FOOTER_COURSES.map((course, idx) => (
+              <li key={idx}>
+                <Link to={course.path} className="hover:text-[#F48224] transition-colors">
+                  {course.label}
+                </Link>
+              </li>
+            ))}
+            <li>
+              <Link to={ROUTES.COURSE.COURSE} className="inline-flex items-center gap-1 font-semibold text-[#F48224] hover:underline">
+                <span>View All Courses</span>
+                <span>→</span>
+              </Link>
+            </li>
+          </ul>
+        </div>
+
+        {/* Column 3: Quick Links & Blogs */}
         <div className="space-y-6 md:space-y-10">
           <h4 className="text-lg md:text-2xl font-bold">Quick Links</h4>
-          <ul className="space-y-4 text-sm sm:text-base">
+          <ul className="space-y-3.5 text-sm sm:text-base">
             <li>
               <Link to={ROUTES.PYQ} className="inline-flex items-center gap-2 font-bold text-[#F48224] hover:text-white transition">
-                <span>Previous Year Questions (PYQs)</span>
+                <span>Previous Year Questions</span>
                 <span className="text-[10px] font-extrabold uppercase px-1.5 py-0.5 rounded bg-[#F48224] text-white">
                   NEW
                 </span>
@@ -66,27 +86,24 @@ const Footer = () => {
               </Link>
             </li>
             <li>
-              <Link to={ROUTES.COURSE.COURSE} className="hover:underline">
-                Courses
-              </Link>
-            </li>
-            <li>
               <Link to={ROUTES.WORKSHOP.WORKSHOP} className="hover:underline">
                 Workshops
               </Link>
             </li>
-            <li>
-              <Link to={ROUTES.BLOG.BLOG} className="hover:underline">
-                UPSC Strategy Blogs
-              </Link>
-            </li>
+            {FOOTER_BLOG_CATEGORIES.map((blog, idx) => (
+              <li key={idx}>
+                <Link to={blog.path} className="hover:underline">
+                  {blog.label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
 
-        {/* Right Column: Help & Support */}
+        {/* Column 4: Help & Support */}
         <div className="space-y-6 md:space-y-10">
           <h4 className="text-lg md:text-2xl font-bold">Help & Support</h4>
-          <ul className="space-y-4 text-sm sm:text-base">
+          <ul className="space-y-3.5 text-sm sm:text-base">
             {Help_Support.map((item, idx) => (
               <li key={idx}>
                 <Link to={item.path} className="hover:underline">{item.label}</Link>

@@ -269,11 +269,15 @@ export const MockTestQuestionView: React.FC<MockTestQuestionViewProps> = ({
             <button
               type="button"
               onClick={onOpenSettings}
-              title="Test Instructions"
+              title="Test Instructions (Click to view guidelines)"
               aria-label="Test Instructions"
-              className="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-lg border border-[#E2E8F0] text-[#64748B] hover:border-[#124699] hover:bg-[#EFF6FF] hover:text-[#124699] transition cursor-pointer"
+              className="relative flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-lg border-2 border-[#F48224] bg-[#FFF7ED] text-[#F48224] hover:bg-[#F48224] hover:text-white transition cursor-pointer shadow-2xs"
             >
               <LuBookOpen className="text-sm sm:text-base" />
+              <span className="absolute -top-1 -right-1 flex h-2 w-2 sm:h-2.5 sm:w-2.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#F48224] opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 sm:h-2.5 sm:w-2.5 bg-[#F48224]"></span>
+              </span>
             </button>
 
             {/* Question Palette Toggle */}

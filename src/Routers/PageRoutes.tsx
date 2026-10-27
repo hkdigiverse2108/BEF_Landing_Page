@@ -113,6 +113,10 @@ export const PageRoutes = [
     element: <WorkshopDetails />,
   },
   {
+    path: ROUTES.WORKSHOP.SLUG,
+    element: <WorkshopDetails />,
+  },
+  {
     path: ROUTES.WORKSHOP.REGISTER,
     element: <WorkshopRegister />,
   },
@@ -126,6 +130,10 @@ export const PageRoutes = [
   },
   {
     path: ROUTES.COURSE.DETAILS,
+    element: <CourseDetails />,
+  },
+  {
+    path: ROUTES.COURSE.SLUG,
     element: <CourseDetails />,
   },
   {

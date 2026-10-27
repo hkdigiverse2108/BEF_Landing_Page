@@ -82,7 +82,41 @@ async function generateSitemap(customApiUrl) {
     });
   }
 
-  // 3. Dynamic Courses
+  // 3. Targeted SEO Course & Workshop Slugs
+  const targetCourseSlugs = [
+    "upsc-sure-shot-prelims",
+    "upsc-prelims-full-gs-course",
+    "upsc-prelims-gs-csat-course",
+    "upsc-daily-pyq-practice",
+    "upsc-daily-csat-practice",
+    "upsc-mcq-aptitude-practice",
+    "upsc-mcq-aptitude-test-series",
+    "upsc-csat-2026",
+    "upsc-mapping-historical-terms",
+    "upsc-current-affairs-pib",
+    "upsc-environment-geography-science-technology",
+    "upsc-art-and-culture",
+    "upsc-polity-economy",
+    "upsc-memory-techniques",
+  ];
+
+  for (const slug of targetCourseSlugs) {
+    urlEntries.push({
+      loc: `${BASE_URL}/course/details/${slug}`,
+      lastmod: currentDate,
+      changefreq: "weekly",
+      priority: "0.9",
+    });
+  }
+
+  urlEntries.push({
+    loc: `${BASE_URL}/workshop/details/upsc-prelims-workshop`,
+    lastmod: currentDate,
+    changefreq: "weekly",
+    priority: "0.9",
+  });
+
+  // 4. Dynamic Courses
   try {
     const res = await fetch(`${apiEndpoint}/course/all`);
     const data = await res.json();

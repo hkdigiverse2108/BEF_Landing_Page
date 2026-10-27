@@ -1,4 +1,4 @@
-import { ImagePath, ROUTES, URL_KEYS } from "../../Constants";
+import { ImagePath, ROUTES, URL_KEYS, resolveCourseId, getCourseSeo } from "../../Constants";
 import { Tab, Tabs } from "@mui/material";
 import { useEffect, useState, useRef, type SyntheticEvent } from "react";
 import { NavLink, useNavigate, useParams, useLocation } from "react-router-dom";
@@ -64,19 +64,36 @@ const CourseDetails = () => {
     }
   }, []);
 
-  const { id }: { id?: string } = useParams();
+  const { id, slug } = useParams<{ id?: string; slug?: string }>();
+  const rawIdentifier = id || slug || "";
+  const resolvedId = resolveCourseId(rawIdentifier);
+  const courseSeo = getCourseSeo(rawIdentifier);
 
-  const { data: courseData, isLoading: courseLoading } = useGetApiQuery({
-    url: `${URL_KEYS.COURSE.ONE}${id}`,
-  });
+  const { data: courseData, isLoading: courseLoading } = useGetApiQuery(
+    {
+      url: `${URL_KEYS.COURSE.ONE}${resolvedId}`,
+    },
+    { skip: !resolvedId }
+  );
   const course = courseData?.data || {};
   const { _id = "", title = "", image = "", language = "", pdf = "", courseMoneyBack = "", description = "", price = 0, payingPrice = 0, discountPrice = 0, priceInStruction = "" } = course;
+
+  const finalMetaTitle =
+    courseSeo?.metaTitle ||
+    course?.metaTitle ||
+    (title ? `${title} | Achiwon` : "UPSC Course | Achiwon");
+  const finalMetaDescription =
+    courseSeo?.metaDescription ||
+    (Array.isArray(course?.metaDescription)
+      ? course?.metaDescription[0]
+      : course?.metaDescription) ||
+    description;
 
   const isLastPrelims = isLastPrelimsCourse(course);
   const eligibleReward = isLastPrelims ? mockReward : null;
   const scoreDiscount = eligibleReward?.scoreDiscount || 0;
 
-  const { data: modulesData, isLoading: moduleLoading } = useGetApiQuery({ url: `${URL_KEYS.MODULE.ALL}?courseFilter=${_id}` }, { skip: !_id });
+  const { data: modulesData, isLoading: moduleLoading } = useGetApiQuery({ url: `${URL_KEYS.MODULE.ALL}?courseFilter=${_id || resolvedId}` }, { skip: !(_id || resolvedId) });
   const Modules = modulesData?.data?.module_data || [];
 
   const handleChange = (_: SyntheticEvent, newValue: string) => {
@@ -106,17 +123,16 @@ const CourseDetails = () => {
   }, [courseLoading, moduleLoading, isModuleInitiallyRequested]);
 
   useEffect(() => {
-    if (!id) {
+    if (!rawIdentifier) {
       navigate(ROUTES.COURSE.COURSE);
     }
-  }, []);
+  }, [rawIdentifier, navigate]);
 
   if (courseLoading || moduleLoading) return <Loader />;
 
   return (
     <>
-      <Seo title={course?.metaTitle} description={course?.metaDescription} />
-      <h1 className="text-2xl md:text-3xl font-bold text-primary mb-6 hidden">{course?.metaHeading}</h1>
+      <Seo title={finalMetaTitle} description={finalMetaDescription} />
       <div id="Course" className="container container-p space-y-9 py-9 bg-white rounded-xl">
         <section className="group space-y-6 rounded-md relative">
           <div className="sm:hidden absolute w-full flex gap-5 justify-end px-2 pt-2 ">
@@ -230,7 +246,7 @@ const CourseDetails = () => {
               <p className="text-gray-600 font-medium">Price</p>
               {scoreDiscount > 0 ? (
                 <div>
-                  <h1 className="sm:text-xl font-bold flex gap-2 items-baseline">
+                  <div className="sm:text-xl font-bold flex gap-2 items-baseline">
                     <span className="text-2xl font-black text-primary">
                       ₹{scoreDiscount.toLocaleString()}
                     </span>
@@ -240,19 +256,19 @@ const CourseDetails = () => {
                     <span className="text-xs bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded-full">
                       -₹{Math.max(0, Number(price || 20000) - scoreDiscount).toLocaleString()} Mock Test Discount
                     </span>
-                  </h1>
+                  </div>
                 </div>
               ) : discountPrice ? (
-                <h1 className=" sm:text-xl font-bold flex gap-[2px] items-end">
+                <div className=" sm:text-xl font-bold flex gap-[2px] items-end">
                   <span>₹{payingPrice}/</span>
                   <span className="text-base text-gray-600 font-bold">₹{discountPrice}</span>
                   <span className="text-base font-medium text-red-500 line-through ps-1">{price}</span>
-                </h1>
+                </div>
               ) : (
-                <h1 className=" sm:text-xl font-bold flex gap-[2px] items-end">
+                <div className=" sm:text-xl font-bold flex gap-[2px] items-end">
                   <span>₹{payingPrice}</span>
                   <span className="text-base text-red-500 font-semibold line-through decoration-2 ps-1">{price}</span>
-                </h1>
+                </div>
               )}
             </div>
             <div>

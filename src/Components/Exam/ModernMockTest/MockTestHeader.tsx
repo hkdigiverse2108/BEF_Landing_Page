@@ -52,10 +52,14 @@ export const MockTestHeader: React.FC<MockTestHeaderProps> = ({
                   type="button"
                   onClick={onOpenSettings}
                   aria-label="Test instructions"
-                  className="flex h-7 w-7 items-center justify-center rounded-lg border border-[#E2E8F0] bg-white text-[#64748B] hover:text-[#124699] transition cursor-pointer"
-                  title="Test Instructions"
+                  className="relative flex h-7 w-7 items-center justify-center rounded-lg border-2 border-[#F48224] bg-[#FFF7ED] text-[#F48224] hover:bg-[#F48224] hover:text-white transition cursor-pointer shadow-2xs"
+                  title="Test Instructions (Click to view guidelines)"
                 >
                   <LuBookOpen className="text-sm" />
+                  <span className="absolute -top-1 -right-1 flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#F48224] opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-[#F48224]"></span>
+                  </span>
                 </button>
               )}
 
@@ -108,10 +112,14 @@ export const MockTestHeader: React.FC<MockTestHeaderProps> = ({
                 type="button"
                 onClick={onOpenSettings}
                 aria-label="Test instructions"
-                className="flex h-9 w-9 sm:h-11 sm:w-11 items-center justify-center rounded-xl border border-[#E2E8F0] bg-white text-[#64748B] hover:border-[#124699] hover:bg-[#EFF6FF] hover:text-[#124699] transition cursor-pointer"
-                title="Test Instructions"
+                className="relative flex h-9 w-9 sm:h-11 sm:w-11 items-center justify-center rounded-xl border-2 border-[#F48224] bg-[#FFF7ED] text-[#F48224] hover:bg-[#F48224] hover:text-white transition cursor-pointer shadow-xs"
+                title="Test Instructions (Click to view guidelines)"
               >
                 <LuBookOpen className="text-base sm:text-lg" />
+                <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#F48224] opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#F48224]"></span>
+                </span>
               </button>
             )}
 

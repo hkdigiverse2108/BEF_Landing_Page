@@ -1,4 +1,4 @@
-import { ImagePath, ROUTES, URL_KEYS } from "../../Constants";
+import { ImagePath, ROUTES, URL_KEYS, getWorkshopSeo } from "../../Constants";
 import { Tab, Tabs } from "@mui/material";
 import { useState, type SyntheticEvent } from "react";
 import WorkshopTestimonialsTab from "../../Components/Workshop/WorkshopTestimonialsTab";
@@ -22,14 +22,26 @@ const WorkshopDetails = () => {
   const [tabIndex, setTabIndex] = useState("about");
   const [imageLoaded, setImageLoaded] = useState(false);
 
-  const { id }: { id?: string } = useParams();
+  const { id, slug } = useParams<{ id?: string; slug?: string }>();
+  const rawIdentifier = id || slug || "";
+  const workshopSeo = getWorkshopSeo(rawIdentifier);
+  const resolvedId = workshopSeo?.id || rawIdentifier;
 
   const { data: workshopData, isLoading: workshopLoading } = useGetApiQuery({
-    url: `${URL_KEYS.WORKSHOP.ONE}${id}`,
+    url: `${URL_KEYS.WORKSHOP.ONE}${resolvedId}`,
   });
   const workshop = workshopData?.data || {};
 
   const { title = "", image = "", pdf = "", language = "", totalLecture = 0, totalTest = 0, syllabus = "", moneyBack = "", description = "", totalAmount = 0, discountAmount = 0, _id = "" } = workshop;
+
+  const finalMetaTitle =
+    workshopSeo?.metaTitle ||
+    workshop?.metaTitle ||
+    (title ? `${title} | Achiwon` : "UPSC Workshop | Achiwon");
+  const finalMetaDescription =
+    workshopSeo?.metaDescription ||
+    workshop?.metaDescription ||
+    description;
 
   const handleChange = (_: SyntheticEvent, newValue: string) => {
     setTabIndex(newValue);
@@ -39,8 +51,7 @@ const WorkshopDetails = () => {
 
   return (
     <>
-      <Seo title={workshop?.metaTitle} description={workshop?.metaDescription} />
-      <h1 className="text-2xl md:text-3xl font-bold text-primary mb-6 hidden">{workshopData?.metaHeading}</h1>
+      <Seo title={finalMetaTitle} description={finalMetaDescription} />
       <div id="Workshop" className="container container-p space-y-9 py-9 bg-white rounded-xl Workshop">
         <section className="group space-y-6 rounded-md relative">
           <div className="sm:hidden absolute w-full flex gap-5 justify-end px-2 pt-2 ">
@@ -122,10 +133,10 @@ const WorkshopDetails = () => {
           <div className="container  py-2 sm:py-3 flex max-md:flex-col gap-2 md:gap-4 justify-between md:items-end">
             <div>
               <p className="text-gray-600 font-medium">Price</p>
-              <h1 className=" sm:text-xl font-bold flex gap-[2px] items-end">
+              <div className=" sm:text-xl font-bold flex gap-[2px] items-end">
                 <span>₹{discountAmount}</span>
                 <span className="text-base text-red-500 font-semibold line-through decoration-2 ps-1">{totalAmount}</span>
-              </h1>
+              </div>
             </div>
             {workshop.syllabus === "Workshop" && (
               <div>
