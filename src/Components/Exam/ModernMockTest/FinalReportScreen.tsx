@@ -714,7 +714,9 @@ export const FinalReportScreen: React.FC<FinalReportScreenProps> = ({
       <div className="final-report-container">
         {/* Title */}
         <div className="final-report-title flex flex-wrap items-center justify-between gap-3">
-          <span>Result</span>
+          <h1 className="final-report-heading">
+            <span>Result</span>
+          </h1>
           {candidateName && (
             <div className="flex items-center gap-2 text-xs sm:text-sm font-bold bg-[#EFF6FF] text-[#124699] px-4 py-1.5 rounded-full border border-[#BFDBFE] shadow-2xs">
               <span className="w-2 h-2 rounded-full bg-[#16A34A] animate-pulse" />

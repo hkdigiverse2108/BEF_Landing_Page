@@ -433,6 +433,12 @@ const Blog = () => {
 // ==========================================
 const FeaturedCard = ({ blog }: { blog: BlogType }) => {
   const blogUrl = getBlogUrl(blog);
+  const cleanTitle = (blog.title || "")
+    .replace(/Bharat\s*Exam\s*Fest/gi, "Achiwon")
+    .replace(/\bBEF\b/g, "Achiwon");
+  const cleanSubTitle = (blog.subTitle || "")
+    .replace(/Bharat\s*Exam\s*Fest/gi, "Achiwon")
+    .replace(/\bBEF\b/g, "Achiwon");
 
   return (
     <Link
@@ -444,7 +450,7 @@ const FeaturedCard = ({ blog }: { blog: BlogType }) => {
         {blog.image ? (
           <img
             src={blog.image}
-            alt={blog.title}
+            alt={cleanTitle}
             className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
           />
         ) : (
@@ -467,7 +473,7 @@ const FeaturedCard = ({ blog }: { blog: BlogType }) => {
         </div>
 
         <h2 className="mt-4 max-w-lg font-heading text-2xl sm:text-3xl font-extrabold leading-tight text-[#0F172A] group-hover:text-[#124699] transition-colors line-clamp-2">
-          {blog.title}
+          {cleanTitle}
         </h2>
 
         <div className="mt-4 flex items-center gap-2 text-xs sm:text-sm font-medium text-[#64748B]">
@@ -483,8 +489,8 @@ const FeaturedCard = ({ blog }: { blog: BlogType }) => {
         </div>
 
         <p className="mt-4 max-w-lg text-sm sm:text-base leading-relaxed text-[#64748B] line-clamp-3">
-          {blog.subTitle ||
-            blog.description?.replace(/<[^>]+>/g, "").slice(0, 160) + "..."}
+          {cleanSubTitle ||
+            blog.description?.replace(/Bharat\s*Exam\s*Fest/gi, "Achiwon").replace(/\bBEF\b/g, "Achiwon").replace(/<[^>]+>/g, "").slice(0, 160) + "..."}
         </p>
 
         <div className="mt-6 inline-flex items-center gap-2 font-bold text-[#124699] group-hover:text-[#F48224] transition-colors">
@@ -501,6 +507,9 @@ const FeaturedCard = ({ blog }: { blog: BlogType }) => {
 // ==========================================
 const BlogLibraryCard = ({ blog }: { blog: BlogType }) => {
   const blogUrl = getBlogUrl(blog);
+  const cleanTitle = (blog.title || "")
+    .replace(/Bharat\s*Exam\s*Fest/gi, "Achiwon")
+    .replace(/\bBEF\b/g, "Achiwon");
 
   return (
     <article className="group overflow-hidden rounded-xl border border-gray-200 bg-white shadow-xs transition duration-300 hover:-translate-y-1 hover:shadow-md flex flex-col h-full">
@@ -509,7 +518,7 @@ const BlogLibraryCard = ({ blog }: { blog: BlogType }) => {
           {blog.image ? (
             <img
               src={blog.image}
-              alt={blog.title}
+              alt={cleanTitle}
               className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
             />
           ) : (
@@ -525,7 +534,7 @@ const BlogLibraryCard = ({ blog }: { blog: BlogType }) => {
               {blog.category || "Resources"}
             </p>
             <h3 className="mt-3 font-heading text-lg font-bold leading-snug text-[#0F172A] transition group-hover:text-[#124699] line-clamp-2">
-              {blog.title}
+              {cleanTitle}
             </h3>
           </div>
 

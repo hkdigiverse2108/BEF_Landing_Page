@@ -177,7 +177,7 @@ export const FreeMockTestIntroScreen: React.FC<FreeMockTestIntroScreenProps> = (
           </div>
 
           {/* Active Feature Context Insight */}
-          <div className="mb-6 rounded-xl border border-[#E2E8F0] bg-white/80 p-3.5 text-xs text-[#475569] shadow-2xs">
+          <div className="mb-3 sm:mb-6 rounded-xl border border-[#E2E8F0] bg-white/80 p-2.5 sm:p-3.5 text-xs text-[#475569] shadow-2xs">
             {activeTab === "ai" && (
               <p>
                 💡 <strong>AI Analysis:</strong> Your conceptual accuracy and

@@ -6,6 +6,12 @@ import { getBlogUrl } from "../../Utils/blogUrl";
 
 const BlogCard = ({ blog }: { blog: BlogType }) => {
   const blogUrl = getBlogUrl(blog);
+  const cleanTitle = (blog?.title || "")
+    .replace(/Bharat\s*Exam\s*Fest/gi, "Achiwon")
+    .replace(/\bBEF\b/g, "Achiwon");
+  const cleanSubTitle = (blog?.subTitle || "")
+    .replace(/Bharat\s*Exam\s*Fest/gi, "Achiwon")
+    .replace(/\bBEF\b/g, "Achiwon");
 
   return (
     <div
@@ -19,7 +25,7 @@ const BlogCard = ({ blog }: { blog: BlogType }) => {
           {blog?.image ? (
             <img
               src={blog.image}
-              alt={blog?.title}
+              alt={cleanTitle}
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
           ) : (
@@ -50,13 +56,13 @@ const BlogCard = ({ blog }: { blog: BlogType }) => {
 
           <h3 className="text-lg sm:text-xl font-bold text-[#0F172A] group-hover:text-primary transition-colors line-clamp-2 leading-snug">
             <Link to={blogUrl}>
-              {blog?.title}
+              {cleanTitle}
             </Link>
           </h3>
 
-          {blog?.subTitle && (
+          {cleanSubTitle && (
             <p className="mt-2 text-sm text-[#64748B] line-clamp-2 leading-relaxed">
-              {blog?.subTitle}
+              {cleanSubTitle}
             </p>
           )}
         </div>

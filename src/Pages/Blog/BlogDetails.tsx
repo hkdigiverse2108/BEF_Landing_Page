@@ -52,8 +52,12 @@ export const BlogDetails = () => {
     const headingList: HeadingItem[] = [];
     let counter = 0;
 
+    const rawHtml = (blog.description || "")
+      .replace(/Bharat\s*Exam\s*Fest/gi, "Achiwon")
+      .replace(/\bBEF\b/g, "Achiwon");
+
     // Use regex to parse and inject unique IDs to headings
-    const updatedHtml = blog.description.replace(
+    const updatedHtml = rawHtml.replace(
       /<(h[23])([^>]*)>(.*?)<\/\1>/gi,
       (match: string, tag: string, attrs: string, content: string) => {
         counter++;
@@ -202,11 +206,18 @@ export const BlogDetails = () => {
   const hasEmbeddedAdBanner = parsedHtml.includes("ad-banner");
   const hasEmbeddedQuiz = parsedHtml.includes("achiwon-quiz") || parsedHtml.includes("mcq-box");
 
+  const cleanTitle = (blog.title || "")
+    .replace(/Bharat\s*Exam\s*Fest/gi, "Achiwon")
+    .replace(/\bBEF\b/g, "Achiwon");
+  const cleanSubTitle = (blog.subTitle || "")
+    .replace(/Bharat\s*Exam\s*Fest/gi, "Achiwon")
+    .replace(/\bBEF\b/g, "Achiwon");
+
   return (
     <>
       <Seo
-        title={blog.metaTitle || `${blog.title} | Achiwon`}
-        description={blog.metaDescription || blog.subTitle || blog.title}
+        title={blog.metaTitle || `${cleanTitle} | Achiwon`}
+        description={blog.metaDescription || cleanSubTitle || cleanTitle}
         noIndex={true}
       />
 
@@ -232,8 +243,8 @@ export const BlogDetails = () => {
             {blog.category || "UPSC Preparation"}
           </NavLink>
           <LuChevronRight className="text-gray-400" />
-          <span className="max-w-[130px] sm:max-w-md truncate text-[#0F172A] font-medium" title={blog.title}>
-            {blog.title}
+          <span className="max-w-[130px] sm:max-w-md truncate text-[#0F172A] font-medium" title={cleanTitle}>
+            {cleanTitle}
           </span>
         </nav>
 
@@ -243,7 +254,7 @@ export const BlogDetails = () => {
           <BlogTableOfContents
             headings={headings}
             activeId={activeHeadingId}
-            blogTitle={blog.title}
+            blogTitle={cleanTitle}
           />
 
           {/* Right Main Article */}
@@ -265,13 +276,13 @@ export const BlogDetails = () => {
 
             {/* Main Title */}
             <h1 className="text-xl sm:text-4xl lg:text-5xl font-black text-[#0F172A] leading-tight tracking-tight break-words">
-              {blog.title}
+              {cleanTitle}
             </h1>
 
             {/* Subtitle / Hook */}
-            {blog.subTitle && (
+            {cleanSubTitle && (
               <p className="mt-3 sm:mt-4 text-sm sm:text-lg text-[#475569] leading-relaxed break-words">
-                {blog.subTitle}
+                {cleanSubTitle}
               </p>
             )}
 

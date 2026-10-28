@@ -20,6 +20,10 @@ const AboutSection = ({ aboutUs }: { aboutUs: string }) => {
     },
   ];
 
+  const cleanAboutUs = (aboutUs || "")
+    .replace(/Bharat\s*Exam\s*Fest/gi, "Achiwon")
+    .replace(/\bBEF\b/g, "Achiwon");
+
   return (
     <section id="about" className=" relative overflow-hidden pt-10 pb-1 ">
       <div className="container container-p flex flex-col lg:flex-row items-center gap-12">
@@ -46,7 +50,7 @@ const AboutSection = ({ aboutUs }: { aboutUs: string }) => {
         >
           <div className="text-left  mb-6">
             <h2 className="text-3xl sm:text-4xl font-extrabold text-primary leading-tight mb-4">Some awesome words about app.</h2>
-            <div className="text-sm text-gray-600" dangerouslySetInnerHTML={{ __html: aboutUs }} />
+            <div className="text-sm text-gray-600" dangerouslySetInnerHTML={{ __html: cleanAboutUs }} />
           </div>
 
           <ul

@@ -27,9 +27,9 @@ export const MockTestHeader: React.FC<MockTestHeaderProps> = ({
             <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#64748B]">
               {seriesTitle}
             </p>
-            <h1 className="mt-0.5 text-base font-extrabold text-[#0F172A] tracking-tight leading-snug">
+            <p className="mt-0.5 text-base font-extrabold text-[#0F172A] tracking-tight leading-snug">
               {subjectTitle}
-            </h1>
+            </p>
             <div className="mt-1 h-1 w-8 rounded-full bg-[#F48224]"></div>
           </div>
 
@@ -83,9 +83,9 @@ export const MockTestHeader: React.FC<MockTestHeaderProps> = ({
             <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#64748B]">
               {seriesTitle}
             </p>
-            <h1 className="mt-0.5 text-lg sm:text-xl font-extrabold text-[#0F172A] tracking-tight">
+            <p className="mt-0.5 text-lg sm:text-xl font-extrabold text-[#0F172A] tracking-tight">
               {subjectTitle}
-            </h1>
+            </p>
             <div className="mt-1.5 h-1 w-10 rounded-full bg-[#F48224]"></div>
           </div>
 
