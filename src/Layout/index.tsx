@@ -4,7 +4,7 @@ import Footer from "./Footer";
 import GoTop from "../Components/Common/GoTop";
 import { useEffect } from "react";
 import Aos from "aos";
-import { ROUTES, URL_KEYS } from "../Constants";
+import { URL_KEYS } from "../Constants";
 import WhatsappIcon from "../Components/Common/WhatsappIcon";
 import { useGetApiQuery } from "../Api/CommonApi";
 import { setworkshopLoading, setWorkshops } from "../Store/Slices/WorkshopSlice";
@@ -22,7 +22,7 @@ const Layout = () => {
   });
   const workshop = workshopData?.data?.workshop_data || [];
 
-  const isShow = location.pathname.startsWith(ROUTES.COURSE.DETAILS.replace("/:id", "")) || location.pathname === ROUTES.WORKSHOP.WORKSHOP;
+  const isShow = location.pathname.startsWith("/course") || location.pathname.startsWith("/workshop");
 
   useEffect(() => {
     document.body.style.backgroundColor = "#ffffff";
@@ -55,7 +55,7 @@ const Layout = () => {
   return (
     <>
       <Header />
-      <div className={`${isShow ? "!mt-0 sm:!mt-8" : "mb-12"} min-h-screen bg-white`}>
+      <div className={`${isShow ? "!mt-0" : "mb-12"} min-h-screen bg-white`}>
         {/* <Suspense fallback={<Loader />}> */}
           <Outlet />
         {/* </Suspense> */}

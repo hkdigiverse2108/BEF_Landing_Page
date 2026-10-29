@@ -25,10 +25,10 @@ const GoTop = () => {
   if (isScrolled) {
     return (
       <div
-        className={`fixed right-2 sm:bottom-17 sm:right-8 z-10 ${
+        className={`fixed right-4 sm:right-6 z-20 ${
           isCourseDetails || isWorkshopDetails
-            ? "bottom-15 sm:bottom-20"
-            : "bottom-0"
+            ? "bottom-20 sm:bottom-24"
+            : "bottom-4 sm:bottom-5"
         }`}
       >
         <button

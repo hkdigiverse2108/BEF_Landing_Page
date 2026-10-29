@@ -133,7 +133,7 @@ const CourseDetails = () => {
   return (
     <>
       <Seo title={finalMetaTitle} description={finalMetaDescription} />
-      <div id="Course" className="container container-p space-y-4 sm:space-y-9 pt-1 sm:pt-6 pb-9 bg-white rounded-xl">
+      <div id="Course" className="container container-p space-y-4 sm:space-y-6 pt-1 sm:pt-3 pb-9 bg-white rounded-xl">
         <section className="group space-y-6 rounded-md relative">
           <div className="sm:hidden absolute w-full flex gap-5 justify-end px-2 pt-2 ">
             <ShareModal />

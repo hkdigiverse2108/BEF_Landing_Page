@@ -652,7 +652,7 @@ export const ExamInstructionScreen: React.FC<ExamInstructionScreenProps> = ({
                   onClick={handleNextClick}
                   id="goBtn"
                 >
-                  {isModal ? "Close Instructions (Got it) ✓" : actionButtonText}
+                  {isModal ? "Got it ✓" : actionButtonText}
                 </button>
               ) : (
                 <button

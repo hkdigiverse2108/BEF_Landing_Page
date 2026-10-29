@@ -58,18 +58,19 @@ const WhatsappIcon = () => {
 
   return (
     <Popover
-      placement="topRight"
+      placement="topLeft"
       content={GlobalContactContent}
       trigger="click"
     >
       <div
-        className={`fixed left-2 sm:bottom-17 sm:left-8 z-10  bg-primary p-3 sm:p-4 rounded-full group shadow-lg ${
+        className={`fixed right-4 sm:right-6 z-20 bg-primary p-3 sm:p-4 rounded-full group shadow-xl hover:scale-105 transition-all ${
           isCourseDetails || isWorkshopDetails
-            ? "bottom-35 sm:bottom-20"
-            : "bottom-0"
+            ? "bottom-34 sm:bottom-40"
+            : "bottom-18 sm:bottom-22"
         }`}
+        title="Talk to Counsellor"
       >
-        <IoCall className="text-xl sm:text-3xl group-hover:animate-spin text-white! cursor-pointer  transition-transform" />
+        <IoCall className="text-xl sm:text-3xl group-hover:animate-spin text-white! cursor-pointer transition-transform" />
       </div>
     </Popover>
   );

@@ -1,3 +1,7 @@
+const sanitizeAchiwonText = (str?: string) => {
+  if (!str || typeof str !== "string") return str || "";
+  return str.replace(/Bharat\s*Exam\s*Fest/gi, "Achiwon").replace(/\bBEF\b/g, "Achiwon");
+};
 import { useEffect, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, A11y, EffectCards } from "swiper/modules";
@@ -84,7 +88,7 @@ const TestimonialSection = ({
                       className="!text-sm !text-primary"
                     />
                   </div>
-                  <p className="text-center ">“ {review.description} ”</p>
+                  <p className="text-center ">“ {sanitizeAchiwonText(review.description)} ”</p>
                   <figure className="h-35 w-35 rounded-full mt-7 overflow-hidden">
                     <img
                       className="h-full w-full object-cover"
@@ -92,8 +96,8 @@ const TestimonialSection = ({
                       alt="userImage1"
                     />
                   </figure>
-                  <h2 className="text-lg font-medium my-2 ">{review.name}</h2>
-                  <p className="text-sm ">{review.designation}</p>
+                  <h2 className="text-lg font-medium my-2 ">{sanitizeAchiwonText(review.name)}</h2>
+                  <p className="text-sm ">{sanitizeAchiwonText(review.designation)}</p>
                 </div>
               </SwiperSlide>
             ))}

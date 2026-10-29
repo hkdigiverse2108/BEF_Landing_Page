@@ -1,4 +1,6 @@
 import React, { useState, useMemo } from "react";
+import { Link } from "react-router-dom";
+import { ImagePath, ROUTES } from "../../../Constants";
 import {
   LuTrophy,
   LuArrowRight,
@@ -41,10 +43,13 @@ export const FreeMockTestIntroScreen: React.FC<FreeMockTestIntroScreenProps> = (
     <div className="free-test-completion-page">
       {/* Top Floating Action Header Bar with Right-Side Free Mock Test CTA */}
       <div className="w-full max-w-[1400px] mx-auto px-5 sm:px-10 lg:px-16 pt-5 pb-1 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <span className="font-extrabold text-sm sm:text-base tracking-tight text-[#124699]">
-            ACHIWON <span className="text-[#f48224]">UPSC CSE</span>
-          </span>
+        <div className="flex items-center gap-3">
+          <Link to={ROUTES.HOME} className="flex flex-col items-start justify-center leading-none" title="Achiwon Home">
+            <img src={`${ImagePath}logo/logo.png`} alt="Achiwon" className="h-6 sm:h-7 w-auto object-contain" />
+            <span className="text-[9px] sm:text-[10px] font-semibold text-[#f48224] tracking-wider leading-none mt-1">
+              UPSC &amp; GPSC CSE
+            </span>
+          </Link>
           <span className="hidden sm:inline-block text-[11px] font-semibold text-[#64748b] bg-[#eef4ff] px-2.5 py-0.5 rounded-full border border-[#d6e4ff]">
             All India Free Mock Fest · {activeSet?.shortTitle || "PYQs & Clones"}
           </span>

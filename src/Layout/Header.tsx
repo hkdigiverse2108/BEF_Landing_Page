@@ -17,7 +17,7 @@ const Header = () => {
 
   const menuItems = getHeaderItems();
 
-  const isFixedException = location.pathname.startsWith(ROUTES.COURSE.DETAILS.replace("/:id", "")) || location.pathname === ROUTES.WORKSHOP.WORKSHOP;
+  const isFixedException = location.pathname.startsWith("/course") || location.pathname.startsWith("/workshop");
 
   useEffect(() => {
     const handleScroll = () => {

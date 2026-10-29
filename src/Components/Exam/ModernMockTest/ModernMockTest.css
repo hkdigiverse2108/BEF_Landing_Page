@@ -515,11 +515,7 @@ button.modern-btn-p:hover svg,
 }
 
 .free-test-eyebrow-dot {
-  width: 7px;
-  height: 7px;
-  background: var(--orange);
-  border-radius: 50%;
-  box-shadow: 0 0 0 4px rgba(244, 130, 36, 0.18);
+  display: none !important;
 }
 
 .free-test-copy h1 {
