@@ -55,7 +55,7 @@ const Layout = () => {
   return (
     <>
       <Header />
-      <div className={`${isShow ? "!mt-10" : "mb-12"} min-h-screen bg-white`}>
+      <div className={`${isShow ? "!mt-0 sm:!mt-8" : "mb-12"} min-h-screen bg-white`}>
         {/* <Suspense fallback={<Loader />}> */}
           <Outlet />
         {/* </Suspense> */}

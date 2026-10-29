@@ -60,15 +60,15 @@ const CourseRegister = () => {
   }, []);
 
   return (
-    <section id="purchase" className="container flex max-md:flex-col  max-md:items-center  justify-between py-10 px-4 gap-5 h-full">
+    <section id="purchase" className="container flex max-md:flex-col max-md:items-center justify-between pt-2 pb-8 sm:py-10 px-4 gap-5 h-full">
       {/* Left Image Box */}
       <div data-aos="fade-right" className="order-2 md:order-1  w-full max-w-2xl flex items-center justify-center  rounded-2xl">
         <img src={`${ImagePath}Register/Register_2.jpg`} alt="Course" className="rounded-xl w-full h-auto object-cover" />
       </div>
 
       {/* Right Form Box */}
-      <div data-aos="fade-left" className="order-1 md:order-2 bg-white hover:shadow-lg transition-all duration-300 rounded-2xl p-6 sm:px-10 sm:py-7 w-full max-w-2xl h-fit">
-        <SectionHeader title="Course" desc="Enroll Now" className="pb-6 text-center" />
+      <div data-aos="fade-left" className="order-1 md:order-2 bg-white hover:shadow-lg transition-all duration-300 rounded-2xl p-4 sm:px-10 sm:py-7 w-full max-w-2xl h-fit">
+        <SectionHeader title="Course" desc="Enroll Now" className="pb-3 sm:pb-6 text-center" />
 
         {/* Mock Test Score Discount alert */}
         {(() => {

@@ -133,7 +133,7 @@ const CourseDetails = () => {
   return (
     <>
       <Seo title={finalMetaTitle} description={finalMetaDescription} />
-      <div id="Course" className="container container-p space-y-9 py-9 bg-white rounded-xl">
+      <div id="Course" className="container container-p space-y-4 sm:space-y-9 pt-1 sm:pt-6 pb-9 bg-white rounded-xl">
         <section className="group space-y-6 rounded-md relative">
           <div className="sm:hidden absolute w-full flex gap-5 justify-end px-2 pt-2 ">
             <ShareModal />
@@ -144,18 +144,20 @@ const CourseDetails = () => {
         </section>
         <section>
           <div className="space-y-6">
-            <section className="max-sm:text-sm font-medium flex justify-end gap-3">
-              {language && (
-                <div className="bg-white border border-gray-300 w-fit h-fit px-3 py-1 rounded-md">
-                  <span>{language}</span>
-                </div>
-              )}
-            </section>
-            <section className="flex max-sm:flex-col gap-4 justify-between">
-              <h1 className="capitalize font-semibold sm:text-2xl">{title}</h1>
-              <span className="max-sm:hidden">
+            <section className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
+              <h1 className="capitalize font-semibold text-xl sm:text-2xl text-[#0F172A]">{title}</h1>
+              <div className="flex items-center gap-2.5 shrink-0 self-end sm:self-auto">
+                {language && (
+                  <div
+                    className="inline-flex items-center gap-1.5 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium text-slate-600 select-none cursor-default"
+                    title="Course language is bilingual (Hindi + English)"
+                  >
+                    <span className="text-slate-400">🌐</span>
+                    <span>Language: <strong className="font-semibold text-slate-800">{language}</strong></span>
+                  </div>
+                )}
                 <ShareModal />
-              </span>
+              </div>
             </section>
             <span className="border-b border-gray-300 flex w-full h-0.5" />
 

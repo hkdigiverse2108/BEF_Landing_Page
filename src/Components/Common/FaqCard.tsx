@@ -1,6 +1,11 @@
 import type { FAQ } from "../../Types";
 import { FaAngleDown } from "react-icons/fa";
 
+const cleanText = (str?: string) => {
+  if (!str) return "";
+  return str.replace(/Bharat\s*Exam\s*Fest/gi, "Achiwon").replace(/\bBEF\b/g, "Achiwon");
+};
+
 const FaqCard = ({
   faq,
   index,
@@ -23,7 +28,7 @@ const FaqCard = ({
         onClick={() => onToggle(index)}
         className={`w-full flex justify-between items-center text-left p-4 sm:p-6 font-semibold  focus:outline-none text-primary `}
       >
-        <span className="text-sm sm:text-lg ">{faq.question}</span>
+        <span className="text-sm sm:text-lg ">{cleanText(faq.question)}</span>
         <span
           className={`transform transition-transform duration-300 ${
             activeIndex === index
@@ -42,7 +47,7 @@ const FaqCard = ({
             : "max-h-0 opacity-0 scale-y-0 p-0"
         }`}
       >
-        <p className="text-sm sm:text-base">{faq.answer}</p>
+        <p className="text-sm sm:text-base">{cleanText(faq.answer)}</p>
       </div>
     </div>
   );

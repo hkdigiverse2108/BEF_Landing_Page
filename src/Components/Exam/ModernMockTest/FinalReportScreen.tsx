@@ -1037,8 +1037,16 @@ export const FinalReportScreen: React.FC<FinalReportScreenProps> = ({
                     </span>
                     <button
                       type="button"
-                      onClick={() => setMobileVideoModalOpen(false)}
-                      className="rounded-lg bg-[#124699] px-3 py-1.5 text-xs font-bold text-white hover:bg-[#0e3575] transition cursor-pointer"
+                      onClick={() => {
+                        setMobileVideoModalOpen(false);
+                        setTimeout(() => {
+                          const panel = document.getElementById("detailed-report-panel");
+                          if (panel) {
+                            panel.scrollIntoView({ behavior: "smooth", block: "start" });
+                          }
+                        }, 120);
+                      }}
+                      className="rounded-lg bg-[#124699] px-3.5 py-1.5 text-xs font-bold text-white hover:bg-[#0e3575] transition cursor-pointer shadow-sm active:scale-95"
                     >
                       View Report ↓
                     </button>
@@ -1062,6 +1070,7 @@ export const FinalReportScreen: React.FC<FinalReportScreenProps> = ({
               </div>
             )}
 
+            <div id="detailed-report-panel" className="scroll-mt-24">
             {/* Panel 1: AI Powered Report Analysis */}
             {activeTab === "ai" && (
               <section className="final-panel">
@@ -2199,6 +2208,7 @@ export const FinalReportScreen: React.FC<FinalReportScreenProps> = ({
                 </div>
               </section>
             )}
+            </div>
           </section>
         </div>
       </div>
