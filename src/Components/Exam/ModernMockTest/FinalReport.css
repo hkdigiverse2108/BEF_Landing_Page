@@ -30,20 +30,25 @@
 .final-report-title {
   display: flex;
   align-items: center;
-  gap: 10px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
   font-size: 22px;
   font-weight: 700;
   border-bottom: 1px solid var(--line);
-  padding-bottom: 15px;
+  padding-bottom: 14px;
   margin-bottom: 22px;
+  width: 100%;
 }
 
-.final-report-title:before {
-  content: "";
-  width: 4px;
-  height: 26px;
-  background: var(--primary);
-  border-radius: 4px;
+.final-report-title:before,
+.final-report-title:after,
+.final-report-title span:after,
+.final-report-heading:before,
+.final-report-heading:after,
+.final-report-heading span:after {
+  display: none !important;
+  content: none !important;
 }
 
 .final-report-title h1,
@@ -55,21 +60,6 @@
   color: inherit;
   display: inline-flex;
   align-items: center;
-}
-
-.final-report-title span {
-  position: relative;
-}
-
-.final-report-title span:after {
-  content: "";
-  position: absolute;
-  width: 5px;
-  height: 5px;
-  bottom: -7px;
-  left: 1px;
-  border-radius: 50%;
-  background: var(--accent);
 }
 
 /* Two-column layout */

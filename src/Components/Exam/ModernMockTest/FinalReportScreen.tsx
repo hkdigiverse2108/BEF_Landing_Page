@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import "./FinalReport.css";
 import type { BackendQuestionItem } from "./mockQuestionsData";
 import type { UserQuestionAnswerState } from "./MockTestQuestionView";
@@ -175,6 +175,11 @@ export const FinalReportScreen: React.FC<FinalReportScreenProps> = ({
     "ai" | "summary" | "compare" | "elimination" | "solution" | "mistakemap"
   >("ai");
   const [mobileVideoModalOpen, setMobileVideoModalOpen] = useState(false);
+
+  // Scroll to top on mount so result page always starts at top
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  }, []);
 
   const handleTabClick = (
     tabKey: "ai" | "summary" | "compare" | "elimination" | "solution" | "mistakemap"
@@ -714,15 +719,18 @@ export const FinalReportScreen: React.FC<FinalReportScreenProps> = ({
       <div className="final-report-container">
         {/* Title */}
         <div className="final-report-title flex flex-wrap items-center justify-between gap-3">
-          <h1 className="final-report-heading">
-            <span>Result</span>
-          </h1>
+          <div className="flex items-center gap-2.5">
+            <span className="w-1.5 h-6 rounded-full bg-[#124699] shrink-0" />
+            <h1 className="text-xl sm:text-2xl font-bold text-[#17243a] tracking-tight m-0 p-0">
+              Result
+            </h1>
+          </div>
           {candidateName && (
-            <div className="flex items-center gap-2 text-xs sm:text-sm font-bold bg-[#EFF6FF] text-[#124699] px-4 py-1.5 rounded-full border border-[#BFDBFE] shadow-2xs">
-              <span className="w-2 h-2 rounded-full bg-[#16A34A] animate-pulse" />
-              <span>Candidate: {candidateName}</span>
+            <div className="flex items-center gap-2 text-xs sm:text-sm font-semibold bg-[#EFF6FF] text-[#124699] px-3.5 py-1.5 rounded-full border border-[#BFDBFE] shadow-2xs max-w-full">
+              <span className="w-2 h-2 rounded-full bg-[#16A34A] shrink-0 animate-pulse" />
+              <span className="truncate">Candidate: <span className="font-bold">{candidateName}</span></span>
               {candidatePhone && (
-                <span className="text-[#64748B] font-mono font-medium">({candidatePhone})</span>
+                <span className="text-[#64748B] font-mono font-medium shrink-0">({candidatePhone})</span>
               )}
             </div>
           )}

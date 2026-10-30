@@ -95,6 +95,12 @@ export const FreePracticeTest: React.FC<FreePracticeTestProps> = ({
   const [isPaletteCollapsed, setPaletteCollapsed] = useState(false);
   const [hasFinishedTest, setHasFinishedTest] = useState(false);
 
+  useEffect(() => {
+    if (hasFinishedTest && typeof window !== "undefined") {
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    }
+  }, [hasFinishedTest]);
+
   // Backend Mutation for Lead Recording
   const [submitMockTestLead, { isLoading: isSubmittingLead }] = usePostApiMutation();
 
@@ -304,6 +310,9 @@ export const FreePracticeTest: React.FC<FreePracticeTestProps> = ({
 
     setLeadModalOpen(false);
     setHasFinishedTest(true);
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    }
 
     const resultData = {
       ...payload,

@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FinalReportScreen } from "../../Components/Exam/ModernMockTest/FinalReportScreen";
 import Seo from "../../Components/Common/Seo";
@@ -14,6 +14,12 @@ import { isLastPrelimsCourse, saveMockTestReward, type MockTestReward } from "..
 
 const MockTestAnalysisPage = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    }
+  }, []);
 
   // Load latest result from sessionStorage
   const storedResult = useMemo(() => {
