@@ -1,11 +1,10 @@
 import "aos/dist/aos.css";
-import { ImagePath, ROUTES } from "../../Constants";
+import { ImagePath } from "../../Constants";
 import { SwiperSlide, Swiper } from "swiper/react";
 import { A11y, Autoplay, EffectCards, Pagination } from "swiper/modules";
 import AnimationLine from "../Common/AnimationLine";
 import type { InterfaceType } from "./InterfaceSection";
-import { Link } from "react-router-dom";
-import { APP_LINKS, CLASSES_BASE_URL } from "../../Data";
+import { CLASSES_BASE_URL } from "../../Data";
 import { LuZap, LuArrowRight } from "react-icons/lu";
 
 const FALLBACK_INTERFACES: InterfaceType[] = [
