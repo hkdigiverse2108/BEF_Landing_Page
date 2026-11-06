@@ -7,7 +7,7 @@ import {
   LuX,
 } from "react-icons/lu";
 import { IoLogoWhatsapp } from "react-icons/io";
-import { CONTACT } from "../../../Data";
+import { CONTACT, CLASSES_BASE_URL } from "../../../Data";
 import { getActiveSessionMockTestSet } from "./mockQuestionsData";
 import ModernVideoPlayer from "../../Common/ModernVideoPlayer";
 import { REPORT_VIDEOS } from "../../../Constants/reportVideosData";
@@ -56,7 +56,7 @@ export const FreeMockTestIntroScreen: React.FC<FreeMockTestIntroScreenProps> = (
         </div>
         <button
           type="button"
-          onClick={onStartTest}
+          onClick={() => window.location.href = CLASSES_BASE_URL || "https://course.achiwon.com/classes"}
           className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#124699] to-[#2563EB] text-white text-xs sm:text-sm font-bold shadow-md hover:shadow-lg hover:from-[#0E3A7E] hover:to-[#1D4ED8] transition-all transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
           title="Start Free Mock Test"
         >
@@ -229,7 +229,7 @@ export const FreeMockTestIntroScreen: React.FC<FreeMockTestIntroScreenProps> = (
           <div className="free-test-cta-row">
             <button
               type="button"
-              onClick={onStartTest}
+              onClick={() => window.location.href = CLASSES_BASE_URL || "https://course.achiwon.com/classes"}
               className="free-test-btn free-test-btn-primary"
             >
               <span>Start Free Test</span>

@@ -50,6 +50,7 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
   const PORT = Number(env.VITE_PORT);
   const API_BASE_URL = env.VITE_API_BASE_URL;
+  const CLASSES_BASE_URL = env.VITE_CLASSES_BASE_URL;
 
   return {
     plugins: [react(), tailwindcss(), dynamicSitemapPlugin(API_BASE_URL)],
@@ -70,6 +71,7 @@ export default defineConfig(({ mode }) => {
     },
     define: {
       "process.env.VITE_API_BASE_URL": JSON.stringify(API_BASE_URL),
+      "process.env.VITE_CLASSES_BASE_URL": JSON.stringify(CLASSES_BASE_URL),
     },
   };
 });

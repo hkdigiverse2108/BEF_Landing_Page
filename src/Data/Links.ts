@@ -4,6 +4,7 @@ import { FaXTwitter } from "react-icons/fa6";
 import type { ContactType } from "../Types";
 
 export const LOGIN_URL = "http://course.achiwon.com/";
+export const CLASSES_BASE_URL = "https://course.achiwon.com/classes";
 export const HK_DIGIVERSE_URL = "https://hkdigiverse.com/";
 
 export const APP_LINKS = "https://play.google.com/store/apps/details?id=com.bharat.examfest.app&pcampaignid=web_share";

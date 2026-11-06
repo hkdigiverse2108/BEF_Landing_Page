@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { Link, useNavigate, useParams, useLocation } from "react-router-dom";
 import { ROUTES, URL_KEYS } from "../../Constants";
+import { CLASSES_BASE_URL } from "../../Data";
 import Seo from "../../Components/Common/Seo";
 import { useGetApiQuery } from "../../Api/CommonApi";
 import FormattedSolution from "../../Components/Common/FormattedSolution";
@@ -1194,12 +1195,14 @@ export const PyqPage: React.FC = () => {
             </div>
 
             <div className="flex flex-wrap gap-3 shrink-0">
-              <Link
-                to={ROUTES.MOCK_TEST.INTRO}
+              <a
+                href={CLASSES_BASE_URL || "https://course.achiwon.com/classes"}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="min-h-11 px-5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-bold text-xs sm:text-sm flex items-center justify-center transition shadow-md"
               >
                 Start Free Mock Test
-              </Link>
+              </a>
               <Link
                 to={ROUTES.COURSE.COURSE}
                 className="min-h-11 px-5 rounded-xl border border-white/30 hover:bg-white/10 text-white font-bold text-xs sm:text-sm flex items-center justify-center transition"

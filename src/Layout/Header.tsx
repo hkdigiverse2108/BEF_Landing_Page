@@ -4,7 +4,7 @@ import { IoClose } from "react-icons/io5";
 import { useEffect, useRef, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { getHeaderItems } from "../Utils/GetHeaderItems";
-import { LOGIN_URL } from "../Data";
+import { LOGIN_URL, CLASSES_BASE_URL } from "../Data";
 import ExamTimer from "../Components/Common/ExamTimer";
 
 const Header = () => {
@@ -60,7 +60,7 @@ const Header = () => {
             {/* Logo */}
             <NavLink to={ROUTES.HOME} className="flex flex-col items-start justify-center py-1">
               <img src={`${ImagePath}logo/logo.png`} alt="Achiwon" className="h-7 sm:h-9 w-auto object-contain" />
-              <span className="text-[10px] sm:text-xs font-semibold text-success tracking-wider leading-none mt-1">UPSC & GPSC CSE</span>
+              <p className="text-[10px] sm:text-xs font-semibold text-success tracking-wider leading-none mt-1">UPSC & GPSC CSE</p>
             </NavLink>
 
             {/* Menu Items */}
@@ -70,6 +70,11 @@ const Header = () => {
                   {item.Title}
                 </NavLink>
               ))}
+              <NavLink to={CLASSES_BASE_URL} target="_blank" rel="noopener noreferrer">
+                <button onClick={() => setMenuOpen(!menuOpen)} className="btn primary_btn  w-full ">
+                  Contest
+                </button>
+              </NavLink>
               <NavLink to={LOGIN_URL} target="_blank" rel="noopener noreferrer">
                 <button onClick={() => setMenuOpen(!menuOpen)} className="btn primary_btn  w-full ">
                   Login
@@ -89,6 +94,11 @@ const Header = () => {
               {item.Title}
             </NavLink>
           ))}
+          <NavLink to={CLASSES_BASE_URL} target="_blank" rel="noopener noreferrer">
+            <button onClick={() => setMenuOpen(!menuOpen)} className="btn primary_btn  w-fit ">
+              Contest
+            </button>
+          </NavLink>
           <NavLink to={LOGIN_URL} target="_blank" rel="noopener noreferrer">
             <button onClick={() => setMenuOpen(!menuOpen)} className="btn primary_btn  w-fit ">
               Login

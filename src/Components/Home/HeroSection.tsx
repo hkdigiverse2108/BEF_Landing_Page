@@ -5,7 +5,7 @@ import { A11y, Autoplay, EffectCards, Pagination } from "swiper/modules";
 import AnimationLine from "../Common/AnimationLine";
 import type { InterfaceType } from "./InterfaceSection";
 import { Link } from "react-router-dom";
-import { APP_LINKS } from "../../Data";
+import { APP_LINKS, CLASSES_BASE_URL } from "../../Data";
 import { LuZap, LuArrowRight } from "react-icons/lu";
 
 const FALLBACK_INTERFACES: InterfaceType[] = [
@@ -32,19 +32,21 @@ const HeroSection = ({ interfaces }: { interfaces: InterfaceType[] }) => {
 
           {/* App Buttons & Free Mock Practice */}
           <div className="flex flex-wrap gap-4 max-lg:justify-center items-center">
-            <Link
-              to={ROUTES.FREE_PRACTICE}
+            <a
+              href={CLASSES_BASE_URL || "https://course.achiwon.com/classes"}
+              target="_blank"
+              rel="noopener noreferrer"
               className="hero-animated-btn rounded-xl px-6 py-3.5 sm:px-7 sm:py-4 text-white text-sm sm:text-base font-bold tracking-wide shadow-md group cursor-pointer"
             >
               <LuZap className="hero-zap-icon text-lg sm:text-xl text-yellow-200 fill-yellow-300 shrink-0" />
-              <span>Start Free Mock Test</span>
+              <span>Start Mega Contest</span>
               <LuArrowRight className="text-base sm:text-lg transition-transform duration-300 group-hover:translate-x-1 shrink-0" />
-            </Link>
+            </a>
 
-            <Link to={APP_LINKS} target="_blank" className="relative border-2 border-success rounded-xl px-3 py-2 sm:px-6 sm:py-3 bg-white hover:bg-success transition group">
+            {/* <Link to={APP_LINKS} target="_blank" className="relative border-2 border-success rounded-xl px-3 py-2 sm:px-6 sm:py-3 bg-white hover:bg-success transition group">
               <img src={`${ImagePath}common/googleplay_blue.png`} alt="Play Store" className="h-8 block group-hover:hidden" />
               <img src={`${ImagePath}common/googleplay_white.png`} alt="Play Store" className="h-8 hidden group-hover:block" />
-            </Link>
+            </Link> */}
           </div>
 
           {/* Users */}
