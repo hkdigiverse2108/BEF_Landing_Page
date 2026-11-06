@@ -1,6 +1,7 @@
 export * from "./Header";
 export * from "./Footer";
 export * from "./Links";
+export * from "./Instruction";
 
 import districtsByState from "./district.json";
 
@@ -24,4 +25,3 @@ export const FINAL_DISTRICTS: string[] = Array.from(
       .sort((a, b) => a.localeCompare(b))
   )
 );
-
